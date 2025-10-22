@@ -1,0 +1,142 @@
+---
+/**
+ * Custom MDX components for styling markdown content
+ * These components override default HTML elements in MDX content
+ */
+---
+
+<style is:global>
+  /* MDX Content Wrapper */
+  .mdx-content {
+    @apply max-w-none;
+  }
+
+  /* Headings */
+  .mdx-content h1 {
+    @apply mb-4 mt-8 font-mono text-3xl font-bold text-terminal-text;
+  }
+
+  .mdx-content h2 {
+    @apply mb-3 mt-6 border-b border-terminal-border pb-2 font-mono text-2xl font-semibold text-terminal-text;
+  }
+
+  .mdx-content h3 {
+    @apply mb-3 mt-5 font-mono text-xl font-semibold text-terminal-text;
+  }
+
+  .mdx-content h4 {
+    @apply mb-2 mt-4 font-mono text-lg font-semibold text-terminal-text;
+  }
+
+  .mdx-content h5,
+  .mdx-content h6 {
+    @apply mb-2 mt-3 font-mono text-base font-semibold text-terminal-text;
+  }
+
+  /* Paragraphs */
+  .mdx-content p {
+    @apply mb-4 leading-relaxed text-terminal-text;
+  }
+
+  /* Links */
+  .mdx-content a {
+    @apply font-mono text-terminal-blue underline decoration-1 underline-offset-2;
+    @apply hover:text-terminal-blue hover:decoration-2;
+    @apply transition-all duration-150;
+  }
+
+  /* Lists */
+  .mdx-content ul {
+    @apply mb-4 list-disc space-y-2 pl-6 text-terminal-text;
+  }
+
+  .mdx-content ol {
+    @apply mb-4 list-decimal space-y-2 pl-6 text-terminal-text;
+  }
+
+  .mdx-content li {
+    @apply leading-relaxed;
+  }
+
+  .mdx-content li > p {
+    @apply mb-2;
+  }
+
+  /* Code blocks */
+  .mdx-content pre {
+    @apply mb-4 overflow-x-auto rounded border border-terminal-border bg-terminal-bg-alt p-4 font-mono text-terminal-sm;
+  }
+
+  .mdx-content code {
+    @apply font-mono text-terminal-sm;
+  }
+
+  .mdx-content :not(pre) > code {
+    @apply rounded bg-terminal-bg-alt px-1.5 py-0.5 text-terminal-blue;
+  }
+
+  /* Blockquotes */
+  .mdx-content blockquote {
+    @apply mb-4 border-l-4 border-terminal-blue bg-terminal-blue-light p-4 italic text-terminal-text-secondary;
+  }
+
+  .mdx-content blockquote p {
+    @apply mb-0;
+  }
+
+  /* Tables */
+  .mdx-content table {
+    @apply mb-4 w-full border-collapse;
+  }
+
+  .mdx-content thead {
+    @apply border-b-2 border-terminal-border-dark bg-terminal-bg-alt;
+  }
+
+  .mdx-content th {
+    @apply px-4 py-2 text-left font-mono font-semibold text-terminal-text;
+  }
+
+  .mdx-content td {
+    @apply border-b border-terminal-border px-4 py-2 text-terminal-text;
+  }
+
+  .mdx-content tbody tr:hover {
+    @apply bg-terminal-bg-hover;
+  }
+
+  /* Horizontal rule */
+  .mdx-content hr {
+    @apply my-6 border-t border-terminal-border;
+  }
+
+  /* Images */
+  .mdx-content img {
+    @apply mb-4 rounded border border-terminal-border;
+  }
+
+  /* Strong/Bold */
+  .mdx-content strong {
+    @apply font-semibold text-terminal-text;
+  }
+
+  /* Emphasis/Italic */
+  .mdx-content em {
+    @apply italic;
+  }
+
+  /* Delete/Strikethrough */
+  .mdx-content del {
+    @apply line-through text-terminal-text-muted;
+  }
+
+  /* Task lists (GitHub-flavored markdown) */
+  .mdx-content input[type='checkbox'] {
+    @apply mr-2;
+  }
+
+  /* Footnotes */
+  .mdx-content .footnotes {
+    @apply mt-8 border-t border-terminal-border pt-4 text-terminal-sm text-terminal-text-secondary;
+  }
+</style>

@@ -1,0 +1,105 @@
+---
+const currentPath = Astro.url.pathname;
+
+interface NavItem {
+  label: string;
+  href: string;
+  isDirectory: boolean;
+}
+
+const navItems: NavItem[] = [
+  { label: 'timeline', href: '/timeline', isDirectory: true },
+  { label: 'about', href: '/about', isDirectory: true },
+  { label: 'resume.pdf', href: '/resume.pdf', isDirectory: false },
+  { label: 'cv.pdf', href: '/cv.pdf', isDirectory: false },
+  { label: 'restaurants', href: '/restaurants', isDirectory: true },
+  { label: 'cocktails', href: '/cocktails', isDirectory: true },
+];
+---
+
+<nav class="border-b border-terminal-border bg-terminal-bg">
+  <div class="mx-auto max-w-6xl px-4 py-4">
+    {/* Desktop view */}
+    <div class="hidden md:block">
+      {/* Terminal prompt line */}
+      <div class="mb-2 font-mono text-terminal-sm text-terminal-text-secondary">
+        $ <span class="text-terminal-text">jmchilton.net</span> %
+      </div>
+
+      {/* Navigation items (ls-style) */}
+      <div class="flex flex-wrap gap-4 font-mono text-terminal">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'transition-colors duration-150',
+                item.isDirectory
+                  ? 'text-terminal-blue hover:text-terminal-blue hover:underline'
+                  : 'text-terminal-text hover:text-terminal-text-secondary hover:underline',
+                currentPath.startsWith(item.href) && item.href !== '/' && 'font-bold',
+              ]}
+            >
+              {item.label}
+              {item.isDirectory ? '/' : ''}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Mobile view */}
+    <div class="md:hidden">
+      <div class="flex items-center justify-between">
+        <div class="font-mono text-terminal-sm text-terminal-text">
+          $ <span>jmchilton.net</span> %
+        </div>
+
+        <button
+          id="mobile-menu-button"
+          class="terminal-button px-3 py-1"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <span class="text-terminal-sm">menu</span>
+        </button>
+      </div>
+
+      {/* Mobile menu dropdown */}
+      <div id="mobile-menu" class="mt-4 hidden flex-col gap-2 font-mono text-terminal-sm">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class:list={[
+                'block py-2 transition-colors duration-150',
+                item.isDirectory
+                  ? 'text-terminal-blue hover:bg-terminal-blue-light'
+                  : 'text-terminal-text hover:bg-terminal-bg-alt',
+                currentPath.startsWith(item.href) && item.href !== '/' && 'font-bold',
+              ]}
+            >
+              {item.label}
+              {item.isDirectory ? '/' : ''}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Mobile menu toggle
+  const menuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener('click', () => {
+      const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+      menuButton.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('hidden');
+      mobileMenu.classList.toggle('flex');
+    });
+  }
+</script>

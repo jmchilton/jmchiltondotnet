@@ -1,0 +1,116 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import TerminalPrompt from '../components/TerminalPrompt.astro';
+import { ENTRY_TYPE_CONFIG } from '../types';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'timeline'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, date, type, link, tags } = entry.data;
+const typeConfig = ENTRY_TYPE_CONFIG[type];
+---
+
+<BaseLayout title={title} description={description}>
+  <div class="mb-6">
+    <a
+      href="/timeline"
+      class="inline-flex items-center gap-1 font-mono text-terminal-sm text-terminal-blue hover:underline"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Back to timeline
+    </a>
+  </div>
+
+  <TerminalPrompt command={`cat timeline/${entry.slug}.mdx`}>
+    {/* Entry header */}
+    <div class="mb-8 border-b border-terminal-border pb-6">
+      {/* Type badge and date */}
+      <div class="mb-3 flex items-center gap-2">
+        <span class={`terminal-badge-${typeConfig.color}`}>
+          {typeConfig.label}
+        </span>
+        <span class="font-mono text-terminal-sm text-terminal-text-muted">
+          {date}
+        </span>
+      </div>
+
+      {/* Title */}
+      <h1 class="mb-3 font-mono text-3xl font-bold text-terminal-text md:text-4xl">
+        {title}
+      </h1>
+
+      {/* Description */}
+      <p class="mb-4 text-lg leading-relaxed text-terminal-text-secondary">
+        {description}
+      </p>
+
+      {/* Tags */}
+      <div class="mb-4 flex flex-wrap gap-2">
+        {tags.map((tag) => <span class="terminal-badge text-terminal-text-muted">{tag}</span>)}
+      </div>
+
+      {/* External link */}
+      <div>
+        <a
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="terminal-button-primary inline-flex items-center gap-1"
+        >
+          View Resource
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    {/* MDX content */}
+    <div class="mdx-content">
+      <slot />
+    </div>
+  </TerminalPrompt>
+
+  {/* Footer navigation */}
+  <div class="mt-8 border-t border-terminal-border pt-6">
+    <a
+      href="/timeline"
+      class="inline-flex items-center gap-1 font-mono text-terminal-sm text-terminal-blue hover:underline"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Back to timeline
+    </a>
+  </div>
+</BaseLayout>

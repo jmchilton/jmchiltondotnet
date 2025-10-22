@@ -1,0 +1,72 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ENTRY_TYPE_CONFIG } from '../types';
+
+interface Props {
+  entry: CollectionEntry<'timeline'>;
+  showExcerpt?: boolean;
+}
+
+const { entry, showExcerpt = true } = Astro.props;
+const typeConfig = ENTRY_TYPE_CONFIG[entry.data.type];
+---
+
+<article class="terminal-card">
+  {/* Header: Type badge and date */}
+  <div class="mb-3 flex items-center gap-2">
+    <span class={`terminal-badge-${typeConfig.color}`}>
+      {typeConfig.label}
+    </span>
+    <span class="font-mono text-terminal-sm text-terminal-text-muted">
+      {entry.data.date}
+    </span>
+  </div>
+
+  {/* Title */}
+  <h2 class="mb-2 font-mono text-xl font-semibold">
+    <a href={`/timeline/${entry.slug}`} class="terminal-link">
+      {entry.data.title}
+    </a>
+  </h2>
+
+  {/* Description */}
+  {
+    showExcerpt && (
+      <p class="mb-3 leading-relaxed text-terminal-text-secondary">{entry.data.description}</p>
+    )
+  }
+
+  {/* Tags */}
+  <div class="mb-3 flex flex-wrap gap-2">
+    {
+      entry.data.tags.map((tag) => (
+        <span class="terminal-badge text-terminal-text-muted">{tag}</span>
+      ))
+    }
+  </div>
+
+  {/* External link */}
+  <div class="flex items-center gap-2 font-mono text-terminal-sm">
+    <a
+      href={entry.data.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="terminal-link inline-flex items-center gap-1"
+    >
+      View Resource
+      <svg
+        class="h-3 w-3"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+      </svg>
+    </a>
+  </div>
+</article>

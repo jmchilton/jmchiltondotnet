@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import TimelineEntry from '../../components/TimelineEntry.astro';
+import { getCollection } from 'astro:content';
+
+// Get all timeline entries, sorted by date (reverse chronological)
+const allEntries = await getCollection('timeline');
+const sortedEntries = allEntries.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout
+  title="Timeline"
+  description="A chronological archive of pull requests, papers, presentations, and projects."
+>
+  <TerminalPrompt command="ls -lt timeline/">
+    <div class="mb-6">
+      <h1 class="mb-2 font-mono text-3xl font-bold text-terminal-text">Timeline</h1>
+      <p class="text-lg text-terminal-text-secondary">
+        A chronological archive of professional work, academic contributions, and open source
+        projects.
+      </p>
+    </div>
+
+    {/* Entry count */}
+    <div class="mb-6 font-mono text-terminal-sm text-terminal-text-muted">
+      {sortedEntries.length}
+      {sortedEntries.length === 1 ? 'entry' : 'entries'}
+    </div>
+
+    {/* Timeline entries */}
+    <div class="space-y-6">
+      {sortedEntries.map((entry) => <TimelineEntry entry={entry} />)}
+    </div>
+
+    {/* Empty state */}
+    {
+      sortedEntries.length === 0 && (
+        <div class="rounded border border-terminal-border bg-terminal-bg-alt p-8 text-center">
+          <p class="font-mono text-terminal-text-secondary">No timeline entries yet.</p>
+        </div>
+      )
+    }
+  </TerminalPrompt>
+</BaseLayout>

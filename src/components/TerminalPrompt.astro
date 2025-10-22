@@ -1,0 +1,34 @@
+---
+interface Props {
+  command: string;
+  user?: string;
+  host?: string;
+}
+
+const { command, user = 'john', host = 'jmchilton.net' } = Astro.props;
+---
+
+<div class="terminal-prompt-wrapper mb-6">
+  {/* Command line */}
+  <div class="terminal-prompt mb-2">
+    <span class="terminal-prompt-symbol text-terminal-text-secondary">
+      {user}@{host} %
+    </span>
+    <span class="terminal-prompt-command">{command}</span>
+  </div>
+
+  {/* Output (slot content) */}
+  {
+    Astro.slots.has('default') && (
+      <div class="terminal-output pl-4 text-terminal-text">
+        <slot />
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .terminal-prompt-wrapper {
+    font-family: 'JetBrains Mono', monospace;
+  }
+</style>

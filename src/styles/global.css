@@ -1,0 +1,96 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-terminal-bg text-terminal-text font-sans;
+  }
+
+  code {
+    @apply font-mono;
+  }
+}
+
+@layer components {
+  /* Terminal Button */
+  .terminal-button {
+    @apply inline-flex items-center px-4 py-2 font-mono text-terminal-sm;
+    @apply border border-terminal-border bg-terminal-bg;
+    @apply hover:bg-terminal-bg-hover hover:border-terminal-border-dark;
+    @apply transition-colors duration-150;
+    @apply cursor-pointer;
+  }
+
+  .terminal-button-primary {
+    @apply terminal-button;
+    @apply border-terminal-blue bg-terminal-blue-light text-terminal-blue;
+    @apply hover:bg-terminal-blue hover:text-white;
+  }
+
+  /* Terminal Link */
+  .terminal-link {
+    @apply font-mono text-terminal-blue underline decoration-1 underline-offset-2;
+    @apply hover:text-terminal-blue hover:decoration-2;
+    @apply transition-all duration-150;
+  }
+
+  /* Terminal Card */
+  .terminal-card {
+    @apply border border-terminal-border bg-terminal-bg p-4;
+    @apply hover:border-terminal-border-dark hover:shadow-sm;
+    @apply transition-all duration-150;
+  }
+
+  /* Terminal Badge */
+  .terminal-badge {
+    @apply inline-block px-2 py-1 font-mono text-terminal-sm;
+    @apply border border-terminal-border bg-terminal-bg-alt;
+  }
+
+  .terminal-badge-blue {
+    @apply terminal-badge;
+    @apply border-terminal-blue bg-terminal-blue-light text-terminal-blue;
+  }
+
+  .terminal-badge-green {
+    @apply terminal-badge;
+    @apply border-terminal-green bg-terminal-green-light text-terminal-green;
+  }
+
+  .terminal-badge-purple {
+    @apply terminal-badge;
+    @apply border-terminal-purple bg-terminal-purple-light text-terminal-purple;
+  }
+
+  .terminal-badge-red {
+    @apply terminal-badge;
+    @apply border-terminal-red bg-terminal-red-light text-terminal-red;
+  }
+
+  .terminal-badge-yellow {
+    @apply terminal-badge;
+    @apply border-terminal-yellow bg-terminal-yellow-light text-terminal-yellow;
+  }
+
+  /* Terminal Code Block */
+  .terminal-code {
+    @apply block p-4 font-mono text-terminal-sm;
+    @apply bg-terminal-bg-alt border border-terminal-border;
+    @apply overflow-x-auto;
+  }
+
+  /* Terminal Prompt */
+  .terminal-prompt {
+    @apply font-mono text-terminal;
+    @apply flex items-center gap-2;
+  }
+
+  .terminal-prompt-symbol {
+    @apply text-terminal-text-secondary;
+  }
+
+  .terminal-prompt-command {
+    @apply text-terminal-blue;
+  }
+}

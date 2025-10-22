@@ -1,0 +1,21 @@
+---
+import { getCollection } from 'astro:content';
+import TimelineLayout from '../../layouts/TimelineLayout.astro';
+import '../../components/MDXComponents.astro';
+
+// Generate static paths for all timeline entries
+export async function getStaticPaths() {
+  const entries = await getCollection('timeline');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<TimelineLayout entry={entry}>
+  <Content />
+</TimelineLayout>

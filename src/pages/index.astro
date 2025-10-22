@@ -1,16 +1,141 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalPrompt from '../components/TerminalPrompt.astro';
+import { getCollection } from 'astro:content';
+import { ENTRY_TYPE_CONFIG } from '../types';
 
+// Get recent timeline entries (limit to 3)
+const allEntries = await getCollection('timeline');
+const recentEntries = allEntries
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+  .slice(0, 3);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+  {/* Hero Section */}
+  <section class="mb-12">
+    <TerminalPrompt command="whoami">
+      <div class="space-y-4">
+        <h1 class="font-mono text-3xl font-bold text-terminal-text md:text-4xl">John Chilton</h1>
+        <p class="text-lg leading-relaxed text-terminal-text-secondary">
+          Software developer, researcher, and cocktail enthusiast. Building tools for scientific
+          computing, contributing to open source, and exploring the intersection of technology and
+          biology.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <span class="terminal-badge-blue">Python</span>
+          <span class="terminal-badge-purple">Galaxy Project</span>
+          <span class="terminal-badge-green">Open Source</span>
+          <span class="terminal-badge-yellow">Bioinformatics</span>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  {/* Recent Timeline Entries */}
+  <section class="mb-12">
+    <TerminalPrompt command="ls -lt timeline/ | head -3">
+      <div class="space-y-6">
+        {
+          recentEntries.map((entry) => {
+            const typeConfig = ENTRY_TYPE_CONFIG[entry.data.type];
+            return (
+              <article class="terminal-card">
+                <div class="mb-2 flex items-center gap-2">
+                  <span class={`terminal-badge-${typeConfig.color}`}>{typeConfig.label}</span>
+                  <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                    {entry.data.date}
+                  </span>
+                </div>
+                <h2 class="mb-2 font-mono text-xl font-semibold">
+                  <a href={`/timeline/${entry.slug}`} class="terminal-link">
+                    {entry.data.title}
+                  </a>
+                </h2>
+                <p class="mb-3 text-terminal-text-secondary">{entry.data.description}</p>
+                <div class="flex flex-wrap gap-2">
+                  {entry.data.tags.map((tag) => (
+                    <span class="terminal-badge">{tag}</span>
+                  ))}
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+
+      {
+        recentEntries.length > 0 && (
+          <div class="mt-6">
+            <a href="/timeline" class="terminal-button-primary">
+              View all timeline entries →
+            </a>
+          </div>
+        )
+      }
+    </TerminalPrompt>
+  </section>
+
+  {/* Navigation Cards */}
+  <section class="mb-12">
+    <TerminalPrompt command="ls -l">
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="/timeline" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">timeline/</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            A chronological archive of pull requests, papers, presentations, and projects
+          </p>
+        </a>
+
+        <a href="/about" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">about/</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            Background, skills, and interests
+          </p>
+        </a>
+
+        <a href="/restaurants" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">restaurants/</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            Favorite Pittsburgh dining spots
+          </p>
+        </a>
+
+        <a href="/cocktails" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">cocktails/</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            Cocktail menus, recipes, and experiments
+          </p>
+        </a>
+
+        <a href="/resume.pdf" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-text">resume.pdf</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">Professional resume (PDF)</p>
+        </a>
+
+        <a href="/cv.pdf" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-text">cv.pdf</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            Academic curriculum vitae (PDF)
+          </p>
+        </a>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  {/* Quick Links */}
+  <section>
+    <TerminalPrompt command="cat contact.txt">
+      <div class="space-y-2 font-mono text-terminal-sm">
+        <p>
+          <span class="text-terminal-text-secondary">GitHub:</span>
+          <a href="https://github.com/jmchilton" class="terminal-link ml-2">@jmchilton</a>
+        </p>
+        <p>
+          <span class="text-terminal-text-secondary">Email:</span>
+          <a href="mailto:john@jmchilton.net" class="terminal-link ml-2">john@jmchilton.net</a>
+        </p>
+      </div>
+    </TerminalPrompt>
+  </section>
+</BaseLayout>

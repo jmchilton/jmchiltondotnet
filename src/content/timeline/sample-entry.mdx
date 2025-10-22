@@ -1,0 +1,44 @@
+---
+title: 'Sample Timeline Entry'
+date: '2024-01-15'
+type: 'project'
+description: 'A demonstration timeline entry showing the MDX content structure and frontmatter schema.'
+link: 'https://github.com/example/sample-project'
+tags: ['sample', 'demo', 'astro']
+featured: true
+---
+
+## Overview
+
+This is a sample timeline entry demonstrating the structure of MDX content in the jmchilton.net portfolio.
+
+## Key Features
+
+- **MDX Support**: Full markdown with JSX components
+- **Syntax Highlighting**: Code blocks with Shiki
+- **Type Safety**: Zod schema validation via Astro Content Collections
+- **Remark/Rehype**: GitHub-flavored markdown and auto-linked headings
+
+## Code Example
+
+```typescript
+import { getCollection } from 'astro:content';
+
+const entries = await getCollection('timeline');
+const sortedEntries = entries.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+```
+
+## Benefits
+
+1. No dependency hell (unlike Next.js)
+2. Built-in content validation
+3. Fast Vite builds
+4. Terminal-inspired design system
+
+## Links
+
+- [GitHub Repository](https://github.com/example/sample-project)
+- [Documentation](https://docs.astro.build)
+- [Live Demo](https://jmchilton.net)
