@@ -96,7 +96,7 @@ Create the following structure:
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   ├── about.astro
-│   │   ├── restaurants.astro
+│   │   ├── best-of-pittsburgh/
 │   │   └── cocktails.astro
 │   ├── styles/
 │   │   └── global.css
@@ -218,7 +218,7 @@ Create the following structure:
   - Two-line design on desktop:
     ```
     $ jmchilton.net %
-    timeline/  about/  resume.pdf  cv.pdf  restaurants/  cocktails/
+    timeline/  about/  resume.pdf  cv.pdf  best-of-pittsburgh/  cocktails/
     ```
   - Flexbox layout for responsive spacing
   - ls-style output: directories with `/`, files without
@@ -401,12 +401,44 @@ All other commands (`/add-paper`, `/add-presentation`, `/add-poster`, `/add-proj
 - [ ] Style links with file icons (terminal aesthetic)
 - [ ] Plan for future: Generate from timeline data (Phase 7+)
 
-### 5.4 Personal Content Pages
+### 5.4 Best of Pittsburgh Awards System
 
-- [ ] Create `src/pages/restaurants.astro`
-  - Simple static content
-  - List of favorite Pittsburgh restaurants
-  - Terminal-styled list (simulated `cat restaurants.txt`)
+Create a second Content Collection for Pittsburgh recommendations:
+
+- [ ] Create `src/content/config.ts` awards collection schema:
+
+  ```typescript
+  const awardsCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+      title: z.string(), // e.g., "Best Mini-Golf in Pittsburgh"
+      category: z.string(), // e.g., "entertainment", "food", "drinks", "coffee"
+      winner: z.string(), // Business name
+      location: z.string(), // Address or neighborhood
+      year: z.number(), // Year of award
+      tags: z.array(z.string()),
+      featured: z.boolean().default(false),
+    }),
+  });
+  ```
+
+- [ ] Create `/add-award` Claude command
+  - Prompt for category (e.g., "Best Dumplings in Pittsburgh")
+  - Prompt for winner name, location, year
+  - Generate slug from category
+  - Create structured MDX with review/reasoning
+
+- [ ] Build `/best-of-pittsburgh` page (`src/pages/best-of-pittsburgh/index.astro`)
+  - List all awards grouped by category or year
+  - Terminal-styled display (simulated `cat awards.txt`)
+  - Filter by category
+
+- [ ] Build individual award pages (`src/pages/best-of-pittsburgh/[slug].astro`)
+  - Full review with MDX content
+  - Map/location info if desired
+  - Photos or additional context
+
+### 5.5 Cocktails Page
 
 - [ ] Create `src/pages/cocktails.astro`
   - Static content or simple gallery
@@ -596,7 +628,8 @@ Create `DEPLOYMENT.md` with instructions:
 ### 10.5 Content Expansion
 
 - [ ] Add blog post entry type (longer-form writing)
-- [ ] Expand restaurant/cocktail sections with more detail
+- [ ] Expand Best of Pittsburgh awards with more categories and entries
+- [ ] Add cocktail recipes and reviews
 - [ ] Consider photo galleries (terminal-styled)
 - [ ] Add "Now" page (what you're currently working on)
 
@@ -672,7 +705,7 @@ jmchiltondotnet-astro/
 │   │   │   ├── index.astro
 │   │   │   └── [slug].astro
 │   │   ├── about.astro
-│   │   ├── restaurants.astro
+│   │   ├── best-of-pittsburgh/
 │   │   └── cocktails.astro
 │   ├── styles/
 │   │   └── global.css
@@ -738,7 +771,7 @@ jmchiltondotnet-astro/
 - **Accessibility**: Ensure terminal aesthetic doesn't compromise usability
 - **Performance**: Astro's zero-JS default should yield excellent performance
 - **Extensibility**: Code structure should accommodate future filtering/search features
-- **Personal Touch**: Balance professional showcase with personality (restaurants, cocktails)
+- **Personal Touch**: Balance professional showcase with personality (Best of Pittsburgh awards, cocktails)
 - **Curation**: Claude generates drafts, but manual editing is key to quality
 
 ---
