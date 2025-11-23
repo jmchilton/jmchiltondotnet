@@ -1,0 +1,104 @@
+---
+title: 'The Planemo toolkit for developing, deploying, and executing scientific data analyses in Galaxy and beyond'
+date: '2023-02'
+type: 'paper'
+description: 'Published comprehensive research on Planemo, a software development toolkit with over 70,000 downloads that streamlines creation, deployment, and execution of scientific data analysis tools in Galaxy and Common Workflow Language.'
+link: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC10069471/'
+tags: ['planemo', 'galaxy', 'cwl', 'bioinformatics', 'tool-development', 'workflows', 'testing']
+featured: true
+---
+
+## The Paper
+
+**Authors**: Simon Bray, John Chilton, Matthias Bernt, Nicola Soranzo, Marius van den Beek, Bérénice Batut, Helena Rasche, Martin Čech, Peter JA Cock, Björn Grüning, and Anton Nekrutenko
+
+**Journal**: Genome Research, Volume 33(2):261–268
+
+**Published**: February 2023
+
+**DOI**: 10.1101/gr.276963.122
+
+## Research Overview
+
+This paper presents Planemo as a comprehensive toolkit that addresses the complexity of integrating command-line software utilities into Galaxy's web-based interface. It demonstrates how systematic tooling and best practices can accelerate scientific software development while maintaining quality.
+
+## Key Findings
+
+**Adoption & Impact**: Planemo has achieved significant adoption with **more than 70,000 downloads from both Anaconda and PyPI**, demonstrating its value to the scientific software development community.
+
+**Multi-Domain Functionality**: The toolkit encompasses:
+
+- Galaxy tool development and testing
+- Common Workflow Language (CWL) tool creation
+- Workflow composition and execution
+- Training material development for Galaxy
+
+## Technical Architecture
+
+The paper details Planemo's modular design using two central abstractions:
+
+### Runnables
+
+Tools and workflows that can be executed across different computational environments.
+
+### Engines
+
+External software capable of executing runnables (Galaxy, cwltool, Toil, etc.).
+
+This abstraction layer enables developers to write tools once and execute them across multiple platforms.
+
+## Methodology & Best Practices
+
+Planemo enforces development quality through:
+
+- **Test-driven development**: Requires developers to write test cases before implementation
+- **Automated testing**: Built-in test execution against multiple Galaxy versions
+- **Linting**: Automated code quality checks and best practice enforcement
+- **Continuous integration**: GitHub Actions and other CI workflows
+- **Dependency management**: Automated updates for tool dependencies
+
+## Applications
+
+The toolkit enables several advanced workflows:
+
+1. **Automated Dependency Updates**: Keeps tools current with latest software versions
+2. **ToolShed Deployment**: Manages tool releases to Galaxy's public tool repository
+3. **Programmatic Workflow Execution**: Enables high-throughput analyses via command-line interface
+4. **Training Material Integration**: Facilitates creation of interactive tutorials
+
+## Personal Role & Contributions
+
+As a co-author and core contributor to Planemo, my work focused on:
+
+- Designing the "Runnables" and "Engines" abstraction layer
+- Implementing Galaxy integration and testing frameworks
+- Building deployment automation for the ToolShed
+- Contributing to workflow execution capabilities
+- Documentation and community engagement
+
+The test-driven development approach was particularly important to me - by requiring test cases upfront, we created more robust tools and caught issues early in development.
+
+## Impact on Scientific Computing
+
+Planemo has become essential infrastructure for the Galaxy ecosystem, enabling:
+
+- **Faster tool development cycles** through automation
+- **Higher quality tools** through enforced testing
+- **Broader accessibility** by lowering the barrier to tool creation
+- **Reproducible research** through standardized tool definitions
+- **Cross-platform compatibility** via CWL support
+
+## Research Significance
+
+This paper documents how systematic tooling can transform scientific software development. Rather than ad-hoc tool creation, Planemo provides a structured, tested, documented pathway from command-line utility to production-ready Galaxy tool.
+
+The success of this approach - evidenced by 70,000+ downloads - demonstrates that the scientific community values tools that enforce best practices while reducing development friction.
+
+## Future Directions
+
+The paper positions Planemo as a foundation for:
+
+- Enhanced workflow composition interfaces
+- Improved training material generation
+- Broader CWL ecosystem integration
+- Advanced testing and validation capabilities

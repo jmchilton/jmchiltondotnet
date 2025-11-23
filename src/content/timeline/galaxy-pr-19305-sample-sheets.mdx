@@ -1,0 +1,74 @@
+---
+title: 'Implement Sample Sheets'
+date: '2025-07-30'
+type: 'pr'
+description: 'Implemented comprehensive sample sheet functionality enabling users to define, create, and utilize complex metadata structures through multiple interfaces including workflow editors, spreadsheet programs, and collection tools.'
+link: 'https://github.com/galaxyproject/galaxy/pull/19305'
+tags: ['galaxy', 'workflows', 'dataset-collections', 'ui', 'metadata']
+featured: true
+---
+
+## The Pull Request
+
+This PR implements sample sheets for Galaxy, addressing a critical gap in how users manage complex metadata that traditional list structures can't capture. Sample sheets enable structured, validated metadata alongside scientific datasets.
+
+## The Problem
+
+Scientific workflows often require rich metadata about samples that simple lists can't represent. Researchers need:
+
+- Column-based metadata structures with validation
+- Integration with external spreadsheet tools (Excel, Google Sheets)
+- Clear, intuitive interfaces for metadata entry
+- Seamless workflow integration
+
+## Technical Implementation
+
+The solution provides multiple pathways for sample sheet creation and use:
+
+### Core Features
+
+- **New collection input type** for workflow editors supporting sample sheet definitions
+- **UI wizard** for creating sample sheet collections from various sources
+- **Conversion tool** for transforming sample sheets to tabular format within workflows
+- **"Apply Rules" integration** for direct processing using model objects
+- **Cell validation** with column descriptions displayed as tooltips
+
+### User Experience
+
+The implementation balances power with accessibility:
+
+- Create sample sheets directly in Galaxy's workflow editor
+- Import from external spreadsheet programs
+- Generate from existing collections
+- Real-time validation feedback
+- Responsive design for various display sizes
+
+## Impact & Adoption
+
+**Status**: Merged (July 30, 2025)
+
+**Milestone**: 25.1
+
+**Labels**: area/API, area/dataset-collections, area/UI-UX, area/workflows, highlight, kind/feature
+
+This feature fundamentally expands Galaxy's capability to handle complex experimental designs, particularly important for:
+
+- Multi-sample experiments with varied conditions
+- Clinical/biomedical workflows requiring patient metadata
+- Integration with external LIMS systems
+- Reproducible research documentation
+
+## Personal Notes
+
+Sample sheets represent a significant UI/UX challenge - how do you make complex metadata management intuitive? The multi-pathway approach (wizard, direct editing, spreadsheet import) ensures users can work in their preferred method.
+
+The integration with "Apply Rules" was particularly satisfying - it leverages existing Galaxy functionality while extending it to handle richer data structures. Several refinements during review addressed responsive design and language clarity, resulting in a more polished final implementation.
+
+This work demonstrates the value of thinking beyond traditional bioinformatics interfaces to support real-world research workflows.
+
+## Technical Highlights
+
+- Multiple refinements based on community feedback
+- Responsive design considerations for smaller displays
+- Careful UX language to guide users through complex operations
+- Tight integration with existing Galaxy collection and workflow systems

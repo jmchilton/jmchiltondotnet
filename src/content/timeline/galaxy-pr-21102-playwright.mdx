@@ -1,0 +1,57 @@
+---
+title: 'Add Playwright Backend Support to Galaxy Browser Automation Framework'
+date: '2025-10-20'
+type: 'pr'
+description: 'Introduced comprehensive Playwright support alongside Selenium, enabling runtime selection between frameworks while maintaining full backward compatibility through a protocol-based architecture.'
+link: 'https://github.com/galaxyproject/galaxy/pull/21102'
+tags: ['galaxy', 'testing', 'playwright', 'selenium', 'browser-automation', 'python']
+featured: true
+---
+
+## The Pull Request
+
+This PR represents a significant modernization of Galaxy's browser automation testing infrastructure by adding full Playwright support while maintaining 100% backward compatibility with the existing Selenium-based tests.
+
+## Technical Approach
+
+The implementation centers on a **protocol-based architecture** that abstracts browser operations:
+
+- **`HasDriverProtocol`** and **`WebElementProtocol`** interfaces define approximately 61 browser operations
+- **`HasPlaywrightDriver`** class (1,134 lines) provides a complete Playwright implementation mirroring the Selenium API
+- **`PlaywrightElement`** wrapper enables element interactions through the same interface as Selenium
+- **Proxy pattern** via `HasDriverProxy` allows seamless backend switching without modifying existing tests
+
+## Testing & Validation
+
+Comprehensive testing ensures reliability:
+
+- **150+ parametrized unit tests** validating all protocol methods
+- Three test configurations: Selenium, Playwright, and proxy-Selenium
+- Updated **57 test files** with 268+ test methods for Playwright compatibility
+- **CI integration** with dedicated GitHub Actions workflow
+- Runtime backend selection via `GALAXY_TEST_DRIVER_BACKEND=playwright` environment variable
+
+## Impact
+
+**Scale**: +8,038 −624 lines across 157 files, 51 commits
+
+This work enables Galaxy to:
+
+- Leverage Playwright's modern browser automation capabilities (faster execution, better debugging)
+- Gradually migrate from Selenium without breaking existing tests
+- Run tests with either backend based on specific needs
+- Future-proof the testing infrastructure as browser automation evolves
+
+## Personal Notes
+
+This was a challenging refactoring that required deep understanding of both Selenium and Playwright APIs. The protocol-based approach proved essential for maintaining compatibility while introducing modern tooling. The parametrized testing strategy gave me confidence that both backends behave identically.
+
+The most interesting technical challenge was ensuring the proxy pattern correctly delegated all operations while maintaining proper typing through Python protocols. The result is a clean abstraction that other projects could adapt for similar dual-backend scenarios.
+
+## Labels & Milestone
+
+**Labels**: area/testing, area/testing/selenium, area/UI-UX, area/objectstore, area/packaging
+
+**Milestone**: 26.0
+
+**Status**: Open (ready for review)
