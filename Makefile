@@ -1,4 +1,4 @@
-.PHONY: help dev build preview clean install format format-check lint typecheck test all cv
+.PHONY: help dev build preview clean install format format-check lint typecheck test all cv deploy deploy-dry
 
 # Default target
 help:
@@ -14,6 +14,8 @@ help:
 	@echo "  make test          - Run all checks (format, lint, typecheck)"
 	@echo "  make clean         - Clean build artifacts"
 	@echo "  make cv            - Build CV and Resume PDFs (requires pdflatex)"
+	@echo "  make deploy-dry    - Dry run deployment (see what would transfer)"
+	@echo "  make deploy        - Deploy to production server"
 	@echo "  make all           - Run format, lint, typecheck, and build"
 
 # Install dependencies
@@ -73,3 +75,17 @@ cv:
 # Run everything
 all: format lint typecheck build
 	@echo "Build complete!"
+
+# Deployment settings
+DEPLOY_USER ?= deploy
+DEPLOY_HOST ?= jmchilton.net
+DEPLOY_PATH ?= /var/www/jmchilton.net
+
+# Dry run deployment
+deploy-dry: build
+	rsync -avzn dist/ $(DEPLOY_USER)@$(DEPLOY_HOST):$(DEPLOY_PATH)/
+
+# Deploy to production
+deploy: build
+	rsync -avz --delete dist/ $(DEPLOY_USER)@$(DEPLOY_HOST):$(DEPLOY_PATH)/
+	@echo "Deployed to https://$(DEPLOY_HOST)"
