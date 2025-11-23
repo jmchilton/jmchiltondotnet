@@ -16,11 +16,21 @@ const sortedProblems = allProblems.sort(
 >
   <TerminalPrompt command="cat problems.txt">
     <div class="mb-6">
-      <h1 class="mb-2 font-mono text-3xl font-bold text-terminal-text">Problems</h1>
-      <p class="text-lg text-terminal-text-secondary">
-        Feynman kept a dozen favorite problems always in mind. When learning something new, he'd
-        test it against each one. These are mine.
-      </p>
+      <h1 class="mb-4 font-mono text-3xl font-bold text-terminal-text">Problems</h1>
+      <blockquote
+        class="border-l-4 border-terminal-border pl-4 italic text-terminal-text-secondary"
+      >
+        <p class="mb-2">
+          "You have to keep a dozen of your favorite problems constantly present in your mind,
+          although by and large they will lay in a dormant state. Every time you hear or read a new
+          trick or a new result, test it against each of your twelve problems to see whether it
+          helps. Every once in a while there will be a hit, and people will say, 'How did he do it?
+          He must be a genius!'"
+        </p>
+        <footer class="text-terminal-sm not-italic text-terminal-text-muted">
+          — Richard Feynman, Nobel Prize-winning physicist
+        </footer>
+      </blockquote>
     </div>
 
     {/* Problem count */}

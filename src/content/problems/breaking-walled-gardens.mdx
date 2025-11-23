@@ -1,0 +1,33 @@
+---
+title: 'How do we break big legacy systems out of walled gardens?'
+description: 'Enabling integration and interoperability in systems that were built as monoliths.'
+tags: ['legacy', 'api', 'interoperability', 'architecture']
+started: '2024-11'
+featured: false
+---
+
+## The Question
+
+How do we break big legacy systems out of walled gardens?
+
+## Why It Matters
+
+Many valuable systems were built as self-contained worlds - everything happens inside them, and getting data or functionality in or out is an afterthought. But users increasingly need systems to talk to each other. The choice between "rewrite everything" and "stay isolated" is a false dichotomy.
+
+## Current Thinking
+
+Breaking out of walled gardens requires:
+
+1. **API exposure** - Making internal capabilities externally accessible
+2. **Data portability** - Standard formats for import/export
+3. **Extension points** - Letting external tools plug in
+4. **Incremental opening** - You can't open everything at once
+
+The key insight: every internal interface is a potential external interface.
+
+## Open Subquestions
+
+- How do we expose functionality without creating maintenance nightmares?
+- What's the right granularity for APIs in legacy systems?
+- How do we handle authentication and authorization across system boundaries?
+- How do we maintain backwards compatibility while opening up?
