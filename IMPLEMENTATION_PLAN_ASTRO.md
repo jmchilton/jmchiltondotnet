@@ -25,8 +25,8 @@ A retrospective timeline portfolio website showcasing professional developer wor
 
 ## Progress Summary
 
-**Current Status**: Phase 4 Complete ✅
-**Last Updated**: 2025-10-22
+**Current Status**: Phase 5 Complete ✅
+**Last Updated**: 2025-11-23
 
 ### Completed Phases
 
@@ -34,7 +34,8 @@ A retrospective timeline portfolio website showcasing professional developer wor
 - ✅ **Phase 2**: Core Design System (Complete)
 - ✅ **Phase 3**: Timeline Entry System (Complete)
 - ✅ **Phase 4**: Claude Content Generation Commands (Complete)
-- ⏳ **Phase 5**: Additional Pages & Content (Next)
+- ✅ **Phase 5**: Additional Pages & Content (Complete)
+- ⏳ **Phase 6**: Initial Content Population (Next)
 
 ### Lessons from Next.js Attempt
 
@@ -47,7 +48,7 @@ A retrospective timeline portfolio website showcasing professional developer wor
 
 - ✅ Content Collections: Built-in type-safe schema validation working perfectly
 - ✅ MDX integration: Zero issues with `@astrojs/mdx`
-- ✅ Static export: 3 pages building flawlessly
+- ✅ Static export: 10+ pages building flawlessly
 - ✅ Remark/rehype: All plugins (gfm, slug, autolink-headings) working
 - ✅ TypeScript: 15 files, 0 errors, automatic type generation
 - ✅ Vite builds: Fast, stable, no webpack issues
@@ -387,65 +388,38 @@ All other commands (`/add-paper`, `/add-presentation`, `/add-poster`, `/add-proj
   - Feature recent timeline entries (3 most recent)
   - Links to main sections
 
-### 5.2 About Page
+### 5.2 About Page ✓
 
-- [ ] Create `src/pages/about.astro`
-- [ ] Content: Bio, skills, interests
-- [ ] Terminal-styled content presentation
-- [ ] Links to resume/CV PDFs
+- [x] Create `src/pages/about.astro`
+- [x] Content: Bio, skills, interests
+- [x] Terminal-styled content presentation
+- [x] Links to resume/CV PDFs
 
-### 5.3 Resume & CV
+### 5.3 Resume & CV ✓
 
-- [ ] Create placeholder PDFs in `/public/`
-- [ ] Ensure navigation links to `/resume.pdf` and `/cv.pdf`
-- [ ] Style links with file icons (terminal aesthetic)
-- [ ] Plan for future: Generate from timeline data (Phase 7+)
+- [x] Add `jmchilton/cv` repo as git submodule
+- [x] CI builds LaTeX PDFs (resume.pdf, cv.pdf) to `/public/`
+- [x] `make cv` target for local builds (requires pdflatex)
+- [ ] Future: Migrate to Markdown-based resume generation
 
-### 5.4 Best of Pittsburgh Awards System
+### 5.4 Best of Pittsburgh Awards System ✓
 
-Create a second Content Collection for Pittsburgh recommendations:
+Created a second Content Collection for Pittsburgh recommendations:
 
-- [ ] Create `src/content/config.ts` awards collection schema:
+- [x] Create `src/content/config.ts` awards collection schema
+- [x] `/add-award` Claude command (already existed)
+- [x] Build `/best-of-pittsburgh` page with category grouping
+- [x] Build individual award pages (`/best-of-pittsburgh/[slug].astro`)
+- [x] Initial awards:
+  - Best Mini-Golf: Puttshack (Strip District)
+  - Best Classic Cocktail Bar: Tina's (Bloomfield)
 
-  ```typescript
-  const awardsCollection = defineCollection({
-    type: 'content',
-    schema: z.object({
-      title: z.string(), // e.g., "Best Mini-Golf in Pittsburgh"
-      category: z.string(), // e.g., "entertainment", "food", "drinks", "coffee"
-      winner: z.string(), // Business name
-      location: z.string(), // Address or neighborhood
-      year: z.number(), // Year of award
-      tags: z.array(z.string()),
-      featured: z.boolean().default(false),
-    }),
-  });
-  ```
+### 5.5 Cocktails Page ✓
 
-- [ ] Create `/add-award` Claude command
-  - Prompt for category (e.g., "Best Dumplings in Pittsburgh")
-  - Prompt for winner name, location, year
-  - Generate slug from category
-  - Create structured MDX with review/reasoning
-
-- [ ] Build `/best-of-pittsburgh` page (`src/pages/best-of-pittsburgh/index.astro`)
-  - List all awards grouped by category or year
-  - Terminal-styled display (simulated `cat awards.txt`)
-  - Filter by category
-
-- [ ] Build individual award pages (`src/pages/best-of-pittsburgh/[slug].astro`)
-  - Full review with MDX content
-  - Map/location info if desired
-  - Photos or additional context
-
-### 5.5 Cocktails Page
-
-- [ ] Create `src/pages/cocktails.astro`
-  - Static content or simple gallery
-  - Cocktail menus, recipes, or photos
-  - Terminal-styled presentation
-
-- [ ] Ensure navigation accommodates non-professional content gracefully
+- [x] Create `src/pages/cocktails.astro`
+- [x] Favorite classics section with cocktail cards
+- [x] Quick tips section
+- [x] Terminal-styled presentation
 
 ---
 

@@ -1,4 +1,4 @@
-.PHONY: help dev build preview clean install format format-check lint typecheck test all
+.PHONY: help dev build preview clean install format format-check lint typecheck test all cv
 
 # Default target
 help:
@@ -13,6 +13,7 @@ help:
 	@echo "  make typecheck     - Type check with TypeScript"
 	@echo "  make test          - Run all checks (format, lint, typecheck)"
 	@echo "  make clean         - Clean build artifacts"
+	@echo "  make cv            - Build CV and Resume PDFs (requires pdflatex)"
 	@echo "  make all           - Run format, lint, typecheck, and build"
 
 # Install dependencies
@@ -53,7 +54,21 @@ test: format-check lint typecheck
 
 # Clean build artifacts
 clean:
-	rm -rf dist .astro node_modules/.astro
+	rm -rf dist .astro node_modules/.astro cv/build public/resume.pdf public/cv.pdf
+
+# Build CV and Resume PDFs
+cv:
+	@echo "Building CV and Resume PDFs..."
+	cd cv && mkdir -p build/resume build/cv
+	cd cv && sed 's/IS_RESUME/true/' source.tex > build/resume/source.tex
+	cd cv && cp res.cls build/resume/
+	cd cv/build/resume && pdflatex source.tex && pdflatex source.tex
+	cd cv && sed 's/IS_RESUME/false/' source.tex > build/cv/source.tex
+	cd cv && cp res.cls build/cv/
+	cd cv/build/cv && pdflatex source.tex && pdflatex source.tex
+	cp cv/build/resume/source.pdf public/resume.pdf
+	cp cv/build/cv/source.pdf public/cv.pdf
+	@echo "PDFs built and copied to public/"
 
 # Run everything
 all: format lint typecheck build

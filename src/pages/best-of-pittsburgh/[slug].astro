@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const awards = await getCollection('awards');
+  return awards.map((award) => ({
+    params: { slug: award.slug },
+    props: { award },
+  }));
+}
+
+interface Props {
+  award: CollectionEntry<'awards'>;
+}
+
+const { award } = Astro.props;
+const { Content } = await award.render();
+
+const categoryColors: Record<string, string> = {
+  entertainment: 'purple',
+  food: 'green',
+  drinks: 'blue',
+  coffee: 'yellow',
+  default: 'blue',
+};
+
+const color = categoryColors[award.data.category] || categoryColors.default;
+---
+
+<BaseLayout
+  title={award.data.title}
+  description={`${award.data.title} - Winner: ${award.data.winner}`}
+>
+  <article>
+    <section class="mb-8">
+      <TerminalPrompt command={`cat best-of-pittsburgh/${award.slug}.md`}>
+        <div class="mb-6">
+          <a href="/best-of-pittsburgh" class="terminal-link text-terminal-sm">
+            ← Back to Best of Pittsburgh
+          </a>
+        </div>
+
+        <div class="mb-4 flex flex-wrap items-center gap-2">
+          <span class={`terminal-badge-${color}`}>{award.data.category}</span>
+          <span class="terminal-badge">{award.data.year}</span>
+          <span class="font-mono text-terminal-sm text-terminal-text-muted">
+            {award.data.location}
+          </span>
+        </div>
+
+        <h1 class="mb-4 font-mono text-3xl font-bold text-terminal-text">
+          {award.data.title}
+        </h1>
+
+        <div class="mb-6 terminal-card">
+          <p class="font-mono text-lg">
+            <span class="text-terminal-text-secondary">Winner:</span>
+            <strong class="ml-2 text-terminal-text">{award.data.winner}</strong>
+          </p>
+        </div>
+
+        <div class="prose prose-terminal max-w-none">
+          <Content />
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-2">
+          {award.data.tags.map((tag) => <span class="terminal-badge">{tag}</span>)}
+        </div>
+      </TerminalPrompt>
+    </section>
+  </article>
+</BaseLayout>

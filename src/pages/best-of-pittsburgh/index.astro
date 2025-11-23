@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import { getCollection } from 'astro:content';
+
+const allAwards = await getCollection('awards');
+const sortedAwards = allAwards.sort((a, b) => b.data.year - a.data.year);
+
+// Group by category
+const byCategory = sortedAwards.reduce(
+  (acc, award) => {
+    const cat = award.data.category;
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(award);
+    return acc;
+  },
+  {} as Record<string, typeof sortedAwards>
+);
+
+const categoryColors: Record<string, string> = {
+  entertainment: 'purple',
+  food: 'green',
+  drinks: 'blue',
+  coffee: 'yellow',
+  default: 'blue',
+};
+---
+
+<BaseLayout
+  title="Best of Pittsburgh"
+  description="Personal awards for the best food, drinks, and fun in Pittsburgh"
+>
+  <section class="mb-12">
+    <TerminalPrompt command="cat best-of-pittsburgh/README.md">
+      <div class="space-y-6">
+        <h1 class="font-mono text-3xl font-bold text-terminal-text">Best of Pittsburgh</h1>
+
+        <div class="prose prose-terminal max-w-none">
+          <p class="text-lg leading-relaxed text-terminal-text-secondary">
+            Personal awards for the best spots in Pittsburgh. These are subjective picks based on my
+            own experiences - your mileage may vary, but I stand by these choices.
+          </p>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  {
+    sortedAwards.length === 0 ? (
+      <section class="mb-12">
+        <TerminalPrompt command="ls best-of-pittsburgh/awards/">
+          <p class="text-terminal-text-muted italic">No awards yet. Check back soon!</p>
+        </TerminalPrompt>
+      </section>
+    ) : (
+      <section class="mb-12">
+        <TerminalPrompt command="cat best-of-pittsburgh/awards.txt">
+          <div class="space-y-8">
+            {Object.entries(byCategory).map(([category, awards]) => (
+              <div>
+                <h2 class="mb-4 font-mono text-xl font-semibold capitalize text-terminal-text">
+                  {category}
+                </h2>
+                <div class="space-y-4">
+                  {awards.map((award) => {
+                    const color = categoryColors[category] || categoryColors.default;
+                    return (
+                      <article class="terminal-card">
+                        <div class="mb-2 flex items-center gap-2">
+                          <span class={`terminal-badge-${color}`}>{award.data.year}</span>
+                          <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                            {award.data.location}
+                          </span>
+                        </div>
+                        <h3 class="mb-1 font-mono text-lg font-semibold">
+                          <a href={`/best-of-pittsburgh/${award.slug}`} class="terminal-link">
+                            {award.data.title}
+                          </a>
+                        </h3>
+                        <p class="mb-3 text-terminal-text-secondary">
+                          Winner: <strong>{award.data.winner}</strong>
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                          {award.data.tags.map((tag) => (
+                            <span class="terminal-badge">{tag}</span>
+                          ))}
+                        </div>
+                      </article>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </TerminalPrompt>
+      </section>
+    )
+  }
+</BaseLayout>

@@ -1,5 +1,10 @@
 # build output
 dist/
+cv/build/
+
+# generated PDFs (built from cv submodule)
+public/resume.pdf
+public/cv.pdf
 # generated types
 .astro/
 

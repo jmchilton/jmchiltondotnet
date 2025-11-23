@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalPrompt from '../components/TerminalPrompt.astro';
+---
+
+<BaseLayout
+  title="About"
+  description="About John Chilton - software developer, researcher, and open source contributor"
+>
+  <section class="mb-12">
+    <TerminalPrompt command="cat about.txt">
+      <div class="space-y-6">
+        <h1 class="font-mono text-3xl font-bold text-terminal-text">About</h1>
+
+        <div class="prose prose-terminal max-w-none space-y-4">
+          <p class="text-lg leading-relaxed text-terminal-text-secondary">
+            I'm a software developer and researcher focused on building tools for scientific
+            computing. Most of my work involves the
+            <a href="https://galaxyproject.org" class="terminal-link">Galaxy Project</a>, an open
+            source platform for accessible, reproducible, and transparent computational research.
+          </p>
+
+          <p class="text-terminal-text-secondary">
+            I believe in open source software, reproducible research, and making powerful
+            computational tools accessible to scientists regardless of their programming background.
+          </p>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  <section class="mb-12">
+    <TerminalPrompt command="cat skills.json | jq">
+      <div class="space-y-6">
+        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Skills & Technologies</h2>
+
+        <div class="grid gap-6 sm:grid-cols-2">
+          <div class="terminal-card">
+            <h3 class="mb-3 font-mono text-lg font-semibold text-terminal-blue">Languages</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="terminal-badge-blue">Python</span>
+              <span class="terminal-badge-blue">TypeScript</span>
+              <span class="terminal-badge-blue">JavaScript</span>
+              <span class="terminal-badge-blue">Go</span>
+              <span class="terminal-badge-blue">Java</span>
+              <span class="terminal-badge-blue">SQL</span>
+            </div>
+          </div>
+
+          <div class="terminal-card">
+            <h3 class="mb-3 font-mono text-lg font-semibold text-terminal-green">Frameworks</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="terminal-badge-green">FastAPI</span>
+              <span class="terminal-badge-green">Flask</span>
+              <span class="terminal-badge-green">Vue.js</span>
+              <span class="terminal-badge-green">React</span>
+              <span class="terminal-badge-green">Astro</span>
+            </div>
+          </div>
+
+          <div class="terminal-card">
+            <h3 class="mb-3 font-mono text-lg font-semibold text-terminal-purple">
+              Scientific Computing
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="terminal-badge-purple">Galaxy</span>
+              <span class="terminal-badge-purple">Bioinformatics</span>
+              <span class="terminal-badge-purple">Workflow Systems</span>
+              <span class="terminal-badge-purple">Containers</span>
+              <span class="terminal-badge-purple">CWL</span>
+            </div>
+          </div>
+
+          <div class="terminal-card">
+            <h3 class="mb-3 font-mono text-lg font-semibold text-terminal-yellow">
+              Infrastructure
+            </h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="terminal-badge-yellow">Docker</span>
+              <span class="terminal-badge-yellow">Kubernetes</span>
+              <span class="terminal-badge-yellow">PostgreSQL</span>
+              <span class="terminal-badge-yellow">GitHub Actions</span>
+              <span class="terminal-badge-yellow">Linux</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  <section class="mb-12">
+    <TerminalPrompt command="cat interests.md">
+      <div class="space-y-6">
+        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Beyond Code</h2>
+
+        <div class="prose prose-terminal max-w-none text-terminal-text-secondary">
+          <p>
+            When I'm not writing code, you'll find me exploring Pittsburgh's food scene, mixing
+            cocktails, or hunting for the city's best mini-golf course. I'm passionate about my
+            adopted hometown and enjoy discovering (and documenting) the best spots around.
+          </p>
+          <p>
+            Check out my <a href="/best-of-pittsburgh" class="terminal-link"
+              >Best of Pittsburgh awards</a
+            >
+            for recommendations, or browse my <a href="/cocktails" class="terminal-link"
+              >cocktail experiments</a
+            >.
+          </p>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  <section>
+    <TerminalPrompt command="cat contact.txt">
+      <div class="space-y-4">
+        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Get in Touch</h2>
+
+        <div class="space-y-2 font-mono text-terminal-sm">
+          <p>
+            <span class="text-terminal-text-secondary">GitHub:</span>
+            <a href="https://github.com/jmchilton" class="terminal-link ml-2">@jmchilton</a>
+          </p>
+          <p>
+            <span class="text-terminal-text-secondary">Email:</span>
+            <a href="mailto:john@jmchilton.net" class="terminal-link ml-2">john@jmchilton.net</a>
+          </p>
+        </div>
+
+        <div class="mt-6 flex gap-4">
+          <a href="/resume.pdf" class="terminal-button-primary">Resume (PDF)</a>
+          <a href="/cv.pdf" class="terminal-button">CV (PDF)</a>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+</BaseLayout>
