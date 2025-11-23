@@ -11,7 +11,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "typecheck": "astro check",
-    "prepare": "husky"
+    "prepare": "husky",
+    "obsidian": "open 'obsidian://open?path='$(pwd)/src/content"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.7",
