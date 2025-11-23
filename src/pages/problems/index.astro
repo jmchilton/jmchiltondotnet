@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import { getCollection } from 'astro:content';
+
+// Get all problems, sorted by start date (oldest first - longest-running problems)
+const allProblems = await getCollection('problems');
+const sortedProblems = allProblems.sort(
+  (a, b) => new Date(a.data.started).getTime() - new Date(b.data.started).getTime()
+);
+---
+
+<BaseLayout
+  title="Problems"
+  description="The questions I keep coming back to - problems worth solving."
+>
+  <TerminalPrompt command="cat problems.txt">
+    <div class="mb-6">
+      <h1 class="mb-2 font-mono text-3xl font-bold text-terminal-text">Problems</h1>
+      <p class="text-lg text-terminal-text-secondary">
+        Feynman kept a dozen favorite problems always in mind. When learning something new, he'd
+        test it against each one. These are mine.
+      </p>
+    </div>
+
+    {/* Problem count */}
+    <div class="mb-6 font-mono text-terminal-sm text-terminal-text-muted">
+      {sortedProblems.length}
+      {sortedProblems.length === 1 ? 'problem' : 'problems'}
+    </div>
+
+    {/* Problem list */}
+    <div class="space-y-6">
+      {
+        sortedProblems.map((problem) => (
+          <article class="terminal-card">
+            <div class="mb-2 flex items-center gap-2">
+              <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                since {problem.data.started}
+              </span>
+            </div>
+            <h2 class="mb-2 font-mono text-xl font-semibold">
+              <a href={`/problems/${problem.slug}`} class="terminal-link">
+                {problem.data.title}
+              </a>
+            </h2>
+            <p class="mb-3 text-terminal-text-secondary">{problem.data.description}</p>
+            <div class="flex flex-wrap gap-2">
+              {problem.data.tags.map((tag) => (
+                <span class="terminal-badge">{tag}</span>
+              ))}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {/* Empty state */}
+    {
+      sortedProblems.length === 0 && (
+        <div class="rounded border border-terminal-border bg-terminal-bg-alt p-8 text-center">
+          <p class="font-mono text-terminal-text-secondary">No problems defined yet.</p>
+        </div>
+      )
+    }
+  </TerminalPrompt>
+</BaseLayout>

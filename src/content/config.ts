@@ -26,7 +26,19 @@ const awardsCollection = defineCollection({
   }),
 });
 
+const problemsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(), // The question, e.g., "How can we make workflows reproducible?"
+    description: z.string(), // 1-2 sentence hook
+    tags: z.array(z.string()), // Links to timeline entries via shared tags
+    started: z.string(), // YYYY-MM when you started thinking about it
+    featured: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   timeline: timelineCollection,
   awards: awardsCollection,
+  problems: problemsCollection,
 };

@@ -2,12 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TerminalPrompt from '../components/TerminalPrompt.astro';
 import { getCollection } from 'astro:content';
-import { ENTRY_TYPE_CONFIG } from '../types';
 
-// Get recent timeline entries (limit to 3)
-const allEntries = await getCollection('timeline');
-const recentEntries = allEntries
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
+// Get featured problems (or all if none featured, limit to 3)
+const allProblems = await getCollection('problems');
+const featuredProblems = allProblems.filter((p) => p.data.featured);
+const displayProblems = (featuredProblems.length > 0 ? featuredProblems : allProblems)
+  .sort((a, b) => new Date(a.data.started).getTime() - new Date(b.data.started).getTime())
   .slice(0, 3);
 ---
 
@@ -18,9 +18,8 @@ const recentEntries = allEntries
       <div class="space-y-4">
         <h1 class="font-mono text-3xl font-bold text-terminal-text md:text-4xl">John Chilton</h1>
         <p class="text-lg leading-relaxed text-terminal-text-secondary">
-          Software developer, researcher, and cocktail enthusiast. Building tools for scientific
-          computing, contributing to open source, and exploring the intersection of technology and
-          biology.
+          Software developer and researcher. I keep a handful of problems in mind and test new ideas
+          against them. This site tracks those problems and the work they've generated.
         </p>
         <div class="flex flex-wrap gap-3">
           <span class="terminal-badge-blue">Python</span>
@@ -32,43 +31,39 @@ const recentEntries = allEntries
     </TerminalPrompt>
   </section>
 
-  {/* Recent Timeline Entries */}
+  {/* Featured Problems */}
   <section class="mb-12">
-    <TerminalPrompt command="ls -lt timeline/ | head -3">
+    <TerminalPrompt command="cat problems.txt">
       <div class="space-y-6">
         {
-          recentEntries.map((entry) => {
-            const typeConfig = ENTRY_TYPE_CONFIG[entry.data.type];
-            return (
-              <article class="terminal-card">
-                <div class="mb-2 flex items-center gap-2">
-                  <span class={`terminal-badge-${typeConfig.color}`}>{typeConfig.label}</span>
-                  <span class="font-mono text-terminal-sm text-terminal-text-muted">
-                    {entry.data.date}
-                  </span>
-                </div>
-                <h2 class="mb-2 font-mono text-xl font-semibold">
-                  <a href={`/timeline/${entry.slug}`} class="terminal-link">
-                    {entry.data.title}
-                  </a>
-                </h2>
-                <p class="mb-3 text-terminal-text-secondary">{entry.data.description}</p>
-                <div class="flex flex-wrap gap-2">
-                  {entry.data.tags.map((tag) => (
-                    <span class="terminal-badge">{tag}</span>
-                  ))}
-                </div>
-              </article>
-            );
-          })
+          displayProblems.map((problem) => (
+            <article class="terminal-card">
+              <div class="mb-2">
+                <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                  since {problem.data.started}
+                </span>
+              </div>
+              <h2 class="mb-2 font-mono text-xl font-semibold">
+                <a href={`/problems/${problem.slug}`} class="terminal-link">
+                  {problem.data.title}
+                </a>
+              </h2>
+              <p class="mb-3 text-terminal-text-secondary">{problem.data.description}</p>
+              <div class="flex flex-wrap gap-2">
+                {problem.data.tags.map((tag) => (
+                  <span class="terminal-badge">{tag}</span>
+                ))}
+              </div>
+            </article>
+          ))
         }
       </div>
 
       {
-        recentEntries.length > 0 && (
+        displayProblems.length > 0 && (
           <div class="mt-6">
-            <a href="/timeline" class="terminal-button-primary">
-              View all timeline entries →
+            <a href="/problems" class="terminal-button-primary">
+              View all problems →
             </a>
           </div>
         )
@@ -80,10 +75,17 @@ const recentEntries = allEntries
   <section class="mb-12">
     <TerminalPrompt command="ls -l">
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="/problems" class="terminal-card block">
+          <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">problems/</h3>
+          <p class="text-terminal-sm text-terminal-text-secondary">
+            Questions I keep coming back to
+          </p>
+        </a>
+
         <a href="/timeline" class="terminal-card block">
           <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">timeline/</h3>
           <p class="text-terminal-sm text-terminal-text-secondary">
-            A chronological archive of pull requests, papers, presentations, and projects
+            PRs, papers, presentations, and projects
           </p>
         </a>
 
@@ -99,15 +101,13 @@ const recentEntries = allEntries
             best-of-pittsburgh/
           </h3>
           <p class="text-terminal-sm text-terminal-text-secondary">
-            Awards for the best food, drinks, and fun in Pittsburgh
+            Best food, drinks, and fun in Pittsburgh
           </p>
         </a>
 
         <a href="/cocktails" class="terminal-card block">
           <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">cocktails/</h3>
-          <p class="text-terminal-sm text-terminal-text-secondary">
-            Cocktail menus, recipes, and experiments
-          </p>
+          <p class="text-terminal-sm text-terminal-text-secondary">Recipes and experiments</p>
         </a>
 
         <a href="/resume.pdf" class="terminal-card block">
@@ -117,9 +117,7 @@ const recentEntries = allEntries
 
         <a href="/cv.pdf" class="terminal-card block">
           <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-text">cv.pdf</h3>
-          <p class="text-terminal-sm text-terminal-text-secondary">
-            Academic curriculum vitae (PDF)
-          </p>
+          <p class="text-terminal-sm text-terminal-text-secondary">Academic CV (PDF)</p>
         </a>
       </div>
     </TerminalPrompt>

@@ -1,0 +1,43 @@
+---
+title: 'How can we make scientific workflows truly reproducible?'
+description: 'Exploring containerization, dependency management, and workflow languages to ensure computational research can be reliably replicated years later.'
+tags: ['reproducibility', 'workflows', 'containers', 'galaxy']
+started: '2015-03'
+featured: true
+---
+
+## The Question
+
+Scientific papers describe methods, but the computational details—exact software versions, environment configurations, parameter choices—are often lost or inadequately documented. How do we capture everything needed to re-run an analysis identically, years later, on different hardware?
+
+## Why It Matters
+
+Reproducibility is foundational to science. When computational analyses can't be replicated, we can't verify results, build on prior work, or trust conclusions. As biology becomes increasingly computational, this problem scales with the field.
+
+## Current Thinking
+
+The solution likely involves multiple layers:
+
+1. **Workflow languages** (CWL, WDL, Galaxy) that explicitly declare inputs, outputs, and tool dependencies
+2. **Containers** (Docker, Singularity) that freeze the execution environment
+3. **Package managers** (Conda, Bioconda) that resolve and pin dependencies
+4. **Provenance tracking** that records exactly what ran and when
+
+Galaxy's approach—combining a workflow system with container integration and automatic provenance capture—addresses many pieces. But gaps remain around long-term container registry availability, handling of reference data, and workflows that span multiple compute environments.
+
+## Open Subquestions
+
+- How do we handle workflows that require licensed software or proprietary data?
+- What's the right granularity for containerization—per tool, per workflow, per analysis?
+- How do we balance reproducibility with the need to update analyses as methods improve?
+- Can we make reproducibility easy enough that it's the default, not extra work?
+
+## Literature Review
+
+_To be expanded with key papers on computational reproducibility, container technologies, and workflow systems._
+
+## Hypotheses
+
+- Reproducibility adoption correlates with tooling ease-of-use more than researcher motivation
+- "Frozen" environments need escape hatches for security updates without breaking reproducibility
+- Reference data versioning is an underappreciated bottleneck
