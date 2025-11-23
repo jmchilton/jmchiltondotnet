@@ -1,0 +1,134 @@
+# Tag definitions for the site
+# Each tag used in content must be defined here with a description
+
+ai:
+  description: "Artificial intelligence and machine learning applications"
+
+api:
+  description: "Application programming interfaces and integrations"
+
+architecture:
+  description: "Software architecture and system design"
+
+astro:
+  description: "Astro web framework"
+
+bar:
+  description: "Bars and nightlife venues"
+
+bioinformatics:
+  description: "Computational biology and genomic analysis"
+
+browser-automation:
+  description: "Automated browser testing and scripting"
+
+cocktails:
+  description: "Craft cocktails and mixology"
+
+community:
+  description: "Open source community building and engagement"
+
+cwl:
+  description: "Common Workflow Language standard"
+
+dataset-collections:
+  description: "Galaxy dataset collections for batch processing"
+
+demo:
+  description: "Demonstration and example content"
+
+developer-experience:
+  description: "Tools and practices that improve developer productivity"
+
+documentation:
+  description: "Technical documentation and knowledge sharing"
+
+focus:
+  description: "Productivity and attention management"
+
+food-and-drink:
+  description: "Culinary interests and beverage culture"
+
+funding:
+  description: "Grant funding and financial sustainability"
+
+galaxy:
+  description: "Galaxy Project - open source scientific workflow platform"
+
+governance:
+  description: "Project governance and decision-making structures"
+
+interoperability:
+  description: "Systems working together across boundaries"
+
+legacy:
+  description: "Working with and modernizing legacy codebases"
+
+local:
+  description: "Pittsburgh local knowledge and recommendations"
+
+maintainability:
+  description: "Code maintainability and long-term sustainability"
+
+metadata:
+  description: "Data about data - provenance, annotations, descriptions"
+
+night-life:
+  description: "Nightlife, entertainment, and going out"
+
+open-source:
+  description: "Open source software development and community"
+
+pittsburgh:
+  description: "Pittsburgh, Pennsylvania"
+
+planemo:
+  description: "Command-line tool development utilities for Galaxy"
+
+playwright:
+  description: "Playwright browser automation framework"
+
+pragmatism:
+  description: "Practical approaches over theoretical purity"
+
+productivity:
+  description: "Getting things done effectively"
+
+python:
+  description: "Python programming language"
+
+research:
+  description: "Scientific research and methodology"
+
+sample:
+  description: "Sample or placeholder content"
+
+scale:
+  description: "Scaling systems to handle growth"
+
+selenium:
+  description: "Selenium browser automation framework"
+
+standards:
+  description: "Technical standards and specifications"
+
+sustainability:
+  description: "Long-term project and organizational sustainability"
+
+testing:
+  description: "Software testing strategies and practices"
+
+tool-development:
+  description: "Building tools for Galaxy and other platforms"
+
+ui:
+  description: "User interface design and implementation"
+
+usability:
+  description: "Making software easier to use"
+
+web:
+  description: "Web technologies and development"
+
+workflows:
+  description: "Computational workflows and pipeline automation"

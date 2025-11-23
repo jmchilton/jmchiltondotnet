@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TerminalPrompt from '../components/TerminalPrompt.astro';
+import TagBadge from '../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 // Get featured problems (or all if none featured, limit to 3)
@@ -51,7 +52,7 @@ const displayProblems = (featuredProblems.length > 0 ? featuredProblems : allPro
               <p class="mb-3 text-terminal-text-secondary">{problem.data.description}</p>
               <div class="flex flex-wrap gap-2">
                 {problem.data.tags.map((tag) => (
-                  <span class="terminal-badge">{tag}</span>
+                  <TagBadge tag={tag} />
                 ))}
               </div>
             </article>

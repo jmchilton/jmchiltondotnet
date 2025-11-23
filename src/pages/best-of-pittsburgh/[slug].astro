@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -66,7 +67,7 @@ const color = categoryColors[award.data.category] || categoryColors.default;
         </div>
 
         <div class="mt-8 flex flex-wrap gap-2">
-          {award.data.tags.map((tag) => <span class="terminal-badge">{tag}</span>)}
+          {award.data.tags.map((tag) => <TagBadge tag={tag} />)}
         </div>
       </TerminalPrompt>
     </section>

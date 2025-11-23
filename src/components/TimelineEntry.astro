@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { ENTRY_TYPE_CONFIG } from '../types';
+import TagBadge from './TagBadge.astro';
 
 interface Props {
   entry: CollectionEntry<'timeline'>;
@@ -38,11 +39,7 @@ const typeConfig = ENTRY_TYPE_CONFIG[entry.data.type];
 
   {/* Tags */}
   <div class="mb-3 flex flex-wrap gap-2">
-    {
-      entry.data.tags.map((tag) => (
-        <span class="terminal-badge text-terminal-text-muted">{tag}</span>
-      ))
-    }
+    {entry.data.tags.map((tag) => <TagBadge tag={tag} />)}
   </div>
 
   {/* External link */}

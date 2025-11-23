@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 // Get all problems, sorted by start date (oldest first - longest-running problems)
@@ -57,7 +58,7 @@ const sortedProblems = allProblems.sort(
             <p class="mb-3 text-terminal-text-secondary">{problem.data.description}</p>
             <div class="flex flex-wrap gap-2">
               {problem.data.tags.map((tag) => (
-                <span class="terminal-badge">{tag}</span>
+                <TagBadge tag={tag} />
               ))}
             </div>
           </article>

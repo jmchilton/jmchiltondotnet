@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import { getCollection } from 'astro:content';
 
 const allAwards = await getCollection('awards');
@@ -82,7 +83,7 @@ const categoryColors: Record<string, string> = {
                         </p>
                         <div class="flex flex-wrap gap-2">
                           {award.data.tags.map((tag) => (
-                            <span class="terminal-badge">{tag}</span>
+                            <TagBadge tag={tag} />
                           ))}
                         </div>
                       </article>

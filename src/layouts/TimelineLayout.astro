@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import TerminalPrompt from '../components/TerminalPrompt.astro';
+import TagBadge from '../components/TagBadge.astro';
 import { ENTRY_TYPE_CONFIG } from '../types';
 import type { CollectionEntry } from 'astro:content';
 
@@ -58,7 +59,7 @@ const typeConfig = ENTRY_TYPE_CONFIG[type];
 
       {/* Tags */}
       <div class="mb-4 flex flex-wrap gap-2">
-        {tags.map((tag) => <span class="terminal-badge text-terminal-text-muted">{tag}</span>)}
+        {tags.map((tag) => <TagBadge tag={tag} />)}
       </div>
 
       {/* External link */}

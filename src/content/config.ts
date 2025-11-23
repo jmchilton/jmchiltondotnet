@@ -1,4 +1,14 @@
 import { defineCollection, z } from 'astro:content';
+import { getAllowedTags } from '../utils/tags';
+
+const allowedTags = getAllowedTags();
+
+const tagsSchema = z.array(z.string()).refine(
+  (tags) => tags.every((tag) => allowedTags.includes(tag)),
+  (tags) => ({
+    message: `Invalid tags: ${tags.filter((t) => !allowedTags.includes(t)).join(', ')}. Add them to src/data/tags.yaml.`,
+  })
+);
 
 const timelineCollection = defineCollection({
   type: 'content',
@@ -8,7 +18,7 @@ const timelineCollection = defineCollection({
     type: z.enum(['pr', 'paper', 'poster', 'presentation', 'project']),
     description: z.string(),
     link: z.string().url(),
-    tags: z.array(z.string()),
+    tags: tagsSchema,
     featured: z.boolean().default(false),
   }),
 });
@@ -21,7 +31,7 @@ const awardsCollection = defineCollection({
     winner: z.string(), // Business name
     location: z.string(), // Address or neighborhood
     year: z.number(), // Year of award
-    tags: z.array(z.string()),
+    tags: tagsSchema,
     featured: z.boolean().default(false),
   }),
 });
@@ -31,7 +41,7 @@ const problemsCollection = defineCollection({
   schema: z.object({
     title: z.string(), // The question, e.g., "How can we make workflows reproducible?"
     description: z.string(), // 1-2 sentence hook
-    tags: z.array(z.string()), // Links to timeline entries via shared tags
+    tags: tagsSchema, // Links to timeline entries via shared tags
     started: z.string(), // YYYY-MM when you started thinking about it
     featured: z.boolean().default(false),
   }),

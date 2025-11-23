@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TerminalPrompt from '../../components/TerminalPrompt.astro';
 import TimelineEntry from '../../components/TimelineEntry.astro';
+import TagBadge from '../../components/TagBadge.astro';
 import '../../components/MDXComponents.astro';
 
 // Generate static paths for all problems
@@ -67,7 +68,7 @@ const relatedWork = allTimelineEntries
 
       {/* Tags */}
       <div class="flex flex-wrap gap-2">
-        {tags.map((tag) => <span class="terminal-badge text-terminal-text-muted">{tag}</span>)}
+        {tags.map((tag) => <TagBadge tag={tag} />)}
       </div>
     </div>
 

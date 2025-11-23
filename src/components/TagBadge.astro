@@ -1,0 +1,12 @@
+---
+import { getTagDescription } from '../utils/tags';
+
+interface Props {
+  tag: string;
+}
+
+const { tag } = Astro.props;
+const description = getTagDescription(tag);
+---
+
+<span class="terminal-badge" title={description}>{tag}</span>
