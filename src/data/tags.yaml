@@ -22,6 +22,9 @@ bioinformatics:
 browser-automation:
   description: "Automated browser testing and scripting"
 
+cocktail-menu:
+  description: "Cocktail menus from past parties and events"
+
 cocktails:
   description: "Craft cocktails and mixology"
 

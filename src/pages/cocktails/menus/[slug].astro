@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../../components/TerminalPrompt.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const menus = await getCollection('cocktail-menus');
+  return menus.map((menu) => ({
+    params: { slug: menu.slug },
+    props: { menu },
+  }));
+}
+
+const { menu } = Astro.props;
+const { Content } = await menu.render();
+---
+
+<BaseLayout title={menu.data.title} description={menu.data.occasion}>
+  <div class="mb-6">
+    <a
+      href="/cocktails/menus"
+      class="inline-flex items-center gap-1 font-mono text-terminal-sm text-terminal-blue hover:underline"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Back to menus
+    </a>
+  </div>
+
+  <TerminalPrompt command={`cat cocktails/menus/${menu.slug}.mdx`}>
+    {/* Menu header */}
+    <div class="mb-8 border-b border-terminal-border pb-6">
+      <h1 class="mb-3 font-mono text-3xl font-bold text-terminal-text md:text-4xl">
+        {menu.data.title}
+      </h1>
+
+      <div class="mb-4 flex flex-wrap items-center gap-4">
+        <span class="font-mono text-terminal-sm text-terminal-text-muted">
+          {menu.data.occasion}
+        </span>
+        <span class="font-mono text-terminal-sm text-terminal-text-muted">
+          {menu.data.date}
+        </span>
+      </div>
+    </div>
+
+    {/* Menu content */}
+    <div class="mdx-content">
+      <Content />
+    </div>
+  </TerminalPrompt>
+
+  {/* Footer navigation */}
+  <div class="mt-8 border-t border-terminal-border pt-6">
+    <a
+      href="/cocktails/menus"
+      class="inline-flex items-center gap-1 font-mono text-terminal-sm text-terminal-blue hover:underline"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Back to menus
+    </a>
+  </div>
+</BaseLayout>

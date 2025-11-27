@@ -22,114 +22,18 @@ import TerminalPrompt from '../components/TerminalPrompt.astro';
     </TerminalPrompt>
   </section>
 
-  <section class="mb-12">
+  <section>
     <TerminalPrompt command="ls -la cocktails/menus/">
       <div class="space-y-6">
-        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Menus</h2>
+        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Party Menus</h2>
 
-        <p class="text-terminal-text-muted italic">Coming soon...</p>
+        <p class="mb-6 text-terminal-text-secondary">
+          Themed cocktail menus from gatherings I've hosted.
+        </p>
 
-        <div class="terminal-card border-dashed">
-          <p class="font-mono text-terminal-sm text-terminal-text-secondary">
-            # TODO: Add cocktail menus here
-            <br />
-            # Themed party menus, seasonal specials, etc.
-          </p>
-        </div>
-      </div>
-    </TerminalPrompt>
-  </section>
-
-  <section class="mb-12">
-    <TerminalPrompt command="cat cocktails/favorites.txt">
-      <div class="space-y-6">
-        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Favorite Classics</h2>
-
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-purple">Negroni</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Equal parts gin, Campari, and sweet vermouth. Perfect balance of bitter and sweet.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">bitter</span>
-              <span class="terminal-badge">stirred</span>
-            </div>
-          </div>
-
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-green">Last Word</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Equal parts gin, green Chartreuse, maraschino, and lime. Prohibition-era gem.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">herbal</span>
-              <span class="terminal-badge">shaken</span>
-            </div>
-          </div>
-
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-yellow">Paper Plane</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Equal parts bourbon, Aperol, Amaro Nonino, and lemon. Modern classic.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">citrus</span>
-              <span class="terminal-badge">shaken</span>
-            </div>
-          </div>
-
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-blue">Manhattan</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Rye whiskey, sweet vermouth, Angostura bitters. The king of cocktails.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">spirit-forward</span>
-              <span class="terminal-badge">stirred</span>
-            </div>
-          </div>
-
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-red">Boulevardier</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Bourbon, Campari, sweet vermouth. A whiskey drinker's Negroni.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">bitter</span>
-              <span class="terminal-badge">stirred</span>
-            </div>
-          </div>
-
-          <div class="terminal-card">
-            <h3 class="mb-2 font-mono text-lg font-semibold text-terminal-purple">Jungle Bird</h3>
-            <p class="mb-3 text-terminal-sm text-terminal-text-secondary">
-              Dark rum, Campari, pineapple, lime, simple syrup. Tiki meets bitter.
-            </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="terminal-badge">tropical</span>
-              <span class="terminal-badge">shaken</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </TerminalPrompt>
-  </section>
-
-  <section>
-    <TerminalPrompt command="cat cocktails/tips.md">
-      <div class="space-y-6">
-        <h2 class="font-mono text-2xl font-semibold text-terminal-text">Quick Tips</h2>
-
-        <div class="prose prose-terminal max-w-none text-terminal-text-secondary">
-          <ul class="list-inside list-disc space-y-2">
-            <li>Always use fresh citrus - never bottled juice</li>
-            <li>Chill your glassware before serving</li>
-            <li>Stir spirit-forward drinks, shake anything with citrus or dairy</li>
-            <li>Good ice matters - large cubes for stirring, smaller for shaking</li>
-            <li>Taste your cocktail before serving - adjust balance as needed</li>
-          </ul>
-        </div>
+        <a href="/cocktails/menus" class="terminal-button-primary inline-block">
+          View all menus →
+        </a>
       </div>
     </TerminalPrompt>
   </section>

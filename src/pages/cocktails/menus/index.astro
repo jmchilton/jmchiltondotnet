@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../../components/TerminalPrompt.astro';
+import { getCollection } from 'astro:content';
+
+const menus = await getCollection('cocktail-menus');
+const sortedMenus = menus.sort((a, b) => (b.data.date || '').localeCompare(a.data.date || ''));
+---
+
+<BaseLayout title="Cocktail Menus" description="Cocktail menus from past parties and events">
+  <section class="mb-12">
+    <TerminalPrompt command="ls -la cocktails/menus/">
+      <div class="space-y-6">
+        <h1 class="font-mono text-3xl font-bold text-terminal-text">Cocktail Menus</h1>
+
+        <div class="prose prose-terminal max-w-none">
+          <p class="text-lg leading-relaxed text-terminal-text-secondary">
+            Menus from cocktail parties and events I've hosted over the years.
+          </p>
+        </div>
+      </div>
+    </TerminalPrompt>
+  </section>
+
+  {
+    sortedMenus.length === 0 ? (
+      <section class="mb-12">
+        <TerminalPrompt command="cat cocktails/menus/README">
+          <p class="text-terminal-text-muted italic">No menus yet. Check back soon!</p>
+        </TerminalPrompt>
+      </section>
+    ) : (
+      <section class="mb-12">
+        <TerminalPrompt command="cat cocktails/menus.txt">
+          <div class="space-y-4">
+            {sortedMenus.map((menu) => (
+              <article class="terminal-card">
+                <div class="mb-2 flex items-center justify-between">
+                  <h2 class="mb-0 font-mono text-lg font-semibold">
+                    <a href={`/cocktails/menus/${menu.slug}`} class="terminal-link">
+                      {menu.data.title}
+                    </a>
+                  </h2>
+                  <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                    {menu.data.date}
+                  </span>
+                </div>
+                <p class="mb-2 font-mono text-terminal-sm text-terminal-text-muted">
+                  {menu.data.occasion}
+                </p>
+              </article>
+            ))}
+          </div>
+        </TerminalPrompt>
+      </section>
+    )
+  }
+
+  <div class="mt-8 border-t border-terminal-border pt-6">
+    <a
+      href="/cocktails"
+      class="inline-flex items-center gap-1 font-mono text-terminal-sm text-terminal-blue hover:underline"
+    >
+      <svg
+        class="h-4 w-4"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"
+        ></path>
+      </svg>
+      Back to cocktails
+    </a>
+  </div>
+</BaseLayout>

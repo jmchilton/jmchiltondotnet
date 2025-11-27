@@ -47,8 +47,19 @@ const problemsCollection = defineCollection({
   }),
 });
 
+const cocktailMenusCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(), // e.g., "Christina's 31st - Spider Themed"
+    date: z.string(), // YYYY-MM or YYYY-MM-DD
+    occasion: z.string(), // e.g., "Birthday", "Halloween Party"
+    tags: tagsSchema,
+  }),
+});
+
 export const collections = {
   timeline: timelineCollection,
   awards: awardsCollection,
   problems: problemsCollection,
+  'cocktail-menus': cocktailMenusCollection,
 };
