@@ -1,6 +1,33 @@
+/* GitHub Markdown styling for cocktail menus */
+@import 'github-markdown-css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  /* Override github-markdown-css list-style-type: none */
+  .markdown-body ul {
+    list-style-type: disc !important;
+  }
+
+  .markdown-body ul ul {
+    list-style-type: circle !important;
+  }
+
+  .markdown-body ul ul ul {
+    list-style-type: square !important;
+  }
+
+  .markdown-body ol {
+    list-style-type: decimal !important;
+  }
+
+  .markdown-body li {
+    display: list-item !important;
+    list-style-type: inherit !important;
+  }
+}
 
 @layer base {
   body {

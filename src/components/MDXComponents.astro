@@ -45,20 +45,20 @@
     @apply transition-all duration-150;
   }
 
-  /* Lists */
-  .mdx-content ul {
+  /* Lists - but NOT for markdown-body (github-markdown-css handles those) */
+  .mdx-content:not(.markdown-body) ul {
     @apply mb-4 list-disc space-y-2 pl-6 text-terminal-text;
   }
 
-  .mdx-content ol {
+  .mdx-content:not(.markdown-body) ol {
     @apply mb-4 list-decimal space-y-2 pl-6 text-terminal-text;
   }
 
-  .mdx-content li {
+  .mdx-content:not(.markdown-body) li {
     @apply leading-relaxed;
   }
 
-  .mdx-content li > p {
+  .mdx-content:not(.markdown-body) li > p {
     @apply mb-2;
   }
 
@@ -138,5 +138,10 @@
   /* Footnotes */
   .mdx-content .footnotes {
     @apply mt-8 border-t border-terminal-border pt-4 text-terminal-sm text-terminal-text-secondary;
+  }
+
+  /* Force light theme for github-markdown-css */
+  .markdown-body {
+    color-scheme: light;
   }
 </style>
