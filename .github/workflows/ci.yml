@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          submodules: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -26,27 +24,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install LaTeX
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
 
-      - name: Build CV and Resume PDFs
+      - name: Install RenderCV
         run: |
-          cd cv
-          # Build resume (IS_RESUME=true)
-          mkdir -p build/resume
-          sed 's/IS_RESUME/true/' source.tex > build/resume/source.tex
-          cp res.cls build/resume/
-          cd build/resume && pdflatex source.tex && pdflatex source.tex && cd ../..
-          # Build CV (IS_RESUME=false)
-          mkdir -p build/cv
-          sed 's/IS_RESUME/false/' source.tex > build/cv/source.tex
-          cp res.cls build/cv/
-          cd build/cv && pdflatex source.tex && pdflatex source.tex && cd ../..
-          # Copy to public
-          cp build/resume/source.pdf ../public/resume.pdf
-          cp build/cv/source.pdf ../public/cv.pdf
+          python3 -m pip install --upgrade pip
+          pip install "rendercv[full]"
 
       - name: Check formatting
         run: npm run format:check
