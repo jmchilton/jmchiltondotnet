@@ -1,0 +1,613 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.3/schema.json
+cv:
+  name: John Chilton
+  location: Columbia Heights, MN
+  email: jmchilton@gmail.com
+  phone: +1-612-226-9223
+  website: https://jmchilton.net
+  social_networks:
+    - network: GitHub
+      username: jmchilton
+    - network: ORCID
+      username: 0000-0002-6794-0756
+      include_in: cv
+
+  sections:
+    Education:
+      include_in: both
+      entries:
+        - institution: University of Minnesota
+          area: Computer Science
+          degree: M.S.
+          start_date: 2005-09
+          end_date: 2007-05
+          location: Minneapolis, MN, USA
+          include_in: both
+          priority: 1
+          highlights:
+            - "GPA: 4.00/4.00"
+
+        - institution: University of Minnesota
+          area: Computer Science
+          degree: B.S.
+          start_date: 2001-09
+          end_date: 2005-05
+          location: Minneapolis, MN, USA
+          include_in: both
+          priority: 2
+          highlights:
+            - "GPA: 3.99/4.00, Graduated with High Distinction"
+            - "Minors: Mathematics and Statistics"
+
+    Experience:
+      include_in: both
+      entries:
+        - company: Pennsylvania State University
+          position: Research Associate
+          location: University Park, PA, USA
+          start_date: 2013-01
+          end_date: present
+          include_in: both
+          priority: 1
+          highlights_resume:
+            - Software developer on the Galaxy Project - popular web-based platform for bioinformatics
+          highlights_cv:
+            - Software developer on the Galaxy Project - a popular web-based platform for bioinformatics
+            - Lead development of workflow engine features and tool integration framework
+            - Contributed to multiple peer-reviewed publications on Galaxy infrastructure
+
+        - company: University of Minnesota
+          position: Senior Software Developer
+          location: Minneapolis, MN, USA
+          start_date: 2012-01
+          end_date: 2013-01
+          include_in: both
+          priority: 2
+          highlights_resume:
+            - Built Web Services infrastructure for UofM-Mayo Clinic collaboration (TROPIX project)
+            - Developed workflow engine, analytical services, and GWT frontend
+            - Deployed OpenStack cloud platform with Puppet infrastructure
+          highlights_cv:
+            - Built Web Services infrastructure enabling collaboration between University of Minnesota and Mayo Clinic (TROPIX project)
+            - Developed file and metadata store, analytical services, workflow engine, and Google Web Toolkit frontend
+            - Created secure distributed system for sharing clinical data with Groovy on Grails frontend
+            - Enabled secure job submissions to Windows clusters via ASP.NET Web Services (C#)
+            - Deployed and extended Galaxy, an open source Python framework for genomics research
+            - Developed complex Puppet infrastructure for deploying OpenStack cloud platform
+
+        - company: University of Minnesota
+          position: Software Developer
+          location: Minneapolis, MN, USA
+          start_date: 2007-01
+          end_date: 2012-01
+          include_in: cv
+          priority: 3
+          highlights:
+            - Involved in every stage of software life cycle for several successful projects
+            - TROPIX project collaboration with Mayo Clinic for bioinformatics research
+            - Built Web Services, workflow engines, and cloud deployment systems
+
+        - company: University of Minnesota
+          position: Teaching Assistant
+          location: Minneapolis, MN, USA
+          start_date: 2003-09
+          end_date: 2007-06
+          include_in: cv
+          priority: 8
+          highlights:
+            - Grading, office hours, assignment design
+            - Leading discussions and lecturing in computer lab and classroom settings
+            - Taught groups ranging from 3 to 120 students
+
+        - company: University of Minnesota
+          position: Research Assistant - Robotics
+          location: Minneapolis, MN, USA
+          start_date: 2005-09
+          end_date: 2006-09
+          include_in: cv
+          priority: 9
+          highlights:
+            - Member of Multiple Autonomous Robotic Systems laboratory
+            - Worked on NASA grant to develop C++ application for mobile robot localization and mapping
+
+        - company: University of Minnesota
+          position: Research Assistant - College Education
+          location: Minneapolis, MN, USA
+          start_date: 2005-01
+          end_date: 2007-01
+          include_in: cv
+          priority: 10
+          highlights:
+            - Investigated methods of promoting student learning in large college classes
+
+        - company: University of Minnesota
+          position: Bioinformatics Institute Summer Intern
+          location: Minneapolis, MN, USA
+          start_date: 2004-06
+          end_date: 2004-08
+          include_in: cv
+          priority: 11
+          highlights:
+            - Developed program for statistical analysis of gene expression microarray data
+
+    Skills:
+      include_in: both
+      resume_limit: 8
+      entries:
+        - label: Languages
+          details: Java, Python, Ruby, JavaScript, C, C++, Scheme, Groovy, Bash
+          priority: 1
+
+        - label: Python Frameworks
+          details: Django, Galaxy, Fabric, libcloud, virtualenv
+          priority: 2
+
+        - label: Java Frameworks
+          details: Hibernate, JPA, Spring, Spring Security, GWT, Jenkins, CXF, Selenium, TestNG, JUnit
+          priority: 3
+
+        - label: Ruby Frameworks
+          details: Rails, Puppet, RSpec, Capybara
+          priority: 4
+
+        - label: Web Technologies
+          details: HTML, CSS, jQuery, jQuery UI, CoffeeScript, Sass
+          priority: 5
+
+        - label: Databases
+          details: MySQL, PostgreSQL, Oracle, Microsoft SQL Server
+          priority: 6
+
+        - label: System Administration
+          details: OpenStack, Apache, Tomcat, iptables, nagios, collectl
+          priority: 7
+
+        - label: Version Control
+          details: Git, Mercurial, Subversion
+          priority: 8
+
+        - label: Other Languages
+          details: PHP, Clojure, Matlab, Haskell, R, LaTeX
+          priority: 9
+          include_in: cv
+
+        - label: Operating Systems
+          details: Linux (Ubuntu, Debian, CentOS), Windows
+          priority: 10
+          include_in: cv
+
+        - label: Certifications
+          details: Sun Certified Java Programmer
+          priority: 11
+          include_in: cv
+
+    Awards:
+      include_in: both
+      resume_limit: 3
+      entries:
+        - name: Wallin Scholarship
+          date: 2006
+          location: University of Minnesota
+          priority: 1
+
+        - name: Lando Scholarship
+          date: 2005
+          location: University of Minnesota
+          priority: 2
+
+        - name: Institute of Technology Teaching Assistant of the Year Award
+          date: 2005
+          location: University of Minnesota
+          priority: 3
+          highlights:
+            - Awarded to top three IT teaching assistants as voted by students
+
+        - name: Academic Excellence Fellowship
+          date: Various
+          location: UMN Department of Computer Science and Engineering
+          priority: 4
+          include_in: cv
+
+    Publications:
+      include_in: cv
+      entries:
+        - title: "The Galaxy platform for accessible, reproducible, and collaborative data analyses: 2024 update"
+          authors:
+            - The Galaxy Community
+          doi: 10.1093/nar/gkae410
+          journal: Nucleic Acids Research
+          date: 2024-07
+
+        - title: "The Planemo toolkit for developing, deploying, and executing scientific data analyses in Galaxy and beyond"
+          authors:
+            - Simon Bray
+            - John Chilton
+            - Matthias Bernt
+            - Nicola Soranzo
+            - Marius van den Beek
+            - Bérénice Batut
+            - Helena Rasche
+            - Martin Čech
+            - Peter J.A. Cock
+            - Björn Grüning
+            - Anton Nekrutenko
+          doi: 10.1101/gr.276963.122
+          journal: Genome Research
+          date: 2023-02
+
+        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2022 update"
+          authors:
+            - The Galaxy Community
+          doi: 10.1093/nar/gkac247
+          journal: Nucleic Acids Research
+          date: 2022-07
+
+        - title: "GalaxyCloudRunner: enhancing scalable computing for Galaxy"
+          authors:
+            - Nuwan Goonasekera
+            - Alexandru Mahmoud
+            - John Chilton
+            - Enis Afgan
+          doi: 10.1093/bioinformatics/btaa860
+          journal: Bioinformatics
+          date: 2021-01
+
+        - title: "No more business as usual: Agile and effective responses to emerging pathogen threats require open data and open analytics"
+          authors:
+            - The Galaxy Community
+          doi: 10.1371/journal.ppat.1008643
+          journal: PLOS Pathogens
+          date: 2020-08
+
+        - title: "Galaxy External Display Applications: closing a dataflow interoperability loop"
+          authors:
+            - Daniel Blankenberg
+            - John Chilton
+            - Nate Coraor
+          doi: 10.1038/s41592-019-0727-x
+          journal: Nature Methods
+          date: 2020-02
+
+        - title: "Reproducible biomedical benchmarking in the cloud: lessons from crowd-sourced data challenges"
+          authors:
+            - Kyle Ellrott
+            - Alex Buchanan
+            - Allison Creason
+            - Michael Mason
+            - Thomas Schaffter
+            - Bruce Hoff
+            - James Eddy
+            - John M. Chilton
+            - Thomas Yu
+            - Joshua M. Stuart
+            - Julio Saez-Rodriguez
+            - Gustavo Stolovitzky
+            - Paul C. Boutros
+            - Justin Guinney
+          doi: 10.1186/s13059-019-1794-0
+          journal: Genome Biology
+          date: 2019-09
+
+        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2018 update"
+          authors:
+            - The Galaxy Community
+          doi: 10.1093/nar/gky379
+          journal: Nucleic Acids Research
+          date: 2018-07
+
+        - title: "Community-Driven Data Analysis Training for Biology"
+          authors:
+            - Bérénice Batut
+            - Saskia Hiltemann
+            - Andrea Bagnacani
+            - Dannon Baker
+            - Vivek Bhardwaj
+            - Clemens Blank
+            - Anthony Bretaudeau
+            - Loraine Brillet-Guéguen
+            - Martin Čech
+            - John Chilton
+            - Dave Clements
+            - Olivia Doppelt-Azeroual
+            - Anika Erxleben
+            - Mallory Ann Freeberg
+            - Simon Gladman
+            - Youri Hoogstrate
+            - Hans-Rudolf Hotz
+            - Torsten Houwaart
+            - Pratik Jagtap
+            - Delphine Larivière
+            - Gildas Le Corguillé
+            - Thomas Manke
+            - Fabien Mareuil
+            - Fidel Ramírez
+            - Devon Ryan
+            - Florian Christoph Sigloch
+            - Nicola Soranzo
+            - Joachim Wolff
+            - Pavankumar Videm
+            - Markus Wolfien
+            - Aisanjiang Wubuli
+            - Dilmurat Yusuf
+            - James Taylor
+            - Rolf Backofen
+            - Anton Nekrutenko
+            - Björn Grüning
+          doi: 10.1016/j.cels.2018.05.012
+          journal: Cell Systems
+          date: 2018-06
+
+        - title: "Practical Computational Reproducibility in the Life Sciences"
+          authors:
+            - Björn Grüning
+            - John Chilton
+            - Johannes Köster
+            - Ryan Dale
+            - Nicola Soranzo
+            - Marius van den Beek
+            - Jeremy Goecks
+            - Rolf Backofen
+            - Anton Nekrutenko
+            - James Taylor
+          doi: 10.1016/j.cels.2018.03.014
+          journal: Cell Systems
+          date: 2018-04
+
+        - title: "Jupyter and Galaxy: Easing entry barriers into complex data analyses for biomedical researchers"
+          authors:
+            - Björn A. Grüning
+            - Eric Rasche
+            - Boris Rebolledo-Jaramillo
+            - Carl Eberhard
+            - Torsten Houwaart
+            - John Chilton
+            - Nate Coraor
+            - Rolf Backofen
+            - James Taylor
+            - Anton Nekrutenko
+          doi: 10.1371/journal.pcbi.1005425
+          journal: PLOS Computational Biology
+          date: 2017-05
+
+        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2016 update"
+          authors:
+            - Enis Afgan
+            - Dannon Baker
+            - Marius van den Beek
+            - Daniel Blankenberg
+            - Dave Bouvier
+            - Martin Čech
+            - John Chilton
+            - Dave Clements
+            - Nate Coraor
+            - Carl Eberhard
+            - Björn Grüning
+            - Aysam Guerler
+            - Jennifer Hillman-Jackson
+            - Greg Von Kuster
+            - Eric Rasche
+            - Nicola Soranzo
+            - Nitesh Turaga
+            - James Taylor
+            - Anton Nekrutenko
+            - Jeremy Goecks
+          doi: 10.1093/nar/gkw343
+          journal: Nucleic Acids Research
+          date: 2016-07
+
+        - title: "NCBI BLAST+ integrated into Galaxy"
+          authors:
+            - Peter J. A. Cock
+            - John M. Chilton
+            - Björn Grüning
+            - James E. Johnson
+            - Nicola Soranzo
+          doi: 10.1186/s13742-015-0080-7
+          journal: GigaScience
+          date: 2015-10
+
+        - title: Multi-omic data analysis using Galaxy
+          authors:
+            - Jorrit Boekel
+            - John Chilton
+            - Ira R Cooke
+            - Peter L Horvatovich
+            - Pratik D Jagtap
+            - Lukas Kall
+            - Janne Lehtio
+            - Pieter Lukasse
+            - Perry D Moerland
+            - Timothy J Griffin
+          doi: 10.1038/nbt.3134
+          journal: Nature Biotechnology
+          date: 2015-02
+
+        - title: "Community-driven development for computational biology at Sprints, Hackathons and Codefests"
+          authors:
+            - Steffen Möller, et al
+          doi: 10.1186/1471-2105-15-S14-S7
+          journal: BMC Bioinformatics
+          date: 2014-12
+
+        - title: "Implementation of Cloud based next generation sequencing data analysis in a clinical laboratory"
+          authors:
+            - Getiria Onsongo
+            - Jesse Erdmann
+            - Michael D Spears
+            - John Chilton
+            - Kenneth B Beckman
+            - Adam Hauge
+            - Sophia Yohe
+            - Matthew Schomaker
+            - Matthew Bower
+            - Kevin A T Silverstein
+            - Bharat Thyagarajan
+          doi: 10.1186/1756-0500-7-314
+          journal: BMC Research Notes
+          date: 2014-05
+
+        - title: "CLIA-certified next-generation sequencing analysis in the cloud"
+          authors:
+            - The Whole Galaxy Team at MSI
+            - Ying Zhang
+            - Jesse Erdmann
+            - John Chilton
+            - Getiria Onsongo
+            - Matthew Bower
+            - Kenny Beckman
+            - Bharat Thyagarajan
+            - Kevin Silverstein
+            - Anne-Francoise Lamblin
+          doi: 10.1186/1753-6561-6-S6-P54
+          journal: BMC Proceedings
+          date: 2012-08
+
+        - title: "Workflow for analysis of high mass accuracy salivary dataset using MaxQuant and ProteinPilot search algorithm"
+          authors:
+            - Pratik Jagtap
+            - Sricharan Bandhakavi
+            - LeeAnn Higgins
+            - Thomas McGowan
+            - Rongxiao Sa
+            - Matthew Stone
+            - John Chilton
+            - Edgar Arriaga
+            - Sean Seymour
+            - Tim Griffin
+          journal: Proteomics
+          date: 2012-06
+
+        - title: "Minnesota Congenital Heart Network: Construction and Implementation of an Interoperable Standards-Based Information Model"
+          authors:
+            - Robert R. Freimuth
+            - Michael Meiners
+            - John Chilton
+            - Jim Johnson
+            - Benjamin Lynch
+            - Genevieve Melton
+            - Sheri Crow
+          journal: AMIA 2010 Annual Symposium
+          date: 2010-10
+
+        - title: "LTQ-iQuant: A freely available software pipeline for automated and accurate protein quantification of isobaric tagged peptide data from LTQ instruments"
+          authors:
+            - Getiria Onsongo
+            - Matthew Stone
+            - Susan Van Riper
+            - John Chilton
+            - B. Wu
+            - LeeAnn Higgins
+            - T. Lund
+            - John Carlis
+            - Tim Griffin
+          doi: 10.1002/pmic.201000189
+          journal: Proteomics
+          date: 2010-08
+
+    Presentations:
+      include_in: cv
+      entries:
+        - date: 2014-11
+          title: Rapidly Bringing Software to Biologists with Galaxy and Docker
+          authors:
+            - John Chilton
+            - Björn Grüning
+            - Eric Rasche
+            - the Galaxy Team
+          journal: Biological Data Science, Cold Spring Harbor, NY
+
+        - date: 2014-07
+          title: Building More Powerful Galaxy Workflows with Dataset Collections
+          authors:
+            - John Chilton
+            - the Galaxy Team
+          journal: 2014 Galaxy Community Conference, Baltimore, MD
+
+        - date: 2013-07
+          title: Galaxy as an Extensible Job Execution Platform
+          authors:
+            - John Chilton
+            - the Galaxy Team
+          journal: 15th Annual Bioinformatics Open Source Conference, Boston, MA
+
+        - date: 2013-07
+          title: Open Source Configuration of Bioinformatics Infrastructure
+          authors:
+            - John Chilton
+            - Pratik Jagtap
+            - Benjamin Lynch
+            - Brad Chapman
+            - Timothy Griffin
+          journal: 14th Annual Bioinformatics Open Source Conference, Berlin, Germany
+
+        - date: 2013-07
+          title: "Innovative, Reproducible MS-based Proteomic Informatics in the Cloud for Emerging Applications with Galaxy-P and CloudBioLinux"
+          authors:
+            - John Chilton
+            - James Johnson
+            - Ebbing de Jong
+            - Getiria Onsongo
+            - Benjamin J. Lynch
+            - Pratik D. Jagtap
+            - Timothy J Griffin
+          journal: 2nd Mass Spectrometry Special Interest Group (MS-SIG), Berlin, Germany
+
+        - date: 2013-07
+          title: "Galaxy-P: Beyond Proteomics"
+          authors:
+            - John Chilton
+            - James Johnson
+            - Getiria Onsongo
+            - Ebbing de Jong
+            - Pratik Jagtap
+            - Timothy Griffin
+          journal: 2013 Galaxy Community Conference, Oslo, Norway
+
+        - date: 2007-04
+          title: "Creating Cooperative Competition: Learning Games for the Classroom"
+          authors:
+            - Maria Gini
+            - John Chilton
+            - Murray Jensen
+          journal: Academy of Distinguished Teachers Conference, Minneapolis, MN
+
+        - date: 2007-03
+          title: Using the AIBOs in a CS1 Course
+          authors:
+            - John Chilton
+            - Maria Gini
+          journal: AAAI Spring Symposium - Robots and Robot Venues, Palo Alto, CA
+
+        - date: 2006-11
+          title: "Learning Games: Creating Cooperative Competition"
+          authors:
+            - John Chilton
+            - Maria Gini
+          journal: Collaboration for the Advancement of College Teaching and Learning, Bloomington, MN
+
+    Service:
+      include_in: cv
+      entries:
+        - bullet: "Reviewer for IEEE International Conference on Robotics and Automation (ICRA), 2006"
+        - bullet: "Reviewer for Robotics: Science and Systems (RSS), 2006"
+
+    Activities:
+      include_in: cv
+      entries:
+        - bullet: University of Minnesota ACM Programming Team (2002-2005)
+
+design:
+  theme: classic
+  page:
+    size: us-letter
+    show_page_numbering: false
+    show_last_updated_date: false
+  colors:
+    text: rgb(0, 0, 0)
+    name: rgb(0, 79, 144)
+    connections: rgb(0, 79, 144)
+    section_titles: rgb(0, 79, 144)
+    links: rgb(0, 79, 144)
+
+rendercv_settings:
+  date: '2025-11-29'

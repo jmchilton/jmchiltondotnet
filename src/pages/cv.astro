@@ -1,0 +1,300 @@
+---
+import { readFileSync } from 'fs';
+import { parse } from 'yaml';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TerminalPrompt from '../components/TerminalPrompt.astro';
+
+// Read CV YAML
+const cvYaml = readFileSync('src/data/cv.yaml', 'utf-8');
+const cvData = parse(cvYaml);
+const { cv } = cvData;
+---
+
+<BaseLayout
+  title="Curriculum Vitae"
+  description="John Chilton - Full CV with Publications and Presentations"
+>
+  <section class="mb-8">
+    <TerminalPrompt command="cat cv.yaml">
+      <div class="space-y-8">
+        {/* Header */}
+        <div class="border-b border-terminal-border pb-6">
+          <h1 class="mb-2 font-mono text-4xl font-bold text-terminal-text">
+            {cv.name}
+          </h1>
+          <p class="mb-4 font-mono text-lg text-terminal-green">Curriculum Vitae</p>
+          <div class="flex flex-wrap gap-4 font-mono text-sm text-terminal-text-secondary">
+            <span>{cv.location}</span>
+            <span>•</span>
+            <a href={`mailto:${cv.email}`} class="terminal-link">{cv.email}</a>
+            <span>•</span>
+            <a href={cv.website} class="terminal-link">{cv.website}</a>
+            {
+              cv.social_networks.map((network: any) => (
+                <>
+                  <span>•</span>
+                  <a
+                    href={
+                      network.network === 'ORCID'
+                        ? `https://orcid.org/${network.username}`
+                        : `https://github.com/${network.username}`
+                    }
+                    class="terminal-link"
+                  >
+                    {network.network}: {network.username}
+                  </a>
+                </>
+              ))
+            }
+          </div>
+
+          <div class="mt-6 flex gap-4">
+            <a
+              href="/cv.pdf"
+              class="inline-flex items-center gap-2 rounded-md bg-terminal-green px-4 py-2 font-mono text-sm font-semibold text-white hover:bg-terminal-green-bright transition-colors"
+              download
+            >
+              📑 Download Full CV PDF
+            </a>
+            <a
+              href="/resume"
+              class="inline-flex items-center gap-2 rounded-md border border-terminal-border px-4 py-2 font-mono text-sm font-semibold text-terminal-text hover:bg-terminal-bg-alt transition-colors"
+            >
+              📄 View Short Resume
+            </a>
+          </div>
+        </div>
+
+        {/* Experience Section */}
+        {
+          cv.sections.Experience && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Experience
+              </h2>
+              <div class="space-y-6">
+                {cv.sections.Experience.map((job: any) => (
+                  <div class="terminal-card">
+                    <div class="mb-2 flex flex-wrap items-start justify-between gap-2">
+                      <div>
+                        <h3 class="font-mono text-lg font-semibold text-terminal-text">
+                          {job.position}
+                        </h3>
+                        <p class="font-mono text-sm text-terminal-blue">{job.company}</p>
+                      </div>
+                      <div class="text-right font-mono text-sm text-terminal-text-secondary">
+                        <p>{job.location}</p>
+                        <p>
+                          {job.start_date} - {job.end_date}
+                        </p>
+                      </div>
+                    </div>
+                    {job.highlights && (
+                      <ul class="mt-3 space-y-1 pl-5">
+                        {job.highlights.map((highlight: string) => (
+                          <li class="font-mono text-sm text-terminal-text-secondary list-disc">
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Education Section */}
+        {
+          cv.sections.Education && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Education
+              </h2>
+              <div class="space-y-4">
+                {cv.sections.Education.map((edu: any) => (
+                  <div class="terminal-card">
+                    <div class="flex flex-wrap items-start justify-between gap-2">
+                      <div>
+                        <h3 class="font-mono text-lg font-semibold text-terminal-text">
+                          {edu.degree}, {edu.area}
+                        </h3>
+                        <p class="font-mono text-sm text-terminal-blue">{edu.institution}</p>
+                      </div>
+                      <div class="text-right font-mono text-sm text-terminal-text-secondary">
+                        <p>{edu.location}</p>
+                        <p>
+                          {edu.start_date} - {edu.end_date}
+                        </p>
+                      </div>
+                    </div>
+                    {edu.highlights && (
+                      <ul class="mt-2 space-y-1 pl-5">
+                        {edu.highlights.map((highlight: string) => (
+                          <li class="font-mono text-sm text-terminal-text-secondary list-disc">
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Publications Section */}
+        {
+          cv.sections.Publications && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Publications
+              </h2>
+              <div class="space-y-4">
+                {cv.sections.Publications.map((pub: any) => (
+                  <div class="terminal-card">
+                    <h3 class="font-mono font-semibold text-terminal-text">{pub.title}</h3>
+                    <p class="mt-1 font-mono text-sm text-terminal-text-secondary">
+                      {pub.authors.join(', ')}
+                    </p>
+                    <p class="mt-1 font-mono text-sm text-terminal-blue">
+                      {pub.journal} • {pub.date}
+                      {pub.doi && (
+                        <span>
+                          {' • '}
+                          <a href={`https://doi.org/${pub.doi}`} class="terminal-link">
+                            DOI: {pub.doi}
+                          </a>
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Presentations Section */}
+        {
+          cv.sections.Presentations && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Presentations
+              </h2>
+              <div class="space-y-4">
+                {cv.sections.Presentations.map((pres: any) => (
+                  <div class="terminal-card">
+                    <h3 class="font-mono font-semibold text-terminal-text">{pres.title}</h3>
+                    <p class="mt-1 font-mono text-sm text-terminal-text-secondary">
+                      {pres.authors.join(', ')}
+                    </p>
+                    <p class="mt-1 font-mono text-sm text-terminal-purple">
+                      {pres.journal} • {pres.date}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Skills Section */}
+        {
+          cv.sections.Skills && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Technical Skills
+              </h2>
+              <div class="grid gap-3 sm:grid-cols-2">
+                {cv.sections.Skills.map((skillGroup: any) => (
+                  <div class="terminal-card flex items-start gap-3">
+                    <span class="shrink-0 font-mono text-sm font-semibold text-terminal-blue">
+                      {skillGroup.label}:
+                    </span>
+                    <span class="font-mono text-sm text-terminal-text-secondary">
+                      {skillGroup.details}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Awards Section */}
+        {
+          cv.sections.Awards && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Honors & Awards
+              </h2>
+              <div class="space-y-3">
+                {cv.sections.Awards.map((award: any) => (
+                  <div class="terminal-card">
+                    <div class="flex flex-wrap items-start justify-between gap-2">
+                      <h3 class="font-mono font-semibold text-terminal-text">{award.name}</h3>
+                      <p class="font-mono text-sm text-terminal-text-secondary">{award.date}</p>
+                    </div>
+                    <p class="font-mono text-sm text-terminal-blue">{award.location}</p>
+                    {award.highlights && (
+                      <ul class="mt-2 space-y-1 pl-5">
+                        {award.highlights.map((highlight: string) => (
+                          <li class="font-mono text-sm text-terminal-text-secondary list-disc">
+                            {highlight}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </section>
+          )
+        }
+
+        {/* Service Section */}
+        {
+          cv.sections.Service && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Service
+              </h2>
+              <div class="terminal-card">
+                <ul class="space-y-2 pl-5">
+                  {cv.sections.Service.map((item: any) => (
+                    <li class="font-mono text-sm text-terminal-text-secondary list-disc">
+                      {item.bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )
+        }
+
+        {/* Activities Section */}
+        {
+          cv.sections.Activities && (
+            <section>
+              <h2 class="mb-4 border-b border-terminal-border pb-2 font-mono text-2xl font-bold text-terminal-text">
+                Activities
+              </h2>
+              <div class="terminal-card">
+                <ul class="space-y-2 pl-5">
+                  {cv.sections.Activities.map((item: any) => (
+                    <li class="font-mono text-sm text-terminal-text-secondary list-disc">
+                      {item.bullet}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          )
+        }
+      </div>
+    </TerminalPrompt>
+  </section>
+</BaseLayout>

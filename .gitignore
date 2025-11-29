@@ -2,14 +2,28 @@
 dist/
 cv/build/
 
-# generated PDFs (built from cv submodule)
+# RenderCV outputs
+rendercv_output/
+
+# Generated resume variants (DO NOT COMMIT)
+src/data/resume.yaml
+src/data/cv.yaml
+
+# Source of truth (tracked in git)
+# src/data/resume-main.yaml
+
+# Generated PDFs (built from YAML)
 public/resume.pdf
 public/cv.pdf
+
 # generated types
 .astro/
 
 # dependencies
 node_modules/
+
+# tooling 
+.playwright-mcp/
 
 # logs
 npm-debug.log*
