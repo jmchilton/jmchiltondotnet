@@ -1,0 +1,182 @@
+---
+import '../styles/global.css';
+import 'reveal.js/dist/reveal.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  transition?: string;
+  showControls?: boolean;
+  showProgress?: boolean;
+}
+
+const {
+  title = 'Presentation',
+  description = 'Slide presentation',
+  transition = 'slide',
+  showControls = true,
+  showProgress = true,
+} = Astro.props;
+
+const fullTitle = `${title} | jmchilton.net`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Fonts - match site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Terminal theme matching site aesthetic -->
+    <style is:inline>
+      :root {
+        /* Match tailwind.config.mjs colors */
+        --r-background-color: #ffffff;
+        --r-main-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --r-heading-font: 'JetBrains Mono', 'Courier New', monospace;
+        --r-main-color: #1a1a1a;
+        --r-heading-color: #1a1a1a;
+        --r-link-color: #0066cc;
+        --r-link-color-hover: #0052a3;
+        --r-selection-background-color: #e6f2ff;
+        --r-selection-color: #1a1a1a;
+        --r-code-font: 'JetBrains Mono', 'Courier New', monospace;
+      }
+
+      .reveal {
+        font-size: 36px;
+        font-family: var(--r-main-font);
+      }
+
+      .reveal h1,
+      .reveal h2,
+      .reveal h3,
+      .reveal h4,
+      .reveal h5,
+      .reveal h6 {
+        font-weight: 600;
+        text-transform: none;
+        font-family: var(--r-heading-font);
+        color: var(--r-heading-color);
+        margin: 0 0 1rem 0;
+      }
+
+      .reveal h1 {
+        font-size: 2.5em;
+      }
+      .reveal h2 {
+        font-size: 1.8em;
+      }
+      .reveal h3 {
+        font-size: 1.4em;
+      }
+
+      /* Code blocks - match github-light theme style */
+      .reveal pre {
+        font-size: 0.55em;
+        line-height: 1.4;
+        border: 1px solid #dee2e6;
+        box-shadow: none;
+        margin: 1em 0;
+      }
+
+      .reveal code {
+        font-family: var(--r-code-font);
+        background: #f8f9fa;
+        padding: 0.1em 0.3em;
+        border-radius: 3px;
+      }
+
+      .reveal pre code {
+        padding: 1rem;
+        background: #f8f9fa;
+        display: block;
+        overflow-x: auto;
+      }
+
+      /* Lists */
+      .reveal ul,
+      .reveal ol {
+        margin: 1em 0;
+        text-align: left;
+      }
+
+      .reveal li {
+        margin: 0.5em 0;
+      }
+
+      /* Controls and progress - match terminal blue */
+      .reveal .controls {
+        color: var(--r-link-color);
+      }
+
+      .reveal .progress {
+        background: rgba(0, 0, 0, 0.1);
+        color: var(--r-link-color);
+      }
+
+      /* Slide number */
+      .reveal .slide-number {
+        color: #868e96;
+        font-family: var(--r-code-font);
+        font-size: 0.6em;
+      }
+
+      /* Utility classes for slides */
+      .text-sm {
+        font-size: 0.8em;
+      }
+
+      .opacity-70 {
+        opacity: 0.7;
+      }
+
+      .grid-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <slot />
+      </div>
+    </div>
+
+    <script>
+      import Reveal from 'reveal.js';
+      import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
+      import RevealMarkdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+
+      const showControls = { showControls };
+      const showProgress = { showProgress };
+      const transition = '{transition}';
+
+      Reveal.initialize({
+        hash: true,
+        controls: showControls,
+        progress: showProgress,
+        center: true,
+        transition: transition,
+        slideNumber: 'c/t',
+        plugins: [RevealHighlight, RevealMarkdown],
+      });
+    </script>
+  </body>
+</html>

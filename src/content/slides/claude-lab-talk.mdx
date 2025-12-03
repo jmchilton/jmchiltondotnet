@@ -1,0 +1,148 @@
+---
+title: 'Claude: AI Assistant for Software Development'
+description: 'Lab talk on Claude capabilities, architecture, and applications in research'
+date: '2025-12-04'
+event: 'Lab Talk'
+tags: ['ai', 'developer-experience']
+transition: 'slide'
+showControls: true
+showProgress: true
+---
+
+<section>
+
+# Claude
+
+AI Assistant for Software Development
+
+<div class="text-sm opacity-70">Lab Talk - December 2025</div>
+
+</section>
+
+---
+
+<section>
+
+## What is Claude?
+
+- Large language model by Anthropic
+- Specialized for reasoning and coding tasks
+- Focus on safety and helpfulness
+- Context windows up to 200K tokens
+
+</section>
+
+---
+
+<section>
+
+## Key Capabilities
+
+<div class="grid-2col">
+
+<div>
+
+### Code Generation
+
+- Multi-language support
+- Full context awareness
+- Best practices
+
+</div>
+
+<div>
+
+### Analysis
+
+- Code review
+- Bug detection
+- Refactoring
+
+</div>
+
+</div>
+
+</section>
+
+---
+
+<section>
+
+## Code Example
+
+```python
+def analyze_sequence(dna: str) -> dict:
+    """Analyze DNA sequence composition"""
+    counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
+
+    for base in dna.upper():
+        if base in counts:
+            counts[base] += 1
+
+    return counts
+
+# Usage
+result = analyze_sequence("ATCGATCG")
+```
+
+</section>
+
+---
+
+<section>
+
+## Applications in Research
+
+1. **Literature Review**
+   - Summarize papers
+   - Extract key findings
+   - Identify gaps
+
+2. **Data Analysis**
+   - Write analysis scripts
+   - Generate visualizations
+   - Statistical modeling
+
+3. **Documentation**
+   - Method descriptions
+   - Protocol generation
+   - Paper writing
+
+</section>
+
+---
+
+<section>
+
+## Integration Patterns
+
+```typescript
+// Claude API example
+const response = await anthropic.messages.create({
+  model: 'claude-sonnet-4-5-20250929',
+  max_tokens: 1024,
+  messages: [
+    {
+      role: 'user',
+      content: 'Analyze this dataset...',
+    },
+  ],
+});
+```
+
+</section>
+
+---
+
+<section>
+
+## Questions?
+
+**Contact:** jmchilton@gmail.com
+
+**Resources:**
+
+- https://jmchilton.net
+- https://github.com/jmchilton
+
+</section>

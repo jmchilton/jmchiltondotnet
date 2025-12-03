@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import SlideLayout from '../../layouts/SlideLayout.astro';
+
+export async function getStaticPaths() {
+  const slides = await getCollection('slides');
+  return slides.map((slide) => ({
+    params: { slug: slide.slug },
+    props: { slide },
+  }));
+}
+
+const { slide } = Astro.props;
+const { Content } = await slide.render();
+const { title, description, transition, showControls, showProgress } = slide.data;
+---
+
+<SlideLayout
+  title={title}
+  description={description}
+  transition={transition}
+  showControls={showControls}
+  showProgress={showProgress}
+>
+  <Content />
+</SlideLayout>

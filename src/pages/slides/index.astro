@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TerminalPrompt from '../../components/TerminalPrompt.astro';
+import TagBadge from '../../components/TagBadge.astro';
+
+const allSlides = await getCollection('slides');
+const sortedSlides = allSlides.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+---
+
+<BaseLayout title="Slides" description="Presentation slides and talks">
+  <TerminalPrompt command="ls -l slides/">
+    <div class="mb-6">
+      <h1 class="mb-3 font-mono text-3xl font-bold text-terminal-text">Presentations</h1>
+      <p class="text-lg text-terminal-text-secondary">
+        Slide decks from talks, presentations, and lectures.
+      </p>
+    </div>
+
+    {
+      sortedSlides.length === 0 ? (
+        <p class="text-terminal-text-secondary">No presentations yet.</p>
+      ) : (
+        <div class="space-y-6">
+          {sortedSlides.map((slide) => (
+            <article class="terminal-card">
+              <div class="mb-2 flex items-center gap-3">
+                <span class="font-mono text-terminal-sm text-terminal-text-muted">
+                  {slide.data.date}
+                </span>
+                {slide.data.event && (
+                  <span class="terminal-badge-blue text-xs">{slide.data.event}</span>
+                )}
+              </div>
+
+              <h2 class="mb-2 font-mono text-xl font-semibold">
+                <a href={`/slides/${slide.slug}`} class="terminal-link">
+                  {slide.data.title}
+                </a>
+              </h2>
+
+              <p class="mb-3 text-terminal-text-secondary">{slide.data.description}</p>
+
+              <div class="flex flex-wrap gap-2">
+                {slide.data.tags.map((tag) => (
+                  <TagBadge tag={tag} />
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </TerminalPrompt>
+</BaseLayout>

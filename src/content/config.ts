@@ -57,9 +57,25 @@ const cocktailMenusCollection = defineCollection({
   }),
 });
 
+const slidesCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.string(), // YYYY-MM-DD
+    event: z.string().optional(), // "Lab Talk", "Conference", etc.
+    tags: tagsSchema,
+    featured: z.boolean().default(false),
+    transition: z.enum(['slide', 'fade', 'zoom', 'convex', 'concave']).default('slide'),
+    showControls: z.boolean().default(true),
+    showProgress: z.boolean().default(true),
+  }),
+});
+
 export const collections = {
   timeline: timelineCollection,
   awards: awardsCollection,
   problems: problemsCollection,
   'cocktail-menus': cocktailMenusCollection,
+  slides: slidesCollection,
 };
