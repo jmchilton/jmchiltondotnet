@@ -91,6 +91,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         border: 1px solid #dee2e6;
         box-shadow: none;
         margin: 1em 0;
+        text-align: left;
       }
 
       .reveal code {
@@ -116,6 +117,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       .reveal li {
         margin: 0.5em 0;
+      }
+
+      /* Links - high contrast styling */
+      .reveal a {
+        color: var(--r-link-color);
+        text-decoration: underline;
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .reveal a:hover {
+        color: var(--r-link-color-hover);
+        text-decoration-thickness: 3px;
       }
 
       /* Controls and progress - match terminal blue */
@@ -159,24 +175,32 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </div>
     </div>
 
-    <script>
-      import Reveal from 'reveal.js';
-      import RevealHighlight from 'reveal.js/plugin/highlight/highlight.esm.js';
-      import RevealMarkdown from 'reveal.js/plugin/markdown/markdown.esm.js';
+    <script define:vars={{ showControls, showProgress, transition }}>
+      (async () => {
+        const Reveal = (
+          await import('https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.esm.js')
+        ).default;
+        const RevealHighlight = (
+          await import(
+            'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.esm.js'
+          )
+        ).default;
+        const RevealMarkdown = (
+          await import(
+            'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/markdown/markdown.esm.js'
+          )
+        ).default;
 
-      const showControls = { showControls };
-      const showProgress = { showProgress };
-      const transition = '{transition}';
-
-      Reveal.initialize({
-        hash: true,
-        controls: showControls,
-        progress: showProgress,
-        center: true,
-        transition: transition,
-        slideNumber: 'c/t',
-        plugins: [RevealHighlight, RevealMarkdown],
-      });
+        Reveal.initialize({
+          hash: true,
+          controls: showControls,
+          progress: showProgress,
+          center: true,
+          transition: transition,
+          slideNumber: 'c/t',
+          plugins: [RevealHighlight, RevealMarkdown],
+        });
+      })();
     </script>
   </body>
 </html>

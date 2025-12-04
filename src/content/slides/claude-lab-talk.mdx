@@ -1,6 +1,6 @@
 ---
-title: 'Claude: AI Assistant for Software Development'
-description: 'Lab talk on Claude capabilities, architecture, and applications in research'
+title: 'Claud & Galaxy'
+description: 'How @jmchilton uses Claude for developing Galaxy'
 date: '2025-12-04'
 event: 'Lab Talk'
 tags: ['ai', 'developer-experience']
@@ -11,9 +11,7 @@ showProgress: true
 
 <section>
 
-# Claude
-
-AI Assistant for Software Development
+# Claude & Galaxy Development
 
 <div class="text-sm opacity-70">Lab Talk - December 2025</div>
 
@@ -23,12 +21,11 @@ AI Assistant for Software Development
 
 <section>
 
-## What is Claude?
+## The Bad
 
-- Large language model by Anthropic
-- Specialized for reasoning and coding tasks
-- Focus on safety and helpfulness
-- Context windows up to 200K tokens
+- The number of half finished projects I have are higher than ever. I can abandon three a week.
+- I have serious moral reservations around all of this shit. I don't know how I am going to eat in the future but I think I need to stay on top of this stuff to do that.
+- I don't know how to make it do the "hard" stuff so I spend more time on easy stuff. I've got to work hard to resist this tendency.
 
 </section>
 
@@ -36,31 +33,86 @@ AI Assistant for Software Development
 
 <section>
 
-## Key Capabilities
+## Ask Claude to be concise.
 
-<div class="grid-2col">
+At first the deluge of Claude is really fun but it is overwhelming quickly - the first line of my ~/.claude/CLAUDE.md is:
 
-<div>
+<pre>
+  - In all interactions and commit messages, be concise and sacrifice grammer for the sake of
+  concision.
+</pre>
 
-### Code Generation
+</section>
 
-- Multi-language support
-- Full context awareness
-- Best practices
+---
+
+<section>
+
+## Plan, Plan, Plan
+
+My whole career I've been a doer - I don't write plans. I always start by starting,
+I do the thing by doing the thing.
+
+Gotta give this up. Never ask Claude/Cursor/copilot to do something substantial without a Plan. Write out the plan and track things in the plan.
+
+</section>
+
+---
+
+<section>
+
+## The Initial Prompt
+
+<pre>
+  You're in Galaxy, I'd like you to give me a plan to implement the GA4GH WES stadnard (URL here).
+  We already have an implementation of the GA4GH DRS standard (URL here) located at
+  (path/to/drs.py). You will probably want to leverage the implementation behind the workflow API
+  (code here and tests here). Below the API there is a service layer (here) and a manager layer
+  (here).
+</pre>
+
+</section>
+
+---
+
+<section>
+
+## The Initial Prompt - Tricks
+
+- The initial prompt is rarely "Do X" - instead "Research X for a plan" or "Develop a plan for X".
+- In a small code base with good CLAUDE.md docs - pointing at things isn't important - but for typical
+  Galaxy development this is important.
+
+</section>
+
+---
+
+<section>
+
+## Worktrees
+
+A Git worktree is like a mirror of the repository with new physical files
+but the same Git backbone (shares branches, remotes, etc..)
+
+<div class="text-sm opacity-70 mt-8">
+
+[Claude Docs on Worktrees](https://code.claude.com/docs/en/common-workflows#run-parallel-claude-code-sessions-with-git-worktrees)
 
 </div>
 
-<div>
+</section>
 
-### Analysis
+---
 
-- Code review
-- Bug detection
-- Refactoring
+<section>
 
-</div>
+## ghwt
 
-</div>
+- https://github.com/jmchilton/ghwt
+- `npm install -g ghwt`
+- Manage multiple worktree/branches.
+- Connects editors (code, cursor), agents (claude), CI (WIP), and notes (Obsidian).
+- (Planemo for worktrees?)
 
 </section>
 
@@ -68,22 +120,9 @@ AI Assistant for Software Development
 
 <section>
 
-## Code Example
+# Create a Worktree (Branch)
 
-```python
-def analyze_sequence(dna: str) -> dict:
-    """Analyze DNA sequence composition"""
-    counts = {'A': 0, 'T': 0, 'G': 0, 'C': 0}
-
-    for base in dna.upper():
-        if base in counts:
-            counts[base] += 1
-
-    return counts
-
-# Usage
-result = analyze_sequence("ATCGATCG")
-```
+<pre>% # ghwt clone git@github.com:galaxyproject/galaxy.git % ghwt create galaxy iwc-linking</pre>
 
 </section>
 
@@ -91,22 +130,12 @@ result = analyze_sequence("ATCGATCG")
 
 <section>
 
-## Applications in Research
+## What create does
 
-1. **Literature Review**
-   - Summarize papers
-   - Extract key findings
-   - Identify gaps
-
-2. **Data Analysis**
-   - Write analysis scripts
-   - Generate visualizations
-   - Statistical modeling
-
-3. **Documentation**
-   - Method descriptions
-   - Protocol generation
-   - Paper writing
+- Creates a worktree with a fixed known path and branch of the same name.
+- Create an Obsidian note for planning.
+- Opens VS Code in that worktree.
+- Creates a persistent development session (zellij, reattachable anytime).
 
 </section>
 
@@ -114,21 +143,11 @@ result = analyze_sequence("ATCGATCG")
 
 <section>
 
-## Integration Patterns
+## Zellij
 
-```typescript
-// Claude API example
-const response = await anthropic.messages.create({
-  model: 'claude-sonnet-4-5-20250929',
-  max_tokens: 1024,
-  messages: [
-    {
-      role: 'user',
-      content: 'Analyze this dataset...',
-    },
-  ],
-});
-```
+https://zellij.dev/
+
+The call it "A terminal workspace with batteries included", I call it "What if tmux but usable?"
 
 </section>
 
@@ -136,13 +155,100 @@ const response = await anthropic.messages.create({
 
 <section>
 
-## Questions?
+# Per-Repository Templates
 
-**Contact:** jmchilton@gmail.com
+The default just opens a terminal with two panes - one for
+CLI testing and such and one for Claude code.
 
-**Resources:**
-
-- https://jmchilton.net
-- https://github.com/jmchilton
+I've configured Galaxy with bells and whistles in my configuration.
+Suspended windows that will quickly launch the client dev server
+and the Python backend the way I like it (test tools, etc.).
 
 </section>
+
+---
+
+<section>
+
+## IWC Demo Prompt
+
+Click out to Obsidian
+
+</section>
+
+---
+
+<section>
+
+### WES Keyset Token Pagination Unification
+
+<pre>
+  Read e3ba62887de177a2f8a3d18970bfac576f7f77bd for context - we are using keyset based token for
+  some pagination in these new APIs but still encoding pure offset tokens for the other. Can you
+  verify this understand and come up with a plan for migrating all the pagination we're implementing
+  to use our keyset abstraction or a generalization of it please?
+</pre>
+
+[Full Planning Session (gist)](https://gist.github.com/jmchilton/63e31d3e27b1cbbdd8ad21b3b7f7dc27)
+
+</section>
+
+---
+
+<section>
+
+### WES Keyset Token Pagination Unification
+
+<pre>% ghwt attach % code .</pre>
+
+</section>
+
+---
+
+<section>
+
+# Don't Type the Same Prompt Twice
+
+https://github.com/jmchilton/claude-commands
+
+Clone into `~/.claude/commands`
+
+</section>
+
+---
+
+<section>
+
+# /jmchilton:dedup
+
+Claude will duplicate code or write a lot of parallel code
+that could be abstracted without giving it a second thought.
+You've got to periodically ask it to establish and reuse
+abstractions.
+
+</section>
+
+---
+
+<section>
+
+# /jmchilton:pyreview
+
+ruff, mypy, black, isort - catch a lot in CI. This will catch
+some more.
+
+</section>
+
+---
+
+<section>
+
+# /jmchilton:update-document
+
+Claude will do a bunch of work and write a bunch of documents
+and then forget to update the documents as it does more work -
+this just prods it a bit as you see documentation stale in realtime.
+
+</section>
+
+---
