@@ -25,7 +25,7 @@ cv:
           include_in: both
           priority: 1
           highlights:
-            - "GPA: 4.00/4.00"
+            - 'GPA: 4.00/4.00'
 
         - institution: University of Minnesota
           area: Computer Science
@@ -36,8 +36,8 @@ cv:
           include_in: both
           priority: 2
           highlights:
-            - "GPA: 3.99/4.00, Graduated with High Distinction"
-            - "Minors: Mathematics and Statistics"
+            - 'GPA: 3.99/4.00, Graduated with High Distinction'
+            - 'Minors: Mathematics and Statistics'
 
     Experience:
       include_in: both
@@ -211,14 +211,14 @@ cv:
     Publications:
       include_in: cv
       entries:
-        - title: "The Galaxy platform for accessible, reproducible, and collaborative data analyses: 2024 update"
+        - title: 'The Galaxy platform for accessible, reproducible, and collaborative data analyses: 2024 update'
           authors:
             - The Galaxy Community
           doi: 10.1093/nar/gkae410
           journal: Nucleic Acids Research
           date: 2024-07
 
-        - title: "The Planemo toolkit for developing, deploying, and executing scientific data analyses in Galaxy and beyond"
+        - title: 'The Planemo toolkit for developing, deploying, and executing scientific data analyses in Galaxy and beyond'
           authors:
             - Simon Bray
             - John Chilton
@@ -235,14 +235,14 @@ cv:
           journal: Genome Research
           date: 2023-02
 
-        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2022 update"
+        - title: 'The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2022 update'
           authors:
             - The Galaxy Community
           doi: 10.1093/nar/gkac247
           journal: Nucleic Acids Research
           date: 2022-07
 
-        - title: "GalaxyCloudRunner: enhancing scalable computing for Galaxy"
+        - title: 'GalaxyCloudRunner: enhancing scalable computing for Galaxy'
           authors:
             - Nuwan Goonasekera
             - Alexandru Mahmoud
@@ -252,14 +252,14 @@ cv:
           journal: Bioinformatics
           date: 2021-01
 
-        - title: "No more business as usual: Agile and effective responses to emerging pathogen threats require open data and open analytics"
+        - title: 'No more business as usual: Agile and effective responses to emerging pathogen threats require open data and open analytics'
           authors:
             - The Galaxy Community
           doi: 10.1371/journal.ppat.1008643
           journal: PLOS Pathogens
           date: 2020-08
 
-        - title: "Galaxy External Display Applications: closing a dataflow interoperability loop"
+        - title: 'Galaxy External Display Applications: closing a dataflow interoperability loop'
           authors:
             - Daniel Blankenberg
             - John Chilton
@@ -268,7 +268,7 @@ cv:
           journal: Nature Methods
           date: 2020-02
 
-        - title: "Reproducible biomedical benchmarking in the cloud: lessons from crowd-sourced data challenges"
+        - title: 'Reproducible biomedical benchmarking in the cloud: lessons from crowd-sourced data challenges'
           authors:
             - Kyle Ellrott
             - Alex Buchanan
@@ -288,14 +288,14 @@ cv:
           journal: Genome Biology
           date: 2019-09
 
-        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2018 update"
+        - title: 'The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2018 update'
           authors:
             - The Galaxy Community
           doi: 10.1093/nar/gky379
           journal: Nucleic Acids Research
           date: 2018-07
 
-        - title: "Community-Driven Data Analysis Training for Biology"
+        - title: 'Community-Driven Data Analysis Training for Biology'
           authors:
             - Bérénice Batut
             - Saskia Hiltemann
@@ -337,7 +337,7 @@ cv:
           journal: Cell Systems
           date: 2018-06
 
-        - title: "Practical Computational Reproducibility in the Life Sciences"
+        - title: 'Practical Computational Reproducibility in the Life Sciences'
           authors:
             - Björn Grüning
             - John Chilton
@@ -353,7 +353,7 @@ cv:
           journal: Cell Systems
           date: 2018-04
 
-        - title: "Jupyter and Galaxy: Easing entry barriers into complex data analyses for biomedical researchers"
+        - title: 'Jupyter and Galaxy: Easing entry barriers into complex data analyses for biomedical researchers'
           authors:
             - Björn A. Grüning
             - Eric Rasche
@@ -369,7 +369,7 @@ cv:
           journal: PLOS Computational Biology
           date: 2017-05
 
-        - title: "The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2016 update"
+        - title: 'The Galaxy platform for accessible, reproducible and collaborative biomedical analyses: 2016 update'
           authors:
             - Enis Afgan
             - Dannon Baker
@@ -395,7 +395,7 @@ cv:
           journal: Nucleic Acids Research
           date: 2016-07
 
-        - title: "NCBI BLAST+ integrated into Galaxy"
+        - title: 'NCBI BLAST+ integrated into Galaxy'
           authors:
             - Peter J. A. Cock
             - John M. Chilton
@@ -422,14 +422,14 @@ cv:
           journal: Nature Biotechnology
           date: 2015-02
 
-        - title: "Community-driven development for computational biology at Sprints, Hackathons and Codefests"
+        - title: 'Community-driven development for computational biology at Sprints, Hackathons and Codefests'
           authors:
             - Steffen Möller, et al
           doi: 10.1186/1471-2105-15-S14-S7
           journal: BMC Bioinformatics
           date: 2014-12
 
-        - title: "Implementation of Cloud based next generation sequencing data analysis in a clinical laboratory"
+        - title: 'Implementation of Cloud based next generation sequencing data analysis in a clinical laboratory'
           authors:
             - Getiria Onsongo
             - Jesse Erdmann
@@ -446,7 +446,7 @@ cv:
           journal: BMC Research Notes
           date: 2014-05
 
-        - title: "CLIA-certified next-generation sequencing analysis in the cloud"
+        - title: 'CLIA-certified next-generation sequencing analysis in the cloud'
           authors:
             - The Whole Galaxy Team at MSI
             - Ying Zhang
@@ -462,7 +462,7 @@ cv:
           journal: BMC Proceedings
           date: 2012-08
 
-        - title: "Workflow for analysis of high mass accuracy salivary dataset using MaxQuant and ProteinPilot search algorithm"
+        - title: 'Workflow for analysis of high mass accuracy salivary dataset using MaxQuant and ProteinPilot search algorithm'
           authors:
             - Pratik Jagtap
             - Sricharan Bandhakavi
@@ -477,7 +477,7 @@ cv:
           journal: Proteomics
           date: 2012-06
 
-        - title: "Minnesota Congenital Heart Network: Construction and Implementation of an Interoperable Standards-Based Information Model"
+        - title: 'Minnesota Congenital Heart Network: Construction and Implementation of an Interoperable Standards-Based Information Model'
           authors:
             - Robert R. Freimuth
             - Michael Meiners
@@ -489,7 +489,7 @@ cv:
           journal: AMIA 2010 Annual Symposium
           date: 2010-10
 
-        - title: "LTQ-iQuant: A freely available software pipeline for automated and accurate protein quantification of isobaric tagged peptide data from LTQ instruments"
+        - title: 'LTQ-iQuant: A freely available software pipeline for automated and accurate protein quantification of isobaric tagged peptide data from LTQ instruments'
           authors:
             - Getiria Onsongo
             - Matthew Stone
@@ -541,7 +541,7 @@ cv:
           journal: 14th Annual Bioinformatics Open Source Conference, Berlin, Germany
 
         - date: 2013-07
-          title: "Innovative, Reproducible MS-based Proteomic Informatics in the Cloud for Emerging Applications with Galaxy-P and CloudBioLinux"
+          title: 'Innovative, Reproducible MS-based Proteomic Informatics in the Cloud for Emerging Applications with Galaxy-P and CloudBioLinux'
           authors:
             - John Chilton
             - James Johnson
@@ -553,7 +553,7 @@ cv:
           journal: 2nd Mass Spectrometry Special Interest Group (MS-SIG), Berlin, Germany
 
         - date: 2013-07
-          title: "Galaxy-P: Beyond Proteomics"
+          title: 'Galaxy-P: Beyond Proteomics'
           authors:
             - John Chilton
             - James Johnson
@@ -564,7 +564,7 @@ cv:
           journal: 2013 Galaxy Community Conference, Oslo, Norway
 
         - date: 2007-04
-          title: "Creating Cooperative Competition: Learning Games for the Classroom"
+          title: 'Creating Cooperative Competition: Learning Games for the Classroom'
           authors:
             - Maria Gini
             - John Chilton
@@ -579,7 +579,7 @@ cv:
           journal: AAAI Spring Symposium - Robots and Robot Venues, Palo Alto, CA
 
         - date: 2006-11
-          title: "Learning Games: Creating Cooperative Competition"
+          title: 'Learning Games: Creating Cooperative Competition'
           authors:
             - John Chilton
             - Maria Gini
@@ -588,8 +588,8 @@ cv:
     Service:
       include_in: cv
       entries:
-        - bullet: "Reviewer for IEEE International Conference on Robotics and Automation (ICRA), 2006"
-        - bullet: "Reviewer for Robotics: Science and Systems (RSS), 2006"
+        - bullet: 'Reviewer for IEEE International Conference on Robotics and Automation (ICRA), 2006'
+        - bullet: 'Reviewer for Robotics: Science and Systems (RSS), 2006'
 
     Activities:
       include_in: cv
