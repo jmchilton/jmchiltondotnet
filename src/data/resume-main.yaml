@@ -600,10 +600,7 @@ design:
   theme: classic
   page:
     size: us-letter
-    show_page_numbering: false
-    show_last_updated_date: false
   colors:
-    text: rgb(0, 0, 0)
     name: rgb(0, 79, 144)
     connections: rgb(0, 79, 144)
     section_titles: rgb(0, 79, 144)
