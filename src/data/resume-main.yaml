@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/rendercv/rendercv/refs/tags/v2.3/schema.json
 cv:
   name: John Chilton
-  location: Columbia Heights, MN
+  location: Pittsburgh, PA
   email: jmchilton@gmail.com
   phone: +1-612-226-9223
   website: https://jmchilton.net
