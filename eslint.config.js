@@ -4,11 +4,15 @@ import tseslint from 'typescript-eslint';
 export default [
   // Astro recommended config
   ...eslintPluginAstro.configs.recommended,
-  // TypeScript recommended config
-  ...tseslint.configs.recommended,
+  // TypeScript recommended config, scoped to TS files so its parser
+  // doesn't override the Astro parser on .astro files.
+  ...tseslint.configs.recommended.map((c) => ({
+    ...c,
+    files: c.files ?? ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
+  })),
   {
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
-      // Customize rules here
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
