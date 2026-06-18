@@ -24,7 +24,7 @@ showProgress: true
 
 <section>
 
-### This is an anti-AI talk, I'm in the wrong session 
+### This is an anti-AI talk, I'm in the wrong session
 
 </section>
 
@@ -32,7 +32,7 @@ showProgress: true
 
 <section>
 
-### AI is an ethical & environmental diaster that requires brilliant leadership across every level of society 😔
+### AI is an ethical & environmental disaster that requires brilliant leadership across every level of society 😔
 
 <div class="text-sm opacity-70">This slide is just John, not my co-authors. I am here because I need to eat</div>
 
@@ -42,7 +42,7 @@ showProgress: true
 
 <section>
 
-### It is easier than ever to write well designed code but somehow we're getting inaduated in slop*.
+### It is easier than ever to write well-designed code but somehow we're getting inundated with slop*.
 
 <div class="text-sm opacity-70">* look at my own PRs</div>
 
@@ -52,7 +52,7 @@ showProgress: true
 
 <section>
 
-### Agents can tell well designed code from not & agents need well designed code to work on large code bases. We have not figured out incentives
+### Agents can tell well-designed code from not & agents need well-designed code to work on large code bases. We have not figured out incentives
 
 </section>
 
@@ -91,9 +91,9 @@ showProgress: true
 
 ## Two case studies
 
-This is work that was scoped out almost decade ago and designed for human reporducibility.
+This is work that was scoped out almost a decade ago and designed for human reproducibility.
 
-I will show it super charges agents.
+I will show it supercharges agents.
 
 </section>
 
@@ -150,7 +150,7 @@ I will show it super charges agents.
 
 <section>
 
-<h2 style="font-size: 1.42em;">Demo 1: Mobile Resistome</h2>
+<h2 style="font-size: 1.42em;">Example 1: Mobile Resistome</h2>
 
 <div style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: center; gap: 0.8em; margin-top: 0.4em;">
   <div>
@@ -176,6 +176,54 @@ I will show it super charges agents.
       <li><strong>byte-identical</strong> re-run across all four isolates</li>
     </ul>
     <div class="text-sm opacity-70" style="margin-top: 0.7em;">BioProject PRJDB8599 · on-graph heatmaps, not pasted images</div>
+  </div>
+</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.42em;">Example 2: Differential ATAC-seq</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); align-items: center; gap: 0.75em; margin-top: 0.35em;">
+  <div>
+    <div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.35em;">
+      <img
+        src="/slides/gcc2026/uc3-notebook-rendered-pca.png"
+        alt="Rendered Galaxy Notebook showing DESeq2 PCA for erythroblast versus B-cell ATAC-seq"
+        style="display: block; width: 100%; height: 25vh; object-fit: cover; object-position: 50% 100%; border: 1px solid #d1d5db;"
+      />
+      <img
+        src="/slides/gcc2026/uc3-notebook-rendered-volcano.png"
+        alt="Rendered Galaxy Notebook showing differential accessibility volcano plot"
+        style="display: block; width: 100%; height: 25vh; object-fit: cover; object-position: 50% 42%; border: 1px solid #d1d5db;"
+      />
+    </div>
+    <img
+      src="/slides/gcc2026/uc3-notebook-rendered-tables.png"
+      alt="Rendered Galaxy Notebook showing significant and top condition-gained ATAC-seq tables"
+      style="display: block; width: 100%; height: 17vh; object-fit: cover; object-position: 50% 64%; margin-top: 0.35em; border: 1px solid #d1d5db;"
+    />
+    <div class="text-sm opacity-70" style="margin-top: 0.4em;">Rendered notebook bits: PDF outputs and tabular outputs stay on-graph.</div>
+  </div>
+  <div style="text-align: left;">
+    <img
+      src="/slides/gcc2026/uc3-workflow-9step.png"
+      alt="Extracted nine-step differential ATAC-seq workflow"
+      style="display: block; width: 100%; max-height: 29vh; object-fit: contain; border: 1px solid #d1d5db;"
+    />
+    <div style="font-size: 0.68em; line-height: 1.3; margin-top: 0.65em;">
+      Count matrix + sample sheet → DESeq2 → NA-filter → volcano ∥ significance filter → sort → top gained / lost peaks.
+    </div>
+    <ul style="font-size: 0.54em; margin-top: 0.65em;">
+      <li><strong>9</strong> extracted steps from a 590,650-peak universe</li>
+      <li><strong>6</strong> workflow outputs, <strong>0</strong> dangling inputs, <strong>0</strong> report repairs</li>
+      <li><strong>45,620</strong> significant peaks reproduced</li>
+      <li><strong>34,873</strong> B-cell-gained / <strong>10,747</strong> erythroblast-gained</li>
+    </ul>
+    <div class="text-sm opacity-70" style="margin-top: 0.45em;">Corces 2016 ATAC-seq atlas · erythroblast vs B-cell · hg19</div>
   </div>
 </div>
 
