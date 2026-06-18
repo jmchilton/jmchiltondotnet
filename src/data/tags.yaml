@@ -1,9 +1,6 @@
 # Tag definitions for the site
 # Each tag used in content must be defined here with a description
 
-agents:
-  description: 'AI agents driving scientific software'
-
 ai:
   description: 'Artificial intelligence and machine learning applications'
 
@@ -81,9 +78,6 @@ metadata:
 
 night-life:
   description: 'Nightlife, entertainment, and going out'
-
-notebooks:
-  description: 'Computational notebooks and history-attached narrative documents'
 
 open-source:
   description: 'Open source software development and community'
