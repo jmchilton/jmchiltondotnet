@@ -30,7 +30,7 @@ jobs:
       - name: Install RenderCV
         run: |
           python3 -m pip install --upgrade pip
-          pip install "rendercv[full]==2.3"
+          pip install "rendercv[full]==2.4"
 
       - name: Build site
         run: npm run build
