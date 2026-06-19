@@ -75,72 +75,42 @@ showProgress: true
 
 <section>
 
-#### An Optimistic Thesis
+<h2 style="font-size: 0.96em; line-height: 1.12;">An Optimistic Thesis</h2>
 
-<div class="fragment">Designing for human reproducibility *accelerates* and *incentivizes* reproducibility for agents.</div>
-
-<p class="text-sm opacity-70 fragment">The infrastructure built for **human reproducibility** is **exactly** what agents need.</p>
-
-</section>
-
----
-
-<section>
-
-## Two case studies
-
-This is work that was scoped out almost a decade ago and designed for human reproducibility.
-
-I will show it supercharges agents.
-
-</section>
-
----
-
-<section>
-
-## Case Study: Galaxy Notebooks
-
-**Galaxy Notebooks**: Galaxy-flavored markdown attached to histories.
-
-- Embed datasets, collections, and interactive visualizations in prose (including drag and drop).
-- Referenced outputs seed workflow extraction (with reports).
-- AI assistant can read history context and draft sections (including MCP support).
-- Every revision attributed: user / agent / restore.
-
-<div class="text-sm opacity-70">Builds on what used to be called "Pages", New in 26.1</div>
-
-</section>
-
----
-
-<section>
-
-<h2 style="font-size: 1.42em;">History → Notebook → Workflow</h2>
-
-<div style="display: grid; grid-template-columns: 1fr auto 1.15fr auto 1fr; align-items: stretch; gap: 0.6em; margin-top: 1em; text-align: left;">
-  <div style="border-left: 6px solid #4f46e5; padding: 0.45em 0 0.45em 0.6em;">
-    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">History</div>
-    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">computational record</div>
-    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">datasets, tools, parameters, provenance</div>
-  </div>
-  <div style="align-self: center; font-size: 1.2em; opacity: 0.45;">→</div>
-  <div style="border-left: 6px solid #059669; padding: 0.45em 0 0.45em 0.6em;">
-    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">Notebook</div>
-    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">communicative record</div>
-    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">why it mattered, which outputs count, what to report</div>
-  </div>
-  <div style="align-self: center; font-size: 1.2em; opacity: 0.45;">→</div>
-  <div style="border-left: 6px solid #dc2626; padding: 0.45em 0 0.45em 0.6em;">
-    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">Workflow</div>
-    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">reusable graph</div>
-    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">backward closure from referenced artifacts</div>
-  </div>
+<div style="font-size: 1.18em; font-weight: 900; color: #2563eb; line-height: 1.06; margin-top: 0.16em;">
+  designing for human reproducibility supercharges agents.
 </div>
 
-<div style="font-size: 0.82em; margin-top: 1.2em;">The notebook is the curated set of anchors: artifact references plus the report narrative that should travel with the workflow.</div>
+</section>
 
-<div class="text-sm opacity-70">Designed for humans; useful to agents because the same artifacts are readable, versioned, and attributable.</div>
+---
+
+<section>
+
+## Three Papers - One Thesis
+
+- **Galaxy Notebooks** — reproducible communication for human + agent analysis.
+- **gxwf / Format 2** — schema-aware authoring & validation across CLI, IDE, browser, CI.
+- **Foundry** — compiling curated workflow knowledge into provenanced agent skills.
+
+<div class="text-sm opacity-70">Designing for human reproducibility supercharges agents.</div>
+
+</section>
+
+---
+
+<section>
+
+<div style="font-size: 0.46em; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.58;">Paper 1 of 3</div>
+
+<h2 style="font-size: 1.18em; margin: 0.18em 0 0.35em;">Galaxy Notebooks</h2>
+
+<a
+  href="https://jmchilton.github.io/galaxy-brain/papers/galaxy-notebooks/"
+  style="display: inline-block; font-size: 0.4em; color: #2563eb; font-weight: 800; word-break: break-word; text-decoration: none; border-bottom: 2px solid #93c5fd; padding-bottom: 0.08em;"
+>
+  https://jmchilton.github.io/galaxy-brain/papers/galaxy-notebooks/
+</a>
 
 </section>
 
@@ -173,9 +143,41 @@ I will show it supercharges agents.
       <li><strong>0</strong> dangling inputs</li>
       <li><strong>byte-identical</strong> re-run across all four isolates</li>
     </ul>
-    <div class="text-sm opacity-70" style="margin-top: 0.7em;">BioProject PRJDB8599 · on-graph heatmaps, not pasted images</div>
+    <div class="text-sm opacity-70" style="margin-top: 0.7em;">BioProject PRJDB8599 · analysis through heatmaps</div>
   </div>
 </div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.42em;">History → Notebook → Workflow</h2>
+
+<div style="display: grid; grid-template-columns: 1fr auto 1.15fr auto 1fr; align-items: stretch; gap: 0.6em; margin-top: 1em; text-align: left;">
+  <div style="border-left: 6px solid #4f46e5; padding: 0.45em 0 0.45em 0.6em;">
+    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">History</div>
+    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">computational record</div>
+    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">datasets, tools, parameters, provenance</div>
+  </div>
+  <div style="align-self: center; font-size: 1.2em; opacity: 0.45;">→</div>
+  <div style="border-left: 6px solid #059669; padding: 0.45em 0 0.45em 0.6em;">
+    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">Notebook</div>
+    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">communicative record</div>
+    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">why it mattered, which outputs count, what to report</div>
+  </div>
+  <div style="align-self: center; font-size: 1.2em; opacity: 0.45;">→</div>
+  <div style="border-left: 6px solid #dc2626; padding: 0.45em 0 0.45em 0.6em;">
+    <div style="font-size: 0.48em; text-transform: uppercase; opacity: 0.65;">Workflow</div>
+    <div style="font-size: 0.78em; font-weight: 700; line-height: 1.15;">reusable graph</div>
+    <div style="font-size: 0.54em; line-height: 1.25; opacity: 0.75;">backward closure from referenced artifacts</div>
+  </div>
+</div>
+
+<div style="font-size: 0.82em; margin-top: 1.2em;">The notebook is the curated set of anchors: artifact references plus the report narrative that should travel with the workflow.</div>
+
+<div class="text-sm opacity-70">Designed for humans; useful to agents because the same artifacts are readable, versioned, and attributable.</div>
 
 </section>
 
@@ -231,7 +233,7 @@ I will show it supercharges agents.
 
 <section>
 
-<h2 style="font-size: 1.42em;">Workflow Extraction Gets Easier</h2>
+<h2 style="font-size: 1.42em;">Extraction Is Easier</h2>
 
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7em; margin-top: 1em; text-align: left;">
   <div style="border-top: 6px solid #4f46e5; padding-top: 0.55em;">
@@ -248,9 +250,7 @@ I will show it supercharges agents.
   </div>
 </div>
 
-<div style="font-size: 0.82em; margin-top: 1.3em;">Look how much easier this is when communication and provenance live in the same system.</div>
-
-<div class="text-sm opacity-70">Not free-text workflow synthesis. Authored communication riding on real Galaxy provenance.</div>
+<div style="font-size: 0.82em; margin-top: 1.3em;">Don't just make the analysis reproducible, make the communication of the analysis reproducible.</div>
 
 </section>
 
@@ -258,7 +258,88 @@ I will show it supercharges agents.
 
 <section>
 
-## Case Study: Static Validation of Workflows
+<h2 style="font-size: 1.34em;">Skill: reproduciblify</h2>
+
+<div style="font-size: 0.68em; line-height: 1.25; margin: 0.1em auto 0.85em; max-width: 30em;">
+  Don't write the notebook and then extract the workflow by hand. Let an agent rebuild the history so extraction works.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65em; text-align: left;">
+  <div style="border-top: 6px solid #4f46e5; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">start</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">messy real history</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Manual uploads, pasted figures, scratch steps, and one-sample-at-a-time structure.</div>
+  </div>
+  <div style="border-top: 6px solid #059669; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">agent work</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">rebuild inside Galaxy</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Find existing tools first, create tools only as fallback, and restructure with collections.</div>
+  </div>
+  <div style="border-top: 6px solid #dc2626; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">finish</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">notebook extracts cleanly</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Only real Galaxy outputs become notebook anchors, so extraction can recover the reusable workflow.</div>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.8em;">galaxyproject/galaxy-skills#29 · reproduciblify</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.34em;">Skill: workflow reports</h2>
+
+<div style="font-size: 0.68em; line-height: 1.25; margin: 0.1em auto 0.85em; max-width: 30em;">
+  After a workflow runs, turn the invocation into a report with the same reproducibility guarantees.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65em; text-align: left;">
+  <div style="border-top: 6px solid #2563eb; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">input</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">workflow definition</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Read a local <code>.ga</code> file or a Galaxy workflow download with labels and marked outputs.</div>
+  </div>
+  <div style="border-top: 6px solid #0f766e; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">agent work</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">draft report markdown</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Use Galaxy directives for inputs, outputs, images, tables, workflow diagrams, and history links.</div>
+  </div>
+  <div style="border-top: 6px solid #dc2626; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">result</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">run-specific report</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">The same template resolves against each invocation, keeping analysis communication reproducible.</div>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.8em;">galaxyproject/galaxy-skills#14 · workflow-reports</div>
+
+</section>
+
+---
+
+<section>
+
+<div style="font-size: 0.46em; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.58;">Paper 2 of 3</div>
+
+<h2 style="font-size: 1.18em; margin: 0.18em 0 0.35em;">gxwf / Format 2</h2>
+
+<a
+  href="https://jmchilton.github.io/galaxy-brain/papers/gxwf/"
+  style="display: inline-block; font-size: 0.4em; color: #2563eb; font-weight: 800; word-break: break-word; text-decoration: none; border-bottom: 2px solid #93c5fd; padding-bottom: 0.08em;"
+>
+  https://jmchilton.github.io/galaxy-brain/papers/gxwf/
+</a>
+
+</section>
+
+---
+
+<section>
+
+## Static Validation of Workflows
 
 </section>
 
@@ -338,13 +419,506 @@ I will show it supercharges agents.
 
 <section>
 
-## Foundry
+<h2 style="font-size: 1.34em;">gxwf: one contract, two runtimes</h2>
 
-Compiles curated workflow-construction knowledge into agent skills.
+<div style="font-size: 0.68em; line-height: 1.25; margin: 0.1em auto 0.85em; max-width: 29em;">
+  A shared workflow-state specification and fixture suite keep the Python and TypeScript implementations converging.
+</div>
 
-Each step (a **Mold**) authors → validates via `gxwf` → fixes in a tight inner loop.
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65em; text-align: left;">
+  <div style="border-top: 6px solid #2563eb; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">TypeScript / npm</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">published now</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;"><code>@galaxy-tool-util/*</code> packages feed the CLI, web UI, reports, and VS Code extension.</div>
+  </div>
+  <div style="border-top: 6px solid #059669; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">Python / Galaxy</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">coming soon</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Pydantic report models and Galaxy-side workflow-state tooling are staged for integration.</div>
+    <div style="font-size: 0.42em; line-height: 1.2; margin-top: 0.45em; opacity: 0.65;">TODO: Galaxy PR link</div>
+  </div>
+  <div style="border-top: 6px solid #dc2626; padding-top: 0.5em;">
+    <div style="font-size: 0.62em; text-transform: uppercase; opacity: 0.68;">Shared truth</div>
+    <div style="font-size: 0.78em; font-weight: 760; line-height: 1.08; margin-top: 0.18em;">spec + tests</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">OpenAPI contracts, report-model JSON shapes, and declarative YAML fixtures keep the implementations honest.</div>
+  </div>
+</div>
 
-Pipeline featured today: **interview → Galaxy**.
+<div class="text-sm opacity-70" style="margin-top: 0.75em;">Same reports, same validation concepts, different hosts: CLI, web operations, Galaxy, and VS Code.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.34em;">TODO: npm package + docs</h2>
+
+<div style="font-size: 0.68em; line-height: 1.25; margin: 0.1em auto 0.85em; max-width: 29em;">
+  Replace this with a concrete package/docs screenshot once the network path is clear.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.65em; text-align: left;">
+  <div style="border-top: 6px solid #2563eb; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">npm artifact</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Show the published <code>@galaxy-tool-util</code> package page, install command, and current version.</div>
+  </div>
+  <div style="border-top: 6px solid #059669; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">docs artifact</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Show the TypeScript CLI docs and the Python <code>wf_tooling</code> docs converging on the same concepts.</div>
+  </div>
+  <div style="border-top: 6px solid #dc2626; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">current blocker</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Networking is blocking the docs/package screenshot, so this slide stays an explicit placeholder for now.</div>
+  </div>
+</div>
+
+<pre style="font-size: 0.46em; line-height: 1.4; margin: 0.9em auto 0; max-width: 30em; text-align: left;"><code style="padding: 0.85em; display: block;">{[
+  "$ npm install -g @galaxy-tool-util/cli",
+  "$ gxwf validate workflow.gxwf.yml",
+  "# TODO: screenshot npm + docs once reachable",
+].join("\n")}</code></pre>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.36em;">Tool state, validated</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 0.7em; align-items: center;">
+  <img
+    src="/slides/gcc2026/gxwf-vscode-placeholder.svg"
+    alt="VS Code editing a Format 2 workflow with an invalid select value flagged, a state: completion popup, and tool-XML hover"
+    style="display: block; width: 100%; border: 1px solid #374151;"
+  />
+  <div style="text-align: left;">
+    <div style="font-size: 0.62em; line-height: 1.3;">An illegal select value, caught before a single job runs — with the legal options in the message:</div>
+    <pre style="font-size: 0.4em; line-height: 1.35; margin: 0.5em 0 0;"><code style="padding: 0.7em; display: block;">{[
+      "state:",
+      "  single_paired:",
+      "    single_paired_selector: paired_coll   # typo",
+      "",
+      "$ gxwf validate wf.gxwf.yml",
+      "[0] fastp  FAIL",
+      "  single_paired_selector:",
+      "    expected \"paired_collection\" | \"single\",",
+      "    actual \"paired_coll\"",
+    ].join("\n")}</code></pre>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.6em;">Real <code>gxwf</code> output. Names, types, select options, conditionals — same schema the Galaxy UI uses. Diagnostics are structured (path + category), so an agent fixes in a tight loop instead of waiting on a failed job.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.36em;">Connections, validated</h2>
+
+<div style="font-size: 0.74em; line-height: 1.25; margin: 0.1em auto 0.7em; max-width: 30em;">
+  Connections aren't just producer→consumer links — they carry Galaxy's <strong>collection algebra</strong>. A <code>list</code> wired into a single-dataset input implies map-over; an incompatible depth (e.g. <code>list:paired</code> → <code>paired</code> with no flatten) is rejected <em>statically</em>.
+</div>
+
+<pre style="font-size: 0.44em; line-height: 1.4; margin: 0 auto 0.6em; max-width: 31em; text-align: left;"><code style="padding: 0.85em; display: block;">{[
+  "$ gxwf validate pe-artic-variation.ga \\",
+  "      --connections",
+  "",
+  "Tool state: 25 validated, 0 skipped",
+  "Connections: OK — 46 ok, 0 invalid, 0 skip",
+].join("\n")}</code></pre>
+
+<div class="text-sm opacity-70">Same <code>workflow-graph</code> package backs the diagram renderer — so map-over depth shown in the graph and accepted by the validator are guaranteed to agree.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.34em;">galaxy-workflows-vscode</h2>
+
+<div style="font-size: 0.62em; letter-spacing: 0; opacity: 0.72; margin-top: -0.15em;">
+  An IDE for Galaxy workflows
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7em; margin: 1em auto 0; max-width: 30em; text-align: left;">
+  <div style="border-top: 6px solid #2563eb; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">Full .ga + gxformat2 coverage</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Native Galaxy workflows and Format 2 workflows both get a real editor experience.</div>
+  </div>
+  <div style="border-top: 6px solid #059669; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">Schema-aware</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Validation, hover docs, IntelliSense, formatting, outline, diagrams.</div>
+  </div>
+  <div style="border-top: 6px solid #dc2626; padding-top: 0.5em;">
+    <div style="font-size: 0.68em; font-weight: 750; line-height: 1.1;">Thank you, David</div>
+    <div style="font-size: 0.48em; line-height: 1.26; margin-top: 0.42em;">Huge, repeated thanks to David Lopez for building the extension that makes these IDE demos real.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.62em; letter-spacing: 0; opacity: 0.72; margin-top: 1.1em;">
+  github.com/davelopez/galaxy-workflows-vscode
+</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.32em;">IDE work: find the tool</h2>
+
+<img
+  src="/slides/gcc2026/gxwf-vscode-tool-search.png"
+  alt="VS Code ToolShed search results for FastQC tools"
+  style="display: block; width: 92%; max-height: 69vh; object-fit: contain; margin: 0 auto; border: 1px solid #d1d5db; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.65em;">ToolShed search inside VS Code resolves a human query to a versioned Galaxy tool.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.32em;">IDE work: complete state keys</h2>
+
+<img
+  src="/slides/gcc2026/gxwf-vscode-state-key-completion.png"
+  alt="VS Code completing valid Format 2 state keys from a Galaxy tool schema"
+  style="display: block; width: 92%; max-height: 69vh; object-fit: contain; margin: 0 auto; border: 1px solid #d1d5db; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.65em;">The extension completes Format 2 parameter names from the selected tool schema, including nested state.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.32em;">IDE work: complete legal values</h2>
+
+<img
+  src="/slides/gcc2026/gxwf-vscode-select-value-completion.png"
+  alt="VS Code completing legal Format 2 select values for a Galaxy tool parameter"
+  style="display: block; width: 92%; max-height: 69vh; object-fit: contain; margin: 0 auto; border: 1px solid #d1d5db; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.65em;">Select parameters expose their enum values in-place, before validation or execution.</div>
+
+</section>
+
+---
+
+<section>
+
+<div style="font-size: 0.46em; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.58;">Paper 3 of 3</div>
+
+<h2 style="font-size: 1.18em; margin: 0.18em 0 0.35em;">Galaxy Workflow Foundry</h2>
+
+<a
+  href="https://jmchilton.github.io/galaxy-brain/papers/foundry/"
+  style="display: inline-block; font-size: 0.4em; color: #2563eb; font-weight: 800; word-break: break-word; text-decoration: none; border-bottom: 2px solid #93c5fd; padding-bottom: 0.08em;"
+>
+  https://jmchilton.github.io/galaxy-brain/papers/foundry/
+</a>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.06em; line-height: 1.12;">
+  Even when we ask agents to build workflows,
+</h2>
+
+<div style="font-size: 1.18em; font-weight: 900; color: #2563eb; line-height: 1.06; margin-top: 0.16em;">
+  designing for humans supercharges agents.
+</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.34em;">Skills are the wrong source of truth</h2>
+
+<div style="font-size: 0.56em; opacity: 0.76; margin-top: -0.3em;">A hand-authored conversion skill works until the ecosystem moves.</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7em; margin: 1.0em auto 0; max-width: 34em; text-align: left;">
+  <div style="border-top: 5px solid #4f46e5; background: #f8fafc; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 800;">Context flooding</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.78;">Every run drags in conditionals, collections, tests, wrappers, and caveats.</div>
+  </div>
+  <div style="border-top: 5px solid #0891b2; background: #f8fafc; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 800;">Brittle composition</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.78;">Paper, Nextflow, CWL, and interview paths duplicate the same workflow moves.</div>
+  </div>
+  <div style="border-top: 5px solid #ca8a04; background: #f8fafc; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 800;">Prose caveats</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.78;">"Remember to validate" is weaker than a schema and a command that must pass.</div>
+  </div>
+  <div style="border-top: 5px solid #059669; background: #f8fafc; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 800;">Compressed evidence</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.78;">Corpus examples and design rationale get summarized until they stop being auditable.</div>
+  </div>
+  <div style="border-top: 5px solid #7c3aed; background: #f8fafc; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 800;">Runtime captivity</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.78;">A skill written for one agent surface does not become portable by hoping.</div>
+  </div>
+  <div style="border-top: 5px solid #dc2626; background: #fff7ed; padding: 0.65em;">
+    <div style="font-size: 0.48em; font-weight: 900;">No human-scrutable source</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.82;">When the skill is wrong, there is no richer upstream artifact to inspect and fix.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.62em; margin-top: 1.0em; font-weight: 750;">The skill can run; the maintainer still needs to audit why it says what it says.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em;">Make the knowledge base executable</h2>
+
+<div style="font-size: 0.54em; opacity: 0.76; margin-top: -0.2em;">Build actionable skills from inspectable, typed, synchronized source material.</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.55em; margin: 0.95em auto 0.75em; max-width: 37em; text-align: left;">
+  <div style="border: 1px solid #cbd5e1; padding: 0.58em; min-height: 6.8em;">
+    <div style="font-size: 0.42em; text-transform: uppercase; letter-spacing: 0.08em; color: #4f46e5; font-weight: 900;">Schemas</div>
+    <div style="font-size: 0.48em; line-height: 1.18; font-weight: 800; margin-top: 0.35em;">typed workflow artifacts</div>
+    <div style="font-size: 0.34em; line-height: 1.32; opacity: 0.76; margin-top: 0.45em;">Drafts, summaries, tool state, tests, provenance.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.58em; min-height: 6.8em;">
+    <div style="font-size: 0.42em; text-transform: uppercase; letter-spacing: 0.08em; color: #0f766e; font-weight: 900;">Upstream specs</div>
+    <div style="font-size: 0.48em; line-height: 1.18; font-weight: 800; margin-top: 0.35em;">strictly synchronized</div>
+    <div style="font-size: 0.34em; line-height: 1.32; opacity: 0.76; margin-top: 0.45em;">gxformat2, Galaxy collection semantics, CWL, tool XML.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.58em; min-height: 6.8em;">
+    <div style="font-size: 0.42em; text-transform: uppercase; letter-spacing: 0.08em; color: #ca8a04; font-weight: 900;">CLI manuals</div>
+    <div style="font-size: 0.48em; line-height: 1.18; font-weight: 800; margin-top: 0.35em;">commands as contracts</div>
+    <div style="font-size: 0.34em; line-height: 1.32; opacity: 0.76; margin-top: 0.45em;">`gxwf`, Planemo, validator outputs, sidecar metadata.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.58em; min-height: 6.8em;">
+    <div style="font-size: 0.42em; text-transform: uppercase; letter-spacing: 0.08em; color: #dc2626; font-weight: 900;">Research + patterns</div>
+    <div style="font-size: 0.48em; line-height: 1.18; font-weight: 800; margin-top: 0.35em;">corpus-grounded moves</div>
+    <div style="font-size: 0.34em; line-height: 1.32; opacity: 0.76; margin-top: 0.45em;">IWC examples, design rationale, when-to-use guidance.</div>
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 0.7em; max-width: 30em; margin: 0 auto; font-size: 0.48em;">
+  <div style="border-left: 6px solid #0f172a; text-align: left; padding-left: 0.65em;">Knowledge stays inspectable for humans.</div>
+  <div style="font-size: 1.4em; opacity: 0.45;">→</div>
+  <div style="border-left: 6px solid #2563eb; text-align: left; padding-left: 0.65em;">Casts become executable for agents.</div>
+</div>
+
+<div style="font-size: 0.96em; font-weight: 900; margin-top: 0.75em;">That is Foundry.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em; margin-bottom: 0.05em;">Galaxy Workflow Foundry</h2>
+
+<div style="font-size: 0.78em; font-weight: 800; color: #2563eb; margin-bottom: 0.55em;">Build Galaxy workflows from anything.</div>
+
+<img
+  src="/slides/gcc2026/foundry-casting-molds-story.png"
+  alt="Foundry diagram showing knowledge base inputs passing through casting molds into cast skills and actionable pipelines"
+  style="display: block; width: 91%; max-height: 55vh; object-fit: contain; margin: 0 auto; border: 1px solid #d1d5db; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.55em;">galaxyproject.github.io/foundry</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em;">Pipelines are journeys</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(12em, 0.65fr); gap: 0.75em; align-items: center; margin-top: 0.5em;">
+  <img
+    src="/slides/gcc2026/foundry-site-pipelines.png"
+    alt="Foundry pipelines page showing ordered Mold sequences"
+    style="display: block; width: 100%; max-height: 63vh; object-fit: contain; border: 1px solid #111827; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);"
+  />
+  <div style="text-align: left;">
+    <div style="font-size: 0.5em; line-height: 1.28; margin-bottom: 0.7em;">
+      A pipeline is not a giant prompt. It is an ordered Mold sequence with visible handoffs.
+    </div>
+    <ul style="font-size: 0.43em; line-height: 1.35; margin: 0; padding-left: 1.2em;">
+      <li>source-specific summary</li>
+      <li>target-specific design briefs</li>
+      <li>corpus comparison</li>
+      <li>draft implementation loop</li>
+      <li>tests, validation, execution, debug</li>
+    </ul>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.45em;">Pipelines make the journey browseable for humans and executable for harnesses.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em;">Interview → Galaxy</h2>
+
+<div style="display: grid; grid-template-columns: minmax(12em, 0.62fr) minmax(0, 1.38fr); gap: 0.75em; align-items: center; margin-top: 0.45em;">
+  <div style="text-align: left;">
+    <div style="font-size: 0.5em; line-height: 1.28; font-weight: 800;">A conversation becomes a typed workflow draft, then a validated workflow.</div>
+    <div style="display: grid; gap: 0.45em; margin-top: 0.8em;">
+      <div style="border-left: 5px solid #2563eb; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Normalize an interview into a shared freeform summary.</div>
+      <div style="border-left: 5px solid #0f766e; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Design Galaxy interface and data flow, then compare to IWC exemplars.</div>
+      <div style="border-left: 5px solid #ca8a04; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Loop over `advance-galaxy-draft-step` until no drafty step remains.</div>
+      <div style="border-left: 5px solid #dc2626; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Validate, test, execute, and debug with deterministic tooling in the loop.</div>
+    </div>
+  </div>
+  <img
+    src="/slides/gcc2026/foundry-site-interview-to-galaxy.png"
+    alt="Foundry interview to Galaxy pipeline page showing phases, loop, and branch"
+    style="display: block; width: 100%; max-height: 63vh; object-fit: contain; border: 1px solid #111827; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);"
+  />
+</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.24em;">Patterns are the reusable moves</h2>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55em; margin-top: 0.55em;">
+  <div style="text-align: left;">
+    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">1. Patterns MOC</div>
+    <img
+      src="/slides/gcc2026/foundry-site-patterns.png"
+      alt="Foundry patterns index with pattern maps"
+      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #111827;"
+    />
+    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">Start from corpus-grounded maps, not a flat pile of recipes.</div>
+  </div>
+  <div style="text-align: left;">
+    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">2. Collections MOC</div>
+    <img
+      src="/slides/gcc2026/foundry-site-collection-patterns.png"
+      alt="Foundry Galaxy collection patterns map of content"
+      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #111827;"
+    />
+    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">A map-of-content routes the agent to the right collection operation.</div>
+  </div>
+  <div style="text-align: left;">
+    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">3. Concrete recipe</div>
+    <img
+      src="/slides/gcc2026/foundry-site-relabel-pattern.png"
+      alt="Foundry relabel via rules and find replace pattern page"
+      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #111827;"
+    />
+    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">Leaf patterns preserve when-to-use guidance, pitfalls, and exemplar links.</div>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.45em;">Patterns stay human-readable; casts can package the same evidence as runtime references.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em;">Workflow draft format</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr); gap: 0.8em; align-items: stretch; margin-top: 0.65em;">
+  <div style="text-align: left;">
+    <div style="border-left: 6px solid #059669; padding-left: 0.65em; margin-bottom: 0.75em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Concrete now</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">inputs, outputs, step set, producer → consumer edges, branches, `when:` guards</div>
+    </div>
+    <div style="border-left: 6px solid #ca8a04; padding-left: 0.65em; margin-bottom: 0.75em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Deferred explicitly</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">`TODO_*` sentinels for tool IDs, versions, and wrapper-defined ports</div>
+    </div>
+    <div style="border-left: 6px solid #2563eb; padding-left: 0.65em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Intent carried forward</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">`_plan_*` fields tell the implementation Mold what the source evidence supports.</div>
+    </div>
+  </div>
+  <pre style="font-size: 0.36em; line-height: 1.32; text-align: left; margin: 0; padding: 1em; background: #0f172a; color: #e2e8f0; border-radius: 0.25em; white-space: pre-wrap;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{`class: GalaxyWorkflowDraft
+inputs:
+  reads:
+    type: collection
+    collection_type: list:paired
+steps:
+  align_reads:
+    tool_id: TODO_mapper
+    tool_version: TODO
+    _plan_context: "map paired reads to the reference"
+    _plan_in:
+      reads: "paired input collection"
+      reference: "selected genome"
+    in:
+      reads: reads
+      reference: TODO_reference_port
+outputs:
+  aligned_bam:
+    outputSource: align_reads/TODO_bam_output`}</code></pre>
+</div>
+
+<div style="font-size: 0.58em; margin-top: 0.75em; font-weight: 800;">A fully resolved draft promotes to ordinary `gxformat2` with no translation layer.</div>
+
+</section>
+
+---
+
+<section>
+
+<h2 style="font-size: 1.28em;">Draft tooling: validate in the loop</h2>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.45em; align-items: stretch; margin: 0.9em auto 0.65em; max-width: 38em;">
+  <div style="border: 1px solid #cbd5e1; padding: 0.55em; text-align: left;">
+    <div style="font-size: 0.38em; text-transform: uppercase; color: #64748b; font-weight: 900;">pick</div>
+    <div style="font-size: 0.44em; font-family: monospace; font-weight: 800; margin-top: 0.35em;">gxwf draft-next-step</div>
+    <div style="font-size: 0.32em; line-height: 1.28; opacity: 0.76; margin-top: 0.45em;">Deterministically identifies the next unresolved step.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.55em; text-align: left;">
+    <div style="font-size: 0.38em; text-transform: uppercase; color: #64748b; font-weight: 900;">resolve</div>
+    <div style="font-size: 0.44em; font-family: monospace; font-weight: 800; margin-top: 0.35em;">discover or author</div>
+    <div style="font-size: 0.32em; line-height: 1.28; opacity: 0.76; margin-top: 0.45em;">Find a Tool Shed wrapper first; author a wrapper only on fallthrough.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.55em; text-align: left;">
+    <div style="font-size: 0.38em; text-transform: uppercase; color: #64748b; font-weight: 900;">implement</div>
+    <div style="font-size: 0.44em; font-family: monospace; font-weight: 800; margin-top: 0.35em;">advance draft step</div>
+    <div style="font-size: 0.32em; line-height: 1.28; opacity: 0.76; margin-top: 0.45em;">Fill `tool_state`, ports, IDs, versions, and remove planning fields.</div>
+  </div>
+  <div style="border: 1px solid #cbd5e1; padding: 0.55em; text-align: left; background: #fef2f2;">
+    <div style="font-size: 0.38em; text-transform: uppercase; color: #991b1b; font-weight: 900;">validate</div>
+    <div style="font-size: 0.44em; font-family: monospace; font-weight: 800; margin-top: 0.35em;">draft-validate --concrete</div>
+    <div style="font-size: 0.32em; line-height: 1.28; opacity: 0.8; margin-top: 0.45em;">Schema errors route back to the responsible authoring phase.</div>
+  </div>
+</div>
+
+<pre style="font-size: 0.46em; line-height: 1.38; text-align: left; margin: 0 auto; max-width: 32em; padding: 0.85em 1em; background: #0f172a; color: #e2e8f0; border-radius: 0.25em;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{`while gxwf draft-next-step workflow.gxwf.yml says draft:
+  invoke advance-galaxy-draft-step
+  gxwf draft-validate --concrete workflow.gxwf.yml
+`}</code></pre>
+
+<div style="font-size: 0.66em; margin-top: 0.75em; font-weight: 850;">author → validate → fix, one workflow step at a time</div>
 
 </section>
 
@@ -402,15 +976,11 @@ Format 2 is now a first-class authoring surface — for humans **and** agents.
 
 <section>
 
-## Three papers + a longer talk
+## Thanks
 
-- **Galaxy Notebooks** — reproducible communication for human + agent analysis.
-- **gxwf / Format 2** — schema-aware authoring & validation across CLI, IDE, browser, CI.
-- **Foundry** — compiling curated workflow knowledge into provenanced agent skills.
-- **Longer thesis video** → jmchilton.net/talks &nbsp;·&nbsp; @jmchilton
+<div class="text-sm opacity-70">Galaxy community · Nekrutenko lab · IWC · ToolShed contributors</div>
 
-{/* TODO Polish: add QR code + real DOI/preprint URLs when available */}
-<div class="text-sm opacity-70">Vault drafts available now; preprints in preparation.</div>
+<div class="text-sm opacity-50">Questions?</div>
 
 </section>
 
@@ -418,10 +988,23 @@ Format 2 is now a first-class authoring surface — for humans **and** agents.
 
 <section>
 
-## Thanks
+## Extra Slides
 
-<div class="text-sm opacity-70">Galaxy community · Nekrutenko lab · IWC · ToolShed contributors</div>
+</section>
 
-<div class="text-sm opacity-50">Questions?</div>
+---
+
+<section>
+
+## Galaxy Notebooks
+
+**Galaxy Notebooks**: Galaxy-flavored markdown attached to histories.
+
+- Embed datasets, collections, and interactive visualizations in prose (including drag and drop).
+- Referenced outputs seed workflow extraction (with reports).
+- AI assistant can read history context and draft sections (including MCP support).
+- Every revision attributed: user / agent / restore.
+
+<div class="text-sm opacity-70">Builds on what used to be called "Pages", New in 26.1</div>
 
 </section>

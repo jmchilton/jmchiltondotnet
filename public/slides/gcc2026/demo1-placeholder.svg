@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <rect width="800" height="450" fill="#111" stroke="#0066cc" stroke-width="2"/>
+  <text x="400" y="200" font-family="JetBrains Mono, monospace" font-size="28" fill="#0066cc" text-anchor="middle">DEMO 1 PLACEHOLDER</text>
+  <text x="400" y="240" font-family="Inter, sans-serif" font-size="18" fill="#bbb" text-anchor="middle">History → Notebook → Graph Extraction → Workflow</text>
+  <text x="400" y="280" font-family="Inter, sans-serif" font-size="14" fill="#666" text-anchor="middle">MRSA mobile-AMR · galaxy-brain#12 · galaxy#22709</text>
+  <text x="400" y="380" font-family="Inter, sans-serif" font-size="12" fill="#444" text-anchor="middle">Replace with YouTube embed or local MP4 once recorded.</text>
+</svg>
