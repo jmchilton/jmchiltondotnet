@@ -69,6 +69,7 @@ const slidesCollection = defineCollection({
     transition: z.enum(['slide', 'fade', 'zoom', 'convex', 'concave']).default('slide'),
     showControls: z.boolean().default(true),
     showProgress: z.boolean().default(true),
+    theme: z.enum(['default', 'galaxy']).default('default'),
   }),
 });
 

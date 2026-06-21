@@ -8,6 +8,7 @@ interface Props {
   transition?: string;
   showControls?: boolean;
   showProgress?: boolean;
+  theme?: 'default' | 'galaxy';
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   transition = 'slide',
   showControls = true,
   showProgress = true,
+  theme = 'default',
 } = Astro.props;
 
 const fullTitle = `${title} | jmchilton.net`;
@@ -36,7 +38,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
 
@@ -166,10 +168,74 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         gap: 2rem;
         align-items: start;
       }
+
+      /* ===== Galaxy navy + gold theme =====
+         Opt-in per deck via frontmatter `theme: galaxy`. All rules are scoped
+         under [data-theme='galaxy'] so other decks keep the default theme. */
+      .reveal[data-theme='galaxy'] {
+        --r-main-font: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, -apple-system, sans-serif;
+        --r-heading-font: 'Atkinson Hyperlegible', ui-sans-serif, system-ui, sans-serif;
+        --r-main-color: #2c3143;
+        --r-heading-color: #2c3143;
+        --r-link-color: #25537b;
+        --r-link-color-hover: #d19e00;
+        --r-selection-background-color: #edf4fa;
+        /* subtle 24px workflow-editor grid */
+        background-color: #ffffff;
+        background-image:
+          linear-gradient(to right, rgba(37, 83, 123, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(37, 83, 123, 0.05) 1px, transparent 1px);
+        background-size: 24px 24px;
+      }
+
+      .reveal[data-theme='galaxy'] h1,
+      .reveal[data-theme='galaxy'] h2,
+      .reveal[data-theme='galaxy'] h3,
+      .reveal[data-theme='galaxy'] h4 {
+        font-family: var(--r-heading-font);
+        color: var(--r-heading-color);
+      }
+
+      /* Signature H2/H3 gold underline that hugs the centered heading text */
+      .reveal[data-theme='galaxy'] h2,
+      .reveal[data-theme='galaxy'] h3 {
+        display: table;
+        margin-left: auto;
+        margin-right: auto;
+        border-bottom: 2px solid rgba(232, 197, 71, 0.5);
+        padding-bottom: 0.16em;
+      }
+
+      /* Inline code -> light-blue pill; code blocks -> navy */
+      .reveal[data-theme='galaxy'] code {
+        background: #edf4fa;
+        color: #2c3143;
+      }
+      .reveal[data-theme='galaxy'] pre {
+        border-color: #d6dbe2;
+      }
+      .reveal[data-theme='galaxy'] pre code {
+        background: #2c3143;
+        color: #e2e8f0;
+      }
+
+      /* Navy-gradient cover slide (section gets class="galaxy-cover" + data-background-gradient) */
+      .reveal[data-theme='galaxy'] .galaxy-cover h1 {
+        color: #ffd700 !important;
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover,
+      .reveal[data-theme='galaxy'] .galaxy-cover h2,
+      .reveal[data-theme='galaxy'] .galaxy-cover h3 {
+        color: #f8f9fa !important;
+        border-bottom: none;
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover a {
+        color: #ffd700 !important;
+      }
     </style>
   </head>
   <body>
-    <div class="reveal">
+    <div class="reveal" data-theme={theme}>
       <div class="slides">
         <slot />
       </div>

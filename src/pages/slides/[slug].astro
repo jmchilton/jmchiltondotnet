@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 
 const { slide } = Astro.props;
 const { Content } = await slide.render();
-const { title, description, transition, showControls, showProgress } = slide.data;
+const { title, description, transition, showControls, showProgress, theme } = slide.data;
 ---
 
 <SlideLayout
@@ -21,6 +21,7 @@ const { title, description, transition, showControls, showProgress } = slide.dat
   transition={transition}
   showControls={showControls}
   showProgress={showProgress}
+  theme={theme}
 >
   <Content />
 </SlideLayout>
