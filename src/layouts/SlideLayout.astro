@@ -255,6 +255,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         const Reveal = (
           await import('https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.esm.js')
         ).default;
+        // Expose globally so external tools (decktape PDF export) can drive the deck.
+        window.Reveal = Reveal;
         const RevealHighlight = (
           await import(
             'https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/plugin/highlight/highlight.esm.js'
@@ -266,37 +268,73 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           )
         ).default;
 
-        // Render Mermaid diagrams lazily, per slide, once it is on screen.
-        // Mermaid measures the container width; an unsized slide (before Reveal
-        // lays out, or a hidden display:none slide) renders an empty graph, so
-        // we render only the visible slide's blocks. Load is guarded: decks
-        // without diagrams never fetch mermaid.
+        // PDF export mode (decktape passes ?pdf): strip on-screen chrome and
+        // pre-render every diagram so the exporter never captures a half-drawn slide.
+        const params = new URLSearchParams(window.location.search);
+        const pdfMode = params.has('pdf') || params.has('print-pdf');
+
+        // Mermaid measures container width; an unsized slide (before Reveal lays
+        // out, or a hidden display:none slide) renders an empty graph. Interactive
+        // mode renders only the visible slide; export mode renders all slides by
+        // temporarily forcing each visible. Load is guarded: decks without
+        // diagrams never fetch mermaid.
         let mermaid;
-        const renderMermaid = async (slide) => {
-          if (!slide) return;
-          const nodes = [...slide.querySelectorAll('.mermaid:not([data-processed])')];
-          if (!nodes.length) return;
+        const loadMermaid = async () => {
           if (!mermaid) {
             mermaid = (
               await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
             ).default;
             mermaid.initialize({ startOnLoad: false });
           }
+          return mermaid;
+        };
+        const renderMermaid = async (slide) => {
+          if (!slide) return;
+          const nodes = [...slide.querySelectorAll('.mermaid:not([data-processed])')];
+          if (!nodes.length) return;
+          await loadMermaid();
           await mermaid.run({ nodes });
+        };
+        const renderAllMermaid = async () => {
+          for (const slide of document.querySelectorAll('.slides > section')) {
+            const nodes = [...slide.querySelectorAll('.mermaid:not([data-processed])')];
+            if (!nodes.length) continue;
+            await loadMermaid();
+            // visibility:hidden keeps layout width (display:none would not).
+            const prevDisplay = slide.style.display;
+            slide.style.display = 'block';
+            slide.style.visibility = 'hidden';
+            await mermaid.run({ nodes });
+            slide.style.display = prevDisplay;
+            slide.style.visibility = '';
+          }
         };
 
         await Reveal.initialize({
           hash: true,
-          controls: showControls,
-          progress: showProgress,
+          controls: showControls && !pdfMode,
+          progress: showProgress && !pdfMode,
           center: true,
           transition: transition,
-          slideNumber: 'c/t',
+          slideNumber: pdfMode ? false : 'c/t',
           plugins: [RevealHighlight, RevealMarkdown],
         });
 
-        Reveal.on('slidechanged', (e) => renderMermaid(e.currentSlide));
-        await renderMermaid(Reveal.getCurrentSlide());
+        if (pdfMode) {
+          const style = document.createElement('style');
+          style.textContent =
+            '.reveal .controls,.reveal .progress,.reveal .slide-number{display:none!important}' +
+            'astro-dev-toolbar{display:none!important}' +
+            // Drop image drop-shadows: captured at native slide width (~DPR 1)
+            // the blur compresses into a dark band instead of the soft shadow
+            // the upscaled live deck shows. The border alone defines the edge.
+            '.reveal img{box-shadow:none!important}';
+          document.head.appendChild(style);
+          await renderAllMermaid();
+        } else {
+          Reveal.on('slidechanged', (e) => renderMermaid(e.currentSlide));
+          await renderMermaid(Reveal.getCurrentSlide());
+        }
       })();
     </script>
   </body>

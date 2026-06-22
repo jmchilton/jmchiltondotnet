@@ -13,6 +13,7 @@
     "copy:pdfs": "echo 'PDFs already copied via --pdf-path'",
     "preprocess:resume": "npm run validate:resume && node scripts/build-resume-variants.js",
     "validate:resume": "node scripts/validate-resume-main.js",
+    "export:slides": "node scripts/export-slides-pdf.js",
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
