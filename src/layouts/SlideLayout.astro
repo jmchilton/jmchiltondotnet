@@ -206,6 +206,15 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         padding-bottom: 0.16em;
       }
 
+      /* Opt out of the underline for big multi-line statement headings, where a
+         full-width rule reads as an accidental divider instead of an accent. */
+      .reveal[data-theme='galaxy'] h2.plain-heading,
+      .reveal[data-theme='galaxy'] h3.plain-heading {
+        display: block;
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+
       /* Inline code -> light-blue pill; code blocks -> navy */
       .reveal[data-theme='galaxy'] code {
         background: #edf4fa;
@@ -257,7 +266,26 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           )
         ).default;
 
-        Reveal.initialize({
+        // Render Mermaid diagrams lazily, per slide, once it is on screen.
+        // Mermaid measures the container width; an unsized slide (before Reveal
+        // lays out, or a hidden display:none slide) renders an empty graph, so
+        // we render only the visible slide's blocks. Load is guarded: decks
+        // without diagrams never fetch mermaid.
+        let mermaid;
+        const renderMermaid = async (slide) => {
+          if (!slide) return;
+          const nodes = [...slide.querySelectorAll('.mermaid:not([data-processed])')];
+          if (!nodes.length) return;
+          if (!mermaid) {
+            mermaid = (
+              await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs')
+            ).default;
+            mermaid.initialize({ startOnLoad: false });
+          }
+          await mermaid.run({ nodes });
+        };
+
+        await Reveal.initialize({
           hash: true,
           controls: showControls,
           progress: showProgress,
@@ -266,6 +294,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           slideNumber: 'c/t',
           plugins: [RevealHighlight, RevealMarkdown],
         });
+
+        Reveal.on('slidechanged', (e) => renderMermaid(e.currentSlide));
+        await renderMermaid(Reveal.getCurrentSlide());
       })();
     </script>
   </body>
