@@ -957,25 +957,27 @@ graph LR
       <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">`_plan_*` fields tell the implementation Mold what the source evidence supports.</div>
     </div>
   </div>
-  <pre style="font-size: 0.36em; line-height: 1.32; text-align: left; margin: 0; padding: 1em; background: #2c3143; color: #e2e8f0; border-radius: 0.25em; white-space: pre-wrap;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{`class: GalaxyWorkflowDraft
-inputs:
-  reads:
-    type: collection
-    collection_type: list:paired
-steps:
-  align_reads:
-    tool_id: TODO_mapper
-    tool_version: TODO
-    _plan_context: "map paired reads to the reference"
-    _plan_in:
-      reads: "paired input collection"
-      reference: "selected genome"
-    in:
-      reads: reads
-      reference: TODO_reference_port
-outputs:
-  aligned_bam:
-    outputSource: align_reads/TODO_bam_output`}</code></pre>
+  <pre style="font-size: 0.36em; line-height: 1.32; text-align: left; margin: 0; padding: 1em; background: #2c3143; color: #e2e8f0; border-radius: 0.25em; white-space: pre-wrap;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{[
+  'class: GalaxyWorkflowDraft',
+  'inputs:',
+  '  reads:',
+  '    type: collection',
+  '    collection_type: list:paired',
+  'steps:',
+  '  align_reads:',
+  '    tool_id: TODO_mapper',
+  '    tool_version: TODO',
+  '    _plan_context: "map paired reads to the reference"',
+  '    _plan_in:',
+  '      reads: "paired input collection"',
+  '      reference: "selected genome"',
+  '    in:',
+  '      reads: reads',
+  '      reference: TODO_reference_port',
+  'outputs:',
+  '  aligned_bam:',
+  '    outputSource: align_reads/TODO_bam_output',
+].join('\n')}</code></pre>
 </div>
 
 <div style="font-size: 0.58em; margin-top: 0.75em; font-weight: 800;">A fully resolved draft promotes to ordinary `gxformat2` with no translation layer.</div>
