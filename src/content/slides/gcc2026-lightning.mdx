@@ -1,0 +1,152 @@
+---
+title: 'The Galaxy Workflow Draft'
+description: 'A gxformat2 superset that makes under-determination a typed, checkable state'
+date: '2026-06-01'
+event: 'GCC 2026'
+tags: ['galaxy', 'workflows', 'ai']
+transition: 'slide'
+showControls: true
+showProgress: true
+theme: 'galaxy'
+---
+
+<section class="galaxy-cover" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+# The Galaxy Workflow Draft
+
+<div style="font-size: 0.62em; font-weight: 700; color: #f8f9fa; margin-top: 0.1em;">Plan, review, and refine a workflow — one step at a time</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.9em;">Lightning talk · GCC 2026</div>
+
+<div style="font-size: 0.42em; opacity: 0.85; margin-top: 0.6em;">John Chilton</div>
+
+</section>
+
+
+<section>
+
+<h3 class="plain-heading" style="line-height: 1.14;">
+  A workflow only validates once it's <span style="color: #25537b;">finished</span>.
+</h3>
+
+<div style="font-size: 0.78em; font-weight: 800; margin-top: 1.0em; border-left: 7px solid #b45309; padding-left: 0.65em; text-align: left; display: inline-block; max-width: 22em;">
+  A <code># TODO</code> comment is invisible to the validator — so static checks arrive <span style="color: #b45309;">all at the end</span>, too late to shape the design.
+</div>
+
+</section>
+
+
+<section>
+
+<h2 style="font-size: 1.28em;">Make "I don't know yet" first-class</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr); gap: 0.8em; align-items: stretch; margin-top: 0.65em;">
+  <div style="text-align: left;">
+    <div style="border-left: 6px solid #d0bd2a; padding-left: 0.65em; margin-bottom: 0.75em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Concrete now</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">inputs, outputs, step set, producer → consumer edges, branches, `when:` guards</div>
+    </div>
+    <div style="border-left: 6px solid #d0bd2a; padding-left: 0.65em; margin-bottom: 0.75em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Deferred explicitly</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">`TODO_*` sentinels for tool IDs, versions, and wrapper-defined ports</div>
+    </div>
+    <div style="border-left: 6px solid #25537b; padding-left: 0.65em;">
+      <div style="font-size: 0.48em; font-weight: 900;">Intent carried forward</div>
+      <div style="font-size: 0.36em; line-height: 1.32; opacity: 0.78;">`_plan_*` fields tell the next step what the source evidence supports.</div>
+    </div>
+  </div>
+  <pre style="font-size: 0.36em; line-height: 1.32; text-align: left; margin: 0; padding: 1em; background: #2c3143; color: #e2e8f0; border-radius: 0.25em; white-space: pre-wrap;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{[
+  'class: GalaxyWorkflowDraft',
+  'inputs:',
+  '  reads:',
+  '    type: collection',
+  '    collection_type: list:paired',
+  'steps:',
+  '  align_reads:',
+  '    tool_id: TODO_mapper',
+  '    tool_version: TODO',
+  '    _plan_context: "map paired reads to the reference"',
+  '    _plan_in:',
+  '      reads: "paired input collection"',
+  '      reference: "selected genome"',
+  '    in:',
+  '      reads: reads',
+  '      reference: TODO_reference_port',
+  'outputs:',
+  '  aligned_bam:',
+  '    outputSource: align_reads/TODO_bam_output',
+].join('\n')}</code></pre>
+</div>
+
+</section>
+
+
+<section>
+
+<h2 style="font-size: 1.22em;">Validate the plan at every stage</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.98fr); gap: 0.5em; align-items: center; margin: 0.5em 0 0 -6%; width: 112%;">
+  <img
+    src="/slides/gcc2026/foundry-mobile-reformat-draft.png"
+    alt="Topology-complete draft: concrete steps solid, deferred wrapper-tier steps as a planned overlay"
+    style="display: block; width: 100%; border: 1px solid #cbd5e1;"
+  />
+  <img
+    src="/slides/gcc2026/foundry-mobile-reformat-extracted.png"
+    alt="Extracted concrete subset promoted to class GalaxyWorkflow"
+    style="display: block; width: 100%; border: 1px solid #cbd5e1;"
+  />
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.5em; max-width: 33em; margin-left: auto; margin-right: auto;">
+  <code>gxwf draft-validate</code> checks what's already concrete against real tool schemas and <strong>skips</strong> what's still deferred — so every intermediate plan is valid at the resolution it has reached.
+</div>
+
+</section>
+
+
+<section>
+
+<h2 style="font-size: 1.26em;">The draft tells you what's next</h2>
+
+<div style="font-size: 0.66em; line-height: 1.26; margin: 0.05em auto 0.7em; max-width: 30em;">
+  Because deferral is typed, the tooling reads the plan and picks the next unresolved step — no hunting through YAML for what's unfinished.
+</div>
+
+<pre style="font-size: 0.5em; line-height: 1.4; margin: 0 auto; max-width: 28em; text-align: left;"><code style="padding: 0.85em; display: block;">{[
+  "$ gxwf draft-next-step wf.gxwf.yml",
+  "",
+  "→ step 3  filter significant peaks   [deferred]",
+  "    _plan_state: keep rows with padj < 0.05",
+].join("\n")}</code></pre>
+
+<div class="text-sm opacity-70" style="margin-top: 0.6em;">Resolve it, validate, repeat — the format drives the loop instead of you tracking it.</div>
+
+</section>
+
+
+<section>
+
+<div style="font-size: 0.92em; line-height: 1.14; font-weight: 850; max-width: 26em; margin: 0 auto;">
+  The format turns <span style="color: #b45309;">"I don't know yet"</span> into a safer move than
+  <span style="color: #b45309;">"I'll guess."</span>
+</div>
+
+<div style="font-size: 0.62em; line-height: 1.3; margin: 0.9em auto 0; max-width: 28em; opacity: 0.8;">
+  A workflow plan anyone can read, review, and refine — one step at a time, whether a person or an agent is filling it in.
+</div>
+
+<div style="font-size: 0.7em; color: #25537b; font-weight: 950; margin-top: 1.1em;">a plan you can trust, because you can read it</div>
+
+<div style="display: grid; gap: 0.5em; margin: 0.95em auto 0; max-width: 30em; text-align: left;">
+  <a href="https://jmchilton.github.io/galaxy-tool-util-ts/#/guide/draft-format" style="display: block; color: inherit; text-decoration: none; border-left: 6px solid #d0bd2a; padding-left: 0.62em;">
+    <div style="font-size: 0.34em; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.58;">The format &amp; operations</div>
+    <div style="font-size: 0.42em; color: #25537b; font-weight: 800;">jmchilton.github.io/galaxy-tool-util-ts</div>
+  </a>
+  <a href="https://galaxyproject.github.io/foundry/research/galaxy-data-flow-draft-contract/" style="display: block; color: inherit; text-decoration: none; border-left: 6px solid #25537b; padding-left: 0.62em;">
+    <div style="font-size: 0.34em; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.58;">How Foundry agents use it</div>
+    <div style="font-size: 0.42em; color: #25537b; font-weight: 800;">galaxyproject.github.io/foundry</div>
+  </a>
+</div>
+
+</section>
