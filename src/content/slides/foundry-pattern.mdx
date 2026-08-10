@@ -1,0 +1,707 @@
+---
+title: 'The Foundry Pattern'
+description: 'More Principled Skills for Agents and Humans'
+date: '2026-08-13'
+event: 'Galaxy ML Lab Meeting'
+tags: ['galaxy', 'bioinformatics', 'reproducibility', 'ai']
+transition: 'slide'
+showControls: true
+showProgress: true
+---
+
+<section>
+
+# The Foundry Pattern
+
+<div class="text-sm opacity-70">Galaxy ML Lab Meeting — August 13, 2026 — John Chilton</div>
+
+<div class="text-sm opacity-50">More Principled Skills for Agents and Humans</div>
+
+</section>
+
+---
+
+{/* SLIDE 2 — the conventional picture of skills */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/skills-overview.png"
+  alt="Diagram: Skill 1 and Skill 2 feeding a Main Agent (LLM, code blocks, Tools) that dispatches to three subagents, beside a panel headed 'What are Skills?' listing reusable code modules, perform specific tasks, API calls, database queries, extend agent capabilities"
+  style="display: block; width: 100%; max-height: 66vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.6em;">
+  Image from <a href="https://strapi.io/blog/what-are-agent-skills-and-how-to-use-them">strapi.io — What are Agent Skills and how to use them</a>
+</div>
+
+</section>
+
+---
+
+{/* ============================ THE CASE ============================ */}
+
+{/* SLIDE 3 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART ONE</div>
+
+# The Case
+
+<div style="font-size: 0.9em; font-weight: 700; margin-top: 0.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  A skill should be the ***package***, not the ***source***.
+</div>
+
+<div style="font-size: 0.62em; opacity: 0.7; margin-top: 1.4em; text-align: left; display: inline-block;">
+  01 · Skills: Package, Not Source &nbsp;→&nbsp; 02 · The Two Assets<br />
+  03 · The Explainer Is the Source &nbsp;→&nbsp; 04 · The Edge Has a Shape
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.2em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/case/">galaxyproject.github.io/foundry-pattern/case/</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 4 — the circle */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/phd-circle.jpg"
+  alt="A circle representing all of human knowledge, with one person's education narrowing toward its boundary"
+  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<h3 style="margin-top: 0.5em;">All of human knowledge.</h3>
+
+<div class="text-sm opacity-50">
+  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 5 — the concession, stated as a positive */}
+
+<section>
+
+<h2 style="font-size: 1.5em;">Inside the circle, skills are great</h2>
+
+<div style="font-size: 0.8em; margin-top: 1.1em;">
+  Established knowledge. Canonical procedure.
+</div>
+
+<div style="font-size: 0.8em; margin-top: 0.5em; color: #2563eb; font-weight: 700;">
+  A frontier model writes this skill well.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.6em;">
+  This is a real concession, not a rhetorical one.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 6 — the best version of the interior use: distillation */}
+
+<section>
+
+<h3>And the interior use has a job</h3>
+
+<div style="display: flex; align-items: center; justify-content: center; gap: 1.1em; margin-top: 1.3em; font-size: 0.72em;">
+  <div style="border: 2px solid #1a1a1a; border-radius: 0.5em; padding: 0.7em 1.1em; font-weight: 700;">
+    advanced model
+  </div>
+  <div style="font-size: 1.6em; color: #dc2626;">→</div>
+  <div style="border: 2px solid #1a1a1a; border-radius: 0.5em; padding: 0.7em 1.1em;">
+    skill
+  </div>
+  <div style="font-size: 1.6em; color: #dc2626;">→</div>
+  <div style="border: 2px dashed #6b7280; border-radius: 0.5em; padding: 0.7em 1.1em;">
+    simpler model
+  </div>
+</div>
+
+<div style="font-size: 0.72em; margin-top: 1.5em;">
+  Teaching established knowledge to models that don't carry it.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.7em;">
+  Spelling out the canonical pipeline is the difference between a small model doing the task and fumbling it.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 7 — the dent */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/phd-dent.jpg"
+  alt="A close view of a small dent pushed beyond the boundary of the circle, labeled Ph.D."
+  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<h3 style="margin-top: 0.5em;">Progress happens here.</h3>
+
+<div class="text-sm opacity-50">
+  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 8 — the reframe */}
+
+<section>
+
+<h2 style="line-height: 1.15;">
+  A model is not another red shape.<br />
+  <span style="color: #dc2626;">The model is the circle.</span>
+</h2>
+
+<div style="font-size: 0.72em; margin-top: 1.3em;">
+  Trained across the recorded surface — not educated into one human-sized slice.
+</div>
+
+<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #2563eb; padding-left: 0.65em; text-align: left; display: inline-block;">
+  So why build a knowledge base outside it?
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 9 — the zoom: the answer to slide 8 */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/phd-zoom.jpg"
+  alt="The dent enlarged until the original circle is mostly outside the frame"
+  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<h3 style="margin-top: 0.5em;">At this scale, the world looks different.</h3>
+
+<div class="text-sm opacity-50">
+  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 10 — three interior tools, pointed outward */}
+
+<section>
+
+<h3>Interior tools at the boundary</h3>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8em; margin-top: 1.3em; font-size: 0.62em;">
+  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
+    <div style="font-weight: 700; font-size: 1.15em;">A folder of Markdown</div>
+    <div style="margin-top: 0.5em;">a container, not an architecture</div>
+  </div>
+  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
+    <div style="font-weight: 700; font-size: 1.15em;">RAG</div>
+    <div style="margin-top: 0.5em;">similarity is not dependency</div>
+  </div>
+  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
+    <div style="font-weight: 700; font-size: 1.15em;">One catch-all wiki</div>
+    <div style="margin-top: 0.5em;">a generic ontology is not the domain's</div>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+  All three are useful. A Foundry may use all three. None is sufficient.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 11 — the four-word slide */}
+
+<section>
+
+<h2 style="font-size: 1.7em; line-height: 1.25;">
+  Research at the edge<br />is <span style="color: #dc2626;">scholarship</span>.
+</h2>
+
+<div style="font-size: 0.78em; margin-top: 1.4em; letter-spacing: 0.02em;">
+  Richly linked. Published. Provenanced. Checked.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 12 — the whole argument in one picture */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/circle-sorting.svg"
+  alt="Diagram: the interior of the circle is established knowledge a frontier model writes well and can teach to smaller models, a commodity; the glowing boundary band with a dent is the edge, where research is scholarship — richly linked, published, provenanced, checked — and not a commodity"
+  style="display: block; width: 100%; max-height: 64vh; object-fit: contain; margin: 0 auto;"
+/>
+
+</section>
+
+---
+
+{/* SLIDE 13 — the bridge */}
+
+<section>
+
+<h2 style="font-size: 1.5em;">A Foundry is that model of the edge,<br />made <span style="color: #2563eb;">executable</span>.</h2>
+
+</section>
+
+---
+
+{/* ============================ THE PATTERN ============================ */}
+
+{/* SLIDE 14 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART TWO</div>
+
+# The Pattern
+
+<div style="font-size: 0.72em; margin-top: 0.8em;">
+  Authorship and distribution, kept separate.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/the-model/">galaxyproject.github.io/foundry-pattern/pattern/the-model/</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 15 — the machine */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-machine.svg"
+  alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
+  style="display: block; width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.5em;">
+  People maintain the source. Agents receive small, frozen artifacts.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 16 — KB */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">01 · SOURCE OF TRUTH</div>
+
+<h2 style="font-size: 1.45em;">Knowledge Base</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  Plain files, authored to be <strong>read and learned by a person</strong>.
+</div>
+
+<div style="font-size: 0.66em; margin-top: 1.1em; opacity: 0.85;">
+  Typed frontmatter · controlled tags · wiki-linked references
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+  "Executable" is a claim the build enforces: every typed reference must resolve, every tag must exist.<br />
+  A Mold whose source fails these checks cannot be cast.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 17 — Mold */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">02 · ONE ACTION</div>
+
+<h2 style="font-size: 1.45em;">Mold</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  A typed reference manifest plus a procedural skeleton.
+</div>
+
+<div style="font-size: 0.62em; margin-top: 1.3em; text-align: left; display: inline-block;">
+  Every declared reference carries three decisions:
+  <ul style="margin-top: 0.5em;">
+    <li><strong>kind</strong> — which resolver and casting rules apply</li>
+    <li><strong>load policy</strong> — upfront, or on-demand with a trigger</li>
+    <li><strong>placement</strong> — verbatim, or sidecar</li>
+  </ul>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.1em;">
+  One coherent unit of work. Not an entire journey, not a dust of fragments.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 18 — Cast */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">03 · COMPILATION</div>
+
+<h2 style="font-size: 1.45em;">Cast</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  The same source, Mold, and target produce <strong>the same bytes</strong>.
+</div>
+
+<div style="display: flex; justify-content: center; gap: 1.6em; margin-top: 1.5em; font-size: 0.66em;">
+  <div><strong style="color: #2563eb;">scoped</strong><br /><span class="text-sm opacity-70">only what this action declares</span></div>
+  <div><strong style="color: #2563eb;">isolated</strong><br /><span class="text-sm opacity-70">links resolved away, no runtime tie</span></div>
+  <div><strong style="color: #2563eb;">frozen</strong><br /><span class="text-sm opacity-70">one revision, not future edits</span></div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.5em;">
+  The skill body is never hand-maintained. Under-instructed? Fix the Mold and cast again.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 19 — Provenance */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">04 · LINEAGE RECORD</div>
+
+<h2 style="font-size: 1.45em;">Provenance</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  Which Mold revision. Which target. Which references resolved. Which checks ran.
+</div>
+
+<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  Not "the model probably knew this" —<br />
+  <em>this claim is real, and here is where it came from.</em>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 20 — the analogy */}
+
+<section>
+
+<h3 style="margin-bottom: 0.8em;">The picture to hold</h3>
+
+<div style="font-size: 0.78em; line-height: 1.9; text-align: left; display: inline-block;">
+  the skill is the <strong style="color: #2563eb;">binary</strong><br />
+  the KB is the <strong style="color: #2563eb;">code</strong><br />
+  casting is the <strong style="color: #2563eb;">compiler</strong><br />
+  provenance is the <strong style="color: #2563eb;">build log</strong>
+</div>
+
+<div style="font-size: 0.68em; margin-top: 1.6em;">
+  No serious engineering culture treats the compiled binary<br />as the place you make changes.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 21 — targets / portability */}
+
+<section>
+
+<h3>Targets change the package, not the source</h3>
+
+<div style="font-size: 0.7em; margin-top: 1.3em;">
+  One Mold → Claude skill, generic agent, baked-in prompt.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.5em;">
+  Agent platforms will change faster than the domain knowledge they consume.<br />
+  Binding source knowledge to today's packaging format makes it inherit the platform's lifetime.
+</div>
+
+</section>
+
+---
+
+{/* ============================ THE EVIDENCE ============================ */}
+
+{/* SLIDE 22 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART THREE</div>
+
+# The Evidence
+
+<div style="font-size: 0.72em; margin-top: 0.8em;">
+  We didn't assert it. We tried to falsify it.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/blog/2026-06-blind-regeneration/">Blind Regeneration — June 2026</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 23 — the experiment */}
+
+<section>
+
+<h3>Blind regeneration</h3>
+
+<div style="font-size: 0.68em; margin-top: 1.1em; text-align: left; display: inline-block;">
+  Delete a science skill. Hand a frontier model only <strong>the topic and the format</strong>.<br />
+  How much of the original does it write back from memory?
+</div>
+
+<div style="font-size: 0.6em; margin-top: 1.4em; opacity: 0.85; text-align: left; display: inline-block;">
+  A separate blind-author agent — never shown the original.<br />
+  Hard prohibition: no reading the corpus, no web search.<br />
+  Two skills at different altitudes: one light and procedural, one decision-grade.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.3em;">
+  Designed so it could fail. High overlap ⇒ the restatement is redundant.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 24 — results */}
+
+<section>
+
+<h3>It wrote the skill back</h3>
+
+<div style="font-size: 0.6em; margin-top: 1.1em; text-align: left; display: inline-block; line-height: 1.7;">
+  <strong>Canonical spine + default parameters</strong> — reproduced verbatim<br />
+  <span class="opacity-70">PCA n_comps=50 · n_neighbors=15 · resolution 0.2–2.0 · Leiden over Louvain</span><br /><br />
+  <strong>The decision-grade page</strong> — 85–90% recovered, roughly a wash<br /><br />
+  <strong>The light page</strong> — <span style="color: #dc2626; font-weight: 700;">the blind version was better</span>
+</div>
+
+<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.4em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  The redundancy effect is strongest exactly where corpora are thickest.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 25 — the citation finding */}
+
+<section>
+
+<h3>It reproduced the citations too</h3>
+
+<div style="font-size: 0.72em; margin-top: 1.2em;">
+  From the weights. Including the fuzzy ones.
+</div>
+
+<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  You cannot tell, from the output,<br />which of those are correct.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+  A real citation and a confabulated one look identical on the page.<br />
+  A smarter model produces <em>more convincing</em> unverifiable citations, not more verifiable ones.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 26 — the finding that reframes everything */}
+
+<section>
+
+<h3>And it added <em>more</em> validity caveats than the original</h3>
+
+<div style="font-size: 0.7em; margin-top: 1.3em;">
+  We expected it to be thinner on rigor. It volunteered cautions the original never mentioned.
+</div>
+
+<div style="font-size: 0.72em; margin-top: 1.5em;">
+  So validity <strong>knowledge</strong> is already in the weights.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.3em;">
+  Which forces the obvious objection: then what does a Foundry add that the weights do not?
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 27 — knowing != gating */}
+
+<section>
+
+<h2 style="font-size: 1.5em; margin-bottom: 0.5em;">Knowing ≠ gating</h2>
+
+<img
+  src="/slides/foundry-pattern/knowing-gating.svg"
+  alt="Two panels: knowing, where an analysis passes through a dashed advisory caveat to a certified result; and gating, where a solid referee gate stands between the analysis and certification"
+  style="display: block; width: 100%; max-height: 50vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div style="font-size: 0.62em; margin-top: 0.6em;">
+  A caveat that surfaces 80% of the time is absent exactly when an unlucky run needs it.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 28 — the two assets */}
+
+<section>
+
+<h3>The two things it could not supply</h3>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2em; margin-top: 1.3em; font-size: 0.62em; text-align: left;">
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em;">
+    <div style="font-weight: 700; font-size: 1.25em;">Provenance</div>
+    <div style="opacity: 0.75; margin-top: 0.2em;">the universal asset</div>
+    <div style="margin-top: 0.7em;">Which claim is real, and where it came from. Rides with every cast, in every domain.</div>
+  </div>
+  <div style="border-left: 5px solid #dc2626; padding-left: 0.8em;">
+    <div style="font-weight: 700; font-size: 1.25em;">An enforced check</div>
+    <div style="opacity: 0.75; margin-top: 0.2em;">realized per domain</div>
+    <div style="margin-top: 0.7em;">An external verdict between authored knowledge and a trusted result — not an optional caveat.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.4em;">
+  Restating canonical knowledge is a commodity.<br />
+  Traceable, check-backed knowledge is not.
+</div>
+
+</section>
+
+---
+
+{/* ============================ INSTANCES ============================ */}
+
+{/* SLIDE 29 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART FOUR</div>
+
+# Instances
+
+<div style="font-size: 0.72em; margin-top: 0.8em;">
+  The pattern is a substrate you extend, not a template you stamp.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/">galaxyproject.github.io/foundry-pattern/instances/</a>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 30 — the three instances, and what varies */}
+
+<section>
+
+<h3>Three domains, one substrate</h3>
+
+<div style="font-size: 0.58em; margin-top: 1.2em; text-align: left; display: inline-block; line-height: 1.8;">
+  <strong>Galaxy Workflow Foundry</strong> — papers, Nextflow, CWL → validated Galaxy workflows<br />
+  <span class="opacity-70">check: a deterministic CLI, gxwf — "the rails"</span><br /><br />
+  <strong>TDA Bioinformatics Foundry</strong> — topological methods → reproducible tools<br />
+  <span class="opacity-70">check: evolving — reproducible environments, evidence-bearing replication</span><br /><br />
+  <strong>Statistical Genomics Foundry</strong> — keeping an agent statistically honest<br />
+  <span class="opacity-70">check: an empirical referee — analyze → referee → revise</span>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.3em;">
+  Provenance is universal. <strong>The check belongs to the domain.</strong>
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 31 — why the check has to be external */}
+
+<section>
+
+<h3>Deterministic tools do deterministic work</h3>
+
+<div style="font-size: 0.72em; margin-top: 1.2em;">
+  A prose caveat is advisory. A model may repeat one and still violate it.
+</div>
+
+<div style="font-size: 0.82em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  Most importantly:<br />doing does not get to certify itself.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+  A parser where correctness is mechanical.<br />
+  An empirical referee — simulation, calibration, negative controls — where it isn't.
+</div>
+
+</section>
+
+---
+
+{/* SLIDE 32 — close */}
+
+<section>
+
+<h2 style="font-size: 1.4em; line-height: 1.3;">
+  Ship skills.<br />
+  <span style="color: #2563eb;">Author knowledge.</span>
+</h2>
+
+<div style="font-size: 0.68em; margin-top: 1.3em;">
+  Cast them into every runtime you like. But author the knowledge somewhere<br />
+  a human can read it and an agent can trace it, back it with a check that actually fires,<br />
+  and keep the receipt.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.6em;">
+  The artifact layer is a commodity headed toward zero margin.<br />
+  The source layer and the enforced check above it are where the durable value lives.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/">galaxyproject.github.io/foundry-pattern</a>
+</div>
+
+</section>

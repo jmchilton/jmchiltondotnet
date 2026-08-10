@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" role="img" aria-labelledby="fm-title fm-desc">
+  <title id="fm-title">The Foundry machine: Knowledge Base and Mold, cast into a frozen skill plus provenance</title>
+  <desc id="fm-desc">On the left, a Knowledge Base of notes, schemas and references contains a Mold — a typed manifest for one action. A deterministic cast arrow points right to two outputs: a frozen skill that is scoped, isolated and portable, and a provenance record listing revision, target, resolved references and checks.</desc>
+  <defs>
+    <linearGradient id="fm-heat" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffc06a"/>
+      <stop offset="0.45" stop-color="#f5793a"/>
+      <stop offset="1" stop-color="#b8331a"/>
+    </linearGradient>
+    <marker id="fm-arrow" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="9" markerHeight="9" orient="auto">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#f5793a"/>
+    </marker>
+    <style>
+      .display { font-family: "Arial Narrow", "Roboto Condensed", sans-serif; font-weight: 700; letter-spacing: .045em; }
+      .label { fill: #f1f4f7; font-size: 22px; }
+      .detail { fill: #a4abb4; font-size: 14px; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; }
+      .micro { font-size: 11px; font-weight: 700; letter-spacing: .14em; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; fill: #7d8794; }
+      .micro-warm { fill: #ff9d4d; }
+      .node { fill: #262b32; stroke: #59616c; stroke-width: 1.5; }
+      .mold { fill: #343b44; stroke: #68717d; stroke-width: 1.2; }
+    </style>
+  </defs>
+
+  <rect width="960" height="440" rx="24" fill="#111419"/>
+  <path d="M0 4H960" stroke="url(#fm-heat)" stroke-width="8"/>
+
+  <!-- source side -->
+  <rect class="node" x="40" y="70" width="320" height="300" rx="16"/>
+  <text class="micro" x="64" y="102">01 · SOURCE OF TRUTH</text>
+  <text class="display label" x="64" y="134">Knowledge Base</text>
+  <text class="detail" x="64" y="160">notes · schemas · references</text>
+  <text class="detail" x="64" y="182">human-readable · typed · resolved</text>
+
+  <rect class="mold" x="64" y="216" width="272" height="128" rx="12"/>
+  <text class="micro" x="86" y="246">02 · ONE ACTION</text>
+  <text class="display label" x="86" y="278" style="font-size:20px">Mold</text>
+  <text class="detail" x="86" y="304">typed dependencies + procedure</text>
+  <text class="detail" x="86" y="326">kind · load policy · placement</text>
+
+  <!-- cast -->
+  <path d="M376 220 H492" stroke="#f5793a" stroke-width="3" marker-end="url(#fm-arrow)" fill="none"/>
+  <text class="micro micro-warm" x="434" y="200" text-anchor="middle">03 · CAST</text>
+  <text class="detail" x="434" y="250" text-anchor="middle">deterministic</text>
+  <text class="detail" x="434" y="270" text-anchor="middle">same bytes, every time</text>
+
+  <!-- outputs -->
+  <rect class="node" x="516" y="70" width="404" height="132" rx="16"/>
+  <text class="micro" x="540" y="102">TARGET ARTIFACT</text>
+  <text class="display label" x="540" y="134">Frozen skill</text>
+  <text class="detail" x="540" y="162">scoped · isolated · portable · no links home</text>
+  <text class="detail" x="540" y="184">this is the package, not the source</text>
+
+  <rect class="node" x="516" y="238" width="404" height="132" rx="16"/>
+  <text class="micro micro-warm" x="540" y="270">04 · LINEAGE RECORD</text>
+  <text class="display label" x="540" y="302">Provenance</text>
+  <text class="detail" x="540" y="330">revision · target · resolved refs · checks</text>
+  <text class="detail" x="540" y="352">the receipt a model cannot regenerate</text>
+</svg>

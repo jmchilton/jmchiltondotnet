@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" role="img" aria-labelledby="kg-title kg-desc">
+  <title id="kg-title">Knowing a caveat versus being stopped by it</title>
+  <desc id="kg-desc">Two panels. On the left, labeled knowing, an analysis passes straight through a dashed advisory line to a certified result — the caveat may or may not appear. On the right, labeled gating, the analysis is stopped by a solid referee gate and only reaches a certified result once the verdict clears.</desc>
+  <defs>
+    <linearGradient id="kg-heat" x1="0" x2="1">
+      <stop offset="0" stop-color="#ffc06a"/>
+      <stop offset="0.45" stop-color="#f5793a"/>
+      <stop offset="1" stop-color="#b8331a"/>
+    </linearGradient>
+    <marker id="kg-arrow" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#7d8794"/>
+    </marker>
+    <marker id="kg-arrow-warm" viewBox="0 0 12 12" refX="9" refY="6" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L12 6 L0 12 Z" fill="#f5793a"/>
+    </marker>
+    <style>
+      .display { font-family: "Arial Narrow", "Roboto Condensed", sans-serif; font-weight: 700; letter-spacing: .045em; }
+      .label { fill: #f1f4f7; font-size: 21px; }
+      .detail { fill: #a4abb4; font-size: 13.5px; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; }
+      .micro { font-size: 11px; font-weight: 700; letter-spacing: .14em; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; fill: #7d8794; }
+      .micro-warm { fill: #ff9d4d; }
+      .panel { fill: #1a1e24; stroke: #343b44; stroke-width: 1.5; }
+      .node { fill: #262b32; stroke: #59616c; stroke-width: 1.5; }
+      .boxtext { fill: #f1f4f7; font-size: 13px; font-weight: 700; letter-spacing: .08em; font-family: "Arial Narrow", "Roboto Condensed", sans-serif; }
+    </style>
+  </defs>
+
+  <rect width="960" height="400" rx="24" fill="#111419"/>
+  <path d="M0 4H960" stroke="url(#kg-heat)" stroke-width="8"/>
+
+  <!-- panel A: knowing -->
+  <rect class="panel" x="34" y="58" width="424" height="300" rx="16"/>
+  <text class="micro" x="60" y="96">KNOWING</text>
+  <text class="display label" x="60" y="128">The model mentions it</text>
+
+  <rect class="node" x="60" y="196" width="112" height="52" rx="10"/>
+  <text class="boxtext" x="116" y="227" text-anchor="middle">ANALYSIS</text>
+
+  <path d="M180 222 H236" stroke="#7d8794" stroke-width="2.5" marker-end="url(#kg-arrow)" fill="none"/>
+  <path d="M252 168 V276" stroke="#7d8794" stroke-width="2.5" stroke-dasharray="7 7"/>
+  <text class="micro" x="252" y="156" text-anchor="middle">CAVEAT</text>
+  <path d="M264 222 H310" stroke="#7d8794" stroke-width="2.5" marker-end="url(#kg-arrow)" fill="none"/>
+
+  <rect class="node" x="322" y="196" width="112" height="52" rx="10"/>
+  <text class="boxtext" x="378" y="227" text-anchor="middle">CERTIFIED</text>
+
+  <text class="detail" x="60" y="304">Surfaces if the sampling goes that way.</text>
+  <text class="detail" x="60" y="326">Absent exactly when an unlucky run needs it.</text>
+
+  <!-- panel B: gating -->
+  <rect class="panel" x="502" y="58" width="424" height="300" rx="16"/>
+  <text class="micro micro-warm" x="528" y="96">GATING</text>
+  <text class="display label" x="528" y="128">The work is stopped by it</text>
+
+  <rect class="node" x="528" y="196" width="112" height="52" rx="10"/>
+  <text class="boxtext" x="584" y="227" text-anchor="middle">ANALYSIS</text>
+
+  <path d="M648 222 H700" stroke="#f5793a" stroke-width="2.5" marker-end="url(#kg-arrow-warm)" fill="none"/>
+  <rect x="712" y="164" width="15" height="116" rx="4" fill="url(#kg-heat)"/>
+  <text class="micro micro-warm" x="719" y="152" text-anchor="middle">REFEREE</text>
+  <path d="M735 222 H784" stroke="#f5793a" stroke-width="2.5" marker-end="url(#kg-arrow-warm)" fill="none"/>
+
+  <rect class="node" x="796" y="196" width="112" height="52" rx="10"/>
+  <text class="boxtext" x="852" y="227" text-anchor="middle">CERTIFIED</text>
+
+  <text class="detail" x="528" y="304">Doing does not terminate until a verdict clears.</text>
+  <text class="detail" x="528" y="326">A precondition, not a suggestion.</text>
+</svg>
