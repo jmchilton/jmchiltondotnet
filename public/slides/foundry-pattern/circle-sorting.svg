@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" role="img" aria-labelledby="cs-title cs-desc">
   <title id="cs-title">Inside the circle versus the edge of the circle</title>
-  <desc id="cs-desc">A filled circle labeled "inside the circle" holds established knowledge that a frontier model writes well and can teach to smaller models — a commodity. The glowing boundary band, marked with a dent, is labeled the edge: research as scholarship, richly linked, published, provenanced and checked — not a commodity.</desc>
+  <desc id="cs-desc">A filled circle labeled "inside the circle" holds established knowledge that a frontier model writes well and can teach to smaller models. The glowing boundary band, marked with a dent, is labeled the edge: research as scholarship, richly linked, published, provenanced and checked.</desc>
   <defs>
     <linearGradient id="cs-heat" x1="0" x2="1">
       <stop offset="0" stop-color="#ffc06a"/>
@@ -33,7 +33,6 @@
   <text class="display label" x="322" y="326" text-anchor="middle">Established knowledge</text>
   <text class="detail" x="322" y="356" text-anchor="middle">A frontier model writes this well —</text>
   <text class="detail" x="322" y="378" text-anchor="middle">and can teach it to smaller ones</text>
-  <text class="micro micro-cool" x="322" y="416" text-anchor="middle">COMMODITY</text>
 
   <!-- leader from the dent to the edge labels -->
   <path class="leader" d="M502 206 L566 178 H612"/>
@@ -45,12 +44,4 @@
   <text class="detail" x="628" y="224">richly linked · published</text>
   <text class="detail" x="628" y="248">provenance · enforced checks</text>
   <text class="micro micro-warm" x="628" y="286">NOT A COMMODITY</text>
-
-  <!-- the sorting rule -->
-  <path d="M628 330 H904" stroke="#343b44" stroke-width="1.5"/>
-  <text class="detail" x="628" y="366" style="fill:#c8cdd4">Same question, two shapes.</text>
-  <text class="detail" x="628" y="392">Interior tools do not become</text>
-  <text class="detail" x="628" y="414">boundary tools by being pointed outward.</text>
-
-  <text class="micro micro-cool" x="322" y="566" text-anchor="middle">THE CIRCLE SORTS THE ARGUMENT</text>
 </svg>

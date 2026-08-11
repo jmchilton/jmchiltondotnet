@@ -19,8 +19,6 @@ showProgress: true
 
 </section>
 
----
-
 {/* SLIDE 2 — the conventional picture of skills */}
 
 <section>
@@ -37,15 +35,181 @@ showProgress: true
 
 </section>
 
----
+{/* SLIDE 3 — AI-generated skill mill: ClawBio */}
 
-{/* ============================ THE CASE ============================ */}
+<section>
 
-{/* SLIDE 3 — section transition */}
+<img
+  src="/slides/foundry-pattern/skill-mill-clawbio.png"
+  alt="Screenshot of the ClawBio repository's large AI-generated skills directory on GitHub"
+  style="display: block; width: auto; max-width: 100%; max-height: 82vh; object-fit: contain; margin: 0 auto;"
+/>
+
+</section>
+
+{/* SLIDE 4 — AI-generated skill mill: bioSkills */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/skill-mill-bioskills.png"
+  alt="Screenshot of the bioSkills repository's AI-generated comparative genomics skill collection on GitHub"
+  style="display: block; width: auto; max-width: 100%; max-height: 82vh; object-fit: contain; margin: 0 auto;"
+/>
+
+</section>
+
+{/* ============================ THE PATTERN ============================ */}
+
+{/* SLIDE 5 — section transition */}
 
 <section>
 
 <div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART ONE</div>
+
+# The Pattern
+
+<div style="font-size: 0.72em; margin-top: 0.8em;">
+  Authorship and distribution, kept separate.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/the-model/">galaxyproject.github.io/foundry-pattern/pattern/the-model/</a>
+</div>
+
+</section>
+
+{/* SLIDE 6 — the machine */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-machine.svg"
+  alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
+  style="display: block; width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-70" style="margin-top: 0.5em;">
+  People maintain the source. Agents receive small, frozen artifacts.
+</div>
+
+</section>
+
+{/* SLIDE 7 — KB */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">01 · SOURCE OF TRUTH</div>
+
+<h2 style="font-size: 1.45em;">Knowledge Base</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  Plain files, authored to be <strong>read and learned by a person</strong>.
+</div>
+
+<div style="font-size: 0.66em; margin-top: 1.1em; opacity: 0.85;">
+  Typed frontmatter · controlled tags · wiki-linked references
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+  "Executable" is a claim the build enforces: every typed reference must resolve, every tag must exist.<br />
+  A Mold whose source fails these checks cannot be cast.
+</div>
+
+</section>
+
+{/* SLIDE 8 — Mold */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">02 · ONE ACTION</div>
+
+<h2 style="font-size: 1.45em;">Mold</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  A typed reference manifest plus a procedural skeleton.
+</div>
+
+<div style="font-size: 0.62em; margin-top: 1.3em; text-align: left; display: inline-block;">
+  Every declared reference carries three decisions:
+  <ul style="margin-top: 0.5em;">
+    <li><strong>kind</strong> — which resolver and casting rules apply</li>
+    <li><strong>load policy</strong> — upfront, or on-demand with a trigger</li>
+    <li><strong>placement</strong> — verbatim, or sidecar</li>
+  </ul>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.1em;">
+  One coherent unit of work. Not an entire journey, not a dust of fragments.
+</div>
+
+</section>
+
+{/* SLIDE 9 — Cast */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">03 · COMPILATION</div>
+
+<h2 style="font-size: 1.45em;">Cast</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  The same source, Mold, and target produce <strong>the same bytes</strong>.
+</div>
+
+<div style="display: flex; justify-content: center; gap: 1.6em; margin-top: 1.5em; font-size: 0.66em;">
+  <div><strong style="color: #2563eb;">scoped</strong><br /><span class="text-sm opacity-70">only what this action declares</span></div>
+  <div><strong style="color: #2563eb;">isolated</strong><br /><span class="text-sm opacity-70">links resolved away, no runtime tie</span></div>
+  <div><strong style="color: #2563eb;">frozen</strong><br /><span class="text-sm opacity-70">one revision, not future edits</span></div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.5em;">
+  The skill body is never hand-maintained. Under-instructed? Fix the Mold and cast again.
+</div>
+
+</section>
+
+{/* SLIDE 10 — Provenance */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">04 · LINEAGE RECORD</div>
+
+<h2 style="font-size: 1.45em;">Provenance</h2>
+
+<div style="font-size: 0.72em; margin-top: 1em;">
+  Which Mold revision. Which target. Which references resolved. Which checks ran.
+</div>
+
+<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+  Not "the model probably knew this" —<br />
+  <em>this claim is real, and here is where it came from.</em>
+</div>
+
+</section>
+
+{/* SLIDE 11 — the analogy */}
+
+<section>
+
+<h3 style="margin-bottom: 0.8em;">The picture to hold</h3>
+
+<div style="font-size: 0.78em; line-height: 1.9; text-align: left; display: inline-block;">
+  the skill is the <strong style="color: #2563eb;">binary</strong><br />
+  the KB is the <strong style="color: #2563eb;">code</strong><br />
+  casting is the <strong style="color: #2563eb;">compiler</strong><br />
+  provenance is the <strong style="color: #2563eb;">build log</strong>
+</div>
+
+</section>
+
+{/* ============================ THE CASE ============================ */}
+
+{/* SLIDE 12 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART TWO</div>
 
 # The Case
 
@@ -53,9 +217,8 @@ showProgress: true
   A skill should be the ***package***, not the ***source***.
 </div>
 
-<div style="font-size: 0.62em; opacity: 0.7; margin-top: 1.4em; text-align: left; display: inline-block;">
-  01 · Skills: Package, Not Source &nbsp;→&nbsp; 02 · The Two Assets<br />
-  03 · The Explainer Is the Source &nbsp;→&nbsp; 04 · The Edge Has a Shape
+<div style="font-size: 0.54em; font-style: italic; line-height: 1.45; max-width: 44em; margin: 1em auto 0;">
+  Four arguments: engineering practice, scale, evidence, and resistance to rot.
 </div>
 
 <div class="text-sm opacity-50" style="margin-top: 1.2em;">
@@ -64,33 +227,98 @@ showProgress: true
 
 </section>
 
----
+{/* SLIDE 13 — expert appeal transition */}
 
-{/* SLIDE 4 — the circle */}
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.1</div>
+
+# An Argument from Engineering Practice
+
+</section>
+
+{/* SLIDE 14 — the engineering-culture argument */}
+
+<section>
+
+<h2 style="font-size: 1.6em; line-height: 1.22; max-width: 17em; margin-left: auto; margin-right: auto;">
+  No serious engineering culture treats the compiled binary as the place you make changes.
+</h2>
+
+</section>
+
+{/* SLIDE 15 — Pinecone Nexus */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/pinecone-nexus.png"
+  alt="Screenshot of Pinecone Nexus presented as the knowledge engine for agents, compiling enterprise data into governed knowledge and serving it to agents"
+  style="display: block; width: 100%; max-height: 78vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.4em;">
+  <a href="https://www.pinecone.io/blog/knowledge-infrastructure-for-agents/">Pinecone Nexus — The Knowledge Engine for Agents</a>
+</div>
+
+</section>
+
+{/* SLIDE 16 — Pinecone KnowQL */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/pinecone-knowql.png"
+  alt="Screenshot of Pinecone KnowQL showing six agent knowledge-query concerns: intent, filter, provenance, output shape, confidence, and budget"
+  style="display: block; width: 100%; max-height: 47vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div style="font-size: 0.58em; line-height: 1.4; max-width: 50em; margin: 0.9em auto 0;">
+  The Foundry and Pinecone Nexus independently converge on the same diagnosis: agents need structured, governed, provenance-bearing knowledge—not raw retrieval reconstructed on every call. The Foundry bets on <strong>open-source artifacts</strong>; Nexus bets on an <strong>adapted runtime</strong>.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 0.55em;">
+  The Foundry work predates the Nexus announcement.<br />
+  <a href="https://www.pinecone.io/blog/knowledge-infrastructure-for-agents/">Pinecone Nexus and KnowQL</a>
+</div>
+
+</section>
+
+{/* SLIDE 17 — metaphor appeal transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.2</div>
+
+# An Argument from Scale
+
+</section>
+
+{/* SLIDE 18 — the circle */}
 
 <section>
 
 <img
   src="/slides/foundry-pattern/phd-circle.jpg"
   alt="A circle representing all of human knowledge, with one person's education narrowing toward its boundary"
-  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+  style="display: block; width: auto; max-width: 100%; max-height: 54vh; object-fit: contain; margin: 0 auto;"
 />
 
 <h3 style="margin-top: 0.5em;">All of human knowledge.</h3>
 
 <div class="text-sm opacity-50">
-  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
+  <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
 </section>
 
----
-
-{/* SLIDE 5 — the concession, stated as a positive */}
+{/* SLIDE 19 — the concession, stated as a positive */}
 
 <section>
 
-<h2 style="font-size: 1.5em;">Inside the circle, skills are great</h2>
+<h2 style="font-size: 1.25em; line-height: 1.12; max-width: 18em; margin-left: auto; margin-right: auto;">
+  Inside the circle, AI generated skills without backing are mostly fine
+</h2>
 
 <div style="font-size: 0.8em; margin-top: 1.1em;">
   Established knowledge. Canonical procedure.
@@ -100,15 +328,9 @@ showProgress: true
   A frontier model writes this skill well.
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.6em;">
-  This is a real concession, not a rhetorical one.
-</div>
-
 </section>
 
----
-
-{/* SLIDE 6 — the best version of the interior use: distillation */}
+{/* SLIDE 20 — the best version of the interior use: distillation */}
 
 <section>
 
@@ -138,9 +360,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 7 — the dent */}
+{/* SLIDE 21 — the dent */}
 
 <section>
 
@@ -158,9 +378,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 8 — the reframe */}
+{/* SLIDE 22 — the reframe */}
 
 <section>
 
@@ -173,22 +391,16 @@ showProgress: true
   Trained across the recorded surface — not educated into one human-sized slice.
 </div>
 
-<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #2563eb; padding-left: 0.65em; text-align: left; display: inline-block;">
-  So why build a knowledge base outside it?
-</div>
-
 </section>
 
----
-
-{/* SLIDE 9 — the zoom: the answer to slide 8 */}
+{/* SLIDE 23 — the zoom: the answer to slide 17 */}
 
 <section>
 
 <img
   src="/slides/foundry-pattern/phd-zoom.jpg"
   alt="The dent enlarged until the original circle is mostly outside the frame"
-  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
+  style="display: block; width: auto; max-width: 100%; max-height: 48vh; object-fit: contain; margin: 0 auto;"
 />
 
 <h3 style="margin-top: 0.5em;">At this scale, the world looks different.</h3>
@@ -199,9 +411,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 10 — three interior tools, pointed outward */}
+{/* SLIDE 24 — three interior tools, pointed outward */}
 
 <section>
 
@@ -228,9 +438,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 11 — the four-word slide */}
+{/* SLIDE 25 — the four-word slide */}
 
 <section>
 
@@ -239,227 +447,55 @@ showProgress: true
 </h2>
 
 <div style="font-size: 0.78em; margin-top: 1.4em; letter-spacing: 0.02em;">
-  Richly linked. Published. Provenanced. Checked.
+  Knowledge should be richly linked, published, provenanced, and checked.
 </div>
 
 </section>
 
----
-
-{/* SLIDE 12 — the whole argument in one picture */}
+{/* SLIDE 26 — the whole argument in one picture */}
 
 <section>
 
 <img
   src="/slides/foundry-pattern/circle-sorting.svg"
-  alt="Diagram: the interior of the circle is established knowledge a frontier model writes well and can teach to smaller models, a commodity; the glowing boundary band with a dent is the edge, where research is scholarship — richly linked, published, provenanced, checked — and not a commodity"
+  alt="Diagram: the interior of the circle is established knowledge a frontier model writes well and can teach to smaller models; the glowing boundary band with a dent is the edge, where research is scholarship — richly linked, published, provenanced, and checked"
   style="display: block; width: 100%; max-height: 64vh; object-fit: contain; margin: 0 auto;"
 />
 
 </section>
 
----
-
-{/* SLIDE 13 — the bridge */}
+{/* SLIDE 27 — the bridge */}
 
 <section>
 
-<h2 style="font-size: 1.5em;">A Foundry is that model of the edge,<br />made <span style="color: #2563eb;">executable</span>.</h2>
-
-</section>
-
----
-
-{/* ============================ THE PATTERN ============================ */}
-
-{/* SLIDE 14 — section transition */}
-
-<section>
-
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART TWO</div>
-
-# The Pattern
-
-<div style="font-size: 0.72em; margin-top: 0.8em;">
-  Authorship and distribution, kept separate.
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4em; align-items: center; width: 100%;">
+  <div>
+    <img
+      src="/slides/foundry-pattern/phd-zoom.jpg"
+      alt="The red dent at the edge of human knowledge, enlarged until the original circle is mostly outside the frame"
+      style="display: block; width: auto; max-width: 100%; max-height: 42vh; object-fit: contain; margin: 0 auto;"
+    />
+  </div>
+  <h2 style="font-size: 1.15em; line-height: 1.18; text-align: left; margin: 0;">
+    A Foundry is<br />an attempt to<br />push that edge and make it<br /><span style="color: #2563eb;">executable</span>.
+  </h2>
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/the-model/">galaxyproject.github.io/foundry-pattern/pattern/the-model/</a>
+<div class="text-sm opacity-50" style="margin-top: 0.8em;">
+  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
 </section>
-
----
-
-{/* SLIDE 15 — the machine */}
-
-<section>
-
-<img
-  src="/slides/foundry-pattern/foundry-machine.svg"
-  alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
-  style="display: block; width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
-/>
-
-<div class="text-sm opacity-70" style="margin-top: 0.5em;">
-  People maintain the source. Agents receive small, frozen artifacts.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 16 — KB */}
-
-<section>
-
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">01 · SOURCE OF TRUTH</div>
-
-<h2 style="font-size: 1.45em;">Knowledge Base</h2>
-
-<div style="font-size: 0.72em; margin-top: 1em;">
-  Plain files, authored to be <strong>read and learned by a person</strong>.
-</div>
-
-<div style="font-size: 0.66em; margin-top: 1.1em; opacity: 0.85;">
-  Typed frontmatter · controlled tags · wiki-linked references
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.4em;">
-  "Executable" is a claim the build enforces: every typed reference must resolve, every tag must exist.<br />
-  A Mold whose source fails these checks cannot be cast.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 17 — Mold */}
-
-<section>
-
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">02 · ONE ACTION</div>
-
-<h2 style="font-size: 1.45em;">Mold</h2>
-
-<div style="font-size: 0.72em; margin-top: 1em;">
-  A typed reference manifest plus a procedural skeleton.
-</div>
-
-<div style="font-size: 0.62em; margin-top: 1.3em; text-align: left; display: inline-block;">
-  Every declared reference carries three decisions:
-  <ul style="margin-top: 0.5em;">
-    <li><strong>kind</strong> — which resolver and casting rules apply</li>
-    <li><strong>load policy</strong> — upfront, or on-demand with a trigger</li>
-    <li><strong>placement</strong> — verbatim, or sidecar</li>
-  </ul>
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.1em;">
-  One coherent unit of work. Not an entire journey, not a dust of fragments.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 18 — Cast */}
-
-<section>
-
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">03 · COMPILATION</div>
-
-<h2 style="font-size: 1.45em;">Cast</h2>
-
-<div style="font-size: 0.72em; margin-top: 1em;">
-  The same source, Mold, and target produce <strong>the same bytes</strong>.
-</div>
-
-<div style="display: flex; justify-content: center; gap: 1.6em; margin-top: 1.5em; font-size: 0.66em;">
-  <div><strong style="color: #2563eb;">scoped</strong><br /><span class="text-sm opacity-70">only what this action declares</span></div>
-  <div><strong style="color: #2563eb;">isolated</strong><br /><span class="text-sm opacity-70">links resolved away, no runtime tie</span></div>
-  <div><strong style="color: #2563eb;">frozen</strong><br /><span class="text-sm opacity-70">one revision, not future edits</span></div>
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.5em;">
-  The skill body is never hand-maintained. Under-instructed? Fix the Mold and cast again.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 19 — Provenance */}
-
-<section>
-
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">04 · LINEAGE RECORD</div>
-
-<h2 style="font-size: 1.45em;">Provenance</h2>
-
-<div style="font-size: 0.72em; margin-top: 1em;">
-  Which Mold revision. Which target. Which references resolved. Which checks ran.
-</div>
-
-<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
-  Not "the model probably knew this" —<br />
-  <em>this claim is real, and here is where it came from.</em>
-</div>
-
-</section>
-
----
-
-{/* SLIDE 20 — the analogy */}
-
-<section>
-
-<h3 style="margin-bottom: 0.8em;">The picture to hold</h3>
-
-<div style="font-size: 0.78em; line-height: 1.9; text-align: left; display: inline-block;">
-  the skill is the <strong style="color: #2563eb;">binary</strong><br />
-  the KB is the <strong style="color: #2563eb;">code</strong><br />
-  casting is the <strong style="color: #2563eb;">compiler</strong><br />
-  provenance is the <strong style="color: #2563eb;">build log</strong>
-</div>
-
-<div style="font-size: 0.68em; margin-top: 1.6em;">
-  No serious engineering culture treats the compiled binary<br />as the place you make changes.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 21 — targets / portability */}
-
-<section>
-
-<h3>Targets change the package, not the source</h3>
-
-<div style="font-size: 0.7em; margin-top: 1.3em;">
-  One Mold → Claude skill, generic agent, baked-in prompt.
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.5em;">
-  Agent platforms will change faster than the domain knowledge they consume.<br />
-  Binding source knowledge to today's packaging format makes it inherit the platform's lifetime.
-</div>
-
-</section>
-
----
 
 {/* ============================ THE EVIDENCE ============================ */}
 
-{/* SLIDE 22 — section transition */}
+{/* SLIDE 28 — section transition */}
 
 <section>
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART THREE</div>
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.3</div>
 
-# The Evidence
+# An Appeal with Evidence
 
 <div style="font-size: 0.72em; margin-top: 0.8em;">
   We didn't assert it. We tried to falsify it.
@@ -471,9 +507,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 23 — the experiment */}
+{/* SLIDE 29 — the experiment */}
 
 <section>
 
@@ -496,9 +530,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 24 — results */}
+{/* SLIDE 30 — results */}
 
 <section>
 
@@ -517,9 +549,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 25 — the citation finding */}
+{/* SLIDE 31 — the citation finding */}
 
 <section>
 
@@ -540,9 +570,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 26 — the finding that reframes everything */}
+{/* SLIDE 32 — the finding that reframes everything */}
 
 <section>
 
@@ -556,35 +584,9 @@ showProgress: true
   So validity <strong>knowledge</strong> is already in the weights.
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.3em;">
-  Which forces the obvious objection: then what does a Foundry add that the weights do not?
-</div>
-
 </section>
 
----
-
-{/* SLIDE 27 — knowing != gating */}
-
-<section>
-
-<h2 style="font-size: 1.5em; margin-bottom: 0.5em;">Knowing ≠ gating</h2>
-
-<img
-  src="/slides/foundry-pattern/knowing-gating.svg"
-  alt="Two panels: knowing, where an analysis passes through a dashed advisory caveat to a certified result; and gating, where a solid referee gate stands between the analysis and certification"
-  style="display: block; width: 100%; max-height: 50vh; object-fit: contain; margin: 0 auto;"
-/>
-
-<div style="font-size: 0.62em; margin-top: 0.6em;">
-  A caveat that surfaces 80% of the time is absent exactly when an unlucky run needs it.
-</div>
-
-</section>
-
----
-
-{/* SLIDE 28 — the two assets */}
+{/* SLIDE 33 — the two assets */}
 
 <section>
 
@@ -610,11 +612,198 @@ showProgress: true
 
 </section>
 
----
+{/* ============================ RESISTING ROT ============================ */}
+
+{/* SLIDE 34 — rot appeal transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.4</div>
+
+# The Case for Resisting Rot
+
+</section>
+
+{/* SLIDE 35 — newer models obsolete generated skills */}
+
+<section>
+
+<h2 style="font-size: 1.38em; line-height: 1.18;">
+  The generated skill is<br /><span style="color: #2563eb;">the perishable layer.</span>
+</h2>
+
+<div style="font-size: 0.62em; margin-top: 1em;">
+  The better blind version is the clue: generated skill quality rises with model capability.
+</div>
+
+<div style="font-size: 0.82em; font-weight: 700; margin-top: 1em;">
+  Who cares what Opus 4.6 wrote after Opus 5 ships?
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.3em;">
+  A skill frozen in place inherits the limits of the model that authored it.<br />
+  Keep the source, and recast.
+</div>
+
+</section>
+
+{/* SLIDE 36 — targets / portability */}
+
+<section>
+
+<h3>Targets change the package, not the source</h3>
+
+<div style="font-size: 0.7em; margin-top: 1.3em;">
+  One Mold → Claude skill, generic agent, baked-in prompt.
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.5em;">
+  Agent platforms will change faster than the domain knowledge they consume.<br />
+  Binding source knowledge to today's packaging format makes it inherit the platform's lifetime.
+</div>
+
+</section>
+
+{/* ============================ AN IMPLEMENTATION ============================ */}
+
+{/* SLIDE 37 — section transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART THREE</div>
+
+# An Implementation
+
+<div style="font-size: 0.72em; margin-top: 0.8em;">
+  One concrete Astro stack. The pattern does not require it.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/</a>
+</div>
+
+</section>
+
+{/* SLIDE 38 — concentric implementation responsibilities */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-concentric-responsibilities.svg"
+  alt="Concentric diagram: the Foundry Pattern specification at the center, foundry-lib and the Astro reference composition around it, and instance-owned domain knowledge and application decisions around the outside"
+  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/diagrams/foundry-concentric-responsibilities.svg">Foundry responsibilities diagram</a>
+</div>
+
+</section>
+
+{/* SLIDE 39 — stack-neutral guidance */}
+
+<section>
+
+<h3>You can use the pattern without foundry-lib</h3>
+
+<div style="font-size: 0.62em; margin-top: 1.1em; text-align: left; display: inline-block; max-width: 46em; line-height: 1.45;">
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em;">
+    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/"><strong style="font-size: 1.15em;">Guiding Principles</strong></a><br />
+    Ground → Explain → Cast → Check. The domain-free commitments.
+  </div>
+  <div style="border-left: 5px solid #dc2626; padding-left: 0.8em; margin-top: 1em;">
+    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/setting-up-a-foundry/"><strong style="font-size: 1.15em;">Plan Your Foundry</strong></a><br />
+    A stack-neutral route from a bounded domain to one working vertical slice.
+  </div>
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em; margin-top: 1em;">
+    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/design-records/"><strong style="font-size: 1.15em;">Design Records</strong></a><br />
+    Keep vocabulary, architecture, content contracts, ownership, and build knowledge inside the KB.
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 1.2em;">
+  Start with commitments, sequence, and self-documentation—not a particular library.
+</div>
+
+</section>
+
+{/* SLIDE 40 — the Astro and foundry-lib composition */}
+
+<section>
+
+<h3>One concrete implementation: Astro + foundry-lib</h3>
+
+<div style="font-size: 0.6em; margin-top: 1.15em; text-align: left; display: inline-block; max-width: 48em; line-height: 1.45;">
+  <div>
+    <strong style="color: #2563eb; font-size: 1.18em;">The instance owns</strong><br />
+    domain knowledge · kinds · vocabularies · renderers · targets · acceptance policy
+  </div>
+  <div style="margin-top: 1em;">
+    <strong style="color: #dc2626; font-size: 1.18em;">The Astro stack composes</strong><br />
+    Markdown content · Astro · TypeScript + Zod · Vitest · GitHub Pages
+  </div>
+  <div style="margin-top: 1em;">
+    <strong style="color: #2563eb; font-size: 1.18em;">foundry-lib shares</strong><br />
+    schemas · links · registries · reader shell · casting and provenance mechanics
+  </div>
+</div>
+
+<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.25em;">
+  Share converged mechanics. Keep domain meaning local.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">Build with the Astro Stack</a> · <a href="https://jmchilton.github.io/foundry-lib/#/">foundry-lib</a>
+</div>
+
+</section>
+
+{/* SLIDE 41 — foundry-lib package surface */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-lib-homepage.png"
+  alt="Screenshot of the foundry-lib documentation showing the shared TypeScript packages extracted from multiple independent Foundry implementations"
+  style="display: block; width: auto; max-width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.45em;">
+  <a href="https://jmchilton.github.io/foundry-lib/#/">jmchilton.github.io/foundry-lib/</a>
+</div>
+
+</section>
+
+{/* SLIDE 42 — agent bootstrap prompt */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">ONE HUGE PROMPT</div>
+
+<h2 style="font-size: 1.35em; line-height: 1.15; margin-top: 0.35em;">
+  Bootstrap the whole Astro stack<br />with an agent.
+</h2>
+
+<div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.52em; line-height: 1.55; text-align: left; display: inline-block; margin-top: 1em; border-left: 7px solid #dc2626; padding-left: 1em;">
+  STANDING UP A FOUNDRY — WORKING CHECKLIST<br /><br />
+  vocabulary → reader + contracts → registries + validation + CI<br />
+  → corpus → Molds → Cast → external check
+</div>
+
+<div style="font-size: 0.65em; margin-top: 1.25em;">
+  Versions, paths, packages, tests, handoffs, and stopping conditions—<br />
+  enough to build the first reviewable vertical slice.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.1em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/</a>
+</div>
+
+</section>
 
 {/* ============================ INSTANCES ============================ */}
 
-{/* SLIDE 29 — section transition */}
+{/* SLIDE 43 — section transition */}
 
 <section>
 
@@ -632,9 +821,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 30 — the three instances, and what varies */}
+{/* SLIDE 44 — the three instances, and what varies */}
 
 <section>
 
@@ -655,9 +842,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 31 — why the check has to be external */}
+{/* SLIDE 45 — why the check has to be external */}
 
 <section>
 
@@ -678,9 +863,7 @@ showProgress: true
 
 </section>
 
----
-
-{/* SLIDE 32 — close */}
+{/* SLIDE 46 — close */}
 
 <section>
 
