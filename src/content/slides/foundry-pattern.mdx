@@ -801,69 +801,381 @@ showProgress: true
 
 </section>
 
-{/* ============================ INSTANCES ============================ */}
+{/* ============================ THE WORKFLOW FOUNDRY ============================ */}
 
-{/* SLIDE 43 — section transition */}
+{/* SLIDE 43 — Workflow Foundry transition */}
 
 <section>
 
 <div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART FOUR</div>
 
-# Instances
+# The Workflow Foundry
 
 <div style="font-size: 0.72em; margin-top: 0.8em;">
-  The pattern is a substrate you extend, not a template you stamp.
+  The original implementation.
 </div>
 
 <div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/instances/">galaxyproject.github.io/foundry-pattern/instances/</a>
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/galaxy-workflow-foundry/">Galaxy Workflow Foundry profile</a>
 </div>
 
 </section>
 
-{/* SLIDE 44 — the three instances, and what varies */}
+{/* SLIDE 44 — Workflow Foundry responsibility rings */}
 
 <section>
 
-<h3>Three domains, one substrate</h3>
+<img
+  src="/slides/foundry-pattern/foundry-rings-galaxy-workflow.svg"
+  alt="Galaxy Workflow Foundry responsibility rings showing workflow sources, local kinds and facets, workflow construction, cast Pipelines, and executable validation around the shared Pattern and foundry-lib core"
+  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
+/>
 
-<div style="font-size: 0.58em; margin-top: 1.2em; text-align: left; display: inline-block; line-height: 1.8;">
-  <strong>Galaxy Workflow Foundry</strong> — papers, Nextflow, CWL → validated Galaxy workflows<br />
-  <span class="opacity-70">check: a deterministic CLI, gxwf — "the rails"</span><br /><br />
-  <strong>TDA Bioinformatics Foundry</strong> — topological methods → reproducible tools<br />
-  <span class="opacity-70">check: evolving — reproducible environments, evidence-bearing replication</span><br /><br />
-  <strong>Statistical Genomics Foundry</strong> — keeping an agent statistically honest<br />
-  <span class="opacity-70">check: an empirical referee — analyze → referee → revise</span>
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.3em;">
-  Provenance is universal. <strong>The check belongs to the domain.</strong>
+<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/galaxy-workflow-foundry/">The Workflow Foundry</a>
 </div>
 
 </section>
 
-{/* SLIDE 45 — why the check has to be external */}
+{/* SLIDE 45 — Workflow Foundry result: the same analysis, two directions */}
 
 <section>
 
-<h3>Deterministic tools do deterministic work</h3>
+<h2 style="font-size: 1.24em;">The same analysis, two directions</h2>
 
-<div style="font-size: 0.72em; margin-top: 1.2em;">
-  A prose caveat is advisory. A model may repeat one and still violate it.
+<div style="font-size: 0.6em; line-height: 1.26; margin: -0.1em auto 0.55em; max-width: 33em;">
+  Example 2 <strong>extracted</strong> differential ATAC-seq from a completed run. A Foundry pipeline <strong>constructed</strong> the same analysis from the same initial prompt — no history, no execution.
 </div>
 
-<div style="font-size: 0.82em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
-  Most importantly:<br />doing does not get to certify itself.
+<div style="display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr); gap: 0.8em; align-items: center;">
+  <pre class="mermaid" style="background: transparent; border: none; box-shadow: none; margin: 0; display: flex; justify-content: center;">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
+graph LR
+    input_0>"ATAC counts"]
+    input_1>"sample metadata"]
+    step_0["DESeq2 differential test"]
+    step_1["Clean table (NA filter)"]
+    step_2["Volcano plot"]
+    step_3["Filter significant peaks"]
+    step_4["Sort by log2FC"]
+    step_5["Top gained peaks"]
+    step_6["Top lost peaks"]
+    input_0 --> step_0
+    input_1 --> step_0
+    step_0 --> step_1
+    step_1 --> step_2
+    step_1 --> step_3
+    step_3 --> step_4
+    step_4 --> step_5
+    step_4 --> step_6
+    classDef input fill:#edf4fa,stroke:#25537b,color:#2c3143;
+    classDef core fill:#25537b,stroke:#2c3143,color:#ffffff;
+    class input_0,input_1 input;
+    class step_0 core;`}</pre>
+  <div style="text-align: left;">
+    <ul style="font-size: 0.46em; line-height: 1.32; margin: 0; padding-left: 1.1em;">
+      <li>count matrix + sample sheet → DESeq2 → NA-clean → volcano ∥ filter → sort → top gained / lost</li>
+      <li>every step a real, version-pinned Galaxy tool</li>
+      <li><code>tool_state</code> schema-validated offline by <code>gxwf</code></li>
+    </ul>
+    <div style="font-size: 0.4em; line-height: 1.28; opacity: 0.66; margin-top: 0.75em; border-left: 4px solid #d0bd2a; padding-left: 0.5em;">
+      Diagram emitted by <code>gxwf mermaid</code> from the pipeline's output workflow.
+    </div>
+  </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.4em;">
-  A parser where correctness is mechanical.<br />
-  An empirical referee — simulation, calibration, negative controls — where it isn't.
+<div class="text-sm opacity-70" style="margin-top: 0.5em;">Extraction needs a completed run; construction needs only the intent. Both land on the same kind of validated, reproducible workflow.</div>
+
+<a href="https://jmchilton.net/slides/gcc2026/#/32" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.25em;">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 46 — Workflow Foundry result: first external exercise */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/workflow-foundry-first-result.png"
+  alt="Conversation reporting that the Nextflow to Galaxy Foundry pipeline produced a plausible gxformat2 workflow and tests for the complex nf-core sarek pipeline"
+  style="display: block; width: 112%; max-height: 80vh; object-fit: contain; margin: 0 0 0 -6%;"
+/>
+
+</section>
+
+{/* SLIDE 47 — Workflow Foundry pipeline: interview to Galaxy */}
+
+<section>
+
+<h2 style="font-size: 1.28em;">Interview → Galaxy</h2>
+
+<div style="display: grid; grid-template-columns: minmax(12em, 0.62fr) minmax(0, 1.38fr); gap: 0.75em; align-items: center; margin-top: 0.45em;">
+  <div style="text-align: left;">
+    <div style="font-size: 0.5em; line-height: 1.28; font-weight: 800;">A conversation becomes a typed workflow draft, then a validated workflow.</div>
+    <div style="display: grid; gap: 0.45em; margin-top: 0.8em;">
+      <div style="border-left: 5px solid #25537b; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Normalize an interview into a shared freeform summary.</div>
+      <div style="border-left: 5px solid #d0bd2a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Design Galaxy interface and data flow, then compare to IWC exemplars.</div>
+      <div style="border-left: 5px solid #d0bd2a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Loop over <code>advance-galaxy-draft-step</code> until no drafty step remains.</div>
+      <div style="border-left: 5px solid #58585a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Validate, test, execute, and debug with deterministic tooling in the loop.</div>
+    </div>
+  </div>
+  <img
+    src="/slides/gcc2026/foundry-site-interview-to-galaxy.png"
+    alt="Foundry interview to Galaxy pipeline page showing phases, loop, and branch"
+    style="display: block; width: 100%; max-height: 63vh; object-fit: contain; border: 1px solid #2c3143; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);"
+  />
+</div>
+
+<a href="https://jmchilton.net/slides/gcc2026/#/31" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.35em;">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 48 — Workflow Foundry pipeline: validated construction */}
+
+<section>
+
+<h2 style="font-size: 1.24em;">The same analysis, two directions</h2>
+
+<div style="font-size: 0.6em; line-height: 1.26; margin: -0.1em auto 0.55em; max-width: 33em;">
+  Example 2 <strong>extracted</strong> differential ATAC-seq from a completed run. A Foundry pipeline <strong>constructed</strong> the same analysis from the same initial prompt — no history, no execution.
+</div>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr); gap: 0.8em; align-items: center;">
+  <pre class="mermaid" style="background: transparent; border: none; box-shadow: none; margin: 0; display: flex; justify-content: center;">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
+graph LR
+    input_0>"ATAC counts"]
+    input_1>"sample metadata"]
+    step_0["DESeq2 differential test"]
+    step_1["Clean table (NA filter)"]
+    step_2["Volcano plot"]
+    step_3["Filter significant peaks"]
+    step_4["Sort by log2FC"]
+    step_5["Top gained peaks"]
+    step_6["Top lost peaks"]
+    input_0 --> step_0
+    input_1 --> step_0
+    step_0 --> step_1
+    step_1 --> step_2
+    step_1 --> step_3
+    step_3 --> step_4
+    step_4 --> step_5
+    step_4 --> step_6
+    classDef input fill:#edf4fa,stroke:#25537b,color:#2c3143;
+    classDef core fill:#25537b,stroke:#2c3143,color:#ffffff;
+    class input_0,input_1 input;
+    class step_0 core;`}</pre>
+  <div style="text-align: left;">
+    <ul style="font-size: 0.46em; line-height: 1.32; margin: 0; padding-left: 1.1em;">
+      <li>count matrix + sample sheet → DESeq2 → NA-clean → volcano ∥ filter → sort → top gained / lost</li>
+      <li>every step a real, version-pinned Galaxy tool</li>
+      <li><code>tool_state</code> schema-validated offline by <code>gxwf</code></li>
+    </ul>
+    <div style="font-size: 0.4em; line-height: 1.28; opacity: 0.66; margin-top: 0.75em; border-left: 4px solid #d0bd2a; padding-left: 0.5em;">
+      Diagram emitted by <code>gxwf mermaid</code> from the pipeline's output workflow.
+    </div>
+  </div>
+</div>
+
+<div class="text-sm opacity-70" style="margin-top: 0.5em;">Extraction needs a completed run; construction needs only the intent. Both land on the same kind of validated, reproducible workflow.</div>
+
+<a href="https://jmchilton.net/slides/gcc2026/#/32" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.25em;">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 49 — Workflow Foundry pattern: structured workflow drafting */}
+
+<section>
+
+<h2 style="font-size: 1.08em;">Structured Drafting of Workflows</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.98fr); gap: 0.5em; align-items: center; margin: 0.42em 0 0 -6%; width: 112%;">
+  <img
+    src="/slides/gcc2026/foundry-mobile-reformat-draft.png"
+    alt="Structured workflow draft diagram with concrete and deferred steps"
+    style="display: block; width: 100%; border: 1px solid #cbd5e1; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
+  />
+  <img
+    src="/slides/gcc2026/foundry-mobile-reformat-extracted.png"
+    alt="Extracted workflow spine diagram showing concrete executable workflow steps"
+    style="display: block; width: 100%; border: 1px solid #cbd5e1; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
+  />
+</div>
+
+<a href="https://jmchilton.net/slides/gcc2026/#/34" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.3em;">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 50 — Workflow Foundry schemas stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE WORKFLOW FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Schemas</h2>
+
+</section>
+
+{/* SLIDE 51 — Workflow Foundry CLI tooling stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE WORKFLOW FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">CLI Tooling</h2>
+
+</section>
+
+{/* SLIDE 52 — Workflow Foundry corpus research stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE WORKFLOW FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Corpus Research</h2>
+
+</section>
+
+{/* ============================ THE STATISTICAL GENOMICS FOUNDRY ============================ */}
+
+{/* SLIDE 53 — Statistical Genomics Foundry transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART FIVE</div>
+
+<h1 style="font-size: 1.5em; line-height: 1.08; margin-bottom: 0.35em;">The Statistical Genomics Foundry</h1>
+
+<div style="font-size: 0.72em; font-style: italic;">
+  A “failed” experiment that sharpened the ideas.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/statistical-genomics-foundry/">Statistical Genomics Foundry profile</a>
 </div>
 
 </section>
 
-{/* SLIDE 46 — close */}
+{/* SLIDE 54 — Statistical Genomics Foundry responsibility rings */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-rings-statistical-genomics.svg"
+  alt="Statistical Genomics Foundry responsibility rings showing good methods and cautionary failures, local statistical kinds and facets, audit actions, referee skills, and empirical calibration around the shared Pattern and foundry-lib core"
+  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/statistical-genomics-foundry/">The Statistical Genomics Foundry</a>
+</div>
+
+</section>
+
+{/* SLIDE 55 — Statistical Genomics implementation failures stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE STATISTICAL GENOMICS FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Implementation Failures</h2>
+
+</section>
+
+{/* SLIDE 56 — Statistical Genomics scope failures stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE STATISTICAL GENOMICS FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Scope Failures</h2>
+
+</section>
+
+{/* ============================ THE TDA BIOINFORMATICS FOUNDRY ============================ */}
+
+{/* SLIDE 57 — TDA Bioinformatics Foundry transition */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART SIX</div>
+
+<h1 style="font-size: 1.3em; line-height: 1.08; margin-bottom: 0.35em;">The Topological Data Analysis<br />for Bioinformatics Foundry</h1>
+
+<div style="font-size: 0.68em; font-style: italic;">
+  A pattern for bioinformatic skills and knowledge at the edge.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 1.4em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/topological-data-analysis-bioinformatics-foundry/">TDA Bioinformatics Foundry profile</a>
+</div>
+
+</section>
+
+{/* SLIDE 58 — TDA Bioinformatics Foundry responsibility rings */}
+
+<section>
+
+<img
+  src="/slides/foundry-pattern/foundry-rings-tda-bioinformatics.svg"
+  alt="TDA Bioinformatics Foundry responsibility rings showing its method corpus, local kinds and facets, candidate-structure scoring Mold, reproducible environments, and replication evidence around the shared Pattern and foundry-lib core"
+  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+  <a href="https://galaxyproject.github.io/foundry-pattern/instances/topological-data-analysis-bioinformatics-foundry/">The TDA Bioinformatics Foundry</a>
+</div>
+
+</section>
+
+{/* SLIDE 59 — TDA planning ahead stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE TDA BIOINFORMATICS FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Planning Ahead</h2>
+
+</section>
+
+{/* SLIDE 60 — TDA building the template stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE TDA BIOINFORMATICS FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Building the Template</h2>
+
+</section>
+
+{/* SLIDE 61 — TDA actionable stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE TDA BIOINFORMATICS FOUNDRY</div>
+
+<h2 style="font-size: 1.7em;">Ensuring It Is Actionable</h2>
+
+</section>
+
+{/* SLIDE 62 — TDA reproducibly actionable stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE TDA BIOINFORMATICS FOUNDRY</div>
+
+<h2 style="font-size: 1.55em;">Ensuring It Is Reproducibly Actionable</h2>
+
+</section>
+
+{/* SLIDE 63 — TDA early results and future directions stub */}
+
+<section>
+
+<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE TDA BIOINFORMATICS FOUNDRY</div>
+
+<h2 style="font-size: 1.55em;">Early Results and Future Directions</h2>
+
+</section>
+
+{/* SLIDE 64 — close */}
 
 <section>
 
