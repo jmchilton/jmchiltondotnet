@@ -9,6 +9,8 @@ interface Props {
   showControls?: boolean;
   showProgress?: boolean;
   theme?: 'default' | 'galaxy';
+  /** Deck slug, exposed as `data-deck` so a deck can scope its own overrides. */
+  deck?: string;
 }
 
 const {
@@ -18,6 +20,7 @@ const {
   showControls = true,
   showProgress = true,
   theme = 'default',
+  deck,
 } = Astro.props;
 
 const fullTitle = `${title} | jmchilton.net`;
@@ -241,10 +244,562 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       .reveal[data-theme='galaxy'] .galaxy-cover a {
         color: #ffd700 !important;
       }
+
+      /* ===================================================================
+         Deck component system
+         -------------------------------------------------------------------
+         Reusable classes so slide bodies stop carrying bespoke inline
+         styles. Two rules make the sizing predictable:
+
+         1. The reveal slide box is a fixed 960x700 coordinate space (see
+            export-slides-pdf.js, which captures at that size). Structural
+            lengths -- gaps, padding, rules -- are therefore plain px, which
+            stay put no matter what the browser window does. `vh` must NOT be
+            used inside a slide: `.slides` is transform-scaled, so a vh cap
+            re-measures against the real viewport and the same slide lays out
+            differently on every screen.
+         2. Type and anything that should track type (measure widths, image
+            caps) is in `em` against the 36px slide root, so 700px of slide
+            height is 19.4em and a full-bleed figure is ~16.6em.
+
+         Colors come from the Galaxy tokens below, so a deck opting into
+         `theme: galaxy` gets the palette without repeating hexes.
+         =================================================================== */
+      .reveal {
+        --deck-navy: #25537b;
+        --deck-dark: #2c3143;
+        --deck-gold: #d0bd2a;
+        --deck-gold-soft: #e8c547;
+        /* Text-safe gold: --deck-gold is ~1.9:1 on white, fine for rules and
+           display type, unreadable at body sizes. */
+        --deck-gold-ink: #8c6d1f;
+        --deck-grey: #58585a;
+        --deck-muted: #4b5262;
+        --deck-warn: #b45309;
+        --deck-rule: #dfe3e8;
+        --deck-surface: #f6f8fa;
+        --deck-tint: #edf4fa;
+
+        --fs-h1: 1.55em;
+        --fs-h2: 1.3em;
+        --fs-h3: 1.02em;
+        --fs-lede: 0.72em;
+        --fs-body: 0.58em;
+        --fs-small: 0.48em;
+        --fs-micro: 0.4em;
+      }
+
+      /* Vertical rhythm. Opt in per slide with `class="vstack"`; override the
+         gap on one slide with `style="--vstack-gap: 18px"`.
+
+         NOT named `stack`: reveal.js reserves that class for a vertical slide
+         stack. Reveal skips centering on `.stack` (its children center instead)
+         and excludes it from `getSlides()` via `:not(.stack)`, so borrowing the
+         name top-aligns every slide and drops it from the slide count. */
+      .reveal .slides section.vstack > * + * {
+        margin-top: var(--vstack-gap, 26px);
+      }
+      .reveal .slides section.vstack > * {
+        margin-bottom: 0;
+      }
+      .reveal .slides section.vstack > h1,
+      .reveal .slides section.vstack > h2,
+      .reveal .slides section.vstack > h3 {
+        margin-bottom: 0;
+      }
+      .reveal .slides section.vstack.vstack-tight {
+        --vstack-gap: 16px;
+      }
+      .reveal .slides section.vstack.vstack-loose {
+        --vstack-gap: 38px;
+      }
+
+      /* Heading scale, opted into per deck via `data-deck`. The older decks
+         size every heading inline, so applying this globally would resize
+         theirs; scoping keeps them exactly as designed. */
+      .reveal[data-deck='foundry-pattern'] h1,
+      .reveal[data-deck='foundry-pattern'] h2,
+      .reveal[data-deck='foundry-pattern'] h3 {
+        text-wrap: balance;
+      }
+      .reveal[data-deck='foundry-pattern'] h1 {
+        font-size: var(--fs-h1);
+      }
+      .reveal[data-deck='foundry-pattern'] h2 {
+        font-size: var(--fs-h2);
+      }
+      .reveal[data-deck='foundry-pattern'] h3 {
+        font-size: var(--fs-h3);
+      }
+      /* Cover/divider titles are the one place the display size is wanted. */
+      .reveal[data-deck='foundry-pattern'] .galaxy-cover h1 {
+        font-size: 1.85em;
+        line-height: 1.08;
+      }
+
+      /* Eyebrow: mono, uppercase, gold tick. */
+      .reveal .eyebrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.55em;
+        font-family: var(--r-code-font);
+        font-size: var(--fs-micro);
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--deck-grey);
+      }
+      .reveal .eyebrow::before {
+        content: '';
+        width: 1.7em;
+        height: 3px;
+        background: var(--deck-gold-soft);
+        flex: none;
+      }
+      .reveal .eyebrow-left {
+        justify-content: flex-start;
+      }
+      .reveal .eyebrow-bare::before {
+        display: none;
+      }
+
+      /* Measure blocks. These replace the `display: inline-block` centering
+         trick, whose width tracked the longest line -- so a one-word edit
+         re-centered the whole paragraph. */
+      /* Widths are px because these wrap mixed-size content: an `em` cap on a
+         container inheriting the 36px root resolves larger than the 920px
+         content box, i.e. it would silently do nothing. */
+      .reveal .measure,
+      .reveal .measure-sm,
+      .reveal .measure-lg {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .measure-sm {
+        max-width: 640px;
+      }
+      .reveal .measure {
+        max-width: 800px;
+      }
+      .reveal .measure-lg {
+        max-width: 920px;
+      }
+      .reveal .left {
+        text-align: left;
+      }
+
+      /* Text roles */
+      .reveal .lede {
+        font-size: var(--fs-lede);
+        line-height: 1.32;
+        max-width: 26em;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: pretty;
+      }
+      .reveal .body {
+        font-size: var(--fs-body);
+        line-height: 1.42;
+        max-width: 34em;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: pretty;
+      }
+      .reveal .note {
+        font-size: var(--fs-small);
+        line-height: 1.4;
+        color: var(--deck-muted);
+        max-width: 40em;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .source {
+        font-size: var(--fs-micro);
+        line-height: 1.35;
+        color: var(--deck-grey);
+        max-width: 44em;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .source a {
+        font-weight: 500;
+        text-decoration-thickness: 1px;
+      }
+
+      /* The big claim. `.hi` marks the emphasized span. */
+      .reveal .statement {
+        font-size: 1.02em;
+        line-height: 1.12;
+        font-weight: 800;
+        color: var(--deck-navy);
+        max-width: 21em;
+        margin-left: auto;
+        margin-right: auto;
+        text-wrap: balance;
+      }
+      .reveal .statement-sm {
+        font-size: 0.82em;
+        line-height: 1.18;
+      }
+      .reveal .hi {
+        color: var(--deck-gold-ink);
+      }
+      .reveal .hi-warn {
+        color: var(--deck-warn);
+      }
+      .reveal .hi-navy {
+        color: var(--deck-navy);
+      }
+
+      /* Callout: a claim set off by a vertical rule. */
+      .reveal .callout {
+        --callout-accent: var(--deck-gold-soft);
+        border-left: 6px solid var(--callout-accent);
+        padding-left: 0.72em;
+        text-align: left;
+        font-size: var(--fs-lede);
+        line-height: 1.28;
+        font-weight: 700;
+        max-width: 23em;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .callout-navy {
+        --callout-accent: var(--deck-navy);
+      }
+      .reveal .callout-warn {
+        --callout-accent: var(--deck-warn);
+      }
+      .reveal .callout-sm {
+        font-size: var(--fs-body);
+        max-width: 30em;
+      }
+
+      /* Card grids. Accent rides on --card-accent so a modifier recolors the
+         rule without restating the geometry. */
+      .reveal .cards {
+        display: grid;
+        gap: 24px;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .reveal .cards-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .reveal .cards-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .reveal .cards-4 {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+      }
+      .reveal .cards-tight {
+        gap: 14px 22px;
+      }
+      .reveal .card {
+        --card-accent: var(--deck-navy);
+        border-top: 5px solid var(--card-accent);
+        padding-top: 13px;
+      }
+      .reveal .card-side {
+        border-top: none;
+        border-left: 5px solid var(--card-accent);
+        padding-top: 0;
+        padding-left: 13px;
+      }
+      .reveal .card-gold {
+        --card-accent: var(--deck-gold);
+      }
+      .reveal .card-grey {
+        --card-accent: var(--deck-grey);
+      }
+      .reveal .card-warn {
+        --card-accent: var(--deck-warn);
+      }
+      .reveal .card-faint {
+        --card-accent: var(--deck-rule);
+        color: var(--deck-grey);
+      }
+      .reveal .card-eyebrow {
+        font-family: var(--r-code-font);
+        font-size: var(--fs-micro);
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--deck-grey);
+      }
+      .reveal .card-title {
+        font-size: var(--fs-body);
+        font-weight: 800;
+        line-height: 1.16;
+        margin-top: 4px;
+      }
+      .reveal .card-title-lg {
+        font-size: var(--fs-lede);
+      }
+      .reveal .card-body {
+        font-size: var(--fs-small);
+        line-height: 1.36;
+        color: var(--deck-muted);
+        margin-top: 9px;
+      }
+      .reveal .card-body-sm {
+        font-size: var(--fs-micro);
+        line-height: 1.38;
+      }
+      .reveal .card + .card-note,
+      .reveal .card-note {
+        font-size: var(--fs-micro);
+        line-height: 1.35;
+        color: var(--deck-grey);
+      }
+
+      /* Boxed panel (no accent rule) */
+      .reveal .panel {
+        border: 1px solid var(--deck-rule);
+        border-radius: 8px;
+        background: var(--deck-surface);
+        padding: 16px 18px;
+      }
+      .reveal .panel-faint {
+        background: transparent;
+        border-color: var(--deck-rule);
+        color: var(--deck-grey);
+      }
+
+      /* a -> b -> c row */
+      .reveal .flow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+      .reveal .flow-node {
+        border: 2px solid var(--deck-navy);
+        border-radius: 8px;
+        padding: 11px 20px;
+        font-size: var(--fs-body);
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--deck-dark);
+      }
+      .reveal .flow-node-muted {
+        border-style: dashed;
+        border-color: #9aa4b2;
+        color: var(--deck-grey);
+        font-weight: 500;
+      }
+      .reveal .flow-arrow {
+        font-size: 0.8em;
+        line-height: 1;
+        color: var(--deck-gold-ink);
+      }
+
+      /* Mono chain: step -> step -> step */
+      .reveal .chain {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7em;
+        flex-wrap: wrap;
+        font-family: var(--r-code-font);
+        font-size: var(--fs-small);
+        font-weight: 700;
+        color: var(--deck-dark);
+      }
+      .reveal .chain-sep {
+        color: var(--deck-gold-ink);
+        font-weight: 400;
+      }
+
+      .reveal .stat {
+        font-size: 1.35em;
+        font-weight: 900;
+        line-height: 0.95;
+        color: var(--deck-navy);
+      }
+      .reveal .stat-sm {
+        font-size: 0.95em;
+      }
+      .reveal .stat-label {
+        font-size: var(--fs-small);
+        font-weight: 700;
+        line-height: 1.25;
+        margin-top: 4px;
+      }
+
+      /* Figures. Caps are em-of-36px against the 700px slide box:
+         11.5em ~= 414px, 14em ~= 504px, 16.6em ~= 598px. */
+      .reveal .fig {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        max-height: 11.5em;
+        object-fit: contain;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: none;
+        border: 0;
+      }
+      .reveal .fig-tall {
+        max-height: 14em;
+      }
+      .reveal .fig-hero {
+        max-height: 16.6em;
+      }
+      /* Image-only slide: no caption to leave room for. */
+      .reveal .fig-bleed {
+        max-height: 17.6em;
+      }
+      .reveal .fig-short {
+        max-height: 9em;
+      }
+      .reveal .fig-fill {
+        width: 100%;
+      }
+      .reveal .fig-framed {
+        border: 1px solid var(--deck-rule);
+      }
+      .reveal .fig-framed-dark {
+        border: 1px solid var(--deck-dark);
+      }
+      /* Deck-scoped: gcc2026 has its own <figure> markup to leave alone. */
+      .reveal[data-deck='foundry-pattern'] figure {
+        margin: 0;
+      }
+      .reveal[data-deck='foundry-pattern'] figcaption {
+        font-size: var(--fs-micro);
+        line-height: 1.35;
+        color: var(--deck-grey);
+        margin-top: 10px;
+      }
+
+      /* Mermaid sizes its SVG from the graph's own extents, which leaves a
+         small graph tiny in a wide slot. Let it fill the slot. Deck-scoped:
+         gcc2026 has a diagram already tuned against the default sizing. */
+      .reveal[data-deck='foundry-pattern'] .mermaid {
+        display: block;
+        background: transparent;
+        border: 0;
+        box-shadow: none;
+        margin: 0;
+      }
+      .reveal[data-deck='foundry-pattern'] .mermaid svg {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto;
+      }
+      /* Mermaid draws edge labels as HTML inside a foreignObject and paints them
+         with its own theme chip -- olive green on white text, which reads as a
+         highlighter smear against this palette. The `%%{init}%%` themeVariables
+         do not reach these nodes, and mermaid injects its rules into the SVG at
+         a higher specificity, so override the three nodes it colors directly. */
+      .reveal[data-deck='foundry-pattern'] .mermaid .edgeLabel,
+      .reveal[data-deck='foundry-pattern'] .mermaid .edgeLabel p,
+      .reveal[data-deck='foundry-pattern'] .mermaid .labelBkg {
+        background: #ffffff !important;
+        background-color: #ffffff !important;
+        color: var(--deck-grey) !important;
+      }
+
+      /* Two-up layouts */
+      .reveal .split {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 30px;
+        align-items: center;
+        text-align: left;
+      }
+      .reveal .split-wide-left {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      }
+      .reveal .split-wide-right {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      }
+      .reveal .split-vs {
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        gap: 20px;
+      }
+      .reveal .split-mark {
+        font-size: 0.85em;
+        font-weight: 800;
+        color: var(--deck-grey);
+        opacity: 0.45;
+      }
+
+      /* Lists */
+      .reveal .slides ul.tight,
+      .reveal .slides ol.tight {
+        margin: 0;
+        padding-left: 1.15em;
+        text-align: left;
+      }
+      .reveal .slides ul.tight li,
+      .reveal .slides ol.tight li {
+        margin: 0.3em 0;
+      }
+
+      /* Inline reference pill: a URL or repo slug under a heading. */
+      .reveal .ref-link {
+        display: inline-block;
+        font-size: var(--fs-small);
+        font-weight: 700;
+        color: var(--deck-navy);
+        text-decoration: none;
+        border-bottom: 2px solid var(--deck-gold-soft);
+        padding-bottom: 2px;
+      }
+      .reveal .ref-link:hover {
+        color: var(--deck-gold-ink);
+      }
+
+      /* Dark cover / part-divider slides */
+      .reveal[data-theme='galaxy'] .galaxy-cover .eyebrow {
+        color: rgba(248, 249, 250, 0.72);
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover .lede,
+      .reveal[data-theme='galaxy'] .galaxy-cover .body,
+      .reveal[data-theme='galaxy'] .galaxy-cover .note {
+        color: rgba(248, 249, 250, 0.86);
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover .source {
+        color: rgba(248, 249, 250, 0.68);
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover .callout {
+        --callout-accent: #ffd700;
+        color: #f8f9fa;
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover .statement {
+        color: #ffd700;
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover .ref-link {
+        color: #ffd700;
+        border-bottom-color: rgba(255, 215, 0, 0.55);
+      }
+      .reveal[data-theme='galaxy'] .galaxy-cover code {
+        background: rgba(255, 255, 255, 0.12);
+        color: #f8f9fa;
+      }
+
+      /* Part dividers: the deck's structural beats. Same navy ground as the
+         cover, one step quieter so the cover still reads as the opener. */
+      .reveal[data-theme='galaxy'] .divider h1 {
+        font-size: 1.75em;
+        line-height: 1.1;
+      }
+      .reveal[data-theme='galaxy'] .divider .eyebrow {
+        color: rgba(255, 215, 0, 0.78);
+      }
+      .reveal[data-theme='galaxy'] .divider .eyebrow::before {
+        background: rgba(255, 215, 0, 0.7);
+      }
     </style>
   </head>
   <body>
-    <div class="reveal" data-theme={theme}>
+    <div class="reveal" data-theme={theme} data-deck={deck}>
       <div class="slides">
         <slot />
       </div>
@@ -294,6 +849,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           if (!nodes.length) return;
           await loadMermaid();
           await mermaid.run({ nodes });
+          // Reveal centers a slide by measuring it during layout. A diagram that
+          // renders afterwards changes the height Reveal already measured, so
+          // re-run layout to re-center against the drawn graph.
+          Reveal.layout();
         };
         const renderAllMermaid = async () => {
           for (const slide of document.querySelectorAll('.slides > section')) {

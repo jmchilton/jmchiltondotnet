@@ -7,29 +7,30 @@ tags: ['galaxy', 'bioinformatics', 'reproducibility', 'ai']
 transition: 'slide'
 showControls: true
 showProgress: true
+theme: 'galaxy'
 ---
 
-<section>
+<section class="galaxy-cover vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
 # The Foundry Pattern
 
-<div class="text-sm opacity-70">Galaxy ML Lab Meeting — August 13, 2026 — John Chilton</div>
+<div class="lede">More Principled Skills for Agents and Humans</div>
 
-<div class="text-sm opacity-50">More Principled Skills for Agents and Humans</div>
+<div class="source">Galaxy ML Lab Meeting · August 13, 2026 · John Chilton</div>
 
 </section>
 
 {/* SLIDE 2 — the conventional picture of skills */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/skills-overview.png"
   alt="Diagram: Skill 1 and Skill 2 feeding a Main Agent (LLM, code blocks, Tools) that dispatches to three subagents, beside a panel headed 'What are Skills?' listing reusable code modules, perform specific tasks, API calls, database queries, extend agent capabilities"
-  style="display: block; width: 100%; max-height: 66vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.6em;">
+<div class="source">
   Image from <a href="https://strapi.io/blog/what-are-agent-skills-and-how-to-use-them">strapi.io — What are Agent Skills and how to use them</a>
 </div>
 
@@ -40,9 +41,9 @@ showProgress: true
 <section>
 
 <img
+  class="fig fig-bleed"
   src="/slides/foundry-pattern/skill-mill-clawbio.png"
   alt="Screenshot of the ClawBio repository's large AI-generated skills directory on GitHub"
-  style="display: block; width: auto; max-width: 100%; max-height: 82vh; object-fit: contain; margin: 0 auto;"
 />
 
 </section>
@@ -52,9 +53,9 @@ showProgress: true
 <section>
 
 <img
+  class="fig fig-bleed"
   src="/slides/foundry-pattern/skill-mill-bioskills.png"
   alt="Screenshot of the bioSkills repository's AI-generated comparative genomics skill collection on GitHub"
-  style="display: block; width: auto; max-width: 100%; max-height: 82vh; object-fit: contain; margin: 0 auto;"
 />
 
 </section>
@@ -63,56 +64,52 @@ showProgress: true
 
 {/* SLIDE 5 — section transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART ONE</div>
+<div class="eyebrow">Part One</div>
 
 # The Pattern
 
-<div style="font-size: 0.72em; margin-top: 0.8em;">
-  Authorship and distribution, kept separate.
-</div>
+<div class="lede">Authorship and distribution, kept separate.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/the-model/">galaxyproject.github.io/foundry-pattern/pattern/the-model/</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/pattern/the-model/">foundry-pattern/pattern/the-model ↗</a>
 
 </section>
 
 {/* SLIDE 6 — the machine */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/foundry-machine.svg"
   alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
-  style="display: block; width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-70" style="margin-top: 0.5em;">
-  People maintain the source. Agents receive small, frozen artifacts.
-</div>
+<div class="note">People maintain the source. Agents receive small, frozen artifacts.</div>
 
 </section>
 
 {/* SLIDE 7 — KB */}
 
-<section>
+<section class="vstack">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">01 · SOURCE OF TRUTH</div>
+<div class="eyebrow">01 · Source of truth</div>
 
-<h2 style="font-size: 1.45em;">Knowledge Base</h2>
+<h2>Knowledge Base</h2>
 
-<div style="font-size: 0.72em; margin-top: 1em;">
-  Plain files, authored to be <strong>read and learned by a person</strong>.
+<div class="lede">Plain files, authored to be <strong>read and learned by a person</strong>.</div>
+
+<div class="chain">
+  <span>typed frontmatter</span>
+  <span class="chain-sep">·</span>
+  <span>controlled tags</span>
+  <span class="chain-sep">·</span>
+  <span>wiki-linked references</span>
 </div>
 
-<div style="font-size: 0.66em; margin-top: 1.1em; opacity: 0.85;">
-  Typed frontmatter · controlled tags · wiki-linked references
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.4em;">
-  "Executable" is a claim the build enforces: every typed reference must resolve, every tag must exist.<br />
+<div class="note">
+  "Executable" is a claim the build enforces: every typed reference must resolve, every tag must exist.
   A Mold whose source fails these checks cannot be cast.
 </div>
 
@@ -120,68 +117,76 @@ showProgress: true
 
 {/* SLIDE 8 — Mold */}
 
-<section>
+<section class="vstack">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">02 · ONE ACTION</div>
+<div class="eyebrow">02 · One action</div>
 
-<h2 style="font-size: 1.45em;">Mold</h2>
+<h2>Mold</h2>
 
-<div style="font-size: 0.72em; margin-top: 1em;">
-  A typed reference manifest plus a procedural skeleton.
-</div>
+<div class="lede">A typed reference manifest plus a procedural skeleton.</div>
 
-<div style="font-size: 0.62em; margin-top: 1.3em; text-align: left; display: inline-block;">
-  Every declared reference carries three decisions:
-  <ul style="margin-top: 0.5em;">
-    <li><strong>kind</strong> — which resolver and casting rules apply</li>
-    <li><strong>load policy</strong> — upfront, or on-demand with a trigger</li>
-    <li><strong>placement</strong> — verbatim, or sidecar</li>
-  </ul>
-</div>
+<div class="body">Every declared reference carries three decisions:</div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.1em;">
-  One coherent unit of work. Not an entire journey, not a dust of fragments.
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">kind</div>
+    <div class="card-body">which resolver and casting rules apply</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">load policy</div>
+    <div class="card-body">upfront, or on-demand with a trigger</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">placement</div>
+    <div class="card-body">verbatim, or sidecar</div>
+  </div>
 </div>
 
 </section>
 
 {/* SLIDE 9 — Cast */}
 
-<section>
+<section class="vstack">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">03 · COMPILATION</div>
+<div class="eyebrow">03 · Compilation</div>
 
-<h2 style="font-size: 1.45em;">Cast</h2>
+<h2>Cast</h2>
 
-<div style="font-size: 0.72em; margin-top: 1em;">
-  The same source, Mold, and target produce <strong>the same bytes</strong>.
+<div class="lede">Compile the references and procedure described by the Mold into a skill.</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">scoped</div>
+    <div class="card-body">only what this action declares</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">isolated</div>
+    <div class="card-body">links resolved away, no runtime tie</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">frozen</div>
+    <div class="card-body">one revision, not future edits</div>
+  </div>
 </div>
 
-<div style="display: flex; justify-content: center; gap: 1.6em; margin-top: 1.5em; font-size: 0.66em;">
-  <div><strong style="color: #2563eb;">scoped</strong><br /><span class="text-sm opacity-70">only what this action declares</span></div>
-  <div><strong style="color: #2563eb;">isolated</strong><br /><span class="text-sm opacity-70">links resolved away, no runtime tie</span></div>
-  <div><strong style="color: #2563eb;">frozen</strong><br /><span class="text-sm opacity-70">one revision, not future edits</span></div>
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 1.5em;">
-  The skill body is never hand-maintained. Under-instructed? Fix the Mold and cast again.
+<div class="note">
+  The skill is never hand-maintained. Under-instructed? Fix the Mold and/or its references and
+  cast again. Prefer thin Mold procedures and rich references to maximize reuse.
 </div>
 
 </section>
 
 {/* SLIDE 10 — Provenance */}
 
-<section>
+<section class="vstack">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">04 · LINEAGE RECORD</div>
+<div class="eyebrow">04 · Lineage record</div>
 
-<h2 style="font-size: 1.45em;">Provenance</h2>
+<h2>Provenance</h2>
 
-<div style="font-size: 0.72em; margin-top: 1em;">
-  Which Mold revision. Which target. Which references resolved. Which checks ran.
-</div>
+<div class="lede">Which Mold revision. Which target. Which references resolved. Which checks ran.</div>
 
-<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+<div class="callout">
   Not "the model probably knew this" —<br />
   <em>this claim is real, and here is where it came from.</em>
 </div>
@@ -190,15 +195,27 @@ showProgress: true
 
 {/* SLIDE 11 — the analogy */}
 
-<section>
+<section class="vstack">
 
-<h3 style="margin-bottom: 0.8em;">The picture to hold</h3>
+<h3>The picture to hold</h3>
 
-<div style="font-size: 0.78em; line-height: 1.9; text-align: left; display: inline-block;">
-  the skill is the <strong style="color: #2563eb;">binary</strong><br />
-  the KB is the <strong style="color: #2563eb;">code</strong><br />
-  casting is the <strong style="color: #2563eb;">compiler</strong><br />
-  provenance is the <strong style="color: #2563eb;">build log</strong>
+<div class="cards cards-2 measure">
+  <div class="card card-side">
+    <div class="card-eyebrow">the skill</div>
+    <div class="card-title card-title-lg">the binary</div>
+  </div>
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">the KB</div>
+    <div class="card-title card-title-lg">the code</div>
+  </div>
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">casting</div>
+    <div class="card-title card-title-lg">the compiler</div>
+  </div>
+  <div class="card card-side">
+    <div class="card-eyebrow">provenance</div>
+    <div class="card-title card-title-lg">the build log</div>
+  </div>
 </div>
 
 </section>
@@ -207,31 +224,27 @@ showProgress: true
 
 {/* SLIDE 12 — section transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART TWO</div>
+<div class="eyebrow">Part Two</div>
 
 # The Case
 
-<div style="font-size: 0.9em; font-weight: 700; margin-top: 0.6em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
-  A skill should be the ***package***, not the ***source***.
-</div>
+<div class="callout">A skill should be the ***package***, not the ***source***.</div>
 
-<div style="font-size: 0.54em; font-style: italic; line-height: 1.45; max-width: 44em; margin: 1em auto 0;">
+<div class="note" style="font-style: italic;">
   Four arguments: engineering practice, scale, evidence, and resistance to rot.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.2em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/case/">galaxyproject.github.io/foundry-pattern/case/</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/case/">foundry-pattern/case ↗</a>
 
 </section>
 
 {/* SLIDE 13 — expert appeal transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.1</div>
+<div class="eyebrow">Part 2.1</div>
 
 # An Argument from Engineering Practice
 
@@ -241,7 +254,7 @@ showProgress: true
 
 <section>
 
-<h2 style="font-size: 1.6em; line-height: 1.22; max-width: 17em; margin-left: auto; margin-right: auto;">
+<h2 class="plain-heading measure" style="font-size: 1.5em; line-height: 1.2;">
   No serious engineering culture treats the compiled binary as the place you make changes.
 </h2>
 
@@ -249,15 +262,15 @@ showProgress: true
 
 {/* SLIDE 15 — Pinecone Nexus */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/pinecone-nexus.png"
   alt="Screenshot of Pinecone Nexus presented as the knowledge engine for agents, compiling enterprise data into governed knowledge and serving it to agents"
-  style="display: block; width: 100%; max-height: 78vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.4em;">
+<div class="source">
   <a href="https://www.pinecone.io/blog/knowledge-infrastructure-for-agents/">Pinecone Nexus — The Knowledge Engine for Agents</a>
 </div>
 
@@ -265,19 +278,19 @@ showProgress: true
 
 {/* SLIDE 16 — Pinecone KnowQL */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill"
   src="/slides/foundry-pattern/pinecone-knowql.png"
   alt="Screenshot of Pinecone KnowQL showing six agent knowledge-query concerns: intent, filter, provenance, output shape, confidence, and budget"
-  style="display: block; width: 100%; max-height: 47vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div style="font-size: 0.58em; line-height: 1.4; max-width: 50em; margin: 0.9em auto 0;">
+<div class="body measure-lg">
   The Foundry and Pinecone Nexus independently converge on the same diagnosis: agents need structured, governed, provenance-bearing knowledge—not raw retrieval reconstructed on every call. The Foundry bets on <strong>open-source artifacts</strong>; Nexus bets on an <strong>adapted runtime</strong>.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 0.55em;">
+<div class="source">
   The Foundry work predates the Nexus announcement.<br />
   <a href="https://www.pinecone.io/blog/knowledge-infrastructure-for-agents/">Pinecone Nexus and KnowQL</a>
 </div>
@@ -286,9 +299,9 @@ showProgress: true
 
 {/* SLIDE 17 — metaphor appeal transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.2</div>
+<div class="eyebrow">Part 2.2</div>
 
 # An Argument from Scale
 
@@ -296,17 +309,17 @@ showProgress: true
 
 {/* SLIDE 18 — the circle */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-tall"
   src="/slides/foundry-pattern/phd-circle.jpg"
   alt="A circle representing all of human knowledge, with one person's education narrowing toward its boundary"
-  style="display: block; width: auto; max-width: 100%; max-height: 54vh; object-fit: contain; margin: 0 auto;"
 />
 
-<h3 style="margin-top: 0.5em;">All of human knowledge.</h3>
+<h3>All of human knowledge.</h3>
 
-<div class="text-sm opacity-50">
+<div class="source">
   <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
@@ -314,47 +327,35 @@ showProgress: true
 
 {/* SLIDE 19 — the concession, stated as a positive */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.25em; line-height: 1.12; max-width: 18em; margin-left: auto; margin-right: auto;">
+<h2 class="plain-heading measure-sm" style="font-size: 1.25em; line-height: 1.14;">
   Inside the circle, AI generated skills without backing are mostly fine
 </h2>
 
-<div style="font-size: 0.8em; margin-top: 1.1em;">
-  Established knowledge. Canonical procedure.
-</div>
+<div class="lede">Established knowledge. Canonical procedure.</div>
 
-<div style="font-size: 0.8em; margin-top: 0.5em; color: #2563eb; font-weight: 700;">
-  A frontier model writes this skill well.
-</div>
+<div class="statement statement-sm">A frontier model writes this skill well.</div>
 
 </section>
 
 {/* SLIDE 20 — the best version of the interior use: distillation */}
 
-<section>
+<section class="vstack">
 
 <h3>And the interior use has a job</h3>
 
-<div style="display: flex; align-items: center; justify-content: center; gap: 1.1em; margin-top: 1.3em; font-size: 0.72em;">
-  <div style="border: 2px solid #1a1a1a; border-radius: 0.5em; padding: 0.7em 1.1em; font-weight: 700;">
-    advanced model
-  </div>
-  <div style="font-size: 1.6em; color: #dc2626;">→</div>
-  <div style="border: 2px solid #1a1a1a; border-radius: 0.5em; padding: 0.7em 1.1em;">
-    skill
-  </div>
-  <div style="font-size: 1.6em; color: #dc2626;">→</div>
-  <div style="border: 2px dashed #6b7280; border-radius: 0.5em; padding: 0.7em 1.1em;">
-    simpler model
-  </div>
+<div class="flow">
+  <div class="flow-node">advanced model</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node">skill</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-node flow-node-muted">simpler model</div>
 </div>
 
-<div style="font-size: 0.72em; margin-top: 1.5em;">
-  Teaching established knowledge to models that don't carry it.
-</div>
+<div class="lede">Teaching established knowledge to models that don't carry it.</div>
 
-<div class="text-sm opacity-70" style="margin-top: 0.7em;">
+<div class="note">
   Spelling out the canonical pipeline is the difference between a small model doing the task and fumbling it.
 </div>
 
@@ -362,17 +363,17 @@ showProgress: true
 
 {/* SLIDE 21 — the dent */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-tall"
   src="/slides/foundry-pattern/phd-dent.jpg"
   alt="A close view of a small dent pushed beyond the boundary of the circle, labeled Ph.D."
-  style="display: block; width: auto; max-width: 100%; max-height: 62vh; object-fit: contain; margin: 0 auto;"
 />
 
-<h3 style="margin-top: 0.5em;">Progress happens here.</h3>
+<h3>Progress happens here.</h3>
 
-<div class="text-sm opacity-50">
+<div class="source">
   Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
@@ -380,32 +381,30 @@ showProgress: true
 
 {/* SLIDE 22 — the reframe */}
 
-<section>
+<section class="vstack">
 
-<h2 style="line-height: 1.15;">
+<h2 class="plain-heading" style="line-height: 1.16;">
   A model is not another red shape.<br />
-  <span style="color: #dc2626;">The model is the circle.</span>
+  <span class="hi">The model is the circle.</span>
 </h2>
 
-<div style="font-size: 0.72em; margin-top: 1.3em;">
-  Trained across the recorded surface — not educated into one human-sized slice.
-</div>
+<div class="lede">Trained across the recorded surface — not educated into one human-sized slice.</div>
 
 </section>
 
 {/* SLIDE 23 — the zoom: the answer to slide 17 */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-tall"
   src="/slides/foundry-pattern/phd-zoom.jpg"
   alt="The dent enlarged until the original circle is mostly outside the frame"
-  style="display: block; width: auto; max-width: 100%; max-height: 48vh; object-fit: contain; margin: 0 auto;"
 />
 
-<h3 style="margin-top: 0.5em;">At this scale, the world looks different.</h3>
+<h3>At this scale, the world looks different.</h3>
 
-<div class="text-sm opacity-50">
+<div class="source">
   Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
@@ -413,28 +412,26 @@ showProgress: true
 
 {/* SLIDE 24 — three interior tools, pointed outward */}
 
-<section>
+<section class="vstack">
 
 <h3>Interior tools at the boundary</h3>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.8em; margin-top: 1.3em; font-size: 0.62em;">
-  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
-    <div style="font-weight: 700; font-size: 1.15em;">A folder of Markdown</div>
-    <div style="margin-top: 0.5em;">a container, not an architecture</div>
+<div class="cards cards-3 measure-lg">
+  <div class="panel panel-faint">
+    <div class="card-title card-title-lg">A folder of Markdown</div>
+    <div class="card-body">a container, not an architecture</div>
   </div>
-  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
-    <div style="font-weight: 700; font-size: 1.15em;">RAG</div>
-    <div style="margin-top: 0.5em;">similarity is not dependency</div>
+  <div class="panel panel-faint">
+    <div class="card-title card-title-lg">RAG</div>
+    <div class="card-body">similarity is not dependency</div>
   </div>
-  <div style="border: 2px solid #d1d5db; border-radius: 0.5em; padding: 1em 0.7em; color: #9ca3af;">
-    <div style="font-weight: 700; font-size: 1.15em;">One catch-all wiki</div>
-    <div style="margin-top: 0.5em;">a generic ontology is not the domain's</div>
+  <div class="panel panel-faint">
+    <div class="card-title card-title-lg">One catch-all wiki</div>
+    <div class="card-body">a generic ontology is not the domain's</div>
   </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.4em;">
-  All three are useful. A Foundry may use all three. None is sufficient.
-</div>
+<div class="note">All three are useful. A Foundry may use all three. None is sufficient.</div>
 
 </section>
 
@@ -443,31 +440,29 @@ showProgress: true
 <section>
 
 <img
+  class="fig fig-fill fig-bleed"
   src="/slides/foundry-pattern/circle-sorting.svg"
   alt="Diagram: the interior of the circle is established knowledge a frontier model writes well and can teach to smaller models; the glowing boundary band with a dent is the edge, where research is scholarship — richly linked, published, provenanced, and checked"
-  style="display: block; width: 100%; max-height: 64vh; object-fit: contain; margin: 0 auto;"
 />
 
 </section>
 
 {/* SLIDE 26 — the bridge */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4em; align-items: center; width: 100%;">
-  <div>
-    <img
-      src="/slides/foundry-pattern/phd-zoom.jpg"
-      alt="The red dent at the edge of human knowledge, enlarged until the original circle is mostly outside the frame"
-      style="display: block; width: auto; max-width: 100%; max-height: 42vh; object-fit: contain; margin: 0 auto;"
-    />
-  </div>
-  <h2 style="font-size: 1.15em; line-height: 1.18; text-align: left; margin: 0;">
-    A Foundry is<br />an attempt to<br />push that edge and make it<br /><span style="color: #2563eb;">executable</span>.
+<div class="split measure">
+  <img
+    class="fig fig-tall"
+    src="/slides/foundry-pattern/phd-zoom.jpg"
+    alt="The red dent at the edge of human knowledge, enlarged until the original circle is mostly outside the frame"
+  />
+  <h2 class="plain-heading" style="font-size: 1.15em; line-height: 1.2; text-align: left; margin: 0;">
+    A Foundry is<br />an attempt to<br />push that edge and make it<br /><span class="hi">executable</span>.
   </h2>
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 0.8em;">
+<div class="source">
   Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
 </div>
 
@@ -477,79 +472,84 @@ showProgress: true
 
 {/* SLIDE 27 — section transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.3</div>
+<div class="eyebrow">Part 2.3</div>
 
 # An Appeal with Evidence
 
-<div style="font-size: 0.72em; margin-top: 0.8em;">
-  We didn't assert it. We tried to falsify it.
-</div>
+<div class="lede">We didn't assert it. We tried to falsify it.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/blog/2026-06-blind-regeneration/">Blind Regeneration — June 2026</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/blog/2026-06-blind-regeneration/">Blind Regeneration — June 2026 ↗</a>
 
 </section>
 
 {/* SLIDE 28 — the experiment */}
 
-<section>
+<section class="vstack">
 
 <h3>Blind regeneration</h3>
 
-<div style="font-size: 0.68em; margin-top: 1.1em; text-align: left; display: inline-block;">
-  Delete a science skill. Hand a frontier model only <strong>the topic and the format</strong>.<br />
+<div class="lede">
+  Delete a science skill. Hand a frontier model only <strong>the topic and the format</strong>.
   How much of the original does it write back from memory?
 </div>
 
-<div style="font-size: 0.6em; margin-top: 1.4em; opacity: 0.85; text-align: left; display: inline-block;">
-  A separate blind-author agent — never shown the original.<br />
-  Hard prohibition: no reading the corpus, no web search.<br />
-  Two skills at different altitudes: one light and procedural, one decision-grade.
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-body">A separate blind-author agent — never shown the original.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-body">Hard prohibition: no reading the corpus, no web search.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-body">Two skills at different altitudes: one light and procedural, one decision-grade.</div>
+  </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.3em;">
-  Designed so it could fail. High overlap ⇒ the restatement is redundant.
-</div>
+<div class="note">Designed so it could fail. High overlap ⇒ the restatement is redundant.</div>
 
 </section>
 
 {/* SLIDE 29 — results */}
 
-<section>
+<section class="vstack">
 
 <h3>It wrote the skill back</h3>
 
-<div style="font-size: 0.6em; margin-top: 1.1em; text-align: left; display: inline-block; line-height: 1.7;">
-  <strong>Canonical spine + default parameters</strong> — reproduced verbatim<br />
-  <span class="opacity-70">PCA n_comps=50 · n_neighbors=15 · resolution 0.2–2.0 · Leiden over Louvain</span><br /><br />
-  <strong>The decision-grade page</strong> — 85–90% recovered, roughly a wash<br /><br />
-  <strong>The light page</strong> — <span style="color: #dc2626; font-weight: 700;">the blind version was better</span>
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">Canonical spine + default parameters</div>
+    <div class="card-body">reproduced verbatim</div>
+    <div class="card-note" style="margin-top: 8px;">PCA n_comps=50 · n_neighbors=15 · resolution 0.2–2.0 · Leiden over Louvain</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">The decision-grade page</div>
+    <div class="card-body">85–90% recovered, roughly a wash</div>
+  </div>
+  <div class="card card-warn">
+    <div class="card-title">The light page</div>
+    <div class="card-body"><strong class="hi-warn">the blind version was better</strong></div>
+  </div>
 </div>
 
-<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.4em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
-  The redundancy effect is strongest exactly where corpora are thickest.
-</div>
+<div class="callout">The redundancy effect is strongest exactly where corpora are thickest.</div>
 
 </section>
 
 {/* SLIDE 30 — the citation finding */}
 
-<section>
+<section class="vstack">
 
 <h3>It reproduced the citations too</h3>
 
-<div style="font-size: 0.72em; margin-top: 1.2em;">
-  From the weights. Including the fuzzy ones.
-</div>
+<div class="lede">From the weights. Including the fuzzy ones.</div>
 
-<div style="font-size: 0.8em; font-weight: 700; margin-top: 1.5em; border-left: 7px solid #dc2626; padding-left: 0.65em; text-align: left; display: inline-block;">
+<div class="callout callout-warn">
   You cannot tell, from the output,<br />which of those are correct.
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.4em;">
+<div class="note">
   A real citation and a confabulated one look identical on the page.<br />
   A smarter model produces <em>more convincing</em> unverifiable citations, not more verifiable ones.
 </div>
@@ -558,40 +558,36 @@ showProgress: true
 
 {/* SLIDE 31 — the finding that reframes everything */}
 
-<section>
+<section class="vstack">
 
-<h3>And it added <em>more</em> validity caveats than the original</h3>
+<h3 class="plain-heading measure">And it added <em>more</em> validity caveats than the original</h3>
 
-<div style="font-size: 0.7em; margin-top: 1.3em;">
-  We expected it to be thinner on rigor. It volunteered cautions the original never mentioned.
-</div>
+<div class="lede">We expected it to be thinner on rigor. It volunteered cautions the original never mentioned.</div>
 
-<div style="font-size: 0.72em; margin-top: 1.5em;">
-  So validity <strong>knowledge</strong> is already in the weights.
-</div>
+<div class="statement statement-sm">So validity <strong>knowledge</strong> is already in the weights.</div>
 
 </section>
 
 {/* SLIDE 32 — the two assets */}
 
-<section>
+<section class="vstack">
 
 <h3>The two things it could not supply</h3>
 
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2em; margin-top: 1.3em; font-size: 0.62em; text-align: left;">
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em;">
-    <div style="font-weight: 700; font-size: 1.25em;">Provenance</div>
-    <div style="opacity: 0.75; margin-top: 0.2em;">the universal asset</div>
-    <div style="margin-top: 0.7em;">Which claim is real, and where it came from. Rides with every cast, in every domain.</div>
+<div class="cards cards-2 measure">
+  <div class="card card-side">
+    <div class="card-title card-title-lg">Provenance</div>
+    <div class="card-eyebrow" style="margin-top: 4px;">the universal asset</div>
+    <div class="card-body">Which claim is real, and where it came from. Rides with every cast, in every domain.</div>
   </div>
-  <div style="border-left: 5px solid #dc2626; padding-left: 0.8em;">
-    <div style="font-weight: 700; font-size: 1.25em;">An enforced check</div>
-    <div style="opacity: 0.75; margin-top: 0.2em;">realized per domain</div>
-    <div style="margin-top: 0.7em;">An external verdict between authored knowledge and a trusted result — not an optional caveat.</div>
+  <div class="card card-side card-gold">
+    <div class="card-title card-title-lg">An enforced check</div>
+    <div class="card-eyebrow" style="margin-top: 4px;">realized per domain</div>
+    <div class="card-body">An external verdict between authored knowledge and a trusted result — not an optional caveat.</div>
   </div>
 </div>
 
-<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.4em;">
+<div class="statement statement-sm">
   Restating canonical knowledge is a commodity.<br />
   Traceable, check-backed knowledge is not.
 </div>
@@ -602,9 +598,9 @@ showProgress: true
 
 {/* SLIDE 33 — rot appeal transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART 2.4</div>
+<div class="eyebrow">Part 2.4</div>
 
 # The Case for Resisting Rot
 
@@ -612,21 +608,17 @@ showProgress: true
 
 {/* SLIDE 34 — newer models obsolete generated skills */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.38em; line-height: 1.18;">
-  The generated skill is<br /><span style="color: #2563eb;">the perishable layer.</span>
+<h2 class="plain-heading" style="font-size: 1.38em; line-height: 1.18;">
+  The generated skill is<br /><span class="hi">the perishable layer.</span>
 </h2>
 
-<div style="font-size: 0.62em; margin-top: 1em;">
-  The better blind version is the clue: generated skill quality rises with model capability.
-</div>
+<div class="body">The better blind version is the clue: generated skill quality rises with model capability.</div>
 
-<div style="font-size: 0.82em; font-weight: 700; margin-top: 1em;">
-  Who cares what Opus 4.6 wrote after Opus 5 ships?
-</div>
+<div class="statement statement-sm">Who cares what Opus 4.6 wrote after Opus 5 ships?</div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.3em;">
+<div class="note">
   A skill frozen in place inherits the limits of the model that authored it.<br />
   Keep the source, and recast.
 </div>
@@ -635,15 +627,13 @@ showProgress: true
 
 {/* SLIDE 35 — targets / portability */}
 
-<section>
+<section class="vstack">
 
 <h3>Targets change the package, not the source</h3>
 
-<div style="font-size: 0.7em; margin-top: 1.3em;">
-  One Mold → Claude skill, generic agent, baked-in prompt.
-</div>
+<div class="lede">One Mold → Claude skill, generic agent, baked-in prompt.</div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.5em;">
+<div class="note">
   Agent platforms will change faster than the domain knowledge they consume.<br />
   Binding source knowledge to today's packaging format makes it inherit the platform's lifetime.
 </div>
@@ -654,33 +644,29 @@ showProgress: true
 
 {/* SLIDE 36 — section transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART THREE</div>
+<div class="eyebrow">Part Three</div>
 
 # An Implementation
 
-<div style="font-size: 0.72em; margin-top: 0.8em;">
-  One concrete Astro stack. The pattern does not require it.
-</div>
+<div class="lede">One concrete Astro stack. The pattern does not require it.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">foundry-pattern/pattern/standing-up-a-foundry ↗</a>
 
 </section>
 
 {/* SLIDE 37 — concentric implementation responsibilities */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/foundry-concentric-responsibilities.svg"
   alt="Concentric diagram: the Foundry Pattern specification at the center, foundry-lib and the Astro reference composition around it, and instance-owned domain knowledge and application decisions around the outside"
-  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+<div class="source">
   <a href="https://galaxyproject.github.io/foundry-pattern/diagrams/foundry-concentric-responsibilities.svg">Foundry responsibilities diagram</a>
 </div>
 
@@ -688,57 +674,53 @@ showProgress: true
 
 {/* SLIDE 38 — stack-neutral guidance */}
 
-<section>
+<section class="vstack">
 
 <h3>You can use the pattern without foundry-lib</h3>
 
-<div style="font-size: 0.62em; margin-top: 1.1em; text-align: left; display: inline-block; max-width: 46em; line-height: 1.45;">
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em;">
-    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/"><strong style="font-size: 1.15em;">Guiding Principles</strong></a><br />
-    Ground → Explain → Cast → Check. The domain-free commitments.
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <a class="card-title card-title-lg" style="display: block;" href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/">Guiding Principles</a>
+    <div class="card-body">Ground → Explain → Cast → Check. The domain-free commitments.</div>
   </div>
-  <div style="border-left: 5px solid #dc2626; padding-left: 0.8em; margin-top: 1em;">
-    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/setting-up-a-foundry/"><strong style="font-size: 1.15em;">Plan Your Foundry</strong></a><br />
-    A stack-neutral route from a bounded domain to one working vertical slice.
+  <div class="card card-gold">
+    <a class="card-title card-title-lg" style="display: block;" href="https://galaxyproject.github.io/foundry-pattern/pattern/setting-up-a-foundry/">Plan Your Foundry</a>
+    <div class="card-body">A stack-neutral route from a bounded domain to one working vertical slice.</div>
   </div>
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.8em; margin-top: 1em;">
-    <a href="https://galaxyproject.github.io/foundry-pattern/pattern/design-records/"><strong style="font-size: 1.15em;">Design Records</strong></a><br />
-    Keep vocabulary, architecture, content contracts, ownership, and build knowledge inside the KB.
+  <div class="card card-grey">
+    <a class="card-title card-title-lg" style="display: block;" href="https://galaxyproject.github.io/foundry-pattern/pattern/design-records/">Design Records</a>
+    <div class="card-body">Keep vocabulary, architecture, content contracts, ownership, and build knowledge inside the KB.</div>
   </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.2em;">
-  Start with commitments, sequence, and self-documentation—not a particular library.
-</div>
+<div class="note">Start with commitments, sequence, and self-documentation—not a particular library.</div>
 
 </section>
 
 {/* SLIDE 39 — the Astro and foundry-lib composition */}
 
-<section>
+<section class="vstack">
 
 <h3>One concrete implementation: Astro + foundry-lib</h3>
 
-<div style="font-size: 0.6em; margin-top: 1.15em; text-align: left; display: inline-block; max-width: 48em; line-height: 1.45;">
-  <div>
-    <strong style="color: #2563eb; font-size: 1.18em;">The instance owns</strong><br />
-    domain knowledge · kinds · vocabularies · renderers · targets · acceptance policy
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title card-title-lg">The instance owns</div>
+    <div class="card-body">domain knowledge · kinds · vocabularies · renderers · targets · acceptance policy</div>
   </div>
-  <div style="margin-top: 1em;">
-    <strong style="color: #dc2626; font-size: 1.18em;">The Astro stack composes</strong><br />
-    Markdown content · Astro · TypeScript + Zod · Vitest · GitHub Pages
+  <div class="card card-gold">
+    <div class="card-title card-title-lg">The Astro stack composes</div>
+    <div class="card-body">Markdown content · Astro · TypeScript + Zod · Vitest · GitHub Pages</div>
   </div>
-  <div style="margin-top: 1em;">
-    <strong style="color: #2563eb; font-size: 1.18em;">foundry-lib shares</strong><br />
-    schemas · links · registries · reader shell · casting and provenance mechanics
+  <div class="card card-grey">
+    <div class="card-title card-title-lg">foundry-lib shares</div>
+    <div class="card-body">schemas · links · registries · reader shell · casting and provenance mechanics</div>
   </div>
 </div>
 
-<div style="font-size: 0.66em; font-weight: 700; margin-top: 1.25em;">
-  Share converged mechanics. Keep domain meaning local.
-</div>
+<div class="statement statement-sm">Share converged mechanics. Keep domain meaning local.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1em;">
+<div class="source">
   <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">Build with the Astro Stack</a> · <a href="https://jmchilton.github.io/foundry-lib/#/">foundry-lib</a>
 </div>
 
@@ -746,15 +728,15 @@ showProgress: true
 
 {/* SLIDE 40 — foundry-lib package surface */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-hero"
   src="/slides/foundry-pattern/foundry-lib-homepage.png"
   alt="Screenshot of the foundry-lib documentation showing the shared TypeScript packages extracted from multiple independent Foundry implementations"
-  style="display: block; width: auto; max-width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.45em;">
+<div class="source">
   <a href="https://jmchilton.github.io/foundry-lib/#/">jmchilton.github.io/foundry-lib/</a>
 </div>
 
@@ -762,28 +744,25 @@ showProgress: true
 
 {/* SLIDE 41 — agent bootstrap prompt */}
 
-<section>
+<section class="vstack">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">ONE HUGE PROMPT</div>
+<div class="eyebrow">One huge prompt</div>
 
-<h2 style="font-size: 1.35em; line-height: 1.15; margin-top: 0.35em;">
+<h2 class="plain-heading" style="font-size: 1.35em; line-height: 1.16;">
   Bootstrap the whole Astro stack<br />with an agent.
 </h2>
 
-<div style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.52em; line-height: 1.55; text-align: left; display: inline-block; margin-top: 1em; border-left: 7px solid #dc2626; padding-left: 1em;">
-  STANDING UP A FOUNDRY — WORKING CHECKLIST<br /><br />
-  vocabulary → reader + contracts → registries + validation + CI<br />
-  → corpus → Molds → Cast → external check
-</div>
+<pre style="font-size: 0.42em; line-height: 1.6; text-align: left; margin: 0 auto; max-width: 40em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`STANDING UP A FOUNDRY — WORKING CHECKLIST
 
-<div style="font-size: 0.65em; margin-top: 1.25em;">
+vocabulary → reader + contracts → registries + validation + CI
+  → corpus → Molds → Cast → external check`}</code></pre>
+
+<div class="body">
   Versions, paths, packages, tests, handoffs, and stopping conditions—<br />
   enough to build the first reviewable vertical slice.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.1em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/pattern/standing-up-a-foundry/">foundry-pattern/pattern/standing-up-a-foundry ↗</a>
 
 </section>
 
@@ -791,33 +770,29 @@ showProgress: true
 
 {/* SLIDE 42 — Workflow Foundry transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART FOUR</div>
+<div class="eyebrow">Part Four</div>
 
 # The Workflow Foundry
 
-<div style="font-size: 0.72em; margin-top: 0.8em;">
-  The original implementation.
-</div>
+<div class="lede">The original implementation.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/instances/galaxy-workflow-foundry/">Galaxy Workflow Foundry profile</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/instances/galaxy-workflow-foundry/">Galaxy Workflow Foundry profile ↗</a>
 
 </section>
 
 {/* SLIDE 43 — Workflow Foundry responsibility rings */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/foundry-rings-galaxy-workflow.svg"
   alt="Galaxy Workflow Foundry responsibility rings showing workflow sources, local kinds and facets, workflow construction, cast Pipelines, and executable validation around the shared Pattern and foundry-lib core"
-  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+<div class="source">
   <a href="https://galaxyproject.github.io/foundry-pattern/instances/galaxy-workflow-foundry/">The Workflow Foundry</a>
 </div>
 
@@ -825,16 +800,17 @@ showProgress: true
 
 {/* SLIDE 44 — Workflow Foundry result: the same analysis, two directions */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.24em;">The same analysis, two directions</h2>
+<h2>The same analysis, two directions</h2>
 
-<div style="font-size: 0.6em; line-height: 1.26; margin: -0.1em auto 0.55em; max-width: 33em;">
+<div class="body">
   Example 2 <strong>extracted</strong> differential ATAC-seq from a completed run. A Foundry pipeline <strong>constructed</strong> the same analysis from the same initial prompt — no history, no execution.
 </div>
 
-<div style="display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr); gap: 0.8em; align-items: center;">
-  <pre class="mermaid" style="background: transparent; border: none; box-shadow: none; margin: 0; display: flex; justify-content: center;">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
+{/* The graph is eight nodes wide, so a column would shrink its labels past
+    reading distance; it gets the full width and the notes sit under it. */}
+<pre class="mermaid">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
 graph LR
     input_0>"ATAC counts"]
     input_1>"sample metadata"]
@@ -857,21 +833,21 @@ graph LR
     classDef core fill:#25537b,stroke:#2c3143,color:#ffffff;
     class input_0,input_1 input;
     class step_0 core;`}</pre>
-  <div style="text-align: left;">
-    <ul style="font-size: 0.46em; line-height: 1.32; margin: 0; padding-left: 1.1em;">
-      <li>count matrix + sample sheet → DESeq2 → NA-clean → volcano ∥ filter → sort → top gained / lost</li>
-      <li>every step a real, version-pinned Galaxy tool</li>
-      <li><code>tool_state</code> schema-validated offline by <code>gxwf</code></li>
-    </ul>
-    <div style="font-size: 0.4em; line-height: 1.28; opacity: 0.66; margin-top: 0.75em; border-left: 4px solid #d0bd2a; padding-left: 0.5em;">
-      Diagram emitted by <code>gxwf mermaid</code> from the pipeline's output workflow.
-    </div>
+
+<div class="split split-wide-left" style="align-items: start;">
+  <ul class="tight" style="font-size: var(--fs-small); line-height: 1.36;">
+    <li>count matrix + sample sheet → DESeq2 → NA-clean → volcano ∥ filter → sort → top gained / lost</li>
+    <li>every step a real, version-pinned Galaxy tool</li>
+    <li><code>tool_state</code> schema-validated against the Tool Shed by <code>gxwf</code></li>
+  </ul>
+  <div class="card card-side card-gold card-note">
+    Diagram emitted by <code>gxwf mermaid</code> from the pipeline's output workflow.
   </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 0.5em;">Extraction needs a completed run; construction needs only the intent. Both land on the same kind of validated, reproducible workflow.</div>
+<div class="note">Extraction needs a completed run; construction needs only the intent. Both land on the same kind of validated, reproducible workflow.</div>
 
-<a href="https://jmchilton.net/slides/gcc2026/#/32" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.25em;">GCC 2026 source slide ↗</a>
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/32">GCC 2026 source slide ↗</a>
 
 </section>
 
@@ -880,187 +856,240 @@ graph LR
 <section>
 
 <img
+  class="fig fig-bleed"
   src="/slides/foundry-pattern/workflow-foundry-first-result.png"
   alt="Conversation reporting that the Nextflow to Galaxy Foundry pipeline produced a plausible gxformat2 workflow and tests for the complex nf-core sarek pipeline"
-  style="display: block; width: 112%; max-height: 80vh; object-fit: contain; margin: 0 0 0 -6%;"
+  style="width: 106%; max-width: 106%; margin-left: -3%;"
 />
 
 </section>
 
-{/* SLIDE 46 — Workflow Foundry pipeline: interview to Galaxy */}
+{/* SLIDE 46 — results are real, but the problem stays open */}
+
+<section class="vstack vstack-tight">
+
+<div class="split measure">
+  <img
+    class="fig fig-tall"
+    src="/slides/foundry-pattern/phd-zoom.jpg"
+    alt="The red dent at the edge of human knowledge, enlarged until the original circle is mostly outside the frame"
+  />
+  <div>
+    <h2 class="plain-heading" style="font-size: 0.86em; line-height: 1.18; text-align: left; margin: 0;">
+      We're producing exciting results the model alone probably couldn't replicate.
+    </h2>
+    <div class="body" style="margin: 14px 0 0; max-width: none;">
+      But every run also produces Planemo, <code>gxwf</code>, and Galaxy issues and PRs.
+    </div>
+    <div class="note" style="margin: 8px 0 0; max-width: none;">
+      Sample sheet uploads, job cache tweaks, workflow draft schema changes, and more.
+    </div>
+    <div class="callout callout-sm" style="margin: 16px 0 0; max-width: none;">
+      The problem is not closed — it is active research at the edge.
+    </div>
+  </div>
+</div>
+
+<div class="source">
+  Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by <a href="https://matt.might.net/">Matt Might</a> · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
+</div>
+
+</section>
+
+{/* SLIDE 47 — the cast bundle installs as an Agent Skills plugin */}
 
 <section>
 
-<h2 style="font-size: 1.28em;">Interview → Galaxy</h2>
+<img
+  class="fig fig-bleed"
+  src="/slides/foundry-pattern/foundry-skills-install.png"
+  alt="Foundry usage page: install and run Foundry skills with Claude Code or Codex. Counters read 7 pipelines, 47 shared skills, 47 casts. Install snippets show the plugin marketplace add and install commands for Claude Code and the equivalent codex plugin commands, plus invoking a cast skill as /foundry-skills:summarize-nextflow"
+/>
 
-<div style="display: grid; grid-template-columns: minmax(12em, 0.62fr) minmax(0, 1.38fr); gap: 0.75em; align-items: center; margin-top: 0.45em;">
-  <div style="text-align: left;">
-    <div style="font-size: 0.5em; line-height: 1.28; font-weight: 800;">A conversation becomes a typed workflow draft, then a validated workflow.</div>
-    <div style="display: grid; gap: 0.45em; margin-top: 0.8em;">
-      <div style="border-left: 5px solid #25537b; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Normalize an interview into a shared freeform summary.</div>
-      <div style="border-left: 5px solid #d0bd2a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Design Galaxy interface and data flow, then compare to IWC exemplars.</div>
-      <div style="border-left: 5px solid #d0bd2a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Loop over <code>advance-galaxy-draft-step</code> until no drafty step remains.</div>
-      <div style="border-left: 5px solid #58585a; padding-left: 0.55em; font-size: 0.39em; line-height: 1.25;">Validate, test, execute, and debug with deterministic tooling in the loop.</div>
+</section>
+
+{/* SLIDE 48 — Workflow Foundry pipeline: interview to Galaxy */}
+
+<section class="vstack vstack-tight">
+
+<h2>Interview → Galaxy</h2>
+
+<div class="split split-wide-right">
+  <div>
+    <div class="card-title card-title-lg">A conversation becomes a typed workflow draft, then a validated workflow.</div>
+    <div class="cards" style="gap: 12px; margin-top: 14px;">
+      <div class="card card-side card-note">Normalize an interview into a shared freeform summary.</div>
+      <div class="card card-side card-gold card-note">Design Galaxy interface and data flow, then compare to IWC exemplars.</div>
+      <div class="card card-side card-gold card-note">Loop over <code>advance-galaxy-draft-step</code> until no drafty step remains.</div>
+      <div class="card card-side card-grey card-note">Validate, test, execute, and debug with deterministic tooling in the loop.</div>
     </div>
   </div>
   <img
+    class="fig fig-fill fig-tall fig-framed-dark"
     src="/slides/gcc2026/foundry-site-interview-to-galaxy.png"
     alt="Foundry interview to Galaxy pipeline page showing phases, loop, and branch"
-    style="display: block; width: 100%; max-height: 63vh; object-fit: contain; border: 1px solid #2c3143; box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);"
+    style="box-shadow: 0 18px 45px rgba(15, 23, 42, 0.18);"
   />
 </div>
 
-<a href="https://jmchilton.net/slides/gcc2026/#/31" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.35em;">GCC 2026 source slide ↗</a>
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/31">GCC 2026 source slide ↗</a>
 
 </section>
 
-{/* SLIDE 47 — Workflow Foundry patterns: reusable moves */}
+{/* SLIDE 49 — Workflow Foundry patterns: reusable moves */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.24em;">Patterns are the reusable moves</h2>
+<h2>Patterns are the reusable moves</h2>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55em; margin-top: 0.55em;">
-  <div style="text-align: left;">
-    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">1. Patterns MOC</div>
+<div class="cards cards-3" style="gap: 18px;">
+  <figure>
+    <div class="card-eyebrow">1. Patterns MOC</div>
     <img
+      class="fig fig-fill fig-framed-dark"
       src="/slides/gcc2026/foundry-site-patterns.png"
       alt="Foundry patterns index with pattern maps"
-      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #2c3143;"
+      style="height: 10.5em; max-height: 10.5em; object-fit: cover; object-position: top left; margin-top: 8px;"
     />
-    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">Start from corpus-grounded maps, not a flat pile of recipes.</div>
-  </div>
-  <div style="text-align: left;">
-    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">2. Collections MOC</div>
+    <figcaption>Start from corpus-grounded maps, not a flat pile of recipes.</figcaption>
+  </figure>
+  <figure>
+    <div class="card-eyebrow">2. Collections MOC</div>
     <img
+      class="fig fig-fill fig-framed-dark"
       src="/slides/gcc2026/foundry-site-collection-patterns.png"
       alt="Foundry Galaxy collection patterns map of content"
-      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #2c3143;"
+      style="height: 10.5em; max-height: 10.5em; object-fit: cover; object-position: top left; margin-top: 8px;"
     />
-    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">A map-of-content routes the agent to the right collection operation.</div>
-  </div>
-  <div style="text-align: left;">
-    <div style="font-size: 0.42em; font-weight: 900; margin-bottom: 0.35em;">3. Concrete recipe</div>
+    <figcaption>A map-of-content routes the agent to the right collection operation.</figcaption>
+  </figure>
+  <figure>
+    <div class="card-eyebrow">3. Concrete recipe</div>
     <img
+      class="fig fig-fill fig-framed-dark"
       src="/slides/gcc2026/foundry-site-relabel-pattern.png"
       alt="Foundry relabel via rules and find replace pattern page"
-      style="display: block; width: 100%; height: 42vh; object-fit: cover; object-position: top left; border: 1px solid #2c3143;"
+      style="height: 10.5em; max-height: 10.5em; object-fit: cover; object-position: top left; margin-top: 8px;"
     />
-    <div style="font-size: 0.34em; line-height: 1.25; opacity: 0.76; margin-top: 0.45em;">Leaf patterns preserve when-to-use guidance, pitfalls, and exemplar links.</div>
-  </div>
+    <figcaption>Leaf patterns preserve when-to-use guidance, pitfalls, and exemplar links.</figcaption>
+  </figure>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 0.45em;">Patterns stay human-readable; casts can package the same evidence as runtime references.</div>
+<div class="note">Patterns stay human-readable; casts can package the same evidence as runtime references.</div>
 
-<a href="https://jmchilton.net/slides/gcc2026/#/33" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.25em;">GCC 2026 source slide ↗</a>
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/33">GCC 2026 source slide ↗</a>
 
 </section>
 
-{/* SLIDE 48 — Workflow Foundry pattern: structured workflow drafting */}
+{/* SLIDE 50 — Workflow Foundry pattern: structured workflow drafting */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.08em;">Structured Drafting of Workflows</h2>
+<h2>Structured Drafting of Workflows</h2>
 
-<div style="display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, 0.98fr); gap: 0.5em; align-items: center; margin: 0.42em 0 0 -6%; width: 112%;">
+{/* Stacked, not side by side: these diagrams are 6.7:1 and 2.7:1, so two
+    columns would render each about a third the size a full-width row gives. */}
+<div class="cards" style="gap: 16px;">
   <img
+    class="fig fig-fill fig-framed"
     src="/slides/gcc2026/foundry-mobile-reformat-draft.png"
     alt="Structured workflow draft diagram with concrete and deferred steps"
-    style="display: block; width: 100%; border: 1px solid #cbd5e1; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
+    style="box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
   />
   <img
+    class="fig fig-framed"
     src="/slides/gcc2026/foundry-mobile-reformat-extracted.png"
     alt="Extracted workflow spine diagram showing concrete executable workflow steps"
-    style="display: block; width: 100%; border: 1px solid #cbd5e1; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
+    style="max-height: 8.5em; box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);"
   />
 </div>
 
-<a href="https://jmchilton.net/slides/gcc2026/#/34" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.3em;">GCC 2026 source slide ↗</a>
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/34">GCC 2026 source slide ↗</a>
 
 </section>
 
-{/* SLIDE 49 — Workflow Foundry schemas */}
+{/* SLIDE 51 — Workflow Foundry schemas */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.16em; line-height: 1.08; margin-bottom: 0.18em;">Schemas are inherited as contracts<br />and enforced as rails</h2>
+<h2 class="plain-heading" style="font-size: 1.16em; line-height: 1.12;">Schemas are inherited as contracts<br />and enforced as rails</h2>
 
-<div style="font-size: 0.54em; line-height: 1.28; opacity: 0.76; margin: 0 auto 0.8em; max-width: 37em;">
+<div class="note">
   Upstream owns the contract. The Foundry pins it, records its lineage, and carries it into the cast.
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(5, auto); align-items: center; justify-content: center; gap: 0.42em; margin: 0 auto 0.9em; font-family: monospace; font-size: 0.39em; font-weight: 800;">
-  <div>Galaxy model</div>
-  <div style="opacity: 0.42;">→</div>
-  <div>JSON Schema</div>
-  <div style="opacity: 0.42;">→</div>
-  <div>pinned package</div>
+<div class="chain">
+  <span>Galaxy model</span>
+  <span class="chain-sep">→</span>
+  <span>JSON Schema</span>
+  <span class="chain-sep">→</span>
+  <span>pinned package</span>
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75em; max-width: 38em; margin: 0 auto; text-align: left;">
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
-    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Copy, don't paraphrase</div>
-    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;">Upstream schemas are synchronized or imported verbatim. Their version and provenance stay visible.</div>
+<div class="cards cards-3 measure-lg">
+  <div class="card card-side">
+    <div class="card-title">Copy, don't paraphrase</div>
+    <div class="card-body card-body-sm">Upstream schemas are synchronized or imported verbatim. Their version and provenance stay visible.</div>
   </div>
-  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
-    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Carry the authority</div>
-    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;">Casting resolves the named package export and serializes the exact schema into the portable skill bundle.</div>
+  <div class="card card-side card-gold">
+    <div class="card-title">Carry the authority</div>
+    <div class="card-body card-body-sm">Casting resolves the named package export and serializes the exact schema into the portable skill bundle.</div>
   </div>
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
-    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Check the artifact</div>
-    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;"><code>draft-validate</code>, <code>validate</code>, and <code>validate-tests</code> gate authored artifacts before expensive execution.</div>
+  <div class="card card-side card-grey">
+    <div class="card-title">Check the artifact</div>
+    <div class="card-body card-body-sm"><code>draft-validate</code>, <code>validate</code>, and <code>validate-tests</code> gate authored artifacts before expensive execution.</div>
   </div>
 </div>
 
-<div style="font-size: 0.52em; line-height: 1.3; font-weight: 800; margin: 1em auto 0; max-width: 38em;">
+<div class="statement statement-sm" style="font-size: 0.56em; max-width: 34em;">
   The schema travels with the skill. The deterministic runtime owns the verdict.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 0.75em; line-height: 1.35;">
+<div class="source">
   Principles: <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#upstream-authority-local-synthesis">Upstream Authority, Local Synthesis</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#portable-artifacts-over-platform-fashion">Portable Artifacts</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#deterministic-tools-do-deterministic-work">Deterministic Tools</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#reproducibility-at-every-layer">Reproducibility</a><br />
   <a href="https://github.com/galaxyproject/foundry/blob/main/content/schemas/tests-format.md">tests-format schema</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/content/meta/schema-packages.md">schema packages</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/content/meta/casting.md">casting</a>
 </div>
 
 </section>
 
-{/* SLIDE 50 — Workflow Foundry CLI tooling */}
+{/* SLIDE 52 — Workflow Foundry CLI tooling */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.18em; line-height: 1.08; margin-bottom: 0.18em;">Turn upstream interfaces into<br />deterministic agent rails</h2>
+<h2 class="plain-heading" style="font-size: 1.18em; line-height: 1.12;">Turn upstream interfaces into<br />deterministic agent rails</h2>
 
-<div style="font-size: 0.54em; line-height: 1.28; opacity: 0.76; margin: 0 auto 0.75em; max-width: 38em;">
+<div class="note">
   Instrument the real interface, formalize it, and put it inside the author–validate–fix loop.
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.55em; max-width: 39em; margin: 0 auto 0.75em; text-align: left;">
-  <div style="border-top: 5px solid #2563eb; padding-top: 0.45em;">
-    <div style="font-size: 0.42em; font-weight: 900;">Instrument upstream</div>
-    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Generate Planemo references from <code>cli_metadata</code>; import machine-readable <code>gxwf</code> command specs.</div>
+<div class="cards cards-4 measure-lg">
+  <div class="card">
+    <div class="card-title">Instrument upstream</div>
+    <div class="card-body card-body-sm">Generate Planemo references from <code>cli_metadata</code>; import machine-readable <code>gxwf</code> command specs.</div>
   </div>
-  <div style="border-top: 5px solid #dc2626; padding-top: 0.45em;">
-    <div style="font-size: 0.42em; font-weight: 900;">Formalize the interface</div>
-    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Preserve synopsis, arguments, option types, defaults, requirements, package, and resolved version.</div>
+  <div class="card card-gold">
+    <div class="card-title">Formalize the interface</div>
+    <div class="card-body card-body-sm">Preserve synopsis, arguments, option types, defaults, requirements, package, and resolved version.</div>
   </div>
-  <div style="border-top: 5px solid #2563eb; padding-top: 0.45em;">
-    <div style="font-size: 0.42em; font-weight: 900;">Add local synthesis</div>
-    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Keep examples, gotchas, triggers, and operational guidance around—not inside—the upstream contract.</div>
+  <div class="card card-grey">
+    <div class="card-title">Add local synthesis</div>
+    <div class="card-body card-body-sm">Keep examples, gotchas, triggers, and operational guidance around—not inside—the upstream contract.</div>
   </div>
-  <div style="border-top: 5px solid #dc2626; padding-top: 0.45em;">
-    <div style="font-size: 0.42em; font-weight: 900;">Cast a sidecar</div>
-    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Ship the exact command contract and Foundry revision as portable, versioned JSON beside the skill.</div>
+  <div class="card">
+    <div class="card-title">Cast a sidecar</div>
+    <div class="card-body card-body-sm">Ship the exact command contract and Foundry revision as portable, versioned JSON beside the skill.</div>
   </div>
 </div>
 
-<pre style="font-size: 0.38em; line-height: 1.4; text-align: center; margin: 0 auto; max-width: 38em; padding: 0.7em 0.9em; background: #2c3143; color: #e2e8f0; border-radius: 0.2em;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{`draft-next-step → author one step
+<pre style="font-size: 0.38em; line-height: 1.45; text-align: center; margin: 0 auto; max-width: 38em; padding: 0.7em 0.9em; border: 0;"><code style="display: block; padding: 0;">{`draft-next-step → author one step
 → draft-validate --concrete → gxwf validate
 → validate-tests → planemo test`}</code></pre>
 
-<div style="font-size: 0.52em; line-height: 1.3; font-weight: 800; margin: 0.75em auto 0; max-width: 38em;">
+<div class="statement statement-sm" style="font-size: 0.56em; max-width: 34em;">
   The model translates and repairs. Independent tools select, validate, execute, and classify.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 0.6em; line-height: 1.35;">
+<div class="source">
   Principles: <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#upstream-authority-local-synthesis">Upstream Authority, Local Synthesis</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#actionable-knowledge-not-passive-notes">Actionable Knowledge</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#progressive-disclosure-over-context-flooding">Progressive Disclosure</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#deterministic-tools-do-deterministic-work">Deterministic Tools</a><br />
   <a href="https://github.com/galaxyproject/foundry/blob/main/scripts/sync-planemo-cli.ts">Planemo sync</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/site/src/lib/cli-registry.ts">CLI registry</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/casts/claude/skills/validate-galaxy-workflow/references/cli/validate.json">cast sidecar</a>
 </div>
@@ -1069,225 +1098,219 @@ graph LR
 
 {/* ============================ THE STATISTICAL GENOMICS FOUNDRY ============================ */}
 
-{/* SLIDE 51 — Statistical Genomics Foundry transition */}
+{/* SLIDE 53 — Statistical Genomics Foundry transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART FIVE</div>
+<div class="eyebrow">Part Five</div>
 
-<h1 style="font-size: 1.5em; line-height: 1.08; margin-bottom: 0.35em;">The Statistical Genomics Foundry</h1>
+<h1>The Statistical Genomics Foundry</h1>
 
-<div style="font-size: 0.72em; font-style: italic;">
-  A “failed” experiment that sharpened the ideas.
-</div>
+<div class="lede" style="font-style: italic;">A “failed” experiment that sharpened the ideas.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/instances/statistical-genomics-foundry/">Statistical Genomics Foundry profile</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/instances/statistical-genomics-foundry/">Statistical Genomics Foundry profile ↗</a>
 
 </section>
 
-{/* SLIDE 52 — Statistical Genomics Foundry responsibility rings */}
+{/* SLIDE 54 — Statistical Genomics Foundry responsibility rings */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/foundry-rings-statistical-genomics.svg"
   alt="Statistical Genomics Foundry responsibility rings showing good methods and cautionary failures, local statistical kinds and facets, audit actions, referee skills, and empirical calibration around the shared Pattern and foundry-lib core"
-  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+<div class="source">
   <a href="https://galaxyproject.github.io/foundry-pattern/instances/statistical-genomics-foundry/">The Statistical Genomics Foundry</a>
 </div>
 
 </section>
 
-{/* SLIDE 53 — Statistical Genomics implementation failure: the rule */}
+{/* SLIDE 55 — Statistical Genomics implementation failure: the rule */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.2em; line-height: 1.08;">A solid rule:<br />derive abstractions from a second application</h2>
+<h2 class="plain-heading" style="font-size: 1.2em; line-height: 1.14;">A solid rule:<br />derive abstractions from a second application</h2>
 
-<div style="font-size: 0.58em; line-height: 1.3; margin: 0.75em auto 0; max-width: 34em;">There are two reasonable ways to interpret it.</div>
+<div class="body">There are two reasonable ways to interpret it.</div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; max-width: 35em; margin: 1em auto 0; text-align: left;">
-  <div style="border-top: 7px solid #2563eb; padding-top: 0.65em;">
-    <div style="font-size: 0.57em; line-height: 1.15; font-weight: 900;">Build, then extract</div>
-    <div style="font-size: 0.42em; line-height: 1.38; opacity: 0.76; margin-top: 0.45em;">Finish the second application. Compare the two working systems. Extract the shared surface from the result.</div>
+<div class="cards cards-2 measure">
+  <div class="card">
+    <div class="card-title card-title-lg">Build, then extract</div>
+    <div class="card-body">Finish the second application. Compare the two working systems. Extract the shared surface from the result.</div>
   </div>
-  <div style="border-top: 7px solid #dc2626; padding-top: 0.65em;">
-    <div style="font-size: 0.57em; line-height: 1.15; font-weight: 900;">Extract as you build</div>
-    <div style="font-size: 0.42em; line-height: 1.38; opacity: 0.76; margin-top: 0.45em;">Build the second application and pull abstractions from the first whenever the new implementation needs them.</div>
+  <div class="card card-gold">
+    <div class="card-title card-title-lg">Extract as you build</div>
+    <div class="card-body">Build the second application and pull abstractions from the first whenever the new implementation needs them.</div>
   </div>
 </div>
 
-<div style="font-size: 0.58em; line-height: 1.34; font-weight: 800; margin: 1em auto 0; max-width: 35em;">
+<div class="statement statement-sm" style="font-size: 0.58em; max-width: 34em;">
   For a good developer, these approaches can converge: lessons from the first implementation naturally guide the second.
 </div>
 
 </section>
 
-{/* SLIDE 54 — Statistical Genomics implementation failure: fresh context */}
+{/* SLIDE 56 — Statistical Genomics implementation failure: fresh context */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.34em; line-height: 1.08;">Fresh context breaks that equivalence</h2>
+<h2>Fresh context breaks that equivalence</h2>
 
-<div style="font-size: 0.7em; line-height: 1.32; margin: 0.95em auto 0; max-width: 31em;">
-  Every new agent session started without the lessons of the Workflow Foundry.
-</div>
+<div class="lede">Every new agent session started without the lessons of the Workflow Foundry.</div>
 
-<div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.8em; align-items: center; max-width: 35em; margin: 1.15em auto 0; text-align: left;">
-  <div style="border-left: 6px solid #2563eb; padding-left: 0.7em;">
-    <div style="font-size: 0.5em; font-weight: 900;">A developer carries the why</div>
-    <div style="font-size: 0.4em; line-height: 1.35; opacity: 0.76; margin-top: 0.4em;">The first implementation's failures and design choices shape the second implementation.</div>
+<div class="split-vs split measure">
+  <div class="card card-side">
+    <div class="card-title">A developer carries the why</div>
+    <div class="card-body card-body-sm">The first implementation's failures and design choices shape the second implementation.</div>
   </div>
-  <div style="font-size: 0.9em; opacity: 0.3;">≠</div>
-  <div style="border-left: 6px solid #dc2626; padding-left: 0.7em;">
-    <div style="font-size: 0.5em; font-weight: 900;">A fresh agent sees the next task</div>
-    <div style="font-size: 0.4em; line-height: 1.35; opacity: 0.76; margin-top: 0.4em;">It is perfectly willing to build the smallest thing directly in front of it right now.</div>
+  <div class="split-mark">≠</div>
+  <div class="card card-side card-warn">
+    <div class="card-title">A fresh agent sees the next task</div>
+    <div class="card-body card-body-sm">It is perfectly willing to build the smallest thing directly in front of it right now.</div>
   </div>
 </div>
 
-<div style="font-size: 0.69em; line-height: 1.25; color: #dc2626; font-weight: 900; margin: 1.05em auto 0; max-width: 31em;">
+<div class="statement statement-sm" style="color: var(--deck-warn);">
   None of the lessons are learned if none of the context survives.
 </div>
 
 </section>
 
-{/* SLIDE 55 — Statistical Genomics implementation failure: divergence */}
+{/* SLIDE 57 — Statistical Genomics implementation failure: divergence */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.28em; line-height: 1.08;">The second Foundry diverged at every level</h2>
+<h2>The second Foundry diverged at every level</h2>
 
-<div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9em; align-items: center; max-width: 35em; margin: 1.2em auto 0;">
-  <div style="text-align: right; font-size: 0.57em; line-height: 1.35; font-weight: 850;">roughly the same<br />technology stack</div>
-  <div style="font-size: 1.1em; color: #2563eb; font-weight: 900;">+</div>
-  <div style="text-align: left; font-size: 0.57em; line-height: 1.35; font-weight: 850;">some similar<br />concepts</div>
+<div class="split-vs split measure-sm" style="align-items: center;">
+  <div style="text-align: right; font-size: var(--fs-body); line-height: 1.35; font-weight: 800;">roughly the same<br />technology stack</div>
+  <div class="split-mark" style="color: var(--deck-navy); opacity: 1;">+</div>
+  <div style="text-align: left; font-size: var(--fs-body); line-height: 1.35; font-weight: 800;">some similar<br />concepts</div>
 </div>
 
-<div style="font-size: 0.92em; line-height: 1.14; color: #dc2626; font-weight: 900; margin: 0.75em auto 0; max-width: 29em;">
+<div class="statement" style="color: var(--deck-warn); max-width: 18em;">
   still produced a very different Foundry.
 </div>
 
-<div style="font-size: 0.56em; line-height: 1.42; margin: 1em auto 0; max-width: 36em;">
+<div class="body">
   Extracting the shared surface was tedious. It resisted automation in exactly the place where abstraction was supposed to help.
 </div>
 
 </section>
 
-{/* SLIDE 56 — Statistical Genomics scope failure: the initial seed */}
+{/* SLIDE 58 — Statistical Genomics scope failure: the initial seed */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.42em; line-height: 1.08;">I seeded the Foundry wrong.</h2>
+<h2>I seeded the Foundry wrong.</h2>
 
-<div style="font-size: 0.68em; line-height: 1.34; margin: 1em auto 0; max-width: 31em;">
+<div class="lede">
   It started with guiding principles that were vaguely fine—perhaps even useful—but did not reflect <strong>getting shit done</strong>.
 </div>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; max-width: 34em; margin: 1.2em auto 0; text-align: left;">
-  <div style="border-left: 6px solid #dc2626; padding-left: 0.7em; font-size: 0.5em; line-height: 1.34;">They kept pulling the work toward conclusions I did not believe in.</div>
-  <div style="border-left: 6px solid #2563eb; padding-left: 0.7em; font-size: 0.5em; line-height: 1.34;">The agent was so much more confident than I was.</div>
+<div class="cards cards-2 measure">
+  <div class="card card-side card-warn">
+    <div class="card-body" style="margin-top: 0; font-size: var(--fs-body);">They kept pulling the work toward conclusions I did not believe in.</div>
+  </div>
+  <div class="card card-side">
+    <div class="card-body" style="margin-top: 0; font-size: var(--fs-body);">The agent was so much more confident than I was.</div>
+  </div>
 </div>
 
 </section>
 
-{/* SLIDE 57 — Statistical Genomics scope failure: four jobs */}
+{/* SLIDE 59 — Statistical Genomics scope failure: four jobs */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.1em; line-height: 1.08;">I was trying to do four things at once</h2>
+<h2>I was trying to do four things at once</h2>
 
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75em 1em; max-width: 36em; margin: 0.9em auto 0; text-align: left;">
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
-    <div style="font-size: 0.5em; font-weight: 900;">Textbook knowledge</div>
-    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Build skills that capture established knowledge—even after the replication experiment suggested that was a little silly.</div>
+<div class="cards cards-4 measure-lg">
+  <div class="card">
+    <div class="card-title">Textbook knowledge</div>
+    <div class="card-body card-body-sm">Build skills that capture established knowledge—even after the replication experiment suggested that was a little silly.</div>
   </div>
-  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
-    <div style="font-size: 0.5em; font-weight: 900;">Papers</div>
-    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Turn individual statistical genomics papers into durable skills.</div>
+  <div class="card card-gold">
+    <div class="card-title">Papers</div>
+    <div class="card-body card-body-sm">Turn individual statistical genomics papers into durable skills.</div>
   </div>
-  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
-    <div style="font-size: 0.5em; font-weight: 900;">bioSkills</div>
-    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Reconstruct and replicate a huge catalog of generated bioinformatics skills.</div>
+  <div class="card card-grey">
+    <div class="card-title">bioSkills</div>
+    <div class="card-body card-body-sm">Reconstruct and replicate a huge catalog of generated bioinformatics skills.</div>
   </div>
-  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
-    <div style="font-size: 0.5em; font-weight: 900;">General judgment</div>
-    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Generalize “assess the statistical validity of a method” from a handful of particular examples.</div>
+  <div class="card">
+    <div class="card-title">General judgment</div>
+    <div class="card-body card-body-sm">Generalize “assess the statistical validity of a method” from a handful of particular examples.</div>
   </div>
 </div>
 
-<div style="font-size: 0.57em; line-height: 1.3; font-weight: 800; margin: 1em auto 0; max-width: 34em;">
+<div class="statement statement-sm" style="font-size: 0.58em; max-width: 34em;">
   Each new document propagated values that were documented—and that I did not believe in.
 </div>
 
 </section>
 
-{/* SLIDE 58 — Statistical Genomics scope failure: the bioSkills corpus */}
+{/* SLIDE 60 — Statistical Genomics scope failure: the bioSkills corpus */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.18em; line-height: 1.08;">Hundreds of skills are not<br />hundreds of specifications</h2>
+<h2 class="plain-heading" style="font-size: 1.18em; line-height: 1.14;">Hundreds of skills are not<br />hundreds of specifications</h2>
 
-<div style="display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: 1.2em; align-items: center; max-width: 35em; margin: 1em auto 0; text-align: left;">
-  <div style="font-size: 0.68em; line-height: 1.28; color: #2563eb; font-weight: 900;">
+<div class="split split-wide-left measure">
+  <div class="statement" style="font-size: 0.68em; max-width: none; text-align: left;">
     You look at bioSkills and think there must be a principled way to reconstruct them.
   </div>
-  <div>
-    <div style="font-size: 0.42em; line-height: 1.42; border-left: 5px solid #dc2626; padding-left: 0.7em;">
-      They have never been run.<br />
-      Inputs are not concretely defined.<br />
-      Expected outputs are not documented.<br />
-      There is no execution or test path.<br />
-      Licensing and installation remain unresolved.
-    </div>
-  </div>
+  <ul class="tight card card-side card-warn" style="font-size: var(--fs-small); line-height: 1.5; list-style: none; padding-left: 13px;">
+    <li>They have never been run.</li>
+    <li>Inputs are not concretely defined.</li>
+    <li>Expected outputs are not documented.</li>
+    <li>There is no execution or test path.</li>
+    <li>Licensing and installation remain unresolved.</li>
+  </ul>
 </div>
 
-<div style="font-size: 0.56em; line-height: 1.32; margin: 1.1em auto 0; max-width: 34em; font-weight: 800;">
+<div class="statement statement-sm" style="font-size: 0.58em; max-width: 34em;">
   The catalog contains ideas for programs—not enough operational evidence to reconstruct working programs.
 </div>
 
 </section>
 
-{/* SLIDE 59 — Statistical Genomics scope failure: values */}
+{/* SLIDE 61 — Statistical Genomics scope failure: values */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.12em; line-height: 1.08;">A better skill mill is still a skill mill</h2>
+<h2>A better skill mill is still a skill mill</h2>
 
-<div style="font-size: 0.61em; line-height: 1.34; margin: 0.95em auto 0; max-width: 34em;">
+<div class="lede">
   The Foundry pattern could build a better one. It could even hide most of the implementation details.
 </div>
 
-<div style="font-size: 0.84em; line-height: 1.16; color: #dc2626; font-weight: 900; margin: 0.8em auto; max-width: 26em;">
+<div class="statement" style="color: var(--deck-warn); font-size: 0.84em; max-width: 17em;">
   That does not reflect who I am or my values.
 </div>
 
-<div style="font-size: 0.5em; line-height: 1.4; margin: 0 auto; max-width: 38em;">
+<div class="body measure-lg">
   Writing a program—which a skill is—without a concrete implementation, without documenting its inputs and outputs, and without explaining how to test it is not who I am.
 </div>
 
-<div style="font-size: 0.5em; line-height: 1.4; margin: 0.75em auto 0; max-width: 38em; opacity: 0.76;">
+<div class="note">
   It being 2026, and an agent being remarkably good at figuring out how to use it on the fly, is not going to change me.
 </div>
 
 </section>
 
-{/* SLIDE 60 — Statistical Genomics scope failure: reset */}
+{/* SLIDE 62 — Statistical Genomics scope failure: reset */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.5em; line-height: 1.08;">So I stepped back.</h2>
+<h2>So I stepped back.</h2>
 
-<div style="font-size: 0.72em; line-height: 1.35; margin: 1em auto 0; max-width: 31em;">
-  I addressed the implementation and scope failures together in a new repository:
-</div>
+<div class="lede">I addressed the implementation and scope failures together in a new repository:</div>
 
-<div style="font-size: 0.92em; line-height: 1.15; color: #2563eb; font-weight: 900; margin: 0.75em auto 0; max-width: 27em;">
+<div class="statement" style="font-size: 0.9em; max-width: 18em;">
   more focused, more actionable—and still hugely ambitious.
 </div>
 
@@ -1295,296 +1318,518 @@ graph LR
 
 {/* ============================ THE TDA BIOINFORMATICS FOUNDRY ============================ */}
 
-{/* SLIDE 61 — TDA Bioinformatics Foundry transition */}
+{/* SLIDE 63 — TDA Bioinformatics Foundry transition */}
 
-<section>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">PART SIX</div>
+<div class="eyebrow">Part Six</div>
 
-<h1 style="font-size: 1.3em; line-height: 1.08; margin-bottom: 0.35em;">The Topological Data Analysis<br />for Bioinformatics Foundry</h1>
+<h1>The Topological Data Analysis<br />for Bioinformatics Foundry</h1>
 
-<div style="font-size: 0.68em; font-style: italic;">
-  A pattern for bioinformatic skills and knowledge at the edge.
-</div>
+<div class="lede" style="font-style: italic;">A pattern for bioinformatic skills and knowledge at the edge.</div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/instances/topological-data-analysis-bioinformatics-foundry/">TDA Bioinformatics Foundry profile</a>
-</div>
+<a class="ref-link" href="https://galaxyproject.github.io/foundry-pattern/instances/topological-data-analysis-bioinformatics-foundry/">TDA Bioinformatics Foundry profile ↗</a>
 
 </section>
 
-{/* SLIDE 62 — TDA Bioinformatics Foundry responsibility rings */}
+{/* SLIDE 64 — TDA Bioinformatics Foundry responsibility rings */}
 
-<section>
+<section class="vstack vstack-tight">
 
 <img
+  class="fig fig-fill fig-hero"
   src="/slides/foundry-pattern/foundry-rings-tda-bioinformatics.svg"
   alt="TDA Bioinformatics Foundry responsibility rings showing its method corpus, local kinds and facets, candidate-structure scoring Mold, reproducible environments, and replication evidence around the shared Pattern and foundry-lib core"
-  style="display: block; width: 100%; max-height: 76vh; object-fit: contain; margin: 0 auto;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.35em;">
+<div class="source">
   <a href="https://galaxyproject.github.io/foundry-pattern/instances/topological-data-analysis-bioinformatics-foundry/">The TDA Bioinformatics Foundry</a>
 </div>
 
 </section>
 
-{/* SLIDE 63 — TDA implementation issues */}
+{/* SLIDE 65 — TDA implementation issues */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.34em; line-height: 1.08;">The implementation issues</h2>
+<h2>The implementation issues</h2>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; max-width: 35em; margin: 1.2em auto 0; text-align: left;">
-  <div style="border-top: 7px solid #2563eb; padding-top: 0.65em;">
-    <div style="font-size: 0.72em; font-family: monospace; font-weight: 900;">foundry-lib</div>
-    <div style="font-size: 0.44em; line-height: 1.38; opacity: 0.76; margin-top: 0.55em;">I was extracting shared infrastructure before multiple concrete Foundries had earned the abstraction.</div>
+<div class="cards cards-2 measure">
+  <div class="card">
+    <div class="card-title card-title-lg" style="font-family: var(--r-code-font);">foundry-lib</div>
+    <div class="card-body">I was extracting shared infrastructure before multiple concrete Foundries had earned the abstraction.</div>
   </div>
-  <div style="border-top: 7px solid #dc2626; padding-top: 0.65em;">
-    <div style="font-size: 0.67em; font-weight: 900; line-height: 1.12;">Constructing a Foundry from one prompt</div>
-    <div style="font-size: 0.44em; line-height: 1.38; opacity: 0.76; margin-top: 0.55em;">A huge bootstrap prompt made architectural and content decisions before the implementation had produced evidence.</div>
+  <div class="card card-gold">
+    <div class="card-title card-title-lg">Constructing a Foundry from one prompt</div>
+    <div class="card-body">A huge bootstrap prompt made architectural and content decisions before the implementation had produced evidence.</div>
   </div>
 </div>
 
-<div style="font-size: 0.76em; line-height: 1.22; color: #2563eb; font-weight: 900; margin: 1.2em auto 0; max-width: 29em;">
-  Both moved abstraction ahead of evidence.
-</div>
+<div class="statement" style="font-size: 0.76em; max-width: 19em;">Both moved abstraction ahead of evidence.</div>
 
 </section>
 
-{/* SLIDE 64 — TDA scope issues: research and kinds */}
+{/* SLIDE 66 — TDA scope issues: research and kinds */}
 
-<section>
+<section class="vstack">
 
-<h2 style="font-size: 1.28em; line-height: 1.08;">Planning Ahead</h2>
+<h2>Planning Ahead</h2>
 
-<div style="font-size: 0.55em; line-height: 1.34; margin: 0.7em auto 0.8em; max-width: 36em;">
+<div class="body">
   I had already done a huge amount of research—breaking the domain into kinds and collecting concrete examples and goals for each one.
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55em 1em; max-width: 34em; margin: 0 auto; text-align: left; font-size: 0.48em; line-height: 1.25; font-weight: 850;">
-  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Papers</div>
-  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Replication experiments</div>
-  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Recipes</div>
-  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Environments</div>
-  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Abstract pipelines</div>
-  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Methods</div>
-  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Galaxy tools</div>
-  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Trainings</div>
-  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Workflows</div>
+<div class="cards cards-3 cards-tight measure">
+  <div class="card card-side card-title">Papers</div>
+  <div class="card card-side card-gold card-title">Replication experiments</div>
+  <div class="card card-side card-grey card-title">Recipes</div>
+  <div class="card card-side card-title">Environments</div>
+  <div class="card card-side card-gold card-title">Abstract pipelines</div>
+  <div class="card card-side card-grey card-title">Methods</div>
+  <div class="card card-side card-title">Galaxy tools</div>
+  <div class="card card-side card-gold card-title">Trainings</div>
+  <div class="card card-side card-grey card-title">Workflows</div>
 </div>
 
-<div style="font-size: 0.64em; line-height: 1.3; font-weight: 900; margin: 1em auto 0; max-width: 32em;">
-  The research was real.
-</div>
+<div class="statement statement-sm" style="font-size: 0.64em;">The research was real.</div>
 
 </section>
 
-{/* SLIDE 65 — Biopixi hero */}
+{/* SLIDE 67 — Biopixi hero */}
 
 <section data-background-color="#f8fbfa">
 
-<div style="display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(12em, 0.65fr); gap: 1.2em; align-items: center; max-width: 37em; margin: 0 auto; text-align: left;">
+<div class="split split-wide-left measure-lg" style="align-items: center;">
   <div>
-    <div style="color: #147f90; font-size: 0.34em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;">Portable bioinformatics for humans and agents</div>
-    <div style="color: #0b2f55; font-size: 1.58em; font-weight: 900; letter-spacing: -0.045em; line-height: 0.95; margin-top: 0.32em;">Build freely.<br />Share durably.</div>
-    <div style="color: #415e70; font-size: 0.48em; line-height: 1.5; margin-top: 0.85em; max-width: 26em;">Usher a Pixi environment from active development to a durable BioContainer—with practical guardrails and one concrete step forward at a time.</div>
-    <a href="https://jmchilton.github.io/biopixi/#/" style="display: inline-block; color: #123e6f; font-size: 0.38em; font-weight: 800; margin-top: 1.3em; border-bottom: 2px solid #269bad; text-decoration: none;">jmchilton.github.io/biopixi ↗</a>
+    <div class="eyebrow eyebrow-left" style="color: #147f90;">Portable bioinformatics for humans and agents</div>
+    <div style="color: #0b2f55; font-size: 1.55em; font-weight: 900; letter-spacing: -0.04em; line-height: 0.98; margin-top: 14px;">Build freely.<br />Share durably.</div>
+    <div style="color: #415e70; font-size: var(--fs-small); line-height: 1.5; margin-top: 18px; max-width: 26em;">Usher a Pixi environment from active development to a durable BioContainer—with practical guardrails and one concrete step forward at a time.</div>
+    <a class="ref-link" href="https://jmchilton.github.io/biopixi/#/" style="color: #123e6f; border-bottom-color: #269bad; margin-top: 26px;">jmchilton.github.io/biopixi ↗</a>
   </div>
   <img
+    class="fig fig-fill fig-tall"
     src="/slides/foundry-pattern/biopixi-mark-transparent.png"
     alt="Biopixi DNA firefly mark"
-    style="display: block; width: 100%; max-height: 66vh; object-fit: contain; filter: drop-shadow(0 1.8em 2.2em rgba(11, 47, 85, 0.18));"
+    style="filter: drop-shadow(0 1.8em 2.2em rgba(11, 47, 85, 0.18));"
   />
 </div>
 
 </section>
 
-{/* SLIDE 66 — Biopixi ladder */}
+{/* SLIDE 68 — Biopixi ladder */}
 
-<section data-background-color="#f8fbfa">
+<section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
 <img
+  class="fig fig-bleed"
   src="/slides/foundry-pattern/biopixi-ladder-infographic.svg"
   alt="Biopixi ladder from a useful local Pixi environment to a community-published and observed BioContainer"
-  style="display: block; width: 55%; max-height: 84vh; object-fit: contain; margin: 0 auto;"
+  style="max-height: 16.2em;"
 />
 
-<div class="text-sm opacity-50" style="margin-top: 0.2em;">
+<div class="source">
   <a href="https://jmchilton.github.io/biopixi/assets/biopixi-ladder-infographic.svg">From Pixi to BioContainers ↗</a>
 </div>
 
 </section>
 
-{/* SLIDE 67 — TDA results: ecosystem hardening and packaging */}
+{/* SLIDE 69 — TDA results: ecosystem hardening and packaging */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.28em; line-height: 1.08;">Hardening leaves receipts</h2>
+<h2>Hardening leaves receipts</h2>
 
-<div style="display: grid; grid-template-columns: 1.08fr 0.92fr; gap: 1.2em; max-width: 38em; margin: 0.8em auto 0; text-align: left;">
+<div class="split split-wide-left measure-lg" style="align-items: start;">
   <div>
-    <div style="font-size: 0.46em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #2563eb;">Upstream hardening</div>
-    <div style="font-size: 0.43em; line-height: 1.38; margin-top: 0.75em;">
-      <div style="border-left: 5px solid #16a34a; padding-left: 0.65em; margin-bottom: 0.8em;">
+    <div class="eyebrow eyebrow-left">Upstream hardening</div>
+    <div class="cards" style="gap: 14px; margin-top: 14px;">
+      <div class="card card-side card-grey card-note">
         <a href="https://github.com/Sylverity/petls-pytorch/pull/1"><strong>Sylverity/petls-pytorch#1</strong></a><br />
         Merged and released: removed an unnecessary runtime dependency.
       </div>
-      <div style="border-left: 5px solid #dc2626; padding-left: 0.65em; margin-bottom: 0.8em;">
+      <div class="card card-side card-warn card-note">
         <a href="https://github.com/yubingapril/TopoQA/issues/1"><strong>yubingapril/TopoQA#1</strong></a><br />
         Open: reported the released <code>(x,y,y)</code> coordinate defect.
       </div>
-      <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
+      <div class="card card-side card-warn card-note">
         <a href="https://github.com/bdjones13/PETLS/issues/2"><strong>bdjones13/PETLS#2</strong></a><br />
         Open: requested the missing software license.
       </div>
     </div>
   </div>
-  <div style="border-top: 7px solid #2563eb; padding-top: 0.6em;">
-    <div style="font-size: 1.25em; line-height: 0.95; font-weight: 900;">17</div>
-    <div style="font-size: 0.44em; line-height: 1.3; font-weight: 800; margin-top: 0.25em;">local conda recipes</div>
-    <div style="font-size: 0.85em; line-height: 1; font-weight: 900; color: #2563eb; margin-top: 0.65em;">12</div>
-    <div style="font-size: 0.4em; line-height: 1.3;">verified and ready to upstream</div>
-    <a href="https://github.com/conda-forge/staged-recipes/pull/34367" style="display: block; font-size: 0.42em; line-height: 1.35; font-weight: 900; margin-top: 0.9em;">conda-forge/staged-recipes#34367 ↗</a>
-    <div style="font-size: 0.37em; line-height: 1.35; margin-top: 0.25em;">Submitted · every build and lint check green · awaiting review</div>
-    <div style="font-size: 0.34em; line-height: 1.35; opacity: 0.68; margin-top: 0.75em;">3 more are license-eligible but await build verification · 1 is blocked on licensing</div>
+  <div class="card">
+    <div class="stat" style="color: var(--deck-dark);">17</div>
+    <div class="stat-label">local conda recipes</div>
+    <div class="stat stat-sm" style="margin-top: 16px;">12</div>
+    <div class="stat-label" style="font-weight: 400;">verified and ready to upstream</div>
+    <a class="card-note" style="display: block; font-weight: 800; margin-top: 18px;" href="https://github.com/conda-forge/staged-recipes/pull/34367">conda-forge/staged-recipes#34367 ↗</a>
+    <div class="card-note" style="margin-top: 5px;">Submitted · every build and lint check green · awaiting review</div>
+    <div class="card-note" style="margin-top: 14px; opacity: 0.75;">3 more are license-eligible but await build verification · 1 is blocked on licensing</div>
   </div>
 </div>
 
-<div style="font-size: 0.29em; line-height: 1.3; opacity: 0.55; margin-top: 0.9em;">
+<div class="source" style="opacity: 0.6;">
   TODO: file the prepared TopoMetry fixes and the documented scVelo defects upstream; add their issue and PR numbers here.
 </div>
 
 </section>
 
-{/* SLIDE 68 — TDA results: implementations and replications */}
+{/* SLIDE 70 — TDA results: implementations and replications */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.22em; line-height: 1.08;">Open implementations—and studies that tested the claims</h2>
+<h2 class="plain-heading measure" style="font-size: 1.22em; line-height: 1.14;">Open implementations—and studies that tested the claims</h2>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.15em; max-width: 39em; margin: 0.75em auto 0; text-align: left;">
+<div class="split measure-lg" style="align-items: start;">
   <div>
-    <div style="font-size: 0.42em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #2563eb;">Published mathematics → open code</div>
-    <div style="font-size: 0.4em; line-height: 1.34; margin-top: 0.65em;">
-      <div style="margin-bottom: 0.7em;"><a href="https://github.com/Sylverity/petls-pytorch"><strong>Sylverity/petls-pytorch</strong></a><br />Persistent Laplacians rebuilt for PyTorch and CUDA.</div>
-      <div style="margin-bottom: 0.7em;"><a href="https://github.com/jmchilton/open-topoqa-featurizer"><strong>jmchilton/open-topoqa-featurizer</strong></a><br />Paper-derived persistent-homology interface features with corrected coordinates.</div>
-      <div><a href="https://github.com/jmchilton/open-topoqa-scorer"><strong>jmchilton/open-topoqa-scorer</strong></a><br />Paper-derived graph-attention architecture, retrained into a redistributable model.</div>
+    <div class="eyebrow eyebrow-left">Published mathematics → open code</div>
+    <div class="cards" style="gap: 12px; margin-top: 14px;">
+      <div class="card-note"><a href="https://github.com/Sylverity/petls-pytorch"><strong>Sylverity/petls-pytorch</strong></a><br />Persistent Laplacians rebuilt for PyTorch and CUDA.</div>
+      <div class="card-note"><a href="https://github.com/jmchilton/open-topoqa-featurizer"><strong>jmchilton/open-topoqa-featurizer</strong></a><br />Paper-derived persistent-homology interface features with corrected coordinates.</div>
+      <div class="card-note"><a href="https://github.com/jmchilton/open-topoqa-scorer"><strong>jmchilton/open-topoqa-scorer</strong></a><br />Paper-derived graph-attention architecture, retrained into a redistributable model.</div>
     </div>
   </div>
   <div>
-    <div style="font-size: 0.42em; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #dc2626;">Replication studies</div>
-    <div style="font-size: 0.4em; line-height: 1.34; margin-top: 0.65em;">
-      <div style="margin-bottom: 0.7em;"><a href="https://github.com/jmchilton/topoqa-interface-quality-replication"><strong>topoqa-interface-quality-replication</strong></a><br /><strong>Reproduced.</strong> The headline losses hold; the correlations were pooled and part of the margin depends on a defect.</div>
-      <div style="margin-bottom: 0.7em;"><a href="https://github.com/jmchilton/topometry-cell-cycle-replication"><strong>topometry-cell-cycle-replication</strong></a><br /><strong>Partially reproduced.</strong> The direction holds; the seeded 2-D layouts do not.</div>
-      <div><a href="https://github.com/jmchilton/hiponet-melanoma-replication"><strong>hiponet-melanoma-replication</strong></a><br /><strong>Inconclusive.</strong> 67.27% versus 90.90%; the locked Linux/CUDA arm remains.</div>
+    <div class="eyebrow eyebrow-left">Replication studies</div>
+    <div class="cards" style="gap: 12px; margin-top: 14px;">
+      <div class="card-note"><a href="https://github.com/jmchilton/topoqa-interface-quality-replication"><strong>topoqa-interface-quality-replication</strong></a><br /><strong>Reproduced.</strong> The headline losses hold; the correlations were pooled and part of the margin depends on a defect.</div>
+      <div class="card-note"><a href="https://github.com/jmchilton/topometry-cell-cycle-replication"><strong>topometry-cell-cycle-replication</strong></a><br /><strong>Partially reproduced.</strong> The direction holds; the seeded 2-D layouts do not.</div>
+      <div class="card-note"><a href="https://github.com/jmchilton/hiponet-melanoma-replication"><strong>hiponet-melanoma-replication</strong></a><br /><strong>Inconclusive.</strong> 67.27% versus 90.90%; the locked Linux/CUDA arm remains.</div>
     </div>
   </div>
 </div>
 
-<div style="font-size: 0.29em; line-height: 1.3; opacity: 0.55; margin-top: 0.8em;">
+<div class="source" style="opacity: 0.6;">
   Provenance boundary: <a href="https://github.com/jmchilton/open-topodockq-featurizer">open-topodockq-featurizer</a> is also clean-room, but recovered through black-box observation rather than from the paper alone.
 </div>
 
 </section>
 
-{/* SLIDE 69 — TDA results: Mold and survey questions */}
+{/* SLIDE 71 — TDA results: Mold and survey questions */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.25em; line-height: 1.08;">A paper becomes an executable, guarded action</h2>
+<h2>A paper becomes an executable, guarded action</h2>
 
-<div style="display: grid; grid-template-columns: 0.88fr 1.12fr; gap: 1.3em; max-width: 39em; margin: 0.8em auto 0; text-align: left;">
-  <div style="border-top: 7px solid #2563eb; padding-top: 0.65em;">
-    <a href="https://github.com/jmchilton/bio-topo-foundry/blob/main/content/molds/score-docking-poses/index.md" style="font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.55em; font-weight: 900;">score-docking-poses ↗</a>
-    <div style="font-size: 0.4em; line-height: 1.42; margin-top: 0.7em;">
+<div class="split split-wide-right measure-lg" style="align-items: start;">
+  <div class="card">
+    <a class="card-title card-title-lg" style="display: block; font-family: var(--r-code-font);" href="https://github.com/jmchilton/bio-topo-foundry/blob/main/content/molds/score-docking-poses/index.md">score-docking-poses ↗</a>
+    <div class="card-body card-body-sm">
       Validate candidate complexes for one target, run the paper-derived open TopoQA featurizer and scorer in one locked environment, preserve failures, then return a stable ranking and selected structures.
     </div>
-    <div style="font-size: 0.34em; line-height: 1.38; font-weight: 800; margin-top: 0.8em; color: #dc2626;">
+    <div class="card-note" style="font-weight: 800; margin-top: 16px; color: var(--deck-warn);">
       A prediction—not measured DockQ or biological validation.
     </div>
   </div>
   <div>
-    <div style="font-size: 0.42em; font-weight: 900; letter-spacing: 0.1em; text-transform: uppercase;">What the survey questions turned into</div>
-    <div style="font-size: 0.39em; line-height: 1.35; margin-top: 0.7em;">
-      <div style="border-left: 4px solid #2563eb; padding-left: 0.6em; margin-bottom: 0.65em;"><strong>Topology does not uniformly help.</strong> It hurts in-distribution rank correlation but improves out-of-distribution HAF2 ranking.</div>
-      <div style="border-left: 4px solid #dc2626; padding-left: 0.6em; margin-bottom: 0.65em;"><strong>The conventional baseline is strong.</strong> Thirty-two amino-acid, DSSP, SASA, and backbone-angle features carry substantial signal.</div>
-      <div style="border-left: 4px solid #2563eb; padding-left: 0.6em; margin-bottom: 0.65em;"><strong>The headline metric is saturated.</strong> Free pLDDT and DProQA can win top-1 loss while barely ranking the remaining poses.</div>
-      <div style="border-left: 4px solid #dc2626; padding-left: 0.6em;"><strong>The defensible value is ordering.</strong> The topological model earns its keep on rank quality and top-k selection.</div>
+    <div class="eyebrow eyebrow-left">What the survey questions turned into</div>
+    <div class="cards" style="gap: 11px; margin-top: 14px;">
+      <div class="card card-side card-note"><strong>Topology does not uniformly help.</strong> It hurts in-distribution rank correlation but improves out-of-distribution HAF2 ranking.</div>
+      <div class="card card-side card-gold card-note"><strong>The conventional baseline is strong.</strong> Thirty-two amino-acid, DSSP, SASA, and backbone-angle features carry substantial signal.</div>
+      <div class="card card-side card-grey card-note"><strong>The headline metric is saturated.</strong> Free pLDDT and DProQA can win top-1 loss while barely ranking the remaining poses.</div>
+      <div class="card card-side card-note"><strong>The defensible value is ordering.</strong> The topological model earns its keep on rank quality and top-k selection.</div>
     </div>
   </div>
 </div>
 
-<div style="font-size: 0.29em; line-height: 1.3; opacity: 0.55; margin-top: 0.8em;">
+<div class="source" style="opacity: 0.6;">
   TODO: quantify persistent H1 in the TopoMetry cell-cycle extension and complete HiPoNet's Linux/CUDA arm.
 </div>
 
 </section>
 
-{/* SLIDE 70 — TDA results: pushing the boundary */}
+{/* SLIDE 72 — TDA results: pushing the boundary */}
 
 <section>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.35em; align-items: center; max-width: 38em; margin: 0 auto;">
-  <div>
+<div class="split measure">
+  <figure>
     <img
+      class="fig fig-fill fig-tall"
       src="/slides/foundry-pattern/phd-zoom.jpg"
       alt="A red dent enlarged at the boundary of human knowledge"
-      style="display: block; width: 100%; max-height: 57vh; object-fit: contain; margin: 0 auto;"
     />
-    <div style="font-size: 0.24em; line-height: 1.3; opacity: 0.48; margin-top: 0.4em;">
+    <figcaption>
       Panel from <a href="https://matt.might.net/articles/phd-school-in-pictures/"><em>The illustrated guide to a Ph.D.</em></a> by Matt Might · <a href="https://creativecommons.org/licenses/by-nc/2.5/">CC BY-NC 2.5</a>
-    </div>
-  </div>
-  <h2 style="font-size: 1.24em; line-height: 1.18; text-align: left; margin: 0;">
-    Instead of building a mill,<br />I feel like I'm pushing on the <span style="color: #dc2626;">boundary!</span>
+    </figcaption>
+  </figure>
+  <h2 class="plain-heading" style="font-size: 1.24em; line-height: 1.2; text-align: left; margin: 0;">
+    Instead of building a mill,<br />I feel like I'm pushing on the <span class="hi">boundary!</span>
   </h2>
 </div>
 
 </section>
 
-{/* SLIDE 71 — TDA results: conclusion */}
+{/* ============================ EVALUATION ============================ */}
 
-<section>
+{/* SLIDE 73 — Evaluation transition */}
 
-<h2 style="font-size: 1.25em; line-height: 1.12; max-width: 24em; margin-left: auto; margin-right: auto;">A pattern for pushing into a domain with agents</h2>
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div style="font-size: 0.58em; line-height: 1.42; max-width: 34em; margin: 1em auto 0;">
-  I think this is a really nice set of ideas for pushing on a domain with agents. It feels like a competent implementation of a pattern that lets a human and an agent build up rich abstractions for interacting with that domain.
+<div class="eyebrow">Part Seven</div>
+
+<h1>Checks That Actually Fire</h1>
+
+<div class="lede" style="font-style: italic;">How a Foundry evaluates the skills it casts.</div>
+
+</section>
+
+{/* SLIDE 74 — eval.md and scenarios.md sit beside the Mold */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Beside every Mold</div>
+
+<h2>An oracle, not a test suite</h2>
+
+<div class="cards cards-2 measure">
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">eval.md</div>
+    <div class="card-title">the abstract checker</div>
+    <div class="card-body card-body-sm">Fixture-independent <code>## Property:</code> blocks, each marked <code>check: deterministic</code> or <code>check: llm-judged</code>. How to judge <em>any</em> output.</div>
+  </div>
+  <div class="card card-side">
+    <div class="card-eyebrow">scenarios.md</div>
+    <div class="card-title">the concrete cases</div>
+    <div class="card-body card-body-sm">One <code>## Case:</code> per fixture, carrying its own <code>expect:</code> assertions. What you feed in and what comes back.</div>
+  </div>
 </div>
 
-<div style="font-size: 0.66em; line-height: 1.34; font-weight: 900; color: #dc2626; max-width: 30em; margin: 1.1em auto 0;">
-  It is not a turnkey solution or one-size-fits-all infrastructure.
-</div>
+<pre class="mermaid">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
+flowchart LR
+    mold["Mold<br/>index.md + references"]
+    scen["scenarios.md<br/>bind one case"]
+    srun["run the cast skill"]
+    chk{{"eval.md<br/>score every property"}}
+    jrnl["refinements/<br/>decision: eval-add"]
+    mold --> srun
+    scen --> srun
+    srun --> chk
+    chk --> jrnl
+    jrnl -. "reviewed, then re-cast" .-> mold
+    classDef nfile fill:#edf4fa,stroke:#25537b,color:#2c3143;
+    classDef nrun fill:#25537b,stroke:#2c3143,color:#ffffff;
+    classDef nchk fill:#f6f8fa,stroke:#8c6d1f,color:#2c3143;
+    class mold,scen,jrnl nfile;
+    class srun nrun;
+    class chk nchk;`}</pre>
 
-<div style="font-size: 0.67em; line-height: 1.36; max-width: 31em; margin: 1.1em auto 0;">
-  Knowledge about a domain—and descriptions of actions over it—should reflect the structure of the domain itself.
+<div class="note">
+  A <code>check: deterministic</code> property earns its verdict by <strong>running</strong> the oracle —
+  <code>gxwf validate</code>, a structural diff, <code>planemo test</code>. Marked "not run" because the tool
+  looked expensive, it is a failed trial, not a weaker pass.
 </div>
 
 </section>
 
-{/* SLIDE 72 — close */}
+{/* SLIDE 75 — pipeline eval: composition plus a thin end-to-end oracle */}
 
-<section>
+<section class="vstack vstack-tight">
 
-<h2 style="font-size: 1.4em; line-height: 1.3;">
-  Ship skills.<br />
-  <span style="color: #2563eb;">Author knowledge.</span>
-</h2>
+<div class="eyebrow">Pipelines</div>
 
-<div style="font-size: 0.68em; margin-top: 1.3em;">
-  Cast them into every runtime you like. But author the knowledge somewhere<br />
-  a human can read it and an agent can trace it, back it with a check that actually fires,<br />
-  and keep the receipt.
+<h2>One journey, an oracle at every step</h2>
+
+<pre class="mermaid">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px','tertiaryColor':'#ffffff','tertiaryBorderColor':'#d6dbe2','tertiaryTextColor':'#25537b'}}}%%
+flowchart LR
+    subgraph J["one journey · one scenarios.md case"]
+    direction LR
+    p1["phase<br/>output"] --> v1{{"Mold<br/>eval.md"}}
+    v1 -. "fix it here" .-> p1
+    v1 --> p2["phase<br/>output"] --> v2{{"Mold<br/>eval.md"}}
+    v2 -. "fix it here" .-> p2
+    end
+    v2 --> pe["pipeline eval.md<br/>cross-step, end to end"]
+    pe -. "refinements to Molds and pipeline" .-> p1
+    classDef nphase fill:#25537b,stroke:#2c3143,color:#ffffff;
+    classDef nchk fill:#f6f8fa,stroke:#8c6d1f,color:#2c3143;
+    classDef nend fill:#edf4fa,stroke:#25537b,color:#2c3143;
+    class p1,p2 nphase;
+    class v1,v2 nchk;
+    class pe nend;`}</pre>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title"><code>[loop]</code> phase</div>
+    <div class="card-body card-body-sm">Judged at its endstate, not per iteration. <code>advance-galaxy-draft-step</code> runs until <code>gxwf draft-next-step</code> reports no drafty step remains.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title"><code>[branch]</code> phase</div>
+    <div class="card-body card-body-sm">Carries no oracle of its own. Whichever Mold the branch chose, its <code>eval.md</code> is the one that applies.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">executable phase</div>
+    <div class="card-body card-body-sm">Run, never emulated. Reaching <code>run-workflow-test</code> without a green <code>planemo test</code> means the journey did not complete.</div>
+  </div>
 </div>
 
-<div class="text-sm opacity-70" style="margin-top: 1.6em;">
-  The artifact layer is a commodity headed toward zero margin.<br />
-  The source layer and the enforced check above it are where the durable value lives.
+<div class="note">
+  A miss caught at the phase that produced it beats the same miss surfacing three phases downstream.
 </div>
 
-<div class="text-sm opacity-50" style="margin-top: 1.4em;">
-  <a href="https://galaxyproject.github.io/foundry-pattern/">galaxyproject.github.io/foundry-pattern</a>
+</section>
+
+{/* SLIDE 76 — worked example: the loop closing on discover-shed-tool */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Worked example · discover-shed-tool</div>
+
+<h2>A false miss passes every static check</h2>
+
+<div class="chain">
+  <span>/test-pipeline interview-to-galaxy</span>
+  <span class="chain-sep">→</span>
+  <span>gxwf tool-search integron_finder</span>
+  <span class="chain-sep">→</span>
+  <span>No hits</span>
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card card-warn">
+    <div class="card-title">the wrong branch</div>
+    <div class="card-body card-body-sm">A <code>miss</code> falls through <code>discover-or-author</code> — so the run authors a wrapper for a tool the Tool Shed already ships.</div>
+  </div>
+  <div class="card">
+    <div class="card-title">the tool was right there</div>
+    <div class="card-body card-body-sm"><code>integron finder</code> scores 34.60 and resolves to <code>iuc/integron_finder</code>, changeset <code>5429646e486d</code>. Only the raw id token missed.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">what closed it</div>
+    <div class="card-body card-body-sm">A journal entry, <code>decision: eval-add</code> — a normalization step in the procedure, a new property in <code>eval.md</code>, and a re-cast.</div>
+  </div>
+</div>
+
+<div class="callout callout-sm">
+  A <code>miss</code> that an obvious name-variant would have turned into a hit is a failure.
+</div>
+
+<div class="source">
+  ISEScan's bare token happened to score, which masked the whole class of bug.
+</div>
+
+</section>
+
+{/* SLIDE 77 — Citation auditing: why the tier needs a machine */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Tier S1 · reference integrity</div>
+
+<h2 class="plain-heading measure">You cannot read a bibliography and find a wrong DOI</h2>
+
+<div class="cards cards-2 measure">
+  <div class="card">
+    <div class="stat">1 in 277</div>
+    <div class="stat-label">PubMed-indexed papers carried a fabricated reference in early 2026</div>
+    <div class="card-note" style="margin-top: 10px;">One in 2,828 in 2023. CITADEL, Topaz et al., <em>The Lancet</em>.</div>
+  </div>
+  <div class="card card-warn">
+    <div class="stat" style="color: var(--deck-warn);">1 in 20</div>
+    <div class="stat-label">NeurIPS 2025 papers carried at least two hallucinated references</div>
+    <div class="card-note" style="margin-top: 10px;">Camera-ready — peer review did not catch them. <em>Phantom References</em>, 2026.</div>
+  </div>
+</div>
+
+<div class="chain">
+  <span>S1 reference integrity</span>
+  <span class="chain-sep">·</span>
+  <span style="opacity: 0.4;">S2 tool checks</span>
+  <span class="chain-sep">·</span>
+  <span style="opacity: 0.4;">S3 threshold checks</span>
+</div>
+
+<div class="note">S1 is first because a DOI either names the work its own text describes, or it does not — no execution, no judgment of the science. S2 and S3 are named and unbuilt.</div>
+
+<div class="source">
+  <a href="https://jmchilton.github.io/foundry-lib/#/concepts/citation-auditing-landscape">Citation auditing and where we sit ↗</a>
+</div>
+
+</section>
+
+{/* SLIDE 78 — Citation auditing: the repo owns the corpus */}
+
+<section class="vstack vstack-tight">
+
+<h2>The repo owns the corpus. The package owns the mechanics.</h2>
+
+<div class="split measure-lg" style="align-items: start;">
+  <div>
+    <div class="eyebrow eyebrow-left">Committed, readable, diffable</div>
+    <div class="cards" style="gap: 11px; margin-top: 14px;">
+      <div class="card card-side card-note">
+        <code>audit-citations.config.json</code><br />
+        Five source globs, trusted citation hosts, request budget.
+      </div>
+      <div class="card card-side card-gold card-note">
+        <code>audit/citation-audit.md</code><br />
+        The rendered run. Carries no timestamp and no revision, so it diffs cleanly.
+      </div>
+      <div class="card card-side card-grey card-note">
+        <code>audit/provider-evidence.json</code><br />
+        62 normalized provider answers. The offline replay reads only this.
+      </div>
+    </div>
+  </div>
+  <div>
+    <div class="card">
+      <div class="stat">78 / 78</div>
+      <div class="stat-label">citations resolve to the work their own text describes</div>
+      <div class="card-note" style="margin-top: 10px;">78 of 96 reference lines extracted. Coverage is printed beside the verdicts, as a lower bound.</div>
+    </div>
+    <div class="card" style="margin-top: 14px;">
+      <div class="card-title" style="font-family: var(--r-code-font);">tests/citation-audit.test.ts</div>
+      <div class="card-body card-body-sm">
+        <code>pnpm validate</code> replays the audit offline and fails when a citation has no committed evidence, resolves to a different work, or leaves a flagged finding unreviewed.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">Weekly, <code>citation-audit.yml</code> re-resolves every identifier against live providers and opens a pull request <em>only</em> when the rendered report changes.</div>
+
+</section>
+
+{/* SLIDE 79 — Citation auditing: what it caught */}
+
+<section class="vstack vstack-tight">
+
+<h2>Three DOIs that named other papers</h2>
+
+<div class="cards measure-lg" style="gap: 11px;">
+  <div class="card card-side card-warn card-note">
+    <strong>HERMES: Persistent spectral graph software</strong> → <code>10.3934/fods.2021004</code> resolves to <em>Markov chain simulation for multilevel Monte Carlo</em>.
+  </div>
+  <div class="card card-side card-warn card-note">
+    <strong>Persistent topological Laplacians — a survey</strong> → <code>10.3390/math13020278</code> resolves to <em>Prioritization of Preventive Measures … Road Infrastructure Projects</em>.
+  </div>
+  <div class="card card-side card-warn card-note">
+    <strong>Persistent sheaf Laplacians</strong> → <code>10.3934/fods.2024020</code> is a different work.
+  </div>
+</div>
+
+<div class="callout callout-sm">Each is a digit error in an otherwise accurate entry. Reading the sentence cannot find it.</div>
+
+<div class="note">Five entries, not three: two of the wrong identifiers had already been copied into a newer note before the audit ran again. A wrong DOI propagates by citation reuse — which is the argument for checking on every build rather than once.</div>
+
+</section>
+
+{/* SLIDE 80 — TDA results: conclusion */}
+
+<section class="vstack">
+
+<h2 class="plain-heading measure" style="font-size: 1.25em; line-height: 1.16;">A pattern for pushing into a domain with agents</h2>
+
+<div class="body">
+  I think this is a really nice set of ideas for pushing on a domain with agents. It feels like a competent implementation of a pattern that lets a human and an agent build up rich abstractions for interacting with that domain.
+</div>
+
+<div class="statement statement-sm" style="color: var(--deck-warn); font-size: 0.66em;">
+  It is not a turnkey solution or one-size-fits-all infrastructure.
+</div>
+
+<div class="lede">
+  Knowledge about a domain—and descriptions of actions over it—should reflect the structure of the domain itself.
 </div>
 
 </section>
