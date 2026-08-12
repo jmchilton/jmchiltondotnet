@@ -928,59 +928,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 48 — Workflow Foundry pipeline: validated construction */}
-
-<section>
-
-<h2 style="font-size: 1.24em;">The same analysis, two directions</h2>
-
-<div style="font-size: 0.6em; line-height: 1.26; margin: -0.1em auto 0.55em; max-width: 33em;">
-  Example 2 <strong>extracted</strong> differential ATAC-seq from a completed run. A Foundry pipeline <strong>constructed</strong> the same analysis from the same initial prompt — no history, no execution.
-</div>
-
-<div style="display: grid; grid-template-columns: minmax(0, 1.32fr) minmax(0, 0.68fr); gap: 0.8em; align-items: center;">
-  <pre class="mermaid" style="background: transparent; border: none; box-shadow: none; margin: 0; display: flex; justify-content: center;">{`%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'15px'}}}%%
-graph LR
-    input_0>"ATAC counts"]
-    input_1>"sample metadata"]
-    step_0["DESeq2 differential test"]
-    step_1["Clean table (NA filter)"]
-    step_2["Volcano plot"]
-    step_3["Filter significant peaks"]
-    step_4["Sort by log2FC"]
-    step_5["Top gained peaks"]
-    step_6["Top lost peaks"]
-    input_0 --> step_0
-    input_1 --> step_0
-    step_0 --> step_1
-    step_1 --> step_2
-    step_1 --> step_3
-    step_3 --> step_4
-    step_4 --> step_5
-    step_4 --> step_6
-    classDef input fill:#edf4fa,stroke:#25537b,color:#2c3143;
-    classDef core fill:#25537b,stroke:#2c3143,color:#ffffff;
-    class input_0,input_1 input;
-    class step_0 core;`}</pre>
-  <div style="text-align: left;">
-    <ul style="font-size: 0.46em; line-height: 1.32; margin: 0; padding-left: 1.1em;">
-      <li>count matrix + sample sheet → DESeq2 → NA-clean → volcano ∥ filter → sort → top gained / lost</li>
-      <li>every step a real, version-pinned Galaxy tool</li>
-      <li><code>tool_state</code> schema-validated offline by <code>gxwf</code></li>
-    </ul>
-    <div style="font-size: 0.4em; line-height: 1.28; opacity: 0.66; margin-top: 0.75em; border-left: 4px solid #d0bd2a; padding-left: 0.5em;">
-      Diagram emitted by <code>gxwf mermaid</code> from the pipeline's output workflow.
-    </div>
-  </div>
-</div>
-
-<div class="text-sm opacity-70" style="margin-top: 0.5em;">Extraction needs a completed run; construction needs only the intent. Both land on the same kind of validated, reproducible workflow.</div>
-
-<a href="https://jmchilton.net/slides/gcc2026/#/32" class="text-sm opacity-50" style="display: inline-block; margin-top: 0.25em;">GCC 2026 source slide ↗</a>
-
-</section>
-
-{/* SLIDE 49 — Workflow Foundry pattern: structured workflow drafting */}
+{/* SLIDE 48 — Workflow Foundry pattern: structured workflow drafting */}
 
 <section>
 
@@ -1003,27 +951,95 @@ graph LR
 
 </section>
 
-{/* SLIDE 50 — Workflow Foundry schemas stub */}
+{/* SLIDE 49 — Workflow Foundry schemas */}
 
 <section>
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE WORKFLOW FOUNDRY</div>
+<h2 style="font-size: 1.16em; line-height: 1.08; margin-bottom: 0.18em;">Schemas are inherited as contracts<br />and enforced as rails</h2>
 
-<h2 style="font-size: 1.7em;">Schemas</h2>
+<div style="font-size: 0.54em; line-height: 1.28; opacity: 0.76; margin: 0 auto 0.8em; max-width: 37em;">
+  Upstream owns the contract. The Foundry pins it, records its lineage, and carries it into the cast.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(5, auto); align-items: center; justify-content: center; gap: 0.42em; margin: 0 auto 0.9em; font-family: monospace; font-size: 0.39em; font-weight: 800;">
+  <div>Galaxy model</div>
+  <div style="opacity: 0.42;">→</div>
+  <div>JSON Schema</div>
+  <div style="opacity: 0.42;">→</div>
+  <div>pinned package</div>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.75em; max-width: 38em; margin: 0 auto; text-align: left;">
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
+    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Copy, don't paraphrase</div>
+    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;">Upstream schemas are synchronized or imported verbatim. Their version and provenance stay visible.</div>
+  </div>
+  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
+    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Carry the authority</div>
+    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;">Casting resolves the named package export and serializes the exact schema into the portable skill bundle.</div>
+  </div>
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
+    <div style="font-size: 0.46em; font-weight: 900; line-height: 1.15;">Check the artifact</div>
+    <div style="font-size: 0.36em; line-height: 1.35; opacity: 0.78; margin-top: 0.45em;"><code>draft-validate</code>, <code>validate</code>, and <code>validate-tests</code> gate authored artifacts before expensive execution.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.52em; line-height: 1.3; font-weight: 800; margin: 1em auto 0; max-width: 38em;">
+  The schema travels with the skill. The deterministic runtime owns the verdict.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 0.75em; line-height: 1.35;">
+  Principles: <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#upstream-authority-local-synthesis">Upstream Authority, Local Synthesis</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#portable-artifacts-over-platform-fashion">Portable Artifacts</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#deterministic-tools-do-deterministic-work">Deterministic Tools</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#reproducibility-at-every-layer">Reproducibility</a><br />
+  <a href="https://github.com/galaxyproject/foundry/blob/main/content/schemas/tests-format.md">tests-format schema</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/content/meta/schema-packages.md">schema packages</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/content/meta/casting.md">casting</a>
+</div>
 
 </section>
 
-{/* SLIDE 51 — Workflow Foundry CLI tooling stub */}
+{/* SLIDE 50 — Workflow Foundry CLI tooling */}
 
 <section>
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE WORKFLOW FOUNDRY</div>
+<h2 style="font-size: 1.18em; line-height: 1.08; margin-bottom: 0.18em;">Turn upstream interfaces into<br />deterministic agent rails</h2>
 
-<h2 style="font-size: 1.7em;">CLI Tooling</h2>
+<div style="font-size: 0.54em; line-height: 1.28; opacity: 0.76; margin: 0 auto 0.75em; max-width: 38em;">
+  Instrument the real interface, formalize it, and put it inside the author–validate–fix loop.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.55em; max-width: 39em; margin: 0 auto 0.75em; text-align: left;">
+  <div style="border-top: 5px solid #2563eb; padding-top: 0.45em;">
+    <div style="font-size: 0.42em; font-weight: 900;">Instrument upstream</div>
+    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Generate Planemo references from <code>cli_metadata</code>; import machine-readable <code>gxwf</code> command specs.</div>
+  </div>
+  <div style="border-top: 5px solid #dc2626; padding-top: 0.45em;">
+    <div style="font-size: 0.42em; font-weight: 900;">Formalize the interface</div>
+    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Preserve synopsis, arguments, option types, defaults, requirements, package, and resolved version.</div>
+  </div>
+  <div style="border-top: 5px solid #2563eb; padding-top: 0.45em;">
+    <div style="font-size: 0.42em; font-weight: 900;">Add local synthesis</div>
+    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Keep examples, gotchas, triggers, and operational guidance around—not inside—the upstream contract.</div>
+  </div>
+  <div style="border-top: 5px solid #dc2626; padding-top: 0.45em;">
+    <div style="font-size: 0.42em; font-weight: 900;">Cast a sidecar</div>
+    <div style="font-size: 0.33em; line-height: 1.32; opacity: 0.76; margin-top: 0.4em;">Ship the exact command contract and Foundry revision as portable, versioned JSON beside the skill.</div>
+  </div>
+</div>
+
+<pre style="font-size: 0.38em; line-height: 1.4; text-align: center; margin: 0 auto; max-width: 38em; padding: 0.7em 0.9em; background: #2c3143; color: #e2e8f0; border-radius: 0.2em;"><code style="display: block; background: transparent; color: #e2e8f0; padding: 0;">{`draft-next-step → author one step
+→ draft-validate --concrete → gxwf validate
+→ validate-tests → planemo test`}</code></pre>
+
+<div style="font-size: 0.52em; line-height: 1.3; font-weight: 800; margin: 0.75em auto 0; max-width: 38em;">
+  The model translates and repairs. Independent tools select, validate, execute, and classify.
+</div>
+
+<div class="text-sm opacity-50" style="margin-top: 0.6em; line-height: 1.35;">
+  Principles: <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#upstream-authority-local-synthesis">Upstream Authority, Local Synthesis</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#actionable-knowledge-not-passive-notes">Actionable Knowledge</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#progressive-disclosure-over-context-flooding">Progressive Disclosure</a> · <a href="https://galaxyproject.github.io/foundry-pattern/pattern/guiding-principles/#deterministic-tools-do-deterministic-work">Deterministic Tools</a><br />
+  <a href="https://github.com/galaxyproject/foundry/blob/main/scripts/sync-planemo-cli.ts">Planemo sync</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/site/src/lib/cli-registry.ts">CLI registry</a> · <a href="https://github.com/galaxyproject/foundry/blob/main/casts/claude/skills/validate-galaxy-workflow/references/cli/validate.json">cast sidecar</a>
+</div>
 
 </section>
 
-{/* SLIDE 52 — Workflow Foundry corpus research stub */}
+{/* SLIDE 51 — Workflow Foundry corpus research stub */}
 
 <section>
 
@@ -1035,7 +1051,7 @@ graph LR
 
 {/* ============================ THE STATISTICAL GENOMICS FOUNDRY ============================ */}
 
-{/* SLIDE 53 — Statistical Genomics Foundry transition */}
+{/* SLIDE 52 — Statistical Genomics Foundry transition */}
 
 <section>
 
@@ -1053,7 +1069,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 54 — Statistical Genomics Foundry responsibility rings */}
+{/* SLIDE 53 — Statistical Genomics Foundry responsibility rings */}
 
 <section>
 
@@ -1069,29 +1085,199 @@ graph LR
 
 </section>
 
-{/* SLIDE 55 — Statistical Genomics implementation failures stub */}
+{/* SLIDE 54 — Statistical Genomics implementation failure: the rule */}
 
 <section>
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE STATISTICAL GENOMICS FOUNDRY</div>
+<h2 style="font-size: 1.2em; line-height: 1.08;">A solid rule:<br />derive abstractions from a second application</h2>
 
-<h2 style="font-size: 1.7em;">Implementation Failures</h2>
+<div style="font-size: 0.58em; line-height: 1.3; margin: 0.75em auto 0; max-width: 34em;">There are two reasonable ways to interpret it.</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; max-width: 35em; margin: 1em auto 0; text-align: left;">
+  <div style="border-top: 7px solid #2563eb; padding-top: 0.65em;">
+    <div style="font-size: 0.57em; line-height: 1.15; font-weight: 900;">Build, then extract</div>
+    <div style="font-size: 0.42em; line-height: 1.38; opacity: 0.76; margin-top: 0.45em;">Finish the second application. Compare the two working systems. Extract the shared surface from the result.</div>
+  </div>
+  <div style="border-top: 7px solid #dc2626; padding-top: 0.65em;">
+    <div style="font-size: 0.57em; line-height: 1.15; font-weight: 900;">Extract as you build</div>
+    <div style="font-size: 0.42em; line-height: 1.38; opacity: 0.76; margin-top: 0.45em;">Build the second application and pull abstractions from the first whenever the new implementation needs them.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.58em; line-height: 1.34; font-weight: 800; margin: 1em auto 0; max-width: 35em;">
+  For a good developer, these approaches can converge: lessons from the first implementation naturally guide the second.
+</div>
 
 </section>
 
-{/* SLIDE 56 — Statistical Genomics scope failures stub */}
+{/* SLIDE 55 — Statistical Genomics implementation failure: fresh context */}
 
 <section>
 
-<div class="text-sm opacity-50" style="letter-spacing: 0.18em;">THE STATISTICAL GENOMICS FOUNDRY</div>
+<h2 style="font-size: 1.34em; line-height: 1.08;">Fresh context breaks that equivalence</h2>
 
-<h2 style="font-size: 1.7em;">Scope Failures</h2>
+<div style="font-size: 0.7em; line-height: 1.32; margin: 0.95em auto 0; max-width: 31em;">
+  Every new agent session started without the lessons of the Workflow Foundry.
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.8em; align-items: center; max-width: 35em; margin: 1.15em auto 0; text-align: left;">
+  <div style="border-left: 6px solid #2563eb; padding-left: 0.7em;">
+    <div style="font-size: 0.5em; font-weight: 900;">A developer carries the why</div>
+    <div style="font-size: 0.4em; line-height: 1.35; opacity: 0.76; margin-top: 0.4em;">The first implementation's failures and design choices shape the second implementation.</div>
+  </div>
+  <div style="font-size: 0.9em; opacity: 0.3;">≠</div>
+  <div style="border-left: 6px solid #dc2626; padding-left: 0.7em;">
+    <div style="font-size: 0.5em; font-weight: 900;">A fresh agent sees the next task</div>
+    <div style="font-size: 0.4em; line-height: 1.35; opacity: 0.76; margin-top: 0.4em;">It is perfectly willing to build the smallest thing directly in front of it right now.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.69em; line-height: 1.25; color: #dc2626; font-weight: 900; margin: 1.05em auto 0; max-width: 31em;">
+  None of the lessons are learned if none of the context survives.
+</div>
+
+</section>
+
+{/* SLIDE 56 — Statistical Genomics implementation failure: divergence */}
+
+<section>
+
+<h2 style="font-size: 1.28em; line-height: 1.08;">The second Foundry diverged at every level</h2>
+
+<div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0.9em; align-items: center; max-width: 35em; margin: 1.2em auto 0;">
+  <div style="text-align: right; font-size: 0.57em; line-height: 1.35; font-weight: 850;">roughly the same<br />technology stack</div>
+  <div style="font-size: 1.1em; color: #2563eb; font-weight: 900;">+</div>
+  <div style="text-align: left; font-size: 0.57em; line-height: 1.35; font-weight: 850;">some similar<br />concepts</div>
+</div>
+
+<div style="font-size: 0.92em; line-height: 1.14; color: #dc2626; font-weight: 900; margin: 0.75em auto 0; max-width: 29em;">
+  still produced a very different Foundry.
+</div>
+
+<div style="font-size: 0.56em; line-height: 1.42; margin: 1em auto 0; max-width: 36em;">
+  Extracting the shared surface was tedious. It resisted automation in exactly the place where abstraction was supposed to help.
+</div>
+
+</section>
+
+{/* SLIDE 57 — Statistical Genomics scope failure: the initial seed */}
+
+<section>
+
+<h2 style="font-size: 1.42em; line-height: 1.08;">I seeded the Foundry wrong.</h2>
+
+<div style="font-size: 0.68em; line-height: 1.34; margin: 1em auto 0; max-width: 31em;">
+  It started with guiding principles that were vaguely fine—perhaps even useful—but did not reflect <strong>getting shit done</strong>.
+</div>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em; max-width: 34em; margin: 1.2em auto 0; text-align: left;">
+  <div style="border-left: 6px solid #dc2626; padding-left: 0.7em; font-size: 0.5em; line-height: 1.34;">They kept pulling the work toward conclusions I did not believe in.</div>
+  <div style="border-left: 6px solid #2563eb; padding-left: 0.7em; font-size: 0.5em; line-height: 1.34;">The agent was so much more confident than I was.</div>
+</div>
+
+</section>
+
+{/* SLIDE 58 — Statistical Genomics scope failure: four jobs */}
+
+<section>
+
+<h2 style="font-size: 1.1em; line-height: 1.08;">I was trying to do four things at once</h2>
+
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75em 1em; max-width: 36em; margin: 0.9em auto 0; text-align: left;">
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
+    <div style="font-size: 0.5em; font-weight: 900;">Textbook knowledge</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Build skills that capture established knowledge—even after the replication experiment suggested that was a little silly.</div>
+  </div>
+  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
+    <div style="font-size: 0.5em; font-weight: 900;">Papers</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Turn individual statistical genomics papers into durable skills.</div>
+  </div>
+  <div style="border-left: 5px solid #dc2626; padding-left: 0.65em;">
+    <div style="font-size: 0.5em; font-weight: 900;">bioSkills</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Reconstruct and replicate a huge catalog of generated bioinformatics skills.</div>
+  </div>
+  <div style="border-left: 5px solid #2563eb; padding-left: 0.65em;">
+    <div style="font-size: 0.5em; font-weight: 900;">General judgment</div>
+    <div style="font-size: 0.38em; line-height: 1.32; opacity: 0.76; margin-top: 0.3em;">Generalize “assess the statistical validity of a method” from a handful of particular examples.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.57em; line-height: 1.3; font-weight: 800; margin: 1em auto 0; max-width: 34em;">
+  Each new document propagated values that were documented—and that I did not believe in.
+</div>
+
+</section>
+
+{/* SLIDE 59 — Statistical Genomics scope failure: the bioSkills corpus */}
+
+<section>
+
+<h2 style="font-size: 1.18em; line-height: 1.08;">Hundreds of skills are not<br />hundreds of specifications</h2>
+
+<div style="display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); gap: 1.2em; align-items: center; max-width: 35em; margin: 1em auto 0; text-align: left;">
+  <div style="font-size: 0.68em; line-height: 1.28; color: #2563eb; font-weight: 900;">
+    You look at bioSkills and think there must be a principled way to reconstruct them.
+  </div>
+  <div>
+    <div style="font-size: 0.42em; line-height: 1.42; border-left: 5px solid #dc2626; padding-left: 0.7em;">
+      They have never been run.<br />
+      Inputs are not concretely defined.<br />
+      Expected outputs are not documented.<br />
+      There is no execution or test path.<br />
+      Licensing and installation remain unresolved.
+    </div>
+  </div>
+</div>
+
+<div style="font-size: 0.56em; line-height: 1.32; margin: 1.1em auto 0; max-width: 34em; font-weight: 800;">
+  The catalog contains ideas for programs—not enough operational evidence to reconstruct working programs.
+</div>
+
+</section>
+
+{/* SLIDE 60 — Statistical Genomics scope failure: values */}
+
+<section>
+
+<h2 style="font-size: 1.12em; line-height: 1.08;">A better skill mill is still a skill mill</h2>
+
+<div style="font-size: 0.61em; line-height: 1.34; margin: 0.95em auto 0; max-width: 34em;">
+  The Foundry pattern could build a better one. It could even hide most of the implementation details.
+</div>
+
+<div style="font-size: 0.84em; line-height: 1.16; color: #dc2626; font-weight: 900; margin: 0.8em auto; max-width: 26em;">
+  That does not reflect who I am or my values.
+</div>
+
+<div style="font-size: 0.5em; line-height: 1.4; margin: 0 auto; max-width: 38em;">
+  Writing a program—which a skill is—without a concrete implementation, without documenting its inputs and outputs, and without explaining how to test it is not who I am.
+</div>
+
+<div style="font-size: 0.5em; line-height: 1.4; margin: 0.75em auto 0; max-width: 38em; opacity: 0.76;">
+  It being 2026, and an agent being remarkably good at figuring out how to use it on the fly, is not going to change me.
+</div>
+
+</section>
+
+{/* SLIDE 61 — Statistical Genomics scope failure: reset */}
+
+<section>
+
+<h2 style="font-size: 1.5em; line-height: 1.08;">So I stepped back.</h2>
+
+<div style="font-size: 0.72em; line-height: 1.35; margin: 1em auto 0; max-width: 31em;">
+  I addressed the implementation and scope failures together in a new repository:
+</div>
+
+<div style="font-size: 0.92em; line-height: 1.15; color: #2563eb; font-weight: 900; margin: 0.75em auto 0; max-width: 27em;">
+  more focused, more actionable—and still hugely ambitious.
+</div>
 
 </section>
 
 {/* ============================ THE TDA BIOINFORMATICS FOUNDRY ============================ */}
 
-{/* SLIDE 57 — TDA Bioinformatics Foundry transition */}
+{/* SLIDE 62 — TDA Bioinformatics Foundry transition */}
 
 <section>
 
@@ -1109,7 +1295,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 58 — TDA Bioinformatics Foundry responsibility rings */}
+{/* SLIDE 63 — TDA Bioinformatics Foundry responsibility rings */}
 
 <section>
 
@@ -1125,7 +1311,94 @@ graph LR
 
 </section>
 
-{/* SLIDE 59 — TDA planning ahead stub */}
+{/* SLIDE 64 — TDA implementation issues */}
+
+<section>
+
+<h2 style="font-size: 1.34em; line-height: 1.08;">The implementation issues</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; max-width: 35em; margin: 1.2em auto 0; text-align: left;">
+  <div style="border-top: 7px solid #2563eb; padding-top: 0.65em;">
+    <div style="font-size: 0.72em; font-family: monospace; font-weight: 900;">foundry-lib</div>
+    <div style="font-size: 0.44em; line-height: 1.38; opacity: 0.76; margin-top: 0.55em;">I was extracting shared infrastructure before multiple concrete Foundries had earned the abstraction.</div>
+  </div>
+  <div style="border-top: 7px solid #dc2626; padding-top: 0.65em;">
+    <div style="font-size: 0.67em; font-weight: 900; line-height: 1.12;">Constructing a Foundry from one prompt</div>
+    <div style="font-size: 0.44em; line-height: 1.38; opacity: 0.76; margin-top: 0.55em;">A huge bootstrap prompt made architectural and content decisions before the implementation had produced evidence.</div>
+  </div>
+</div>
+
+<div style="font-size: 0.76em; line-height: 1.22; color: #2563eb; font-weight: 900; margin: 1.2em auto 0; max-width: 29em;">
+  Both moved abstraction ahead of evidence.
+</div>
+
+</section>
+
+{/* SLIDE 65 — TDA scope issues: research and kinds */}
+
+<section>
+
+<h2 style="font-size: 1.28em; line-height: 1.08;">The scope issues <span style="opacity: 0.42;">(1/2)</span></h2>
+
+<div style="font-size: 0.55em; line-height: 1.34; margin: 0.7em auto 0.8em; max-width: 36em;">
+  I had already done a huge amount of research—breaking the domain into kinds and collecting concrete examples and goals for each one.
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.55em 1em; max-width: 34em; margin: 0 auto; text-align: left; font-size: 0.48em; line-height: 1.25; font-weight: 850;">
+  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Papers</div>
+  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Replication experiments</div>
+  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Recipes</div>
+  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Environments</div>
+  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Abstract pipelines</div>
+  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Methods</div>
+  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Galaxy tools</div>
+  <div style="border-left: 4px solid #dc2626; padding-left: 0.55em;">Trainings</div>
+  <div style="border-left: 4px solid #2563eb; padding-left: 0.55em;">Workflows</div>
+</div>
+
+<div style="font-size: 0.64em; line-height: 1.3; font-weight: 900; margin: 1em auto 0; max-width: 32em;">
+  The research was real. The repository still needed a much narrower executable center.
+</div>
+
+</section>
+
+{/* SLIDE 66 — Biopixi hero */}
+
+<section data-background-color="#f8fbfa">
+
+<div style="display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(12em, 0.65fr); gap: 1.2em; align-items: center; max-width: 37em; margin: 0 auto; text-align: left;">
+  <div>
+    <div style="color: #147f90; font-size: 0.34em; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;">Portable bioinformatics for humans and agents</div>
+    <div style="color: #0b2f55; font-size: 1.58em; font-weight: 900; letter-spacing: -0.045em; line-height: 0.95; margin-top: 0.32em;">Build freely.<br />Share durably.</div>
+    <div style="color: #415e70; font-size: 0.48em; line-height: 1.5; margin-top: 0.85em; max-width: 26em;">Usher a Pixi environment from active development to a durable BioContainer—with practical guardrails and one concrete step forward at a time.</div>
+    <a href="https://jmchilton.github.io/biopixi/#/" style="display: inline-block; color: #123e6f; font-size: 0.38em; font-weight: 800; margin-top: 1.3em; border-bottom: 2px solid #269bad; text-decoration: none;">jmchilton.github.io/biopixi ↗</a>
+  </div>
+  <img
+    src="/slides/foundry-pattern/biopixi-mark-transparent.png"
+    alt="Biopixi DNA firefly mark"
+    style="display: block; width: 100%; max-height: 66vh; object-fit: contain; filter: drop-shadow(0 1.8em 2.2em rgba(11, 47, 85, 0.18));"
+  />
+</div>
+
+</section>
+
+{/* SLIDE 67 — Biopixi ladder */}
+
+<section data-background-color="#f8fbfa">
+
+<img
+  src="/slides/foundry-pattern/biopixi-ladder-infographic.svg"
+  alt="Biopixi ladder from a useful local Pixi environment to a community-published and observed BioContainer"
+  style="display: block; width: 55%; max-height: 84vh; object-fit: contain; margin: 0 auto;"
+/>
+
+<div class="text-sm opacity-50" style="margin-top: 0.2em;">
+  <a href="https://jmchilton.github.io/biopixi/assets/biopixi-ladder-infographic.svg">From Pixi to BioContainers ↗</a>
+</div>
+
+</section>
+
+{/* SLIDE 68 — TDA planning ahead stub */}
 
 <section>
 
@@ -1135,7 +1408,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 60 — TDA building the template stub */}
+{/* SLIDE 69 — TDA building the template stub */}
 
 <section>
 
@@ -1145,7 +1418,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 61 — TDA actionable stub */}
+{/* SLIDE 70 — TDA actionable stub */}
 
 <section>
 
@@ -1155,7 +1428,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 62 — TDA reproducibly actionable stub */}
+{/* SLIDE 71 — TDA reproducibly actionable stub */}
 
 <section>
 
@@ -1165,7 +1438,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 63 — TDA early results and future directions stub */}
+{/* SLIDE 72 — TDA early results and future directions stub */}
 
 <section>
 
@@ -1175,7 +1448,7 @@ graph LR
 
 </section>
 
-{/* SLIDE 64 — close */}
+{/* SLIDE 73 — close */}
 
 <section>
 
