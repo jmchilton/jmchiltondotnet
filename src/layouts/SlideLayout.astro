@@ -316,23 +316,24 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
       /* Heading scale, opted into per deck via `data-deck`. The older decks
          size every heading inline, so applying this globally would resize
-         theirs; scoping keeps them exactly as designed. */
-      .reveal[data-deck='foundry-pattern'] h1,
-      .reveal[data-deck='foundry-pattern'] h2,
-      .reveal[data-deck='foundry-pattern'] h3 {
+         theirs; scoping keeps them exactly as designed. Prefix match so
+         `foundry-pattern-*` cutdowns inherit the parent deck's design. */
+      .reveal[data-deck^='foundry-pattern'] h1,
+      .reveal[data-deck^='foundry-pattern'] h2,
+      .reveal[data-deck^='foundry-pattern'] h3 {
         text-wrap: balance;
       }
-      .reveal[data-deck='foundry-pattern'] h1 {
+      .reveal[data-deck^='foundry-pattern'] h1 {
         font-size: var(--fs-h1);
       }
-      .reveal[data-deck='foundry-pattern'] h2 {
+      .reveal[data-deck^='foundry-pattern'] h2 {
         font-size: var(--fs-h2);
       }
-      .reveal[data-deck='foundry-pattern'] h3 {
+      .reveal[data-deck^='foundry-pattern'] h3 {
         font-size: var(--fs-h3);
       }
       /* Cover/divider titles are the one place the display size is wanted. */
-      .reveal[data-deck='foundry-pattern'] .galaxy-cover h1 {
+      .reveal[data-deck^='foundry-pattern'] .galaxy-cover h1 {
         font-size: 1.85em;
         line-height: 1.08;
       }
@@ -667,10 +668,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         border: 1px solid var(--deck-dark);
       }
       /* Deck-scoped: gcc2026 has its own <figure> markup to leave alone. */
-      .reveal[data-deck='foundry-pattern'] figure {
+      .reveal[data-deck^='foundry-pattern'] figure {
         margin: 0;
       }
-      .reveal[data-deck='foundry-pattern'] figcaption {
+      .reveal[data-deck^='foundry-pattern'] figcaption {
         font-size: var(--fs-micro);
         line-height: 1.35;
         color: var(--deck-grey);
@@ -680,14 +681,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       /* Mermaid sizes its SVG from the graph's own extents, which leaves a
          small graph tiny in a wide slot. Let it fill the slot. Deck-scoped:
          gcc2026 has a diagram already tuned against the default sizing. */
-      .reveal[data-deck='foundry-pattern'] .mermaid {
+      .reveal[data-deck^='foundry-pattern'] .mermaid {
         display: block;
         background: transparent;
         border: 0;
         box-shadow: none;
         margin: 0;
       }
-      .reveal[data-deck='foundry-pattern'] .mermaid svg {
+      .reveal[data-deck^='foundry-pattern'] .mermaid svg {
         width: 100% !important;
         max-width: 100% !important;
         height: auto;
@@ -697,9 +698,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
          highlighter smear against this palette. The `%%{init}%%` themeVariables
          do not reach these nodes, and mermaid injects its rules into the SVG at
          a higher specificity, so override the three nodes it colors directly. */
-      .reveal[data-deck='foundry-pattern'] .mermaid .edgeLabel,
-      .reveal[data-deck='foundry-pattern'] .mermaid .edgeLabel p,
-      .reveal[data-deck='foundry-pattern'] .mermaid .labelBkg {
+      .reveal[data-deck^='foundry-pattern'] .mermaid .edgeLabel,
+      .reveal[data-deck^='foundry-pattern'] .mermaid .edgeLabel p,
+      .reveal[data-deck^='foundry-pattern'] .mermaid .labelBkg {
         background: #ffffff !important;
         background-color: #ffffff !important;
         color: var(--deck-grey) !important;

@@ -1,0 +1,61 @@
+---
+title: 'The Foundry Pattern in One Minute'
+description: 'More Principled Skills for Agents and Humans, in three slides'
+date: '2026-08-13'
+tags: ['galaxy', 'reproducibility', 'ai']
+transition: 'slide'
+showControls: true
+showProgress: true
+theme: 'galaxy'
+---
+
+{/* SLIDE 1 — the engineering-culture argument */}
+
+<section>
+
+<h2 class="plain-heading measure" style="font-size: 1.5em; line-height: 1.2;">
+  No serious engineering culture treats the compiled binary as the place you make changes.
+</h2>
+
+</section>
+
+{/* SLIDE 2 — the analogy */}
+
+<section class="vstack">
+
+<h3>The picture to hold</h3>
+
+<div class="cards cards-2 measure">
+  <div class="card card-side">
+    <div class="card-eyebrow">the skill</div>
+    <div class="card-title card-title-lg">the binary</div>
+  </div>
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">the Knowledge Base</div>
+    <div class="card-title card-title-lg">the code</div>
+  </div>
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">casting</div>
+    <div class="card-title card-title-lg">the compiler</div>
+  </div>
+  <div class="card card-side">
+    <div class="card-eyebrow">provenance</div>
+    <div class="card-title card-title-lg">the build log</div>
+  </div>
+</div>
+
+</section>
+
+{/* SLIDE 3 — the machine */}
+
+<section class="vstack vstack-tight">
+
+<img
+  class="fig fig-fill fig-hero"
+  src="/slides/foundry-pattern/foundry-machine.svg"
+  alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
+/>
+
+<div class="note">People maintain the source. Agents receive small, frozen artifacts.</div>
+
+</section>
