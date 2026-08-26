@@ -1,0 +1,1433 @@
+---
+title: 'Foundry Q & A'
+description: 'Five follow-up questions from the Foundry Pattern talk, answered from the source'
+date: '2026-08-27'
+event: 'Galaxy ML Lab Meeting'
+tags: ['galaxy', 'bioinformatics', 'reproducibility', 'ai']
+transition: 'slide'
+showControls: true
+showProgress: true
+theme: 'galaxy'
+---
+
+{/* SLIDE 1 — cover, links back to the source deck */}
+
+<section class="galaxy-cover vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+# Foundry Q &amp; A
+
+<div class="lede">Five follow-ups from two weeks ago.</div>
+
+<a class="ref-link" href="https://jmchilton.net/slides/foundry-pattern/">
+  ← The Foundry Pattern · August 13, 2026 ↗
+</a>
+
+<div class="source">Galaxy ML Lab Meeting · August 27, 2026 · John Chilton</div>
+
+</section>
+
+{/* SLIDE 2 — the five questions as the agenda */}
+
+<section class="vstack vstack-tight">
+
+<h2>The questions</h2>
+
+<div class="cards measure-lg" style="gap: 12px;">
+  <div class="card card-side card-note">
+    <div class="card-eyebrow">One</div>
+    What do the Workflow Foundry skills say to do about <strong>missing dependencies</strong>?
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">Two</div>
+    What does <strong>contributing</strong> look like, start to finish?
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">Three</div>
+    What about users who don't want a workflow up front — the <strong>ad hoc explorers</strong>?
+  </div>
+  <div class="card card-side card-grey card-note">
+    <div class="card-eyebrow">Four</div>
+    How does <strong>casting</strong> actually work, and what does a <strong>Mold</strong> look like?
+  </div>
+  <div class="card card-side card-grey card-note">
+    <div class="card-eyebrow">Five</div>
+    How does <strong>Biopixi</strong> relate to the Foundry? To Galaxy?
+  </div>
+</div>
+
+</section>
+
+{/* SLIDE 3 — one-slide refresher for anyone who missed it */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Where we left off</div>
+
+<img
+  class="fig fig-fill fig-hero"
+  src="/slides/foundry-pattern/foundry-machine.svg"
+  alt="Diagram: a Knowledge Base of notes, schemas and references containing a Mold with typed dependencies, compiled by a deterministic cast into a frozen skill and a provenance record"
+/>
+
+<div class="note">People maintain the source. Agents receive small, frozen artifacts.</div>
+
+</section>
+{/* ============================ ONE — MISSING DEPENDENCIES ============================ */}
+
+{/* SLIDE 4 — Part One transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Part One</div>
+
+<div class="statement">"What do the skills in the Workflow Foundry say to do for missing deps?"</div>
+
+</section>
+
+{/* SLIDE 5 — "missing" is four different failures */}
+
+<section class="vstack">
+
+<h2>"Missing" is four different failures</h2>
+
+<div class="lede">Each one routes somewhere different. None of them route to a guess.</div>
+
+<div class="cards cards-4 measure-lg">
+  <div class="card">
+    <div class="card-title">no wrapper</div>
+    <div class="card-body">the Tool Shed has nothing usable</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">no test data</div>
+    <div class="card-body">the source declares no fixture</div>
+  </div>
+  <div class="card card-warn">
+    <div class="card-title">no evidence</div>
+    <div class="card-body">an output nothing wired can compute</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">no CLI</div>
+    <div class="card-body">the box lacks the deterministic tool</div>
+  </div>
+</div>
+
+</section>
+
+{/* SLIDE 6 — missing wrapper: the discover-or-author branch */}
+
+<section class="vstack">
+
+<div class="eyebrow">01 · No wrapper</div>
+
+<h2>The discover-or-author branch</h2>
+
+<div class="flow">
+  <div class="flow-node">discover-shed-tool</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">hit · weak · miss</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node flow-node-muted">author-galaxy-tool-wrapper</div>
+</div>
+
+<div class="cards cards-3 measure-lg" style="margin-top: 18px;">
+  <div class="card">
+    <div class="card-title">hit</div>
+    <div class="card-body">recommend an (owner, repo, tool_id, version, changeset) pin and exit</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">weak</div>
+    <div class="card-body">help-text-only match, ambiguous owner, deprecated repo — caller confirms or falls through</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">miss</div>
+    <div class="card-body">no usable hit — the harness falls through to authoring</div>
+  </div>
+</div>
+
+<div class="note">The branch is harness logic. The skill owns only the discovery half.</div>
+
+</section>
+
+{/* SLIDE 7 — a miss has to be earned */}
+
+<section class="vstack">
+
+<div class="eyebrow">01 · No wrapper</div>
+
+<h2 class="plain-heading measure" style="font-size: 1.3em; line-height: 1.16;">A <em>miss</em> has to be earned before it counts</h2>
+
+<div class="body measure">
+  The Tool Shed's lexical index does not reliably match an underscored tool-id token. <code>integron_finder</code> returns
+  nothing; <code>integron finder</code> and <code>integron</code> both score.
+</div>
+
+<div class="callout measure">
+  So the skill derives query variants first — strip the owner prefix, split on <code>_</code> and <code>-</code>, try the bare
+  significant word. A no-hit on the raw token alone is a <strong>search artifact</strong>, not evidence the tool is absent.
+</div>
+
+<div class="note">
+  This is exactly the kind of caveat that rots in a hand-written skill and survives in a note that many Molds cite.
+</div>
+
+</section>
+
+{/* SLIDE 8 — missing test data */}
+
+<section class="vstack">
+
+<div class="eyebrow">02 · No test data</div>
+
+<h2>The test-data-resolution branch</h2>
+
+<div class="flow">
+  <div class="flow-node">source-declared</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">find-test-data</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node flow-node-muted">user-supplied</div>
+</div>
+
+<div class="body measure" style="margin-top: 18px;">
+  The first leg resolves only what the source itself declares. What it cannot resolve is a
+  <strong>reported gap</strong>, and the harness falls through to search, then to the user.
+</div>
+
+<div class="callout callout-warn measure">
+  Never invent a URL, an accession, or a placeholder path. A declared input with no published URL is recorded by its
+  in-tree path plus provenance — a ref left <code>resolved: false</code> is surfaced, not papered over.
+</div>
+
+<div class="note">An un-materialized path passes every static check and fails at upload, far from where it was written.</div>
+
+</section>
+
+{/* SLIDE 9 — the open-requirements ledger */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">03 · No evidence</div>
+
+<h2>The open-requirements ledger</h2>
+
+<div class="body measure">
+  One artifact threaded through the whole run. Each Mold that surfaces an obligation <strong>appends</strong>; each Mold
+  whose decision closes one <strong>marks it resolved</strong>; the terminal path <strong>surrenders</strong> what remains.
+</div>
+
+<pre style="font-size: 0.44em; line-height: 1.55; text-align: left; margin: 8px auto 0; max-width: 34em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`- id: sccmec-evidence-missing
+  status: open              # open | resolved | surrendered
+  blocking: true            # a computability gap, counted by the gate
+  raised_by: implement-galaxy-tool-step
+  step: classify_context
+  unmet: "SCCmec-region candidate output category"
+  missing: "no wired input carries SCCmec cassette evidence"
+  resolved_by: null
+  note: ""`}</code></pre>
+
+</section>
+
+{/* SLIDE 10 — blocking vs plain, and the repair loop */}
+
+<section class="vstack">
+
+<div class="eyebrow">03 · No evidence</div>
+
+<h2>Two grades of obligation</h2>
+
+<div class="split split-vs measure-lg">
+  <div class="panel">
+    <div class="card-eyebrow">plain</div>
+    <div class="card-title card-title-lg">work around it</div>
+    <div class="card-body">an unpinned parameter, a missing exemplar — the chain keeps going</div>
+  </div>
+  <div class="split-mark">vs</div>
+  <div class="panel">
+    <div class="card-eyebrow">blocking</div>
+    <div class="card-title card-title-lg">a computability gap</div>
+    <div class="card-body">a declared output no wired input can supply</div>
+  </div>
+</div>
+
+<div class="note" style="margin-top: 16px;">
+  <code>gxwf</code> cannot see this: the connection graph knows that ports connect, not <em>what they carry</em>.
+</div>
+
+<div class="callout callout-sm">
+  Blocking entries drive escalation to <code>repair-galaxy-draft-topology</code>. Every escalation must strictly reduce the
+  open blocking count, under a hard cap.
+</div>
+
+</section>
+
+{/* SLIDE 11 — the rule underneath all of it */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="statement">Never fabricate around an entry.</div>
+
+<div class="lede" style="font-style: italic;">An open obligation is the honest state.</div>
+
+<div class="note">
+  Inventing a connection, a tool id, or a value so the artifact looks complete converts a tracked gap into a silent
+  defect — the exact failure the ledger exists to end.
+</div>
+
+</section>
+
+{/* SLIDE 12 — surrender is a real, named outcome */}
+
+<section class="vstack">
+
+<h2>Surrender is an outcome, not a crash</h2>
+
+<div class="body measure">
+  When nothing downstream can close an entry — no producer is discoverable, the output cannot be honestly narrowed —
+  the run does not spin and does not invent. The cap is reached, the entry is marked <code>surrendered</code>, and it is
+  written into the final draft as a <strong>labelled gap</strong>.
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">visible</div>
+    <div class="card-body">never silently dropped</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">attributed</div>
+    <div class="card-body"><code>raised_by</code> / <code>resolved_by</code> are the audit trail</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">actionable</div>
+    <div class="card-body">a reviewer knows exactly where to look</div>
+  </div>
+</div>
+
+<div class="note">The ledger is not a questions-for-a-human list. It is materialized in the artifact, so it behaves the same in anyone's harness.</div>
+
+</section>
+
+{/* SLIDE 13 — missing CLI tool */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">04 · No CLI</div>
+
+<h2>Every cast declares its own tools</h2>
+
+<pre style="font-size: 0.44em; line-height: 1.55; text-align: left; margin: 0 auto; max-width: 36em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`{
+  "tool": "gxwf",
+  "origin": "npm",
+  "package": "@galaxy-tool-util/cli",
+  "package_version": "^1.8.1",
+  "invoke_fallback": "npx --yes --package @galaxy-tool-util/cli@1.8.1 gxwf",
+  "availability_check": "gxwf --help | grep -q draft-validate",
+  "implied_by": ["gxwf tool-revisions", "gxwf tool-search"]
+}`}</code></pre>
+
+<div class="note">
+  <code>_required_tools.json</code>, generated from the CLI commands the Mold actually cites — install line, ephemeral
+  fallback, and a check the agent can run before it starts.
+</div>
+
+</section>
+{/* ============================ TWO — CONTRIBUTING ============================ */}
+
+{/* SLIDE 14 — Part Two transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Part Two</div>
+
+<div class="statement statement-sm">
+  "What's the process to contribute? Start to finish — say I noticed a gap. If that's a gap in upstream docs too, then
+  what? Are certain community resources canon and others not? Can I write notes into the Foundry directly?"
+</div>
+
+</section>
+
+{/* SLIDE 15 — the outside loop: how a guinea pig actually starts */}
+
+<section class="vstack">
+
+<div class="eyebrow">The outside loop · guinea pigs wanted</div>
+
+<h2>Two commands, and a lot of threads to pull on</h2>
+
+<div class="cards measure-lg" style="gap: 12px;">
+  <div class="card card-side card-note">
+    <div class="card-eyebrow">1 · pick a workflow, then ask for a scenario</div>
+    <em>"Investigate how scenarios.md works generally and for the nextflow-to-galaxy pipeline, and set up a
+    scenarios.md entry and fixture for Nextflow workflow X."</em>
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">2 · compact the session</div>
+    Clear the investigation out of context before the run that matters.
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">3 · run it</div>
+    <code>/test-pipeline nextflow-to-galaxy X</code>
+  </div>
+</div>
+
+<div class="callout measure">
+  Those two queries trigger a whole lot of work and self-evaluation. Your agent builds and tests a workflow, and hands
+  you the threads.
+</div>
+
+<div class="note">
+  nf-core and non-nf-core are both supported — this is how <code>egapx</code> got tested. Doing the same against
+  production artifacts is next, per Dannon's suggestion.
+</div>
+
+</section>
+
+{/* SLIDE 16 — the inside loop: the run reports on the Foundry */}
+
+<section class="vstack">
+
+<div class="eyebrow">The inside loop · PR #474, open</div>
+
+<h2>The run files feedback on the Foundry while it runs</h2>
+
+<div class="body measure">
+  An opt-in second ledger. Not unmet requirements of the workflow being built — those stay in the open-requirements
+  ledger — but <strong>gaps, defects, friction, and wishes about the Foundry's own Molds and references</strong>.
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">what gets recalled</div>
+    <div class="card-body">where the skill guessed at something the instructions should have settled, needed what its bundle doesn't carry, or hit contradicting instructions</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">not asked</div>
+    <div class="card-body">"was anything unclear?" — a question that reliably answers itself <em>no</em></div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">then triaged</div>
+    <div class="card-body">a 48th Mold clusters by locator, checks current main, searches duplicates, redacts, and drafts</div>
+  </div>
+</div>
+
+<div class="callout callout-sm measure">
+  A skill that says nothing has not reported a clean pass. <code>no feedback</code> has to be said out loud — that is what
+  separates a phase that looked for friction from one that never looked.
+</div>
+
+<div class="note">Upstream faults get filed here too, with the run analysis attached, and a maintainer forwards. Every GitHub mutation waits for explicit confirmation.</div>
+
+<a class="ref-link" href="https://github.com/galaxyproject/foundry/pull/474">galaxyproject/foundry#474 — runtime feedback ledger ↗</a>
+
+</section>
+
+{/* SLIDE 17 — the route, start to finish */}
+
+<section class="vstack">
+
+<h2>You noticed a gap. The route.</h2>
+
+<div class="cards measure-lg" style="gap: 11px;">
+  <div class="card card-side card-note">
+    <div class="card-eyebrow">1 · locate</div>
+    Whose knowledge is this? If upstream owns it, the Foundry cites — it does not re-explain.
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">2 · type it</div>
+    Pick the kind: pattern, research note, CLI page, schema note, or a new Mold.
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">3 · write</div>
+    Hand edit, or drive one of the authoring slash commands — <code>/review-mold</code>, <code>/refine-mold</code>, <code>/cast</code>.
+  </div>
+  <div class="card card-side card-grey card-note">
+    <div class="card-eyebrow">4 · validate</div>
+    <code>npm run validate</code> — schema plus cross-file resolution. Errors block.
+  </div>
+  <div class="card card-side card-grey card-note">
+    <div class="card-eyebrow">5 · cast &amp; check</div>
+    Re-cast anything downstream; the drift gates decide whether you got it right.
+  </div>
+</div>
+
+<div class="note">Then a normal PR. CI re-casts touched Molds and puts the generated diff in front of the reviewer.</div>
+
+</section>
+
+{/* SLIDE 18 — yes, you can write notes directly */}
+
+<section class="vstack">
+
+<h2>Yes — but notes are typed</h2>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">frontmatter is contract</div>
+    <div class="card-body">one Zod schema shared by the validator and the site; every kind is strict, unknown fields are rejected</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">tags are registered</div>
+    <div class="card-body">every tag lives in <code>meta_tags.yml</code> — vocabulary changes touch one file</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">links resolve</div>
+    <div class="card-body"><code>[[wiki-links]]</code> are checked across files, not just spell-checked</div>
+  </div>
+</div>
+
+<div class="callout measure">
+  Adding a field to a note means adding it to that kind's schema <strong>first</strong>. Don't weaken the schema to accept a
+  non-conforming note — reshape the note, or extend the kind deliberately, with tests.
+</div>
+
+</section>
+
+{/* SLIDE 19 — what is canon */}
+
+<section class="vstack">
+
+<h2>What counts as canon</h2>
+
+<div class="statement statement-sm">Source authority beats local copies.</div>
+
+<div class="cards cards-4 measure-lg">
+  <div class="card">
+    <div class="card-title">IWC</div>
+    <div class="card-body">workflows belong in IWC</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">Tool Shed</div>
+    <div class="card-body">tool metadata belongs in the Shed and Galaxy's APIs</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">the CLI</div>
+    <div class="card-body">behavior belongs to the implementation, not a manual page</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">packages</div>
+    <div class="card-body">schemas belong where they can validate</div>
+  </div>
+</div>
+
+<div class="note">
+  The Foundry adds value by connecting, explaining, and operationalizing upstream knowledge. It should not compete with
+  upstream as the canonical home of it.
+</div>
+
+</section>
+
+{/* SLIDE 20 — so what does "using" upstream look like */}
+
+<section class="vstack vstack-tight">
+
+<h2>So upstream material is pinned, licensed, and framed</h2>
+
+<pre style="font-size: 0.42em; line-height: 1.55; text-align: left; margin: 0 auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`- local: content/research/galaxy-xsd/galaxy.xsd
+  source: $GALAXY/lib/galaxy/tool_util/xsd/galaxy.xsd
+  pinned_ref: 7765fae934fbfdee77e3be5f5b235e43735273ae
+  framing: content/research/galaxy-xsd/index.md
+  license: MIT
+  license_file: LICENSES/galaxy.LICENSE`}</code></pre>
+
+<div class="note">
+  A license attaches at the point of sync, and the sync script asserts the license file exists. Where upstream ships both
+  a structured source and a rendered form: <strong>agents read the structure, humans read the prose.</strong>
+</div>
+
+</section>
+
+{/* SLIDE 21 — IWC specifically: cited, not mirrored */}
+
+<section class="vstack">
+
+<h2>IWC is cited, not mirrored</h2>
+
+<div class="body measure">
+  No ingestion pipeline, no exemplar mirror, no runtime dependency on a local corpus. Patterns cite IWC workflows by URL
+  in the page body, pinned to a SHA when stability matters and to <code>main</code> when freshness does.
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">grep</div>
+    <div class="card-body">cheap; blind to step-pair and sequence structure</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">skeleton scan</div>
+    <div class="card-body">topology, control flow, tool sequences — all 120 fit in context</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">whole-workflow read</div>
+    <div class="card-body">expensive; reserved for parameter-level evidence</div>
+  </div>
+</div>
+
+<div class="note">Evidence tiers are how a claim earns <code>corpus-observed</code>. And what this gives up is written down too — a cited workflow can change shape without tripping any signal.</div>
+
+</section>
+
+{/* SLIDE 22 — the gap is upstream too */}
+
+<section class="vstack">
+
+<h2 class="plain-heading measure" style="font-size: 1.28em; line-height: 1.16;">
+  If the gap is upstream too, that's two contributions.
+</h2>
+
+<div class="body measure">
+  This is not a hypothetical — it is most of what the Foundry has produced. Every serious run surfaces something that
+  belongs in Planemo, <code>gxwf</code>, the IUC standards, or Galaxy itself.
+</div>
+
+<div class="callout measure">
+  Write the note so the Foundry stops tripping over it. Then file the issue or the PR so nobody else has to.
+</div>
+
+</section>
+
+{/* SLIDE 23 — the receipts */}
+
+<section>
+
+<img
+  class="fig fig-bleed"
+  src="/slides/foundry-pattern/iuc-standards-prs.png"
+  alt="Pull requests authored by jmchilton in galaxy-iuc/standards: best practices for restrictive licenses, remote execution and tool security checklists, follow-up documentation review, security corpus research deep-dives, Pulsar remote-execution compatibility docs, and Sphinx docs modernization"
+/>
+
+</section>
+
+{/* SLIDE 24 — the upstream docs case, concretely */}
+
+<section>
+
+<img
+  class="fig fig-bleed"
+  src="/slides/foundry-pattern/galaxy-issue-22200-workflow-semantics.png"
+  alt="Galaxy issue 22200, Workflow Semantics Documentation and Test Mapping, proposing actionable documentation that maps text descriptions to examples to specific test cases across the workflow editor, runtime, and CLI validation"
+/>
+
+</section>
+{/* ============================ THREE — THE AD HOC EXPLORER ============================ */}
+
+{/* SLIDE 25 — Part Three transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Part Three</div>
+
+<div class="statement statement-sm">
+  "What about users who don't really want a workflow up front? The ad hoc explorers, figuring out what they need one
+  step at a time — looking at a result before deciding what to do next."
+</div>
+
+</section>
+
+{/* SLIDE 26 — lead with the strongest form of the argument */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="statement">The ad hoc path may simply be better.</div>
+
+<div class="lede" style="font-style: italic;">Let me make that case before I defend anything.</div>
+
+</section>
+
+{/* SLIDE 27 — the four-part argument */}
+
+<section class="vstack">
+
+<h2>Why exploring beats specifying</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">You test piece by piece</div>
+    <div class="card-body">Each step runs on the real data before the next one is chosen. A result is ground truth; a validated draft step is a well-formed guess.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">You and the agent explore together</div>
+    <div class="card-body">The agent sees the same outputs you do. It can propose a hypothesis, run it, and read what came back.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">Hypotheses get tested, not declared</div>
+    <div class="card-body">"Does this filter leave enough peaks?" is answered by a number, not by a schema check.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">You can be redirected</div>
+    <div class="card-body">The analysis is allowed to change shape as you both learn. A pipeline's spine is fixed at phase one.</div>
+  </div>
+</div>
+
+</section>
+
+{/* SLIDE 28 — the sharpest contrast, stated against my own approach */}
+
+<section class="vstack">
+
+<h2 class="plain-heading measure" style="font-size: 1.26em; line-height: 1.16;">
+  The Foundry's pipelines construct from <em>intent</em>. Nothing runs until the end.
+</h2>
+
+<div class="split split-vs measure-lg">
+  <div class="panel">
+    <div class="card-eyebrow">construct</div>
+    <div class="card-title card-title-lg">needs only the intent</div>
+    <div class="card-body">every step is schema-valid, version-pinned, and unexecuted until the test tail</div>
+  </div>
+  <div class="split-mark">vs</div>
+  <div class="panel">
+    <div class="card-eyebrow">explore</div>
+    <div class="card-title card-title-lg">needs only the data</div>
+    <div class="card-body">every step is executed, and the next decision is made against what actually came out</div>
+  </div>
+</div>
+
+<div class="callout callout-warn measure" style="margin-top: 16px;">
+  A validated workflow that nobody has run is a strong hypothesis about an analysis. It is not the analysis.
+</div>
+
+</section>
+
+{/* SLIDE 29 — this is not hypothetical: the extraction results */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">And the ad hoc path already has results</div>
+
+<h2>Extraction from a real history</h2>
+
+<div class="split measure-lg">
+  <img
+    class="fig fig-fill fig-framed"
+    src="/slides/gcc2026/uc1-workflow-graph.png"
+    alt="Extracted fourteen-step mobile resistome workflow graph"
+  />
+  <div>
+    <div class="card-eyebrow">Example 1 · mobile resistome</div>
+    <div class="body" style="margin: 8px 0 0; max-width: none;">
+      Backward extraction from a four-isolate <em>S. aureus</em> notebook recovered a <strong>14-step</strong>,
+      sample-agnostic workflow.
+    </div>
+    <div class="chain" style="margin-top: 12px;">
+      <span>8 map-over steps</span>
+      <span class="chain-sep">·</span>
+      <span>9 outputs</span>
+      <span class="chain-sep">·</span>
+      <span>0 dangling inputs</span>
+    </div>
+    <div class="callout callout-sm" style="margin: 14px 0 0; max-width: none;">
+      Byte-identical re-run across all four isolates.
+    </div>
+  </div>
+</div>
+
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/8">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 30 — the second extraction result */}
+
+<section class="vstack vstack-tight">
+
+<h2>The numbers came back</h2>
+
+<div class="split split-wide-right measure-lg">
+  <div>
+    <div class="card-eyebrow">Example 2 · differential ATAC-seq</div>
+    <div class="body" style="margin: 8px 0 0; max-width: none;">
+      <strong>9</strong> extracted steps from a 590,650-peak universe. <strong>6</strong> workflow outputs,
+      <strong>0</strong> dangling inputs, <strong>0</strong> report repairs.
+    </div>
+    <div class="cards" style="gap: 10px; margin-top: 14px;">
+      <div class="card card-side card-note"><strong>45,620</strong> significant peaks reproduced</div>
+      <div class="card card-side card-gold card-note"><strong>34,873</strong> B-cell-gained · <strong>10,747</strong> erythroblast-gained</div>
+    </div>
+    <div class="note" style="margin: 12px 0 0; max-width: none;">Corces 2016 ATAC-seq atlas · erythroblast vs B-cell · hg19</div>
+  </div>
+  <img
+    class="fig fig-fill fig-tall fig-framed"
+    src="/slides/gcc2026/uc3-workflow-9step.png"
+    alt="Extracted nine-step differential ATAC-seq workflow"
+  />
+</div>
+
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/10">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 31 — the ad hoc pipeline that already exists */}
+
+<section class="vstack">
+
+<h2>History → Notebook → Workflow</h2>
+
+<div class="flow">
+  <div class="flow-node">History<br /><span style="font-weight: 400; font-size: 0.8em;">computational record</span></div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">Notebook<br /><span style="font-weight: 400; font-size: 0.8em;">communicative record</span></div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">Workflow<br /><span style="font-weight: 400; font-size: 0.8em;">reusable graph</span></div>
+</div>
+
+<div class="body measure" style="margin-top: 20px;">
+  The explorer never writes a workflow. They do the analysis, and the notebook names the outputs that mattered.
+  Galaxy walks the graph <strong>backward</strong> from those anchors.
+</div>
+
+<div class="callout measure">
+  Extraction got easier because the notebook already says which outputs count — and the extracted workflow arrives with
+  the story attached.
+</div>
+
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/9">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 32 — the two directions, stated fairly */}
+
+<section class="vstack">
+
+<h2>The same analysis, two directions</h2>
+
+<div class="body measure">
+  Example 2 was <strong>extracted</strong> from a completed run. A Foundry pipeline <strong>constructed</strong> the same
+  analysis from the same initial prompt — no history, no execution.
+</div>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title card-title-lg">extraction</div>
+    <div class="card-body">needs a completed run · pays for it in compute and in the explorer's time</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title card-title-lg">construction</div>
+    <div class="card-body">needs only the intent · pays for it in everything it cannot check</div>
+  </div>
+</div>
+
+<div class="statement statement-sm" style="margin-top: 18px;">
+  Both land on the same kind of validated, reproducible workflow.
+</div>
+
+<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/33">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 33 — so: individual skills, one at a time */}
+
+<section class="vstack">
+
+<div class="eyebrow">What the Foundry offers an explorer today</div>
+
+<h2 class="plain-heading measure" style="font-size: 1.26em; line-height: 1.16;">
+  A Mold is <em>one action</em>. The pipeline is only an ordering.
+</h2>
+
+<div class="body measure">
+  47 Molds cast to 47 skills; the 7 pipeline harnesses just declare a spine over them. Every skill installs and invokes
+  on its own, in the middle of whatever you were already doing.
+</div>
+
+<div class="cards cards-4 measure-lg">
+  <div class="card">
+    <div class="card-title">discover-shed-tool</div>
+    <div class="card-body">"is there a wrapper for this, and what pins it?"</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">summarize-galaxy-tool</div>
+    <div class="card-body">"what does this tool actually take and produce?"</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">find-test-data</div>
+    <div class="card-body">"what can I run this on right now?"</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">debug-galaxy-workflow-output</div>
+    <div class="card-body">"why did that result come out wrong?"</div>
+  </div>
+</div>
+
+</section>
+
+{/* SLIDE 34 — the install surface */}
+
+<section>
+
+<img
+  class="fig fig-bleed"
+  src="/slides/foundry-pattern/foundry-skills-install.png"
+  alt="Foundry usage page: install and run Foundry skills with Claude Code or Codex. Counters read 7 pipelines, 47 shared skills, 47 casts. Install snippets show the plugin marketplace add and install commands for Claude Code and the equivalent codex plugin commands, plus invoking a cast skill as /foundry-skills:summarize-nextflow"
+/>
+
+</section>
+
+{/* SLIDE 35 — skills built for the ad hoc path specifically */}
+
+<section class="vstack">
+
+<h2>Two skills built for exactly this user</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title card-title-lg">reproduciblify</div>
+    <div class="card-body">
+      Don't write the notebook and extract by hand. Let an agent rebuild the messy real history inside Galaxy — find
+      existing tools first, restructure with collections — until the notebook extracts cleanly.
+    </div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title card-title-lg">workflow reports</div>
+    <div class="card-body">
+      After a run, turn the invocation into a report with the same reproducibility guarantees. The same template
+      resolves against each invocation.
+    </div>
+  </div>
+</div>
+
+<div class="chain" style="margin-top: 16px;">
+  <a href="https://github.com/galaxyproject/galaxy-skills/pull/29">galaxy-skills#29</a>
+  <span class="chain-sep">·</span>
+  <a href="https://github.com/galaxyproject/galaxy-skills/pull/14">galaxy-skills#14</a>
+</div>
+
+<div class="note">These are hand-authored Galaxy skills, not Foundry casts. Both directions are being built.</div>
+
+</section>
+
+{/* SLIDE 36 — under-determination is already typed */}
+
+<section class="vstack">
+
+<h2>Under-determination is already a typed state</h2>
+
+<div class="body measure">
+  The <code>galaxy-workflow-draft</code> format is gxformat2 with wrapper-tier relaxations and free-text planning fields —
+  sized to the gap between "I know the shape of the analysis" and "every step is tool-resolved."
+</div>
+
+<div class="callout measure">
+  That is the explorer's natural artifact. Not a finished workflow, not a blank page — a workflow that is
+  <strong>honest about which steps are still drafty</strong>.
+</div>
+
+<a class="ref-link" href="https://jmchilton.net/slides/gcc2026-lightning/">
+  The Galaxy Workflow Draft Format · GCC 2026 ↗
+</a>
+
+</section>
+
+{/* SLIDE 37 — being redirected, as an existing pipeline */}
+
+<section class="vstack">
+
+<div class="eyebrow">Redirection already has a pipeline</div>
+
+<h2>UPDATE-INTERVIEW → GALAXY</h2>
+
+<div class="body measure">
+  Look at the result, say what should change, see the change as a reviewable diff. Swap a tool, bump a version, add a
+  step, retune a parameter, expose an output.
+</div>
+
+<div class="cards measure-lg" style="gap: 11px;">
+  <div class="card card-side card-note">The change-set is <strong>step-anchored and reviewable</strong> — the human approval gate.</div>
+  <div class="card card-side card-gold card-note">Untouched steps ride through byte-stable; only the edits become drafty.</div>
+  <div class="card card-side card-grey card-note">The workflow's shipped tests become a <em>meaningful</em> regression baseline.</div>
+</div>
+
+<div class="note">One turn of an ad hoc loop, with provenance. What it doesn't do is start from a history.</div>
+
+</section>
+
+{/* SLIDE 38 — the loop back: transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="statement">Ad hoc work is where the knowledge comes from.</div>
+
+<div class="lede" style="font-style: italic;">The Foundry is how it stops being re-learned.</div>
+
+</section>
+
+{/* SLIDE 39 — the four concrete loops back */}
+
+<section class="vstack">
+
+<h2>How exploration feeds the corpus</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">a move you made twice</div>
+    <div class="card-body">becomes a <strong>Pattern</strong> — when-to-use guidance, pitfalls, exemplar links</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">a repair you kept making</div>
+    <div class="card-body">becomes a <strong>Mold refinement</strong>, and every cast skill inherits it at once</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">a workflow you extracted</div>
+    <div class="card-body">becomes <strong>corpus evidence</strong> — the exemplars patterns cite</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">a gotcha you hit</div>
+    <div class="card-body">becomes a <strong>research note</strong> many Molds can reference</div>
+  </div>
+</div>
+
+<div class="note">Every one of those is a note in a repository, not a paragraph appended to a skill.</div>
+
+</section>
+
+{/* SLIDE 40 — the loop is already typed: evidence promotion */}
+
+<section class="vstack">
+
+<h2>The loop has a type system</h2>
+
+<div class="flow">
+  <div class="flow-node flow-node-muted">hypothesis</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">corpus-observed</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">cast-validated</div>
+</div>
+
+<div class="body measure" style="margin-top: 20px;">
+  A claim from one ad hoc session enters as a <code>hypothesis</code> and owes a <code>verification</code> plan. Seeing it
+  hold across real workflows promotes it to <code>corpus-observed</code>. Surviving a cast and a run makes it
+  <code>cast-validated</code>.
+</div>
+
+<div class="callout measure">
+  So an explorer's hunch is welcome in the knowledge base immediately — <strong>labelled as a hunch</strong>, with a stated
+  way to earn its promotion.
+</div>
+
+</section>
+
+{/* SLIDE 41 — the ledger as a worklist */}
+
+<section class="vstack">
+
+<h2>And the failures are a worklist</h2>
+
+<div class="body measure">
+  Every surrendered ledger entry names something the corpus could not supply — a tool with no exemplar, a parameter
+  nothing pinned, an output nothing could compute.
+</div>
+
+<div class="flow">
+  <div class="flow-node">surrendered entry</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">someone explores it</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">note, pattern, or upstream issue</div>
+</div>
+
+<div class="note" style="margin-top: 18px;">
+  This is the honest version of "the pipeline failed": a named gap that tells an explorer exactly where to point a
+  session.
+</div>
+
+</section>
+
+{/* SLIDE 42 — what is genuinely missing */}
+
+<section class="vstack">
+
+<h2>What is genuinely missing</h2>
+
+<div class="body measure">
+  A path where the workflow is the <strong>output of exploration rather than its premise</strong> — work in a history, look
+  at each result, settle one step at a time, with the same validation and provenance the greenfield paths get.
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card card-faint">
+    <div class="card-title">have</div>
+    <div class="card-body">source → workflow · workflow → edited workflow · history → notebook → workflow</div>
+  </div>
+  <div class="card card-warn">
+    <div class="card-title">don't have</div>
+    <div class="card-body">a Foundry pipeline whose unit of work is the <em>next</em> step, chosen after seeing the last result</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">already built</div>
+    <div class="card-body">the draft format, the ledger, the per-step advance loop, the change-set gate</div>
+  </div>
+</div>
+
+<div class="callout callout-sm">
+  The machinery exists. What's missing is the pipeline that treats a running history as the source.
+</div>
+
+</section>
+
+{/* SLIDE 43 — close Part Two on the honest answer */}
+
+<section class="vstack">
+
+<h2 class="plain-heading measure" style="font-size: 1.24em; line-height: 1.18;">
+  So: do ad hoc explorers benefit from curated skills?
+</h2>
+
+<div class="cards measure-lg" style="gap: 12px;">
+  <div class="card card-side card-note">
+    <strong>Yes, one skill at a time</strong> — discovery, summarization, test data, debugging, all invocable mid-session.
+  </div>
+  <div class="card card-side card-gold card-note">
+    <strong>And they pay it back</strong> — their sessions are where patterns, exemplars, and gotchas actually come from.
+  </div>
+  <div class="card card-side card-grey card-note">
+    <strong>But not through a pipeline yet.</strong> That one I owe you.
+  </div>
+</div>
+
+</section>
+{/* ============================ FOUR — MOLDS AND CASTING ============================ */}
+
+{/* SLIDE 44 — Part Four transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Part Four</div>
+
+<div class="statement">"How does casting actually work? What does a Mold look like?"</div>
+
+</section>
+
+{/* SLIDE 45 — a real Mold, frontmatter first */}
+
+<section class="vstack vstack-tight">
+
+<h2>A Mold is frontmatter plus a procedure</h2>
+
+<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin: 0 auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`type: mold
+name: interview-to-galaxy-workflow-changeset
+axis: source-specific
+source: interview
+target: galaxy
+summary: "Interview a user against an existing Galaxy workflow summary
+          and emit a reviewable, step-anchored change-set."
+
+input_artifacts:
+  - id: summary-galaxy-workflow
+  - id: open-requirements-ledger
+
+output_artifacts:
+  - id: galaxy-workflow-changeset
+    kind: markdown
+    default_filename: galaxy-workflow-changeset.md`}</code></pre>
+
+<div class="note">The body below the frontmatter is the procedure — and it is the only thing a human writes twice.</div>
+
+</section>
+
+{/* SLIDE 46 — the typed reference */}
+
+<section class="vstack vstack-tight">
+
+<h2>Every reference carries its own decisions</h2>
+
+<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin: 0 auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`references:
+  - kind: research
+    ref: "[[open-requirements-ledger]]"
+    used_at: runtime
+    load: upfront
+    mode: verbatim
+    evidence: hypothesis
+    purpose: "Record an unsupportable request as an open entry, so it
+              survives as a tracked obligation rather than a fabricated
+              anchor or a silent drop."
+    verification: "Promote after a worked run shows entries this Mold
+                   appends are consumed downstream without re-derivation."`}</code></pre>
+
+<div class="note"><code>verification</code> is <em>required</em> when evidence is <code>hypothesis</code>. <code>trigger</code> is required when load is <code>on-demand</code>. The schema refuses the shortcut.</div>
+
+</section>
+
+{/* SLIDE 47 — the three casting decisions */}
+
+<section class="vstack">
+
+<h2>Three decisions decide how a reference is packaged</h2>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">used_at</div>
+    <div class="card-body">cast time, runtime, or both — whether the agent ever sees it at all</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">load</div>
+    <div class="card-body">upfront, or on-demand behind a declared <code>trigger</code></div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">mode</div>
+    <div class="card-body">verbatim into the body, or a sidecar file the agent opens when it needs it</div>
+  </div>
+</div>
+
+<div class="callout measure">
+  This is progressive disclosure as a <strong>compile-time contract</strong>. <code>discover-shed-tool</code> gets its
+  output schema upfront and its four notes on demand — so the Tool Shed indexing gotchas cost nothing until search
+  results actually look wrong.
+</div>
+
+<div class="note">The evidence tier from Part Three rides on the same entry: what it is, when it loads, how it lands, and how much we trust it.</div>
+
+</section>
+
+{/* SLIDE 48 — casting is per-kind dispatch */}
+
+<section class="vstack vstack-tight">
+
+<h2>Casting is per-kind dispatch</h2>
+
+<div class="cards cards-3 measure-lg" style="gap: 12px;">
+  <div class="card">
+    <div class="card-title">pattern · research</div>
+    <div class="card-body">verbatim copy into <code>references/</code></div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">cli-command</div>
+    <div class="card-body">deterministic JSON sidecar from registry metadata</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">schema</div>
+    <div class="card-body">the named package export, imported at build time and serialized</div>
+  </div>
+</div>
+
+<div class="body measure" style="margin-top: 16px;">
+  Which path a kind takes is not knowledge the caster holds. Each kind declares its own <code>cast:</code> block —
+  resolve strategy, default mode, slug field — in <code>reference_contract.yml</code>.
+</div>
+
+<div class="note">A kind with no <code>cast:</code> block is not castable. That is how <code>example</code> is refused today, without a second list inside the caster to keep in step.</div>
+
+</section>
+
+{/* SLIDE 49 — what lands in the bundle */}
+
+<section class="vstack vstack-tight">
+
+<h2>What actually lands in the bundle</h2>
+
+<pre style="font-size: 0.44em; line-height: 1.6; text-align: left; margin: 0 auto; max-width: 32em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`casts/claude/skills/discover-shed-tool/
+  SKILL.md                 rendered from the Mold, never hand-edited
+  _provenance.json         what was cast, from where, at which hash
+  _required_tools.json     the CLI it needs, and how to check for it
+  _verify.json             how to validate what it emits
+  references/
+    schemas/               loaded upfront
+    cli/                   sidecars, loaded on demand
+    notes/                 loaded on demand`}</code></pre>
+
+<div class="note">Isolated: no links back to the Foundry, no runtime dependency on it. Casting <em>is</em> the integration boundary.</div>
+
+</section>
+
+{/* SLIDE 50 — the provenance record */}
+
+<section class="vstack vstack-tight">
+
+<h2>The build log, in full</h2>
+
+<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin: 0 auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`"mold": {
+  "name": "discover-shed-tool",
+  "revision": 5,
+  "content_hash": "05c99cbac2ec6a4d130b0620...",
+  "commit": "0f259e8516b9dfb282362c7dc98b7a47ac39884f"
+},
+"refs": [{
+  "kind": "cli-command",  "mode": "sidecar",
+  "src": "content/cli/gxwf/tool-revisions.md",
+  "dst": "references/cli/tool-revisions.json",
+  "evidence": "corpus-observed",  "source": "deterministic",
+  "src_hash": "82061af5970f0f...",  "dst_hash": "db0b13f2b925..."
+}]`}</code></pre>
+
+<div class="note">Every reference, hashed on both sides. Not "the model probably knew this" — <em>this came from here, at this commit</em>.</div>
+
+</section>
+
+{/* SLIDE 51 — deterministic all the way down */}
+
+<section class="vstack">
+
+<h2 class="plain-heading measure" style="font-size: 1.28em; line-height: 1.16;">
+  There is no LLM phase in casting.
+</h2>
+
+<div class="body measure">
+  Every reference is copied or built mechanically, so a re-cast of an unchanged Mold is <strong>byte-identical</strong>.
+  That is what turns <code>--check</code> into a gate instead of a diff review.
+</div>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-title">manual</div>
+    <div class="card-body"><code>npm run cast -- &lt;slug&gt; --target=claude</code></div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">CI</div>
+    <div class="card-body">a PR touching a Mold re-casts it and surfaces the diff in review</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">drift gates</div>
+    <div class="card-body"><code>make check-casts</code> rejects hash drift, missing files, stale <code>SKILL.md</code></div>
+  </div>
+</div>
+
+<div class="callout callout-sm">
+  If a cast looks under-instructed, you do not fix the skill. You fix the Mold or its references and cast again.
+</div>
+
+</section>
+{/* ============================ FIVE — BIOPIXI ============================ */}
+
+{/* SLIDE 52 — Part Five transition */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Part Five</div>
+
+<div class="statement">"How does Biopixi relate to the Foundry, if it does? Or to Galaxy, if it does?"</div>
+
+</section>
+
+{/* SLIDE 53 — biopixi is its own thing */}
+
+<section data-background-color="#f8fbfa">
+
+<div class="split split-wide-left measure-lg" style="align-items: center;">
+  <div>
+    <div class="eyebrow eyebrow-left" style="color: #147f90;">Neither. And both.</div>
+    <div style="color: #0b2f55; font-size: 1.4em; font-weight: 900; letter-spacing: -0.04em; line-height: 1.02; margin-top: 14px;">Biopixi is a<br />separate project.</div>
+    <div style="color: #415e70; font-size: var(--fs-small); line-height: 1.5; margin-top: 18px; max-width: 26em;">A specification and grader for reproducible, lightweight environments. It scores a <code>pixi.toml</code> on the L0–L4 portability ladder. No Foundry required to use it.</div>
+    <a class="ref-link" href="https://jmchilton.github.io/biopixi/#/" style="color: #123e6f; border-bottom-color: #269bad; margin-top: 22px;">jmchilton.github.io/biopixi ↗</a>
+  </div>
+  <img
+    class="fig fig-fill fig-tall"
+    src="/slides/foundry-pattern/biopixi-mark-transparent.png"
+    alt="Biopixi DNA firefly mark"
+    style="filter: drop-shadow(0 1.8em 2.2em rgba(11, 47, 85, 0.18));"
+  />
+</div>
+
+</section>
+
+{/* SLIDE 54 — the ladder */}
+
+<section class="vstack vstack-tight" data-background-color="#f8fbfa">
+
+<img
+  class="fig fig-bleed"
+  src="/slides/foundry-pattern/biopixi-ladder-infographic.svg"
+  alt="Biopixi ladder from a useful local Pixi environment to a community-published and observed BioContainer"
+  style="max-height: 15.5em;"
+/>
+
+<div class="note">
+  L1–L3 are decidable from the lockfile. L4 needs a publication candidate that was actually <em>observed</em>, so it cannot
+  be assigned offline.
+</div>
+
+</section>
+
+{/* SLIDE 55 — how it relates to the Foundry */}
+
+<section class="vstack">
+
+<h2>How it reaches the Foundry</h2>
+
+<div class="body measure">
+  The TDA Bioinformatics Foundry — the third instance — consumes Biopixi as a <strong>typed note kind</strong>. An
+  Environment is a note, and its portability grade is a field on that note.
+</div>
+
+<div class="statement statement-sm">Installing is a measurement.</div>
+
+<div class="body measure">
+  A writeup of a tool is not knowledge about the tool until something can run it. Building those environments surfaced
+  unsolvable dependency closures, absent channels, a build needing <code>cmake &lt;4</code>, and a package name already
+  taken by something unrelated — none of which reading would have found.
+</div>
+
+<div class="callout callout-sm measure">
+  The grade is about the environment. It is <strong>not</strong> the Foundry's scientific acceptance check — those stay
+  separate on purpose.
+</div>
+
+</section>
+
+{/* SLIDE 56 — how it relates to Galaxy */}
+
+<section class="vstack">
+
+<h2>How it reaches Galaxy</h2>
+
+<div class="flow">
+  <div class="flow-node">pixi environment</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">conda recipe</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">published container</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node flow-node-muted">Galaxy tool requirements</div>
+</div>
+
+<div class="body measure" style="margin-top: 20px;">
+  The ladder's top rung is a community-published, observed BioContainer — which is the road a Galaxy tool's dependencies
+  already travel. Biopixi grades how far along that road a method has actually gotten, and a conda recipe is written
+  where the public channels carry nothing recent enough.
+</div>
+
+<div class="note">
+  So: not a Galaxy component, and not part of the Foundry Pattern. A shared rung that a Foundry can type and Galaxy can
+  consume.
+</div>
+
+</section>
+{/* ============================ CLOSE ============================ */}
+
+{/* SLIDE 57 — the through-line */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="statement">The same answer, five times.</div>
+
+<div class="lede">
+  A gap gets <em>named</em> rather than filled in — in a ledger entry, in a draft step, in a portability grade, in an
+  evidence tier, in an upstream issue.
+</div>
+
+</section>
+
+{/* SLIDE 58 — links */}
+
+<section class="vstack">
+
+<h2>Links</h2>
+
+<div class="cards cards-2 measure-lg" style="gap: 12px;">
+  <div class="card card-side">
+    <a class="card-title card-title-lg" style="display: block;" href="https://jmchilton.net/slides/foundry-pattern/">The Foundry Pattern talk ↗</a>
+    <div class="card-body">August 13, 2026</div>
+  </div>
+  <div class="card card-side card-gold">
+    <a class="card-title card-title-lg" style="display: block;" href="https://galaxyproject.github.io/foundry-pattern/">foundry-pattern ↗</a>
+    <div class="card-body">the stack-neutral pattern</div>
+  </div>
+  <div class="card card-side card-gold">
+    <a class="card-title card-title-lg" style="display: block;" href="https://galaxyproject.github.io/foundry/">Workflow Foundry ↗</a>
+    <div class="card-body">Molds, pipelines, patterns, casts</div>
+  </div>
+  <div class="card card-side card-grey">
+    <a class="card-title card-title-lg" style="display: block;" href="https://jmchilton.github.io/biopixi/#/">biopixi ↗</a>
+    <div class="card-body">the L0–L4 portability ladder</div>
+  </div>
+</div>
+
+<div class="source">John Chilton · Galaxy ML Lab Meeting · August 27, 2026</div>
+
+</section>
