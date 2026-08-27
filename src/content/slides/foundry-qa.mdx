@@ -713,18 +713,19 @@ output_artifacts:
 
 <pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`references:
   - kind: research
-    ref: "[[open-requirements-ledger]]"
+    ref: "[[galaxy-collection-semantics]]"
     used_at: runtime
-    load: upfront
+    load: on-demand
     mode: verbatim
-    evidence: hypothesis
-    purpose: "Record an unsupportable request as an open entry, so it
-              survives as a tracked obligation rather than a fabricated
-              anchor or a silent drop."
-    verification: "Promote after a worked run shows entries this Mold
-                   appends are consumed downstream without re-derivation."`}</code></pre>
+    evidence: corpus-observed
+    purpose: "Choose Galaxy collection input shapes (File / list / paired /
+              list:paired / record) from the source's per-sample, paired,
+              grouped, or nested data descriptions."
+    trigger: "When the summary describes paired reads, per-sample groups,
+              nested or grouped inputs, or any input that should become a
+              Galaxy dataset collection."`}</code></pre>
 
-<div class="note"><code>verification</code> is <em>required</em> when evidence is <code>hypothesis</code>. <code>trigger</code> is required when load is <code>on-demand</code>. The schema refuses the shortcut.</div>
+<div class="note"><code>trigger</code> is <em>required</em> when load is <code>on-demand</code>; <code>verification</code> is required when evidence is still <code>hypothesis</code>. The schema refuses the shortcut.</div>
 
 </section>
 
@@ -833,42 +834,9 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 35 — deterministic all the way down */}
-
-<section class="vstack">
-
-<h2 class="plain-heading measure" style="font-size: 1.28em; line-height: 1.16;">
-  There is no LLM phase in casting.
-</h2>
-
-<div class="body measure">
-  Every reference is copied or built mechanically, so a re-cast of an unchanged Mold is <strong>byte-identical</strong>.
-  That is what turns <code>--check</code> into a gate instead of a diff review.
-</div>
-
-<div class="cards cards-3 measure-lg">
-  <div class="card">
-    <div class="card-title">manual</div>
-    <div class="card-body"><code>npm run cast -- &lt;slug&gt; --target=claude</code></div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">CI</div>
-    <div class="card-body">a PR touching a Mold re-casts it and surfaces the diff in review</div>
-  </div>
-  <div class="card card-grey">
-    <div class="card-title">drift gates</div>
-    <div class="card-body"><code>make check-casts</code> rejects hash drift, missing files, stale <code>SKILL.md</code></div>
-  </div>
-</div>
-
-<div class="callout callout-sm">
-  If a cast looks under-instructed, you do not fix the skill. You fix the Mold or its references and cast again.
-</div>
-
-</section>
 {/* ============================ FIVE — BIOPIXI ============================ */}
 
-{/* SLIDE 36 — Part Five transition */}
+{/* SLIDE 35 — Part Five transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -878,7 +846,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 37 — biopixi is its own thing */}
+{/* SLIDE 36 — biopixi is its own thing */}
 
 <section data-background-color="#f8fbfa">
 
@@ -899,7 +867,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 38 — the ladder */}
+{/* SLIDE 37 — the ladder */}
 
 <section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
@@ -917,7 +885,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 39 — how it relates to the Foundry */}
+{/* SLIDE 38 — how it relates to the Foundry */}
 
 <section class="vstack">
 
@@ -943,7 +911,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 40 — how it relates to Galaxy */}
+{/* SLIDE 39 — how it relates to Galaxy */}
 
 <section class="vstack">
 
@@ -973,7 +941,7 @@ output_artifacts:
 </section>
 {/* ============================ CLOSE ============================ */}
 
-{/* SLIDE 41 — the through-line */}
+{/* SLIDE 40 — the through-line */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -986,7 +954,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 42 — links */}
+{/* SLIDE 41 — links */}
 
 <section class="vstack">
 
