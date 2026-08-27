@@ -529,7 +529,7 @@ theme: 'galaxy'
     alt="Extracted fourteen-step mobile resistome workflow graph"
   />
   <div>
-    <div class="card-eyebrow">Example 1 · mobile resistome</div>
+    <div class="card-eyebrow">mobile resistome · four S. aureus isolates</div>
     <div class="body" style="margin: 8px 0 0; max-width: none;">
       Backward extraction from a four-isolate <em>S. aureus</em> notebook recovered a <strong>14-step</strong>,
       sample-agnostic workflow.
@@ -551,37 +551,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 23 — the second extraction result */}
-
-<section class="vstack vstack-tight">
-
-<h2>The numbers came back</h2>
-
-<div class="split split-wide-right measure-lg">
-  <div>
-    <div class="card-eyebrow">Example 2 · differential ATAC-seq</div>
-    <div class="body" style="margin: 8px 0 0; max-width: none;">
-      <strong>9</strong> extracted steps from a 590,650-peak universe. <strong>6</strong> workflow outputs,
-      <strong>0</strong> dangling inputs, <strong>0</strong> report repairs.
-    </div>
-    <div class="cards" style="gap: 10px; margin-top: 14px;">
-      <div class="card card-side card-note"><strong>45,620</strong> significant peaks reproduced</div>
-      <div class="card card-side card-gold card-note"><strong>34,873</strong> B-cell-gained · <strong>10,747</strong> erythroblast-gained</div>
-    </div>
-    <div class="note" style="margin: 12px 0 0; max-width: none;">Corces 2016 ATAC-seq atlas · erythroblast vs B-cell · hg19</div>
-  </div>
-  <img
-    class="fig fig-fill fig-tall fig-framed"
-    src="/slides/gcc2026/uc3-workflow-9step.png"
-    alt="Extracted nine-step differential ATAC-seq workflow"
-  />
-</div>
-
-<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/10">GCC 2026 source slide ↗</a>
-
-</section>
-
-{/* SLIDE 24 — the ad hoc pipeline that already exists */}
+{/* SLIDE 23 — the ad hoc pipeline that already exists */}
 
 <section class="vstack">
 
@@ -595,11 +565,6 @@ theme: 'galaxy'
   <div class="flow-node">Workflow<br /><span style="font-weight: 400; font-size: 0.8em;">reusable graph</span></div>
 </div>
 
-<div class="body measure" style="margin-top: 20px;">
-  The explorer never writes a workflow. They do the analysis, and the notebook names the outputs that mattered.
-  Galaxy walks the graph <strong>backward</strong> from those anchors.
-</div>
-
 <div class="callout measure">
   Extraction got easier because the notebook already says which outputs count — and the extracted workflow arrives with
   the story attached.
@@ -609,37 +574,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 25 — the two directions, stated fairly */}
-
-<section class="vstack">
-
-<h2>The same analysis, two directions</h2>
-
-<div class="body measure">
-  Example 2 was <strong>extracted</strong> from a completed run. A Foundry pipeline <strong>constructed</strong> the same
-  analysis from the same initial prompt — no history, no execution.
-</div>
-
-<div class="cards cards-2 measure-lg">
-  <div class="card">
-    <div class="card-title card-title-lg">extraction</div>
-    <div class="card-body">needs a completed run · pays for it in compute and in the explorer's time</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title card-title-lg">construction</div>
-    <div class="card-body">needs only the intent · pays for it in everything it cannot check</div>
-  </div>
-</div>
-
-<div class="statement statement-sm" style="margin-top: 18px;">
-  Both land on the same kind of validated, reproducible workflow.
-</div>
-
-<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/33">GCC 2026 source slide ↗</a>
-
-</section>
-
-{/* SLIDE 26 — so: individual skills, one at a time */}
+{/* SLIDE 24 — so: individual skills, one at a time */}
 
 <section class="vstack">
 
@@ -675,7 +610,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 27 — the install surface */}
+{/* SLIDE 25 — the install surface */}
 
 <section>
 
@@ -687,62 +622,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 28 — skills built for the ad hoc path specifically */}
-
-<section class="vstack">
-
-<h2>Two skills built for exactly this user</h2>
-
-<div class="cards cards-2 measure-lg">
-  <div class="card">
-    <div class="card-title card-title-lg">reproduciblify</div>
-    <div class="card-body">
-      Don't write the notebook and extract by hand. Let an agent rebuild the messy real history inside Galaxy — find
-      existing tools first, restructure with collections — until the notebook extracts cleanly.
-    </div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title card-title-lg">workflow reports</div>
-    <div class="card-body">
-      After a run, turn the invocation into a report with the same reproducibility guarantees. The same template
-      resolves against each invocation.
-    </div>
-  </div>
-</div>
-
-<div class="chain" style="margin-top: 16px;">
-  <a href="https://github.com/galaxyproject/galaxy-skills/pull/29">galaxy-skills#29</a>
-  <span class="chain-sep">·</span>
-  <a href="https://github.com/galaxyproject/galaxy-skills/pull/14">galaxy-skills#14</a>
-</div>
-
-<div class="note">These are hand-authored Galaxy skills, not Foundry casts. Both directions are being built.</div>
-
-</section>
-
-{/* SLIDE 29 — under-determination is already typed */}
-
-<section class="vstack">
-
-<h2>Under-determination is already a typed state</h2>
-
-<div class="body measure">
-  The <code>galaxy-workflow-draft</code> format is gxformat2 with wrapper-tier relaxations and free-text planning fields —
-  sized to the gap between "I know the shape of the analysis" and "every step is tool-resolved."
-</div>
-
-<div class="callout measure">
-  That is the explorer's natural artifact. Not a finished workflow, not a blank page — a workflow that is
-  <strong>honest about which steps are still drafty</strong>.
-</div>
-
-<a class="ref-link" href="https://jmchilton.net/slides/gcc2026-lightning/">
-  The Galaxy Workflow Draft Format · GCC 2026 ↗
-</a>
-
-</section>
-
-{/* SLIDE 30 — being redirected, as an existing pipeline */}
+{/* SLIDE 26 — being redirected, as an existing pipeline */}
 
 <section class="vstack">
 
@@ -765,131 +645,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 31 — the loop back: transition */}
-
-<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
-
-<div class="statement">Ad hoc work is where the knowledge comes from.</div>
-
-<div class="lede" style="font-style: italic;">The Foundry is how it stops being re-learned.</div>
-
-</section>
-
-{/* SLIDE 32 — the four concrete loops back */}
-
-<section class="vstack">
-
-<h2>How exploration feeds the corpus</h2>
-
-<div class="cards cards-2 measure-lg">
-  <div class="card">
-    <div class="card-title">a move you made twice</div>
-    <div class="card-body">becomes a <strong>Pattern</strong> — when-to-use guidance, pitfalls, exemplar links</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">a repair you kept making</div>
-    <div class="card-body">becomes a <strong>Mold refinement</strong>, and every cast skill inherits it at once</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">a workflow you extracted</div>
-    <div class="card-body">becomes <strong>corpus evidence</strong> — the exemplars patterns cite</div>
-  </div>
-  <div class="card card-grey">
-    <div class="card-title">a gotcha you hit</div>
-    <div class="card-body">becomes a <strong>research note</strong> many Molds can reference</div>
-  </div>
-</div>
-
-<div class="note">Every one of those is a note in a repository, not a paragraph appended to a skill.</div>
-
-</section>
-
-{/* SLIDE 33 — the loop is already typed: evidence promotion */}
-
-<section class="vstack">
-
-<h2>The loop has a type system</h2>
-
-<div class="flow">
-  <div class="flow-node flow-node-muted">hypothesis</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node">corpus-observed</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node">cast-validated</div>
-</div>
-
-<div class="body measure" style="margin-top: 20px;">
-  A claim from one ad hoc session enters as a <code>hypothesis</code> and owes a <code>verification</code> plan. Seeing it
-  hold across real workflows promotes it to <code>corpus-observed</code>. Surviving a cast and a run makes it
-  <code>cast-validated</code>.
-</div>
-
-<div class="callout measure">
-  So an explorer's hunch is welcome in the knowledge base immediately — <strong>labelled as a hunch</strong>, with a stated
-  way to earn its promotion.
-</div>
-
-</section>
-
-{/* SLIDE 34 — the ledger as a worklist */}
-
-<section class="vstack">
-
-<h2>And the failures are a worklist</h2>
-
-<div class="body measure">
-  Every surrendered ledger entry names something the corpus could not supply — a tool with no exemplar, a parameter
-  nothing pinned, an output nothing could compute.
-</div>
-
-<div class="flow">
-  <div class="flow-node">surrendered entry</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node">someone explores it</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node">note, pattern, or upstream issue</div>
-</div>
-
-<div class="note" style="margin-top: 18px;">
-  This is the honest version of "the pipeline failed": a named gap that tells an explorer exactly where to point a
-  session.
-</div>
-
-</section>
-
-{/* SLIDE 35 — what is genuinely missing */}
-
-<section class="vstack">
-
-<h2>What is genuinely missing</h2>
-
-<div class="body measure">
-  A path where the workflow is the <strong>output of exploration rather than its premise</strong> — work in a history, look
-  at each result, settle one step at a time, with the same validation and provenance the greenfield paths get.
-</div>
-
-<div class="cards cards-3 measure-lg">
-  <div class="card card-faint">
-    <div class="card-title">have</div>
-    <div class="card-body">source → workflow · workflow → edited workflow · history → notebook → workflow</div>
-  </div>
-  <div class="card card-warn">
-    <div class="card-title">don't have</div>
-    <div class="card-body">a Foundry pipeline whose unit of work is the <em>next</em> step, chosen after seeing the last result</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">already built</div>
-    <div class="card-body">the draft format, the ledger, the per-step advance loop, the change-set gate</div>
-  </div>
-</div>
-
-<div class="callout callout-sm">
-  The machinery exists. What's missing is the pipeline that treats a running history as the source.
-</div>
-
-</section>
-
-{/* SLIDE 36 — close Part Two on the honest answer */}
+{/* SLIDE 27 — close Part Three on the honest answer */}
 
 <section class="vstack">
 
@@ -912,7 +668,7 @@ theme: 'galaxy'
 </section>
 {/* ============================ FOUR — MOLDS AND CASTING ============================ */}
 
-{/* SLIDE 37 — Part Four transition */}
+{/* SLIDE 28 — Part Four transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -922,7 +678,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 38 — a real Mold, frontmatter first */}
+{/* SLIDE 29 — a real Mold, frontmatter first */}
 
 <section class="vstack vstack-tight">
 
@@ -949,7 +705,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 39 — the typed reference */}
+{/* SLIDE 30 — the typed reference */}
 
 <section class="vstack vstack-tight">
 
@@ -972,7 +728,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 40 — the three casting decisions */}
+{/* SLIDE 31 — the three casting decisions */}
 
 <section class="vstack">
 
@@ -999,11 +755,11 @@ output_artifacts:
   results actually look wrong.
 </div>
 
-<div class="note">The evidence tier from Part Three rides on the same entry: what it is, when it loads, how it lands, and how much we trust it.</div>
+<div class="note">And <code>evidence</code> rides on the same entry — so one line says what a reference is, when it loads, how it lands, and how much we trust it.</div>
 
 </section>
 
-{/* SLIDE 41 — casting is per-kind dispatch */}
+{/* SLIDE 32 — casting is per-kind dispatch */}
 
 <section class="vstack vstack-tight">
 
@@ -1033,7 +789,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 42 — what lands in the bundle */}
+{/* SLIDE 33 — what lands in the bundle */}
 
 <section class="vstack vstack-tight">
 
@@ -1053,7 +809,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 43 — the provenance record */}
+{/* SLIDE 34 — the provenance record */}
 
 <section class="vstack vstack-tight">
 
@@ -1077,7 +833,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 44 — deterministic all the way down */}
+{/* SLIDE 35 — deterministic all the way down */}
 
 <section class="vstack">
 
@@ -1112,7 +868,7 @@ output_artifacts:
 </section>
 {/* ============================ FIVE — BIOPIXI ============================ */}
 
-{/* SLIDE 45 — Part Five transition */}
+{/* SLIDE 36 — Part Five transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1122,7 +878,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 46 — biopixi is its own thing */}
+{/* SLIDE 37 — biopixi is its own thing */}
 
 <section data-background-color="#f8fbfa">
 
@@ -1143,7 +899,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 47 — the ladder */}
+{/* SLIDE 38 — the ladder */}
 
 <section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
@@ -1161,7 +917,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 48 — how it relates to the Foundry */}
+{/* SLIDE 39 — how it relates to the Foundry */}
 
 <section class="vstack">
 
@@ -1187,7 +943,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 49 — how it relates to Galaxy */}
+{/* SLIDE 40 — how it relates to Galaxy */}
 
 <section class="vstack">
 
@@ -1217,7 +973,7 @@ output_artifacts:
 </section>
 {/* ============================ CLOSE ============================ */}
 
-{/* SLIDE 50 — the through-line */}
+{/* SLIDE 41 — the through-line */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1230,7 +986,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 51 — links */}
+{/* SLIDE 42 — links */}
 
 <section class="vstack">
 
