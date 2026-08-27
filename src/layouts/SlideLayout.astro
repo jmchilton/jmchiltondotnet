@@ -218,15 +218,20 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         padding-bottom: 0;
       }
 
-      /* Inline code -> light-blue pill; code blocks -> navy */
+      /* Inline code -> light-blue pill; code blocks -> navy.
+
+         `:not(.code-block)` keeps these off the code-block component below.
+         They out-specify it (attribute + type beats its second class), so
+         without the exclusion the legacy paint would win on the component's own
+         children. */
       .reveal[data-theme='galaxy'] code {
         background: #edf4fa;
         color: #2c3143;
       }
-      .reveal[data-theme='galaxy'] pre {
+      .reveal[data-theme='galaxy'] pre:not(.code-block) {
         border-color: #d6dbe2;
       }
-      .reveal[data-theme='galaxy'] pre code {
+      .reveal[data-theme='galaxy'] pre:not(.code-block) code {
         background: #2c3143;
         color: #e2e8f0;
       }
@@ -570,6 +575,68 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         color: var(--deck-grey);
       }
 
+      /* Code blocks.
+
+         Two rules that the hand-styled blocks kept getting wrong:
+
+         1. The tint, the inset and the corner all live on the <pre>. Painting
+            the background on the inner <code> while padding the <pre> puts the
+            padding OUTSIDE the ink, so the text sits flush against the edge of
+            a dark box floating in a white gutter.
+         2. Width is `fit-content`, never a `max-width` in `em`. A slide cannot
+            be scrolled, so an em cap that lands under the longest line silently
+            eats the end of every line -- the overflow scrollbar it leaves
+            behind is unreachable in a talk. Sizing to the content means a block
+            that does not fit is visibly too wide, which is a bug you can see.
+
+         Size with the modifiers, not a bespoke font-size: the em is against the
+         36px slide root, so 0.44em == 15.8px on every deck.
+
+         Authoring: put the snippet in an `export const` above the section and
+         reference it, `<pre class="code-block"><code>{SNIPPET}</code></pre>`.
+         Do NOT inline a template literal as `<code>{`...`}</code>` -- micromark
+         strips up to two leading spaces from every line of a multi-line MDX
+         expression, which flattens indentation server-side and silently
+         destroys anything whose meaning is carried by the left edge. An ESM
+         export is parsed as JS, so it survives verbatim. */
+      .reveal .code-block {
+        display: block;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto;
+        text-align: left;
+        font-family: var(--r-code-font);
+        font-size: 0.44em;
+        line-height: 1.55;
+        background: var(--deck-dark);
+        color: #e2e8f0;
+        border: 0;
+        border-radius: 6px;
+        padding: 0.9em 1.15em;
+        box-shadow: none;
+        overflow: visible;
+      }
+      .reveal .code-block code {
+        display: block;
+        padding: 0;
+        background: none;
+        color: inherit;
+        border-radius: 0;
+        font-size: inherit;
+        line-height: inherit;
+        overflow: visible;
+      }
+      .reveal .code-block-lg {
+        font-size: 0.52em;
+      }
+      .reveal .code-block-sm {
+        font-size: 0.4em;
+      }
+      /* For a banner or an arrow chain set in mono -- not a listing, where the
+         left edge carries the structure. */
+      .reveal .code-block-center {
+        text-align: center;
+      }
       /* a -> b -> c row */
       .reveal .flow {
         display: flex;

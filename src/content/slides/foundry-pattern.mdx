@@ -743,6 +743,11 @@ theme: 'galaxy'
 
 {/* SLIDE 41 — agent bootstrap prompt */}
 
+export const FOUNDRY_CHECKLIST = `STANDING UP A FOUNDRY — WORKING CHECKLIST
+
+vocabulary → reader + contracts → registries + validation + CI
+  → corpus → Molds → Cast → external check`;
+
 <section class="vstack">
 
 <div class="eyebrow">One huge prompt</div>
@@ -751,10 +756,7 @@ theme: 'galaxy'
   Bootstrap the whole Astro stack<br />with an agent.
 </h2>
 
-<pre style="font-size: 0.42em; line-height: 1.6; text-align: left; margin: 0 auto; max-width: 40em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`STANDING UP A FOUNDRY — WORKING CHECKLIST
-
-vocabulary → reader + contracts → registries + validation + CI
-  → corpus → Molds → Cast → external check`}</code></pre>
+<pre class="code-block"><code>{FOUNDRY_CHECKLIST}</code></pre>
 
 <div class="body">
   Versions, paths, packages, tests, handoffs, and stopping conditions—<br />
@@ -1053,6 +1055,10 @@ graph LR
 
 {/* SLIDE 52 — Workflow Foundry CLI tooling */}
 
+export const AUTHORING_CHAIN = `draft-next-step → author one step
+→ draft-validate --concrete → gxwf validate
+→ validate-tests → planemo test`;
+
 <section class="vstack vstack-tight">
 
 <h2 class="plain-heading" style="font-size: 1.18em; line-height: 1.12;">Turn upstream interfaces into<br />deterministic agent rails</h2>
@@ -1080,9 +1086,7 @@ graph LR
   </div>
 </div>
 
-<pre style="font-size: 0.38em; line-height: 1.45; text-align: center; margin: 0 auto; max-width: 38em; padding: 0.7em 0.9em; border: 0;"><code style="display: block; padding: 0;">{`draft-next-step → author one step
-→ draft-validate --concrete → gxwf validate
-→ validate-tests → planemo test`}</code></pre>
+<pre class="code-block code-block-sm code-block-center"><code>{AUTHORING_CHAIN}</code></pre>
 
 <div class="statement statement-sm" style="font-size: 0.56em; max-width: 34em;">
   The model translates and repairs. Independent tools select, validate, execute, and classify.

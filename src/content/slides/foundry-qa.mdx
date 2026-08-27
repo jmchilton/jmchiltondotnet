@@ -164,13 +164,7 @@ theme: 'galaxy'
 
 {/* SLIDE 8 — missing CLI tool */}
 
-<section class="vstack vstack-tight">
-
-<div class="eyebrow">02 · No CLI</div>
-
-<h2>Every cast declares its own tools</h2>
-
-<pre style="font-size: 0.44em; line-height: 1.55; text-align: left; margin-left: auto; margin-right: auto; max-width: 36em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`{
+export const REQUIRED_TOOLS = `{
   "tool": "gxwf",
   "origin": "npm",
   "package": "@galaxy-tool-util/cli",
@@ -178,7 +172,15 @@ theme: 'galaxy'
   "invoke_fallback": "npx --yes --package @galaxy-tool-util/cli@1.8.1 gxwf",
   "availability_check": "gxwf --help | grep -q draft-validate",
   "implied_by": ["gxwf tool-revisions", "gxwf tool-search"]
-}`}</code></pre>
+}`;
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">02 · No CLI</div>
+
+<h2>Every cast declares its own tools</h2>
+
+<pre class="code-block"><code>{REQUIRED_TOOLS}</code></pre>
 
 <div class="note">
   <code>_required_tools.json</code>, generated from the CLI commands the Mold actually cites — install line, ephemeral
@@ -347,16 +349,18 @@ theme: 'galaxy'
 
 {/* SLIDE 14 — so what does "using" upstream look like */}
 
-<section class="vstack vstack-tight">
-
-<h2>So upstream material is pinned, licensed, and framed</h2>
-
-<pre style="font-size: 0.42em; line-height: 1.55; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`- local: content/research/galaxy-xsd/galaxy.xsd
+export const XSD_REFERENCE = `- local: content/research/galaxy-xsd/galaxy.xsd
   source: $GALAXY/lib/galaxy/tool_util/xsd/galaxy.xsd
   pinned_ref: 7765fae934fbfdee77e3be5f5b235e43735273ae
   framing: content/research/galaxy-xsd/index.md
   license: MIT
-  license_file: LICENSES/galaxy.LICENSE`}</code></pre>
+  license_file: LICENSES/galaxy.LICENSE`;
+
+<section class="vstack vstack-tight">
+
+<h2>So upstream material is pinned, licensed, and framed</h2>
+
+<pre class="code-block code-block-lg"><code>{XSD_REFERENCE}</code></pre>
 
 <div class="note">
   A license attaches at the point of sync, and the sync script asserts the license file exists. Where upstream ships both
@@ -630,11 +634,7 @@ theme: 'galaxy'
 
 {/* SLIDE 27 — a real Mold, frontmatter first */}
 
-<section class="vstack vstack-tight">
-
-<h2>A Mold is frontmatter plus a procedure</h2>
-
-<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`type: mold
+export const MOLD_FRONTMATTER = `type: mold
 name: discover-shed-tool
 axis: target-specific
 target: galaxy
@@ -653,7 +653,13 @@ output_artifacts:
 references:
   - kind: cli-command
     ref: "[[tool-search]]"
-    ...`}</code></pre>
+    ...`;
+
+<section class="vstack vstack-tight">
+
+<h2>A Mold is frontmatter plus a procedure</h2>
+
+<pre class="code-block code-block-sm"><code>{MOLD_FRONTMATTER}</code></pre>
 
 <div class="note">Everything a caller needs to route to this Mold, and everything casting needs to package it. Then the body.</div>
 
@@ -695,11 +701,7 @@ references:
 
 {/* SLIDE 29 — the typed reference */}
 
-<section class="vstack vstack-tight">
-
-<h2>Every reference carries its own decisions</h2>
-
-<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`references:
+export const MOLD_REFERENCES = `references:
   - kind: research
     ref: "[[galaxy-collection-semantics]]"
     used_at: runtime
@@ -711,7 +713,13 @@ references:
               grouped, or nested data descriptions."
     trigger: "When the summary describes paired reads, per-sample groups,
               nested or grouped inputs, or any input that should become a
-              Galaxy dataset collection."`}</code></pre>
+              Galaxy dataset collection."`;
+
+<section class="vstack vstack-tight">
+
+<h2>Every reference carries its own decisions</h2>
+
+<pre class="code-block code-block-sm"><code>{MOLD_REFERENCES}</code></pre>
 
 <div class="note"><code>trigger</code> is <em>required</em> when load is <code>on-demand</code>; <code>verification</code> is required when evidence is still <code>hypothesis</code>. The schema refuses the shortcut.</div>
 
@@ -780,11 +788,7 @@ references:
 
 {/* SLIDE 32 — what lands in the bundle */}
 
-<section class="vstack vstack-tight">
-
-<h2>What actually lands in the bundle</h2>
-
-<pre style="font-size: 0.44em; line-height: 1.6; text-align: left; margin-left: auto; margin-right: auto; max-width: 32em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`casts/claude/skills/discover-shed-tool/
+export const CAST_TREE = `casts/claude/skills/discover-shed-tool/
   SKILL.md                 rendered from the Mold, never hand-edited
   _provenance.json         what was cast, from where, at which hash
   _required_tools.json     the CLI it needs, and how to check for it
@@ -792,7 +796,13 @@ references:
   references/
     schemas/               loaded upfront
     cli/                   sidecars, loaded on demand
-    notes/                 loaded on demand`}</code></pre>
+    notes/                 loaded on demand`;
+
+<section class="vstack vstack-tight">
+
+<h2>What actually lands in the bundle</h2>
+
+<pre class="code-block code-block-lg"><code>{CAST_TREE}</code></pre>
 
 <div class="note">Isolated: no links back to the Foundry, no runtime dependency on it. Casting <em>is</em> the integration boundary.</div>
 
@@ -800,11 +810,7 @@ references:
 
 {/* SLIDE 33 — the provenance record */}
 
-<section class="vstack vstack-tight">
-
-<h2>The build log, in full</h2>
-
-<pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`"mold": {
+export const PROVENANCE = `"mold": {
   "name": "discover-shed-tool",
   "revision": 5,
   "content_hash": "05c99cbac2ec6a4d130b0620...",
@@ -816,7 +822,13 @@ references:
   "dst": "references/cli/tool-revisions.json",
   "evidence": "corpus-observed",  "source": "deterministic",
   "src_hash": "82061af5970f0f...",  "dst_hash": "db0b13f2b925..."
-}]`}</code></pre>
+}]`;
+
+<section class="vstack vstack-tight">
+
+<h2>The build log, in full</h2>
+
+<pre class="code-block code-block-sm"><code>{PROVENANCE}</code></pre>
 
 <div class="note">Every reference, hashed on both sides. Not "the model probably knew this" — <em>this came from here, at this commit</em>.</div>
 
