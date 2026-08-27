@@ -590,7 +590,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
             that does not fit is visibly too wide, which is a bug you can see.
 
          Size with the modifiers, not a bespoke font-size: the em is against the
-         36px slide root, so 0.44em == 15.8px on every deck.
+         36px slide root, so 0.5em == 18px on every deck. Pick the largest step
+         whose block still clears the 960x700 slide box -- these are read from
+         the back of a room, and the blocks were all sized far too timidly when
+         each one carried its own hand-tuned em.
 
          Authoring: put the snippet in an `export const` above the section and
          reference it, `<pre class="code-block"><code>{SNIPPET}</code></pre>`.
@@ -606,7 +609,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         margin: 0 auto;
         text-align: left;
         font-family: var(--r-code-font);
-        font-size: 0.44em;
+        font-size: 0.5em;
         line-height: 1.55;
         background: var(--deck-dark);
         color: #e2e8f0;
@@ -627,10 +630,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         overflow: visible;
       }
       .reveal .code-block-lg {
-        font-size: 0.52em;
+        font-size: 0.56em;
       }
       .reveal .code-block-sm {
-        font-size: 0.4em;
+        font-size: 0.43em;
       }
       /* For a banner or an arrow chain set in mono -- not a listing, where the
          left edge carries the structure. */
