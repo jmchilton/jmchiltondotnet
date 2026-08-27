@@ -84,30 +84,24 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 5 — "missing" is four different failures */}
+{/* SLIDE 5 — "missing" is two different failures */}
 
 <section class="vstack">
 
-<h2>"Missing" is four different failures</h2>
+<h2>"Missing" is two different failures</h2>
 
 <div class="lede">Each one routes somewhere different. None of them route to a guess.</div>
 
-<div class="cards cards-4 measure-lg">
+<div class="cards cards-2 measure">
   <div class="card">
+    <div class="card-eyebrow">01</div>
     <div class="card-title">no wrapper</div>
-    <div class="card-body">the Tool Shed has nothing usable</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">no test data</div>
-    <div class="card-body">the source declares no fixture</div>
-  </div>
-  <div class="card card-warn">
-    <div class="card-title">no evidence</div>
-    <div class="card-body">an output nothing wired can compute</div>
+    <div class="card-body">the Tool Shed has nothing usable for the step the workflow needs</div>
   </div>
   <div class="card card-grey">
+    <div class="card-eyebrow">02</div>
     <div class="card-title">no CLI</div>
-    <div class="card-body">the box lacks the deterministic tool</div>
+    <div class="card-body">the box the agent is running in lacks the deterministic tool the skill cites</div>
   </div>
 </div>
 
@@ -172,119 +166,57 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 8 — missing test data */}
-
-<section class="vstack">
-
-<div class="eyebrow">02 · No test data</div>
-
-<h2>The test-data-resolution branch</h2>
-
-<div class="flow">
-  <div class="flow-node">source-declared</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node">find-test-data</div>
-  <span class="flow-arrow">→</span>
-  <div class="flow-node flow-node-muted">user-supplied</div>
-</div>
-
-<div class="body measure" style="margin-top: 18px;">
-  The first leg resolves only what the source itself declares. What it cannot resolve is a
-  <strong>reported gap</strong>, and the harness falls through to search, then to the user.
-</div>
-
-<div class="callout callout-warn measure">
-  Never invent a URL, an accession, or a placeholder path. A declared input with no published URL is recorded by its
-  in-tree path plus provenance — a ref left <code>resolved: false</code> is surfaced, not papered over.
-</div>
-
-<div class="note">An un-materialized path passes every static check and fails at upload, far from where it was written.</div>
-
-</section>
-
-{/* SLIDE 9 — the open-requirements ledger */}
+{/* SLIDE 8 — missing CLI tool */}
 
 <section class="vstack vstack-tight">
 
-<div class="eyebrow">03 · No evidence</div>
+<div class="eyebrow">02 · No CLI</div>
 
-<h2>The open-requirements ledger</h2>
+<h2>Every cast declares its own tools</h2>
 
-<div class="body measure">
-  One artifact threaded through the whole run. Each Mold that surfaces an obligation <strong>appends</strong>; each Mold
-  whose decision closes one <strong>marks it resolved</strong>; the terminal path <strong>surrenders</strong> what remains.
-</div>
+<pre style="font-size: 0.44em; line-height: 1.55; text-align: left; margin-left: auto; margin-right: auto; max-width: 36em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`{
+  "tool": "gxwf",
+  "origin": "npm",
+  "package": "@galaxy-tool-util/cli",
+  "package_version": "^1.8.1",
+  "invoke_fallback": "npx --yes --package @galaxy-tool-util/cli@1.8.1 gxwf",
+  "availability_check": "gxwf --help | grep -q draft-validate",
+  "implied_by": ["gxwf tool-revisions", "gxwf tool-search"]
+}`}</code></pre>
 
-<pre style="font-size: 0.5em; line-height: 1.55; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`- id: sccmec-evidence-missing
-  status: open              # open | resolved | surrendered
-  blocking: true            # a computability gap, counted by the gate
-  raised_by: implement-galaxy-tool-step
-  step: classify_context
-  unmet: "SCCmec-region candidate output category"
-  missing: "no wired input carries SCCmec cassette evidence"
-  resolved_by: null
-  note: ""`}</code></pre>
-
-</section>
-
-{/* SLIDE 10 — blocking vs plain, and the repair loop */}
-
-<section class="vstack">
-
-<div class="eyebrow">03 · No evidence</div>
-
-<h2>Two grades of obligation</h2>
-
-<div class="split split-vs measure-lg">
-  <div class="panel">
-    <div class="card-eyebrow">plain</div>
-    <div class="card-title card-title-lg">work around it</div>
-    <div class="card-body">an unpinned parameter, a missing exemplar — the chain keeps going</div>
-  </div>
-  <div class="split-mark">vs</div>
-  <div class="panel">
-    <div class="card-eyebrow">blocking</div>
-    <div class="card-title card-title-lg">a computability gap</div>
-    <div class="card-body">a declared output no wired input can supply</div>
-  </div>
-</div>
-
-<div class="note" style="margin-top: 16px;">
-  <code>gxwf</code> cannot see this: the connection graph knows that ports connect, not <em>what they carry</em>.
-</div>
-
-<div class="callout callout-sm">
-  Blocking entries drive escalation to <code>repair-galaxy-draft-topology</code>. Every escalation must strictly reduce the
-  open blocking count, under a hard cap.
+<div class="note">
+  <code>_required_tools.json</code>, generated from the CLI commands the Mold actually cites — install line, ephemeral
+  fallback, and a check the agent can run before it starts.
 </div>
 
 </section>
 
-{/* SLIDE 11 — the rule underneath all of it */}
+{/* SLIDE 9 — the rule underneath all of it */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
-<div class="statement">Never fabricate around an entry.</div>
+<div class="statement">Never fabricate around a gap.</div>
 
 <div class="lede" style="font-style: italic;">An open obligation is the honest state.</div>
 
 <div class="note">
-  Inventing a connection, a tool id, or a value so the artifact looks complete converts a tracked gap into a silent
-  defect — the exact failure the ledger exists to end.
+  Inventing a tool id, a connection, or a value so the artifact looks complete converts a tracked gap into a silent
+  defect — the exact failure the whole apparatus exists to end.
 </div>
 
 </section>
 
-{/* SLIDE 12 — surrender is a real, named outcome */}
+{/* SLIDE 10 — the ledger, and surrender as a named outcome */}
 
 <section class="vstack">
 
-<h2>Surrender is an outcome, not a crash</h2>
+<h2>So an unresolved dep becomes a tracked entry</h2>
 
 <div class="body measure">
-  When nothing downstream can close an entry — no producer is discoverable, the output cannot be honestly narrowed —
-  the run does not spin and does not invent. The cap is reached, the entry is marked <code>surrendered</code>, and it is
-  written into the final draft as a <strong>labelled gap</strong>.
+  Every reading above ends in the same artifact: the <strong>open-requirements ledger</strong>, threaded through the run.
+  A Mold that hits a gap <strong>appends</strong>; a later Mold whose decision closes it <strong>marks it resolved</strong>.
+  When nothing downstream can close one, the escalation cap is reached, the entry is marked <code>surrendered</code>, and
+  it ships in the draft as a <strong>labelled gap</strong> — the run does not spin, and does not invent.
 </div>
 
 <div class="cards cards-3 measure-lg">
@@ -306,33 +238,9 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 13 — missing CLI tool */}
-
-<section class="vstack vstack-tight">
-
-<div class="eyebrow">04 · No CLI</div>
-
-<h2>Every cast declares its own tools</h2>
-
-<pre style="font-size: 0.44em; line-height: 1.55; text-align: left; margin-left: auto; margin-right: auto; max-width: 36em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`{
-  "tool": "gxwf",
-  "origin": "npm",
-  "package": "@galaxy-tool-util/cli",
-  "package_version": "^1.8.1",
-  "invoke_fallback": "npx --yes --package @galaxy-tool-util/cli@1.8.1 gxwf",
-  "availability_check": "gxwf --help | grep -q draft-validate",
-  "implied_by": ["gxwf tool-revisions", "gxwf tool-search"]
-}`}</code></pre>
-
-<div class="note">
-  <code>_required_tools.json</code>, generated from the CLI commands the Mold actually cites — install line, ephemeral
-  fallback, and a check the agent can run before it starts.
-</div>
-
-</section>
 {/* ============================ TWO — CONTRIBUTING ============================ */}
 
-{/* SLIDE 14 — Part Two transition */}
+{/* SLIDE 11 — Part Two transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -345,7 +253,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 15 — the outside loop: how a guinea pig actually starts */}
+{/* SLIDE 12 — the outside loop: how a guinea pig actually starts */}
 
 <section class="vstack">
 
@@ -381,7 +289,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 16 — the inside loop: the run reports on the Foundry */}
+{/* SLIDE 13 — the inside loop: the run reports on the Foundry */}
 
 <section class="vstack">
 
@@ -420,7 +328,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 17 — the route, start to finish */}
+{/* SLIDE 14 — the route, start to finish */}
 
 <section class="vstack">
 
@@ -453,7 +361,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 18 — yes, you can write notes directly */}
+{/* SLIDE 15 — yes, you can write notes directly */}
 
 <section class="vstack">
 
@@ -481,7 +389,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 19 — what is canon */}
+{/* SLIDE 16 — what is canon */}
 
 <section class="vstack">
 
@@ -515,7 +423,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 20 — so what does "using" upstream look like */}
+{/* SLIDE 17 — so what does "using" upstream look like */}
 
 <section class="vstack vstack-tight">
 
@@ -535,7 +443,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 21 — IWC specifically: cited, not mirrored */}
+{/* SLIDE 18 — IWC specifically: cited, not mirrored */}
 
 <section class="vstack">
 
@@ -565,7 +473,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 22 — the gap is upstream too */}
+{/* SLIDE 19 — the gap is upstream too */}
 
 <section class="vstack">
 
@@ -584,7 +492,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 23 — the receipts */}
+{/* SLIDE 20 — the receipts */}
 
 <section>
 
@@ -596,7 +504,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 24 — the upstream docs case, concretely */}
+{/* SLIDE 21 — the upstream docs case, concretely */}
 
 <section>
 
@@ -609,7 +517,7 @@ theme: 'galaxy'
 </section>
 {/* ============================ THREE — THE AD HOC EXPLORER ============================ */}
 
-{/* SLIDE 25 — Part Three transition */}
+{/* SLIDE 22 — Part Three transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -622,7 +530,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 26 — lead with the strongest form of the argument */}
+{/* SLIDE 23 — lead with the strongest form of the argument */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -632,7 +540,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 27 — the four-part argument */}
+{/* SLIDE 24 — the four-part argument */}
 
 <section class="vstack">
 
@@ -659,7 +567,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 28 — the sharpest contrast, stated against my own approach */}
+{/* SLIDE 25 — the sharpest contrast, stated against my own approach */}
 
 <section class="vstack">
 
@@ -687,7 +595,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 29 — this is not hypothetical: the extraction results */}
+{/* SLIDE 26 — this is not hypothetical: the extraction results */}
 
 <section class="vstack vstack-tight">
 
@@ -724,7 +632,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 30 — the second extraction result */}
+{/* SLIDE 27 — the second extraction result */}
 
 <section class="vstack vstack-tight">
 
@@ -754,7 +662,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 31 — the ad hoc pipeline that already exists */}
+{/* SLIDE 28 — the ad hoc pipeline that already exists */}
 
 <section class="vstack">
 
@@ -782,7 +690,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 32 — the two directions, stated fairly */}
+{/* SLIDE 29 — the two directions, stated fairly */}
 
 <section class="vstack">
 
@@ -812,7 +720,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 33 — so: individual skills, one at a time */}
+{/* SLIDE 30 — so: individual skills, one at a time */}
 
 <section class="vstack">
 
@@ -848,7 +756,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 34 — the install surface */}
+{/* SLIDE 31 — the install surface */}
 
 <section>
 
@@ -860,7 +768,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 35 — skills built for the ad hoc path specifically */}
+{/* SLIDE 32 — skills built for the ad hoc path specifically */}
 
 <section class="vstack">
 
@@ -893,7 +801,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 36 — under-determination is already typed */}
+{/* SLIDE 33 — under-determination is already typed */}
 
 <section class="vstack">
 
@@ -915,7 +823,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 37 — being redirected, as an existing pipeline */}
+{/* SLIDE 34 — being redirected, as an existing pipeline */}
 
 <section class="vstack">
 
@@ -938,7 +846,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 38 — the loop back: transition */}
+{/* SLIDE 35 — the loop back: transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -948,7 +856,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 39 — the four concrete loops back */}
+{/* SLIDE 36 — the four concrete loops back */}
 
 <section class="vstack">
 
@@ -977,7 +885,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 40 — the loop is already typed: evidence promotion */}
+{/* SLIDE 37 — the loop is already typed: evidence promotion */}
 
 <section class="vstack">
 
@@ -1004,7 +912,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 41 — the ledger as a worklist */}
+{/* SLIDE 38 — the ledger as a worklist */}
 
 <section class="vstack">
 
@@ -1030,7 +938,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 42 — what is genuinely missing */}
+{/* SLIDE 39 — what is genuinely missing */}
 
 <section class="vstack">
 
@@ -1062,7 +970,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 43 — close Part Two on the honest answer */}
+{/* SLIDE 40 — close Part Two on the honest answer */}
 
 <section class="vstack">
 
@@ -1085,7 +993,7 @@ theme: 'galaxy'
 </section>
 {/* ============================ FOUR — MOLDS AND CASTING ============================ */}
 
-{/* SLIDE 44 — Part Four transition */}
+{/* SLIDE 41 — Part Four transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1095,7 +1003,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 45 — a real Mold, frontmatter first */}
+{/* SLIDE 42 — a real Mold, frontmatter first */}
 
 <section class="vstack vstack-tight">
 
@@ -1122,7 +1030,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 46 — the typed reference */}
+{/* SLIDE 43 — the typed reference */}
 
 <section class="vstack vstack-tight">
 
@@ -1145,7 +1053,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 47 — the three casting decisions */}
+{/* SLIDE 44 — the three casting decisions */}
 
 <section class="vstack">
 
@@ -1176,7 +1084,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 48 — casting is per-kind dispatch */}
+{/* SLIDE 45 — casting is per-kind dispatch */}
 
 <section class="vstack vstack-tight">
 
@@ -1206,7 +1114,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 49 — what lands in the bundle */}
+{/* SLIDE 46 — what lands in the bundle */}
 
 <section class="vstack vstack-tight">
 
@@ -1226,7 +1134,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 50 — the provenance record */}
+{/* SLIDE 47 — the provenance record */}
 
 <section class="vstack vstack-tight">
 
@@ -1250,7 +1158,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 51 — deterministic all the way down */}
+{/* SLIDE 48 — deterministic all the way down */}
 
 <section class="vstack">
 
@@ -1285,7 +1193,7 @@ output_artifacts:
 </section>
 {/* ============================ FIVE — BIOPIXI ============================ */}
 
-{/* SLIDE 52 — Part Five transition */}
+{/* SLIDE 49 — Part Five transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1295,7 +1203,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 53 — biopixi is its own thing */}
+{/* SLIDE 50 — biopixi is its own thing */}
 
 <section data-background-color="#f8fbfa">
 
@@ -1316,7 +1224,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 54 — the ladder */}
+{/* SLIDE 51 — the ladder */}
 
 <section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
@@ -1334,7 +1242,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 55 — how it relates to the Foundry */}
+{/* SLIDE 52 — how it relates to the Foundry */}
 
 <section class="vstack">
 
@@ -1360,7 +1268,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 56 — how it relates to Galaxy */}
+{/* SLIDE 53 — how it relates to Galaxy */}
 
 <section class="vstack">
 
@@ -1390,7 +1298,7 @@ output_artifacts:
 </section>
 {/* ============================ CLOSE ============================ */}
 
-{/* SLIDE 57 — the through-line */}
+{/* SLIDE 54 — the through-line */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1403,7 +1311,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 58 — links */}
+{/* SLIDE 55 — links */}
 
 <section class="vstack">
 
