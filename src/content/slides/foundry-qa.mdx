@@ -685,27 +685,65 @@ theme: 'galaxy'
 <h2>A Mold is frontmatter plus a procedure</h2>
 
 <pre style="font-size: 0.4em; line-height: 1.5; text-align: left; margin-left: auto; margin-right: auto; max-width: 38em; padding: 0.9em 1.1em; border: 0;"><code style="display: block; padding: 0;">{`type: mold
-name: interview-to-galaxy-workflow-changeset
-axis: source-specific
-source: interview
+name: discover-shed-tool
+axis: target-specific
 target: galaxy
-summary: "Interview a user against an existing Galaxy workflow summary
-          and emit a reviewable, step-anchored change-set."
-
-input_artifacts:
-  - id: summary-galaxy-workflow
-  - id: open-requirements-ledger
+status: reviewed
+revision: 5
+summary: "Search the Tool Shed for an existing wrapper, drill from hit
+          to a pinnable changeset, classify candidates, and recommend
+          or fall through."
 
 output_artifacts:
-  - id: galaxy-workflow-changeset
-    kind: markdown
-    default_filename: galaxy-workflow-changeset.md`}</code></pre>
+  - id: galaxy-tool-pin
+    kind: json
+    default_filename: galaxy-tool-pin.json
+    schema: "[[galaxy-tool-discovery]]"
 
-<div class="note">The body below the frontmatter is the procedure — and it is the only thing a human writes twice.</div>
+references:
+  - kind: cli-command
+    ref: "[[tool-search]]"
+    ...`}</code></pre>
+
+<div class="note">Everything a caller needs to route to this Mold, and everything casting needs to package it. Then the body.</div>
 
 </section>
 
-{/* SLIDE 30 — the typed reference */}
+{/* SLIDE 30 — and the body is just prose */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">the same Mold, below the frontmatter</div>
+
+<h2>The procedure is prose</h2>
+
+<div class="panel measure left">
+
+<div style="font-family: var(--r-code-font); font-size: 0.46em; color: var(--deck-grey); letter-spacing: 0.02em;"># discover-shed-tool</div>
+
+<div class="body" style="max-width: none; margin-top: 12px;">
+  Discover whether the Galaxy Tool Shed already publishes a wrapper for the tool a workflow step needs, and resolve the
+  discovery to an <code>(owner, repo, tool_id, version, changeset_revision)</code> quintuple that downstream steps can
+  pin and cache.
+</div>
+
+<div class="body" style="max-width: none; margin-top: 14px;">
+  This Mold is the <strong>Tool Shed leg</strong> of the <code>discover-or-author</code> branch in Galaxy-targeting
+  per-step pipelines. On a hit, the cast skill recommends a pin and exits successfully. On a miss (or a low-quality
+  hit), it falls through to <code>[[author-galaxy-tool-wrapper]]</code>. The branch itself is harness logic; this Mold
+  owns only the discovery half.
+</div>
+
+</div>
+
+<div class="note">
+  No prompt engineering, no XML scaffolding, no tone. Prose a maintainer can read and argue with — then
+  <code>## Inputs</code>, <code>## Outputs</code>, <code>## Procedure</code>, and the wiki-links resolve at cast time.
+</div>
+
+</section>
+
+{/* SLIDE 31 — the typed reference */}
 
 <section class="vstack vstack-tight">
 
@@ -729,7 +767,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 31 — the three casting decisions */}
+{/* SLIDE 32 — the three casting decisions */}
 
 <section class="vstack">
 
@@ -760,7 +798,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 32 — casting is per-kind dispatch */}
+{/* SLIDE 33 — casting is per-kind dispatch */}
 
 <section class="vstack vstack-tight">
 
@@ -790,7 +828,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 33 — what lands in the bundle */}
+{/* SLIDE 34 — what lands in the bundle */}
 
 <section class="vstack vstack-tight">
 
@@ -810,7 +848,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 34 — the provenance record */}
+{/* SLIDE 35 — the provenance record */}
 
 <section class="vstack vstack-tight">
 
@@ -836,7 +874,7 @@ output_artifacts:
 
 {/* ============================ FIVE — BIOPIXI ============================ */}
 
-{/* SLIDE 35 — Part Five transition */}
+{/* SLIDE 36 — Part Five transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -846,7 +884,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 36 — biopixi is its own thing */}
+{/* SLIDE 37 — biopixi is its own thing */}
 
 <section data-background-color="#f8fbfa">
 
@@ -867,7 +905,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 37 — the ladder */}
+{/* SLIDE 38 — the ladder */}
 
 <section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
@@ -885,7 +923,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 38 — how it relates to the Foundry */}
+{/* SLIDE 39 — how it relates to the Foundry */}
 
 <section class="vstack">
 
@@ -911,7 +949,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 39 — how it relates to Galaxy */}
+{/* SLIDE 40 — how it relates to Galaxy */}
 
 <section class="vstack">
 
@@ -941,7 +979,7 @@ output_artifacts:
 </section>
 {/* ============================ CLOSE ============================ */}
 
-{/* SLIDE 40 — the through-line */}
+{/* SLIDE 41 — the through-line */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -954,7 +992,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 41 — links */}
+{/* SLIDE 42 — links */}
 
 <section class="vstack">
 
