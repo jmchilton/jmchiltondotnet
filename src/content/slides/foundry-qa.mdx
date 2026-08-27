@@ -361,35 +361,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 15 — yes, you can write notes directly */}
-
-<section class="vstack">
-
-<h2>Yes — but notes are typed</h2>
-
-<div class="cards cards-3 measure-lg">
-  <div class="card">
-    <div class="card-title">frontmatter is contract</div>
-    <div class="card-body">one Zod schema shared by the validator and the site; every kind is strict, unknown fields are rejected</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">tags are registered</div>
-    <div class="card-body">every tag lives in <code>meta_tags.yml</code> — vocabulary changes touch one file</div>
-  </div>
-  <div class="card card-grey">
-    <div class="card-title">links resolve</div>
-    <div class="card-body"><code>[[wiki-links]]</code> are checked across files, not just spell-checked</div>
-  </div>
-</div>
-
-<div class="callout measure">
-  Adding a field to a note means adding it to that kind's schema <strong>first</strong>. Don't weaken the schema to accept a
-  non-conforming note — reshape the note, or extend the kind deliberately, with tests.
-</div>
-
-</section>
-
-{/* SLIDE 16 — what is canon */}
+{/* SLIDE 15 — what is canon */}
 
 <section class="vstack">
 
@@ -423,7 +395,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 17 — so what does "using" upstream look like */}
+{/* SLIDE 16 — so what does "using" upstream look like */}
 
 <section class="vstack vstack-tight">
 
@@ -443,37 +415,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 18 — IWC specifically: cited, not mirrored */}
-
-<section class="vstack">
-
-<h2>IWC is cited, not mirrored</h2>
-
-<div class="body measure">
-  No ingestion pipeline, no exemplar mirror, no runtime dependency on a local corpus. Patterns cite IWC workflows by URL
-  in the page body, pinned to a SHA when stability matters and to <code>main</code> when freshness does.
-</div>
-
-<div class="cards cards-3 measure-lg">
-  <div class="card">
-    <div class="card-title">grep</div>
-    <div class="card-body">cheap; blind to step-pair and sequence structure</div>
-  </div>
-  <div class="card card-gold">
-    <div class="card-title">skeleton scan</div>
-    <div class="card-body">topology, control flow, tool sequences — all 120 fit in context</div>
-  </div>
-  <div class="card card-grey">
-    <div class="card-title">whole-workflow read</div>
-    <div class="card-body">expensive; reserved for parameter-level evidence</div>
-  </div>
-</div>
-
-<div class="note">Evidence tiers are how a claim earns <code>corpus-observed</code>. And what this gives up is written down too — a cited workflow can change shape without tripping any signal.</div>
-
-</section>
-
-{/* SLIDE 19 — the gap is upstream too */}
+{/* SLIDE 17 — the gap is upstream too */}
 
 <section class="vstack">
 
@@ -492,32 +434,9 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 20 — the receipts */}
-
-<section>
-
-<img
-  class="fig fig-bleed"
-  src="/slides/foundry-pattern/iuc-standards-prs.png"
-  alt="Pull requests authored by jmchilton in galaxy-iuc/standards: best practices for restrictive licenses, remote execution and tool security checklists, follow-up documentation review, security corpus research deep-dives, Pulsar remote-execution compatibility docs, and Sphinx docs modernization"
-/>
-
-</section>
-
-{/* SLIDE 21 — the upstream docs case, concretely */}
-
-<section>
-
-<img
-  class="fig fig-bleed"
-  src="/slides/foundry-pattern/galaxy-issue-22200-workflow-semantics.png"
-  alt="Galaxy issue 22200, Workflow Semantics Documentation and Test Mapping, proposing actionable documentation that maps text descriptions to examples to specific test cases across the workflow editor, runtime, and CLI validation"
-/>
-
-</section>
 {/* ============================ THREE — THE AD HOC EXPLORER ============================ */}
 
-{/* SLIDE 22 — Part Three transition */}
+{/* SLIDE 18 — Part Three transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -530,7 +449,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 23 — lead with the strongest form of the argument */}
+{/* SLIDE 19 — lead with the strongest form of the argument */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -540,7 +459,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 24 — the four-part argument */}
+{/* SLIDE 20 — the four-part argument */}
 
 <section class="vstack">
 
@@ -567,7 +486,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 25 — the sharpest contrast, stated against my own approach */}
+{/* SLIDE 21 — the sharpest contrast, stated against my own approach */}
 
 <section class="vstack">
 
@@ -595,7 +514,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 26 — this is not hypothetical: the extraction results */}
+{/* SLIDE 22 — this is not hypothetical: the extraction results */}
 
 <section class="vstack vstack-tight">
 
@@ -632,7 +551,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 27 — the second extraction result */}
+{/* SLIDE 23 — the second extraction result */}
 
 <section class="vstack vstack-tight">
 
@@ -662,7 +581,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 28 — the ad hoc pipeline that already exists */}
+{/* SLIDE 24 — the ad hoc pipeline that already exists */}
 
 <section class="vstack">
 
@@ -690,7 +609,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 29 — the two directions, stated fairly */}
+{/* SLIDE 25 — the two directions, stated fairly */}
 
 <section class="vstack">
 
@@ -720,7 +639,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 30 — so: individual skills, one at a time */}
+{/* SLIDE 26 — so: individual skills, one at a time */}
 
 <section class="vstack">
 
@@ -756,7 +675,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 31 — the install surface */}
+{/* SLIDE 27 — the install surface */}
 
 <section>
 
@@ -768,7 +687,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 32 — skills built for the ad hoc path specifically */}
+{/* SLIDE 28 — skills built for the ad hoc path specifically */}
 
 <section class="vstack">
 
@@ -801,7 +720,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 33 — under-determination is already typed */}
+{/* SLIDE 29 — under-determination is already typed */}
 
 <section class="vstack">
 
@@ -823,7 +742,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 34 — being redirected, as an existing pipeline */}
+{/* SLIDE 30 — being redirected, as an existing pipeline */}
 
 <section class="vstack">
 
@@ -846,7 +765,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 35 — the loop back: transition */}
+{/* SLIDE 31 — the loop back: transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -856,7 +775,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 36 — the four concrete loops back */}
+{/* SLIDE 32 — the four concrete loops back */}
 
 <section class="vstack">
 
@@ -885,7 +804,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 37 — the loop is already typed: evidence promotion */}
+{/* SLIDE 33 — the loop is already typed: evidence promotion */}
 
 <section class="vstack">
 
@@ -912,7 +831,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 38 — the ledger as a worklist */}
+{/* SLIDE 34 — the ledger as a worklist */}
 
 <section class="vstack">
 
@@ -938,7 +857,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 39 — what is genuinely missing */}
+{/* SLIDE 35 — what is genuinely missing */}
 
 <section class="vstack">
 
@@ -970,7 +889,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 40 — close Part Two on the honest answer */}
+{/* SLIDE 36 — close Part Two on the honest answer */}
 
 <section class="vstack">
 
@@ -993,7 +912,7 @@ theme: 'galaxy'
 </section>
 {/* ============================ FOUR — MOLDS AND CASTING ============================ */}
 
-{/* SLIDE 41 — Part Four transition */}
+{/* SLIDE 37 — Part Four transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1003,7 +922,7 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 42 — a real Mold, frontmatter first */}
+{/* SLIDE 38 — a real Mold, frontmatter first */}
 
 <section class="vstack vstack-tight">
 
@@ -1030,7 +949,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 43 — the typed reference */}
+{/* SLIDE 39 — the typed reference */}
 
 <section class="vstack vstack-tight">
 
@@ -1053,7 +972,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 44 — the three casting decisions */}
+{/* SLIDE 40 — the three casting decisions */}
 
 <section class="vstack">
 
@@ -1084,7 +1003,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 45 — casting is per-kind dispatch */}
+{/* SLIDE 41 — casting is per-kind dispatch */}
 
 <section class="vstack vstack-tight">
 
@@ -1114,7 +1033,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 46 — what lands in the bundle */}
+{/* SLIDE 42 — what lands in the bundle */}
 
 <section class="vstack vstack-tight">
 
@@ -1134,7 +1053,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 47 — the provenance record */}
+{/* SLIDE 43 — the provenance record */}
 
 <section class="vstack vstack-tight">
 
@@ -1158,7 +1077,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 48 — deterministic all the way down */}
+{/* SLIDE 44 — deterministic all the way down */}
 
 <section class="vstack">
 
@@ -1193,7 +1112,7 @@ output_artifacts:
 </section>
 {/* ============================ FIVE — BIOPIXI ============================ */}
 
-{/* SLIDE 49 — Part Five transition */}
+{/* SLIDE 45 — Part Five transition */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1203,7 +1122,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 50 — biopixi is its own thing */}
+{/* SLIDE 46 — biopixi is its own thing */}
 
 <section data-background-color="#f8fbfa">
 
@@ -1224,7 +1143,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 51 — the ladder */}
+{/* SLIDE 47 — the ladder */}
 
 <section class="vstack vstack-tight" data-background-color="#f8fbfa">
 
@@ -1242,7 +1161,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 52 — how it relates to the Foundry */}
+{/* SLIDE 48 — how it relates to the Foundry */}
 
 <section class="vstack">
 
@@ -1268,7 +1187,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 53 — how it relates to Galaxy */}
+{/* SLIDE 49 — how it relates to Galaxy */}
 
 <section class="vstack">
 
@@ -1298,7 +1217,7 @@ output_artifacts:
 </section>
 {/* ============================ CLOSE ============================ */}
 
-{/* SLIDE 54 — the through-line */}
+{/* SLIDE 50 — the through-line */}
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
@@ -1311,7 +1230,7 @@ output_artifacts:
 
 </section>
 
-{/* SLIDE 55 — links */}
+{/* SLIDE 51 — links */}
 
 <section class="vstack">
 
