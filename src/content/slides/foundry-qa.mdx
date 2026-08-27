@@ -405,7 +405,7 @@ theme: 'galaxy'
 
 <div class="statement">The ad hoc path may simply be better.</div>
 
-<div class="lede" style="font-style: italic;">Let me make that case before I defend anything.</div>
+<div class="lede" style="font-style: italic;">Galaxy is better for building Galaxy workflows than the Foundry is.</div>
 
 </section>
 
@@ -464,51 +464,18 @@ theme: 'galaxy'
 
 </section>
 
-{/* SLIDE 20 — this is not hypothetical: the extraction results */}
-
-<section class="vstack vstack-tight">
-
-<div class="eyebrow">And the ad hoc path already has results</div>
-
-<h2>Extraction from a real history</h2>
-
-<div class="split measure-lg">
-  <img
-    class="fig fig-fill fig-framed"
-    src="/slides/gcc2026/uc1-workflow-graph.png"
-    alt="Extracted fourteen-step mobile resistome workflow graph"
-  />
-  <div>
-    <div class="card-eyebrow">mobile resistome · four S. aureus isolates</div>
-    <div class="body" style="margin: 8px 0 0; max-width: none;">
-      Backward extraction from a four-isolate <em>S. aureus</em> notebook recovered a <strong>14-step</strong>,
-      sample-agnostic workflow.
-    </div>
-    <div class="chain" style="margin-top: 12px;">
-      <span>8 map-over steps</span>
-      <span class="chain-sep">·</span>
-      <span>9 outputs</span>
-      <span class="chain-sep">·</span>
-      <span>0 dangling inputs</span>
-    </div>
-    <div class="callout callout-sm" style="margin: 14px 0 0; max-width: none;">
-      Byte-identical re-run across all four isolates.
-    </div>
-  </div>
-</div>
-
-<a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/8">GCC 2026 source slide ↗</a>
-
-</section>
-
-{/* SLIDE 21 — the ad hoc pipeline that already exists */}
+{/* SLIDE 20 — the ad hoc pipeline that already exists */}
 
 <section class="vstack">
 
-<h2>History → Notebook → Workflow</h2>
+<h2 class="plain-heading measure" style="font-size: 1.24em; line-height: 1.16;">
+  History → Notebook → Workflow, with a step in between
+</h2>
 
 <div class="flow">
   <div class="flow-node">History<br /><span style="font-weight: 400; font-size: 0.8em;">computational record</span></div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">reproduciblify<br /><span style="font-weight: 400; font-size: 0.8em;">rebuild it on-graph</span></div>
   <span class="flow-arrow">→</span>
   <div class="flow-node">Notebook<br /><span style="font-weight: 400; font-size: 0.8em;">communicative record</span></div>
   <span class="flow-arrow">→</span>
@@ -521,6 +488,39 @@ theme: 'galaxy'
 </div>
 
 <a class="source" style="display: block;" href="https://jmchilton.net/slides/gcc2026/#/9">GCC 2026 source slide ↗</a>
+
+</section>
+
+{/* SLIDE 21 — reproduciblify, the missing second step */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">galaxy-skills · reproduciblify</div>
+
+<h2>Rebuilding the mess so it can be extracted</h2>
+
+<div class="body measure">
+  Re-execute a real ad hoc history so its whole computational closure lives on the provenance graph, restructure it with
+  collections so it generalizes to N samples, then author the Notebook.
+</div>
+
+<div class="callout measure">
+  <strong>One test, every step:</strong> can Galaxy walk backward from this artifact, through real jobs, to a logical input?
+</div>
+
+<div class="split split-vs measure-lg">
+  <div class="panel">
+    <div class="card-eyebrow">anchors nothing</div>
+    <div class="card-body">derived data uploaded from outside · a pasted figure · a bash or manual reformatting step</div>
+  </div>
+  <div class="split-mark">vs</div>
+  <div class="panel">
+    <div class="card-eyebrow">anchors extraction</div>
+    <div class="card-body">a genuine logical input · any artifact a real Galaxy tool actually produced</div>
+  </div>
+</div>
+
+<a class="ref-link" href="https://github.com/galaxyproject/galaxy-skills/tree/main/reproduciblify">galaxyproject/galaxy-skills · reproduciblify ↗</a>
 
 </section>
 
