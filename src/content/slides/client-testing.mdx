@@ -1,0 +1,395 @@
+---
+title: "I like Client Testing and Dislike Galaxy's Unit Tests"
+description: 'A short discussion about client testing, confidence, and the tests we want to maintain'
+date: '2026-10-12'
+tags: ['galaxy', 'testing', 'developer-experience']
+transition: 'slide'
+showControls: true
+showProgress: true
+theme: 'galaxy'
+---
+
+{/* SLIDE 1 — cover */}
+
+<section class="galaxy-cover vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<h1>I like Client Testing<br />and Dislike Galaxy's<br />Unit Tests</h1>
+
+<div class="source">John Chilton</div>
+
+</section>
+
+{/* SLIDE 2 — the problem; exchange supplied by John */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">The problem</div>
+
+<h2>The client is throwing 429s</h2>
+
+<div class="cards measure-lg" style="gap: 12px;">
+  <div class="card card-side">
+    <div class="card-eyebrow">John</div>
+    <div class="card-title" style="font-size: var(--fs-lede); font-weight: 500;">“Test is throwing 429s — here is why the client is doing that.”</div>
+    <div class="card-body" style="font-size: var(--fs-body);">Hoping admins take pity and increase the rate.</div>
+  </div>
+  <div class="card card-side card-gold">
+    <div class="card-eyebrow">Marius</div>
+    <div class="card-title" style="font-size: var(--fs-lede); font-weight: 500;">“Please don't make client DoS us.”</div>
+  </div>
+  <div class="card card-side card-grey">
+    <div class="card-eyebrow">John</div>
+    <div class="card-title" style="font-size: var(--fs-lede); font-weight: 500;">“But I have so much code to review already 😭”</div>
+  </div>
+</div>
+
+</section>
+
+{/* Two fixes and their measured review surface */}
+
+<section class="vstack">
+
+<div class="eyebrow">Two fixes for #23977</div>
+
+<h2>About 3× as much test code as production code</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-eyebrow">Datatypes fan-out</div>
+    <div class="card-title card-title-lg">2.9×</div>
+    <div class="card-body">Stop unnecessary datatype loads and share concurrent requests.</div>
+    <a class="ref-link" href="https://github.com/galaxyproject/galaxy/pull/23995">PR #23995 ↗</a>
+  </div>
+  <div class="card card-gold">
+    <div class="card-eyebrow">Retries / hidden counts</div>
+    <div class="card-title card-title-lg">3.2×</div>
+    <div class="card-body">Space out retries and skip counts for badges that can't appear.</div>
+    <a class="ref-link" href="https://github.com/jmchilton/galaxy/tree/issue_23977_client_api_fanout_26.1">Retry branch · PR pending ↗</a>
+  </div>
+</div>
+
+<div class="note">Test / production lines changed, counting additions + deletions. Production includes shared utilities.</div>
+
+<aside class="notes">[Sources] Measured with git diff --numstat 5308aa51b16 &lt;tip&gt; -- client. Datatypes tip aaf966c2e46: 8 production files, 7 test files. Retry tip 423bd6a3ec2: 20 production files, 15 test files. Classify .test. paths or client/tests/ as tests; remaining client files as production. Ratios use additions plus deletions: 501/174 = 2.88; 1428/446 = 3.20. Base is release_26.1 commit 5308aa51b16. sharedPromise.ts and sharedPromise.test.ts are counted in each branch; these rows must not be summed without deduplicating them. This measures diff size, not execution time or code quality.</aside>
+
+</section>
+
+export const POPOVER_CSS = `/* Before */
+:deep(.dataset-details-popover) { max-width: 420px; }
+
+/* After */
+.dataset-details-popover { max-width: 420px; }`;
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">#23910 · a separate CSS fix</div>
+
+<h2>One selector. A 50-line test.</h2>
+
+<pre class="code-block"><code>{POPOVER_CSS}</code></pre>
+
+<div class="body measure">GPopover moves the content under <code>body</code>. The old descendant selector no longer matches. The plain scoped selector matches the content's retained scope id.</div>
+
+<div class="callout measure">Vitest doesn't load SFC styles. The test reads the Vue file, compiles and injects its CSS, mounts the component, and checks the computed 420px cap.</div>
+
+<a class="ref-link" href="https://github.com/galaxyproject/galaxy/pull/23910/changes">#23910 · Fix storage run dataset popover overflowing the viewport ↗</a>
+
+<aside class="notes">[Sources] https://github.com/galaxyproject/galaxy/pull/23910/changes; GitHub PR files API inspected. DatasetPopoverLink.vue: 2 additions (selector and explanatory comment), 1 deletion. DatasetPopoverLink.width.test.ts: 50 additions. The test verifies the content is outside the wrapper and getComputedStyle(content).maxWidth is 420px. It guards scoped-selector matching after relocation, not full browser geometry or a screenshot. The displayed CSS is abbreviated to focus on the selector change. Separate from both #23977 branches.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">The problem for the human reviewer</div>
+
+<h2>The cognitive load is too high</h2>
+
+<div class="statement statement-sm measure">Better abstractions and cleaner separation<br />between setup and test code.</div>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">Better test abstractions can help</div>
+
+<h2>Make the scenario easier to see</h2>
+
+<div class="body measure">Shared fixtures and mount helpers remove repeated setup. Named scenarios and exact assertions make the behavior easier to review.</div>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Chat test harness</div>
+    <div class="card-body">An identical ~100-line setup block in two suites becomes one shared import.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">Typed dataset factory</div>
+    <div class="card-body">Six private builders become one reusable factory, with overrides visible in the test.</div>
+  </div>
+</div>
+
+<a class="ref-link" href="https://github.com/galaxyproject/galaxy/pull/24038">#24038 · Rewrite Client Tests toward Readability ↗</a>
+
+<aside class="notes">[Sources] https://github.com/galaxyproject/galaxy/pull/24038 — PR description, shared chat harness and dataset factory examples. These are reported results of the refactoring work.</aside>
+
+</section>
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Setup and test code get mixed together</div>
+
+<h2>Use responses the server actually sends</h2>
+
+<div class="body measure">Hand-written payloads can type-check and still describe a response Galaxy never sends. Repeated synthetic data also hides the test's story.</div>
+
+<div class="callout measure">Record backend responses. Load typed fixtures. Keep only the scenario's overrides in the test.</div>
+
+<div class="note"><a href="https://github.com/jmchilton/galaxy/tree/vitest_real_api_calls">Branch: vitest_real_api_calls ↗</a><br />Recorded API fixtures → history-summary factory → disk-usage tests.</div>
+
+<a class="ref-link" href="https://github.com/galaxyproject/galaxy/issues/24030">#24030 · Real API Responses / Models in Client Unit Tests ↗</a>
+
+<aside class="notes">[Sources] https://github.com/galaxyproject/galaxy/issues/24030; https://github.com/jmchilton/galaxy/tree/vitest_real_api_calls at 3076db79898 (verified pushed), commits 186224135a6 and 178fdcae579, client/README.md “Recorded API Responses”. Worktree: /Users/jxc755/projects/worktrees/galaxy/branch/vitest_real_api_calls.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="lede measure">Separating the responses from busy, dense test code is a start.</div>
+
+<div class="statement measure">Storybook stories take it<br />a step further.</div>
+
+</section>
+
+
+export const STORY_TEST = `const wizard = await mountWizard(stories.WithUserAndDefaultZenodo);
+await next(wizard);
+expect(destinationCard(wizard, "zenodo-repository").text())
+    .toContain("My Zenodo");`;
+
+<section class="vstack">
+
+<div class="eyebrow">Setup belongs to the story</div>
+
+<h2>The test reads like the scenario</h2>
+
+<pre class="code-block"><code>{STORY_TEST}</code></pre>
+
+<div class="body measure">The named story owns the API responses and component setup. A reviewer can open that state in Storybook.</div>
+
+<div class="note">HistoryExportWizard: 460 → 179 test lines, plus a 72-line stories file.</div>
+
+<aside class="notes">[Sources] STORYBOOK_PITCH.md — HistoryExportWizard example. The old test guarded assertions with exists(); a missing card could pass. The replacement fails when the card is absent. This is the pitch's reported conversion, not a new measurement.</aside>
+
+</section>
+
+<section>
+
+<img
+  src="/slides/client-testing/storybook-history-export.png"
+  alt="Storybook showing the HistoryExportWizard Suggests Remote File Name story, the rendered export summary, named stories in the sidebar, and controls and interaction panels below"
+  style="width: 100%; max-height: 620px; object-fit: contain; border: 2px solid var(--deck-grey); box-sizing: border-box;"
+/>
+
+<aside class="notes">[Sources] Screenshot supplied by John, October 13, 2026. Storybook HistoryExportWizard, Suggests Remote File Name story.</aside>
+
+</section>
+
+
+<section class="vstack">
+
+<h2>Try at home</h2>
+
+<blockquote class="body measure left" style="font-size: var(--fs-lede); line-height: 1.45; overflow-wrap: anywhere;">
+  “Yo agent - create a worktree locally with jmchilton's fork of galaxyproject/galaxy on the fork's vitest_story_play branch. Read <a href="https://github.com/jmchilton/galaxy-brain/blob/main/vault/projects/just_jesting_around/STORYBOOK_PITCH.md">https://github.com/jmchilton/galaxy-brain/blob/main/vault/projects/just_jesting_around/STORYBOOK_PITCH.md</a> for context and then start the storybook server and open in my local browser.”
+</blockquote>
+
+</section>
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">October 10 snapshot · 29 component tests</div>
+
+<h2>The coverage moves</h2>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-eyebrow">Unit cases</div>
+    <div class="card-title">285 → 173</div>
+    <div class="card-body">112 fewer unit cases; three unit files removed.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-eyebrow">Browser</div>
+    <div class="card-title">191 stories</div>
+    <div class="card-body">133 play functions across 22 converted components.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-eyebrow">Assertions</div>
+    <div class="card-title">817 → 862</div>
+    <div class="card-body">Checks across unit tests and stories.</div>
+  </div>
+</div>
+
+<div class="callout measure">We lose a lot of “unit test” coverage. The checks need to survive in the browser job.</div>
+
+<div class="note">Unit test lines fall 44%; test + story code grows by about 2,000 lines. Case and assertion counts are not coverage percentages.</div>
+
+<aside class="notes">[Sources] STORYBOOK_PITCH.md — Metrics snapshot as of 2026-10-10. Unit lines 6,481 → 3,606; story lines 0 → 4,928. These counts do not establish line or branch coverage. Several old cases combine into one play; browser renders without a play are not equivalent to interaction checks.</aside>
+
+</section>
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">CLI benchmark · mean of the last three of five runs</div>
+
+<h2>About eight seconds longer overall</h2>
+
+<div class="cards cards-3 measure-lg">
+  <div class="card">
+    <div class="card-eyebrow">Before · original units</div>
+    <div class="card-title">68.94s</div>
+    <div class="card-body">482 unit tests</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-eyebrow">After · remaining units</div>
+    <div class="card-title">54.21s</div>
+    <div class="card-body">345 unit tests</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-eyebrow">After · Chromium stories</div>
+    <div class="card-title">23.04s</div>
+    <div class="card-body">379 browser tests</div>
+  </div>
+</div>
+
+<div class="callout measure">77.25s combined · +8.31s (+12.1%)<br />Less unit time offsets much of the browser cost.</div>
+
+<div class="note">All five comparisons passed; the last three were steadier.<br />Conversion range, with additional browser states — not the whole suite.<br />Node 22 · three workers · no coverage or a11y · sequential CLI wall time.</div>
+
+<aside class="notes">[Sources] STORYBOOK_PITCH.md, “Costs / CLI runtime”, measured October 12–13, 2026. Fixed snapshots: pre-Storybook 27e6eaab100, Play 81c4987360d. All five comparisons pass. Times in seconds (original units / remaining units / browser stories / combined): run 1: 81.16 / 69.31 / 36.64 / 105.95 (+30.5%); run 2: 81.10 / 54.79 / 23.71 / 78.50 (−3.2%); run 3: 69.23 / 54.62 / 23.09 / 77.71 (+12.2%); run 4: 68.69 / 54.01 / 22.93 / 76.94 (+12.0%); run 5: 68.89 / 54.00 / 23.09 / 77.09 (+11.9%). Mean of runs 3–5: 68.94 / 54.21 / 23.04 / 77.25, +8.31s (+12.1%). First two comparisons show startup/cache variability; runs 3–5 alternate snapshot order. Before: 59 original unit files, 482 tests. After: 55 remaining unit files, 345 tests, plus 59 story files, 379 browser tests. The workloads are not equivalent: after includes additional rendered states and checks. End-to-end CLI wall time includes startup; after runs units and browser stories sequentially. Pinned Node 22.20.0, three workers, 8 GB heap, coverage and a11y excluded. Local benchmark, not a CI performance guarantee. Browser CI and Storybook dependencies remain adoption requirements.</aside>
+
+</section>
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<h2>Extra Slides</h2>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">Play functions</div>
+
+<h2>Check the state in real Chromium</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Browser plays</div>
+    <div class="card-body">Click, hover, and scroll. Query by role and label. Assert what the user can see.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">Remaining unit tests</div>
+    <div class="card-body">Keep checks about spies, request payloads, and controlled timing in Vitest.</div>
+  </div>
+</div>
+
+<div class="note">Each moved check is tested against a deliberate break. Every original assertion should still have a home.</div>
+
+<aside class="notes">[Sources] STORYBOOK_PITCH.md — “The Process / Loop”. These are the migration's stated review and verification practices.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">The shiny features</div>
+
+<h2>A browsable catalog is useful beyond tests</h2>
+
+<div class="cards measure-lg" style="gap: 12px;">
+  <div class="card card-side card-note">
+    <div class="card-eyebrow">Now · stories and plays</div>
+    Browse real component states and watch interactions step by step.
+  </div>
+  <div class="card card-side card-gold card-note">
+    <div class="card-eyebrow">Separate experiment · accessibility</div>
+    Axe checks, violation highlighting, and vision simulations. Initial audit: violations in 121 of 236 stories.
+  </div>
+  <div class="card card-side card-grey card-note">
+    <div class="card-eyebrow">Future · visual regression</div>
+    Compare the same states during UI migrations. Screenshot baselines and a review workflow still need building.
+  </div>
+</div>
+
+<div class="note">121 affected stories ≠ 121 distinct bugs. Viewport presets alone do not run a screenshot matrix.</div>
+
+<aside class="notes">[Sources] STORYBOOK_PITCH.md — “Visual checks could protect future migrations” and “Accessibility checks alongside the plays”. Accessibility work is on vitest_story_a11y. Legacy todo exceptions do not gate new violations in those stories; browser CI is a separate adoption requirement.</aside>
+
+</section>
+
+{/* Rebuttal adapted from John's SLIDES.md */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">“But these aren't unit tests”</div>
+
+<div class="statement">HOT TAKE: Unit tests are<br />a deeply human thing.</div>
+
+<div class="lede">Part of their value is how they push us to think about the design. I don't see agents responding to that pressure the same way.</div>
+
+<aside class="notes">[Sources] John's argument in /Users/jxc755/projects/repositories/galaxy-brain/vault/projects/just_jesting_around/SLIDES.md. This section presents my position on the tradeoff, not an empirical claim about every agent or every unit test.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">Decomposition</div>
+
+<h2>Humans feel shame writing a bad test</h2>
+
+<div class="body measure left">A ton of mocking. A test more complicated than the feature or fix. We know when we're writing a bad test — and the bad test is telling us the implementation sucks.</div>
+
+<div class="callout measure">That pushes us to decompose and design better.</div>
+
+<div class="note">Good unit tests require good decomposition. That feedback is part of their value.</div>
+
+<aside class="notes">[Sources] SLIDES.md — the decomposition argument, adapted closely from John's wording.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">What I see with agents</div>
+
+<div class="statement">They can write around the implementation<br />instead of rethinking it.</div>
+
+<div class="body measure">What I keep seeing: a complicated implementation gets a complicated test. The agent makes it pass, and I'm left reviewing both.</div>
+
+<div class="callout measure">I want the test to help us see when the design needs work.</div>
+
+<aside class="notes">[Sources] SLIDES.md — John's observation about agent-generated tests. Softened from an absolute claim about agents to the pattern John observes in generated tests.</aside>
+
+</section>
+
+<section class="vstack">
+
+<div class="eyebrow">The review loop</div>
+
+<h2>Look at what these tests let us review</h2>
+
+<div class="body measure">These Storybook tests communicate between the implementation, the agents, and the humans. That is the part I care about.</div>
+
+<div class="callout measure">They're easier to review — and the review covers so much more when you can see the story in action.</div>
+
+<aside class="notes">[Sources] SLIDES.md — John's review-time and communication argument. The benchmark slide summarizes five comparisons, with a 12.1% increase across the steadier final three. The review argument is about the value of visible behavior, not runtime alone.</aside>
+
+</section>
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<div class="eyebrow">Discussion</div>
+
+<div class="statement">Our review time matters too.</div>
+
+<div class="lede">I want to see the story in action,<br />understand the behavior, and trust the test.</div>
+
+<aside class="notes">[Sources] SLIDES.md — John's emphasis on review time, reframed around the value of visible behavior rather than an assumed runtime penalty.</aside>
+
+</section>
