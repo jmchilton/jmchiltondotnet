@@ -4,8 +4,6 @@
 
 - Read [README.md](README.md) for setup, build commands, and the repository map.
 - Run `git status --short` before editing. Unrelated dirty decks, scratch documents, and worktrees may be present. Preserve them and keep them out of your commit.
-- Keep changes focused. Stage only the files belonging to the requested change.
-- When separate authoring and visual-review agents are requested for a deck, run their editing passes sequentially. The coordinator collects the results and commits once at the end.
 
 ## Content and generated files
 
@@ -28,7 +26,7 @@
 
 - For a focused change, run `npx prettier --check <changed-files>` on supported, non-ignored files, then `make lint typecheck`. Select the actual paths instead of passing the placeholder literally.
 - `.prettierignore` currently excludes all of `src/content/slides/`. A successful formatting check does not validate an ignored deck. Use Astro checks and a browser preview for deck changes.
-- `make test` includes `prettier --check .`. Untracked Markdown and `.claude/worktrees/` can cause failures unrelated to your change because those paths are not currently ignored. Report unrelated failures without reformatting other work.
+- `make test` includes `prettier --check .`.
 - Avoid `make format` for a narrow task because it formats the whole repository.
 - For build changes, run `npm run build` when RenderCV is available. To validate the site without regenerating PDFs, run `npm run preprocess:resume` followed by `npx astro build`, and report that PDF generation was skipped.
 - The pre-commit hook runs `npx lint-staged`. It applies Prettier to staged supported files and ESLint fixes to staged JavaScript/TypeScript. Lint-staged normally creates a temporary stash to protect unstaged work. Inspect the resulting diff and status after committing.

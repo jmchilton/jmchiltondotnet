@@ -39,7 +39,16 @@ make test
 
 ## Production build
 
-The standard build requires the `rendercv` executable on your PATH. The resume YAML references the RenderCV 2.3 schema.
+The standard build uses RenderCV, a Python command-line tool, to generate the resume and CV PDFs. `npm ci` does not install it. With [uv installed](https://docs.astral.sh/uv/getting-started/installation/), install the same Python and RenderCV versions used by CI:
+
+```sh
+uv tool install --python 3.12 'rendercv[full]==2.4'
+rendercv --version
+```
+
+If `rendercv` is not found, run `uv tool update-shell`, restart your shell, and retry `rendercv --version`. This adds uv's tool directory to your PATH. See [uv's tool guide](https://docs.astral.sh/uv/guides/tools/) for details.
+
+Once `rendercv` is available, build and preview the site:
 
 ```sh
 npm run build
