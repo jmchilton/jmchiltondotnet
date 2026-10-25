@@ -848,6 +848,13 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       .reveal .slides ol.tight li {
         margin: 0.3em 0;
       }
+      /* Tailwind preflight strips markers; this deck wants them back. */
+      .reveal[data-deck='workflow-step-params'] .slides ul.tight {
+        list-style: disc;
+      }
+      .reveal[data-deck='workflow-step-params'] .slides ul.tight li::marker {
+        color: var(--deck-gold-ink);
+      }
 
       /* Inline reference pill: a URL or repo slug under a heading. */
       .reveal .ref-link {

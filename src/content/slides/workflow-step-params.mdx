@@ -15,7 +15,7 @@ theme: 'galaxy'
 
 <h1>Exposing Step Parameters<br />in the Simple Run Form</h1>
 
-<div class="lede">An issue and two spikes</div>
+<div class="lede">An issue to file, and two spikes that test it</div>
 
 <div class="source">John Chilton</div>
 
@@ -29,20 +29,24 @@ theme: 'galaxy'
 
 <h2>Changing one threshold means the whole legacy form</h2>
 
-<div class="cards cards-2 measure-lg">
+<div class="cards cards-3 measure-lg">
   <div class="card">
-    <div class="card-eyebrow">What users do today</div>
-    <div class="card-body">Open the expanded run form to change a threshold, a filter value or one repeat option. It renders every step and every unconnected parameter, and submits all of them.</div>
+    <div class="card-eyebrow">Everything, every time</div>
+    <div class="card-body">To change a threshold, a filter value or one repeat option, users open the expanded form. It renders every step and submits every unconnected parameter.</div>
+  </div>
+  <div class="card">
+    <div class="card-eyebrow">What did I change?</div>
+    <div class="card-body">The invocation keeps all of them. You can't tell the two you meant to change from the rest.</div>
   </div>
   <div class="card card-gold">
-    <div class="card-eyebrow">What's stuck</div>
-    <div class="card-body">Four fixes make step parameters round-trip through the invocation API, but they target the legacy form. I've held them back.</div>
+    <div class="card-eyebrow">Reruns stuck there</div>
+    <div class="card-body">Four fixes make step parameters round-trip, but a rerun of such a run is forced back into the legacy form. I've held them back.</div>
   </div>
 </div>
 
 <div class="callout measure">The API can already set any of these parameters. What's missing is a light way to set <em>a few</em>.</div>
 
-<aside class="notes">[Sources] RERUN_ISSUE.md "Problem" in galaxy-brain vault/projects/workflow_applications/. Fixes: galaxyproject/galaxy #24178 (subworkflow export keys), #24175, #24176 (import re-keys), #24177 (rerun prefills; forces the expanded form when an invocation has step parameters). "Slow to render" is qualitative; no timing was measured.</aside>
+<aside class="notes">[Sources] RERUN_ISSUE.md "Problem" and "Recording exposed parameters" (galaxy-brain vault/projects/workflow_applications/); RERUN_UX.md "Problem" (the full form records every unconnected param, so rerunHasStepParameters pins reruns to the expanded form). Fixes: galaxyproject/galaxy #24178 (subworkflow export keys), #24175, #24176 (import re-keys), #24177 (rerun prefills; forces the expanded form when an invocation has step parameters). The issue's "hundreds of unchanged defaults" is illustrative; no parameter count or render timing was measured, so the slide doesn't give one. No user reports are linked in the sources: "users" here is the issue's "some users".</aside>
 
 </section>
 
@@ -68,7 +72,9 @@ theme: 'galaxy'
 
 <div class="note">Everything not picked uses the workflow's saved values.</div>
 
-<aside class="notes">[Sources] RERUN_ISSUE.md "Proposal", "Exposure key", "Recording exposed parameters", "Rerun". Subworkflow keys add one index per level: &lt;outer&gt;|&lt;inner&gt;|name. order_index is 0-based, like inputs_by: "step_index".</aside>
+<div class="callout callout-navy callout-sm measure">To decide: file this as an issue? Pick parameters from a tree, or from the graph?</div>
+
+<aside class="notes">[Sources] RERUN_ISSUE.md "Proposal", "Exposure key", "Recording exposed parameters", "Rerun". Subworkflow keys add one index per level: &lt;outer&gt;|&lt;inner&gt;|name. order_index is 0-based, like inputs_by: "step_index". The two questions are the branch record's "Decision" (index.md) and the two spikes.</aside>
 
 </section>
 
@@ -78,13 +84,13 @@ theme: 'galaxy'
 
 <div class="eyebrow">Spike 1 · tree picker</div>
 
-<h2>The workflow as a tree of parameters</h2>
+<h2>A parameter tree that reads like the tool form</h2>
 
 <img class="fig fig-tall fig-framed" src="/slides/workflow-step-params/tree-picker.png" alt="Add step parameters modal listing Step 2: echo with checkboxes for Threshold, Mode, Verbose flag, Run label and repeat Column names, each showing what the workflow sets it to; Column and Filter type are greyed out with lock icons; Add (3) button" />
 
 <a class="ref-link" href="https://github.com/jmchilton/galaxy/tree/workflow_run_exposed_step_params">jmchilton/galaxy · workflow_run_exposed_step_params ↗</a>
 
-<aside class="notes">[Sources] Screenshot from Playwright test test_add_step_parameters_and_run (lib/galaxy_test/selenium/test_workflow_run_exposed_step_params.py), branch head a6e08520821, cropped. Scalar params are selectable; data params, conditional selectors and data-dependent params (Column) are locked. Repeats show existing instances only.</aside>
+<aside class="notes">[Sources] Screenshot from Playwright test test_add_step_parameters_and_run (lib/galaxy_test/selenium/test_workflow_run_exposed_step_params.py), branch head a6e08520821, cropped. Scalar params are selectable; data params, conditional selectors and data-dependent params (Column) are locked. Repeats show existing instances only. "Reads like the tool form": LESSONS_LEARNED.md UI lesson 1 (judged on a tool with about 10 params).</aside>
 
 </section>
 
@@ -94,14 +100,14 @@ theme: 'galaxy'
 
 <div class="eyebrow">Spike 1 · rows</div>
 
-<h2>Values, help and locks, no internal names</h2>
+<h2>Rows show values, help and why a row is locked</h2>
 
-<div class="split">
-  <img class="fig fig-framed" src="/slides/workflow-step-params/row-help.png" alt="Threshold row with its help popover open, reading Scores below this are dropped" />
-  <img class="fig fig-framed" src="/slides/workflow-step-params/row-locked-conditional.png" alt="Locked Filter type row with a tooltip reading Changing this would change which parameters below apply. Set it in the expanded form." />
+<div class="split split-wide-right">
+  <img class="fig fig-fill fig-framed" src="/slides/workflow-step-params/row-help.png" alt="Threshold row with its help popover open, reading Scores below this are dropped" />
+  <img class="fig fig-fill fig-framed" src="/slides/workflow-step-params/row-locked-conditional.png" alt="Locked Filter type row with a tooltip reading Changing this would change which parameters below apply. Set it in the expanded form." />
 </div>
 
-<div class="body measure">A conditional's selector is locked: changing it would change which parameters apply. Only the current case's children can be picked.</div>
+<div class="body measure">A conditional's selector is locked: changing it would change which parameters apply. Only the current case's children can be picked. Internal keys are never shown.</div>
 
 <aside class="notes">[Sources] Screenshots exposed_step_params_picker_help and exposed_step_params_picker_locked_conditional from the same Playwright test, which asserts the popover text, the tooltip text and that "1|threshold" is absent from the row. Commit a6e08520821 "Spike tree polish". Leftover: the filter box still matches the hidden keys.</aside>
 
@@ -115,9 +121,11 @@ theme: 'galaxy'
 
 <h2>Each pick becomes a card with the tool's own widget</h2>
 
-<img class="fig fig-tall fig-framed" src="/slides/workflow-step-params/cards.png" alt="Simple run form with a Step parameters (3) section holding cards for Threshold, Query 2 Column name and cond Minimum value, each showing the saved value and a remove button" />
+<img class="fig fig-framed" src="/slides/workflow-step-params/cards.png" alt="Simple run form with a Step parameters (3) section holding cards for Threshold, Query 2 Column name and cond Minimum value, each showing the saved value and a remove button" />
 
-<aside class="notes">[Sources] Screenshot exposed_step_params_cards. The test removes the Column name card, submits, and checks the job echoes threshold=0.9, cond.min=5 and the saved column c2, and that the invocation request records exposed_step_parameters ["1|threshold", "1|cond|min"].</aside>
+<div class="note">Each card is a one-input tool form: validation, widget and parsing come free.</div>
+
+<aside class="notes">[Sources] Screenshot exposed_step_params_cards. Card rendering through a one-input FormDisplay: LESSONS_LEARNED.md UI lesson 2. The test removes the Column name card, submits, and checks the job echoes threshold=0.9, cond.min=5 and the saved column c2, and that the invocation request records exposed_step_parameters ["1|threshold", "1|cond|min"].</aside>
 
 </section>
 
@@ -131,7 +139,7 @@ theme: 'galaxy'
 
 <div class="split">
   <img class="fig fig-framed" src="/slides/workflow-step-params/rerun-prefilled.png" alt="Rerun form showing two step parameter cards, Threshold 0.75 and Minimum value 3, labelled original run" />
-  <img class="fig fig-framed" src="/slides/workflow-step-params/rerun-row-action.png" alt="Invocation job parameters table with a rerun icon beside the Threshold, Mode and Verbose flag rows but not Column" />
+  <img class="fig fig-fill fig-framed" src="/slides/workflow-step-params/rerun-row-action.png" alt="Invocation job parameters table with a rerun icon beside the Threshold, Mode and Verbose flag rows but not Column" />
 </div>
 
 <div class="body measure">Left: rerun re-shows the recorded keys, prefilled. Right: "rerun with this changed" from an invocation's job parameters.</div>
@@ -146,7 +154,7 @@ theme: 'galaxy'
 
 <div class="eyebrow">Spike 2 · graph picker</div>
 
-<h2>Pick from the workflow graph instead</h2>
+<h2>Same rows, picked from the graph</h2>
 
 <img class="fig fig-tall fig-framed" src="/slides/workflow-step-params/graph-picker.png" alt="Pick step parameters from the workflow graph modal: a read-only graph with a table input, an echo tool node reading 2 of 7 parameters picked and a locked nested subworkflow node; the echo step's parameter list on the right" />
 
@@ -185,9 +193,9 @@ theme: 'galaxy'
     <div class="card-title">Tree picker</div>
     <ul class="tight card-body">
       <li>Filter finds a parameter across steps</li>
-      <li>Subworkflow keys re-shown and re-sent</li>
-      <li>One modal</li>
-      <li>Add-only; remove with × on the card</li>
+      <li>Subworkflow overrides re-shown and re-sent</li>
+      <li>One modal, no editor changes</li>
+      <li>Add-only: take select/deselect from the graph</li>
     </ul>
   </div>
   <div class="card card-gold">
@@ -195,13 +203,14 @@ theme: 'galaxy'
     <ul class="tight card-body">
       <li>Find a step by its place in the graph</li>
       <li>Select/deselect in the picker</li>
-      <li>Subworkflows locked, keys dropped</li>
+      <li>No search across steps</li>
+      <li>Subworkflow overrides dropped on rerun</li>
       <li>Own store scope, new editor-node prop</li>
     </ul>
   </div>
 </div>
 
-<div class="note">Graph nodes say "2: echo" (1-based); keys say <code>1|threshold</code> (0-based). Keep them apart.</div>
+<div class="note">Nodes say "2: echo" (1-based); keys say <code>1|threshold</code> (0-based). Never show both.</div>
 
 <aside class="notes">[Sources] RERUN_ISSUE.md "Comparison" table and Spike 2 findings. Client cost per the alt branch: editor nodes gained a prop for counts; the picker needs its own workflow store scope or node clicks move the run form's active step; the datatypes mapper must be read reactively or the picker hangs on "Loading workflow".</aside>
 
@@ -215,21 +224,92 @@ theme: 'galaxy'
 
 <h2>Ship the tree, with select/deselect</h2>
 
-<ul class="tight measure body">
-  <li>Graph later as an optional "show in graph" view, not the only picker.</li>
-  <li>Server work is small: strict unknown keys (G1), parameter paths for "rerun with this changed" (G2), recorded exposed keys (G4). About 20–30 lines each, no migration.</li>
-  <li>Still to design: full subworkflow listing (G3) and column parameters once their data input is set.</li>
+<div class="body measure">
+<ul class="tight">
+  <li><strong>Cost:</strong> strict keys (G1), parameter paths (G2), recorded keys (G4). About 20–30 server lines each, no migration. Graph later as an optional view.</li>
+  <li><strong>Risk:</strong> strict keys turn silently ignored keys into 400s. The audit covered only the run/rerun test tools.</li>
+  <li><strong>Gap:</strong> column parameters stay locked in the first pass, and they're probably what users most want to change.</li>
 </ul>
+</div>
 
-<div class="callout measure">Next: file the issue, then split into PRs: G1, G2 + G4 API, client.</div>
+<div class="callout measure">Ask: file the issue, then PRs in order: G1, G2&nbsp;+&nbsp;G4 API, client.</div>
 
-<aside class="notes">[Sources] RERUN_ISSUE.md "Recommendation" and "API work needed"; branch record vault/repositories/galaxy/branches/active/workflow_run_exposed_step_params/index.md "Decision". Line estimates are from the spike, not a review. Neither spike will be opened as a PR.</aside>
+<aside class="notes">[Sources] RERUN_ISSUE.md "Recommendation", "API work needed" (G1 audit scope: still check dynamic options, hidden params, __job_resource, old saved states with keys from upgraded tools) and "Picking parameters" (column follow-up); LESSONS_LEARNED.md UI lesson 3 and "Suggested issue edits" 5 ("most likely user complaint"); branch record vault/repositories/galaxy/branches/active/workflow_run_exposed_step_params/index.md "Decision". Line estimates are from the spike, not a review. Full subworkflow listing (G3) is also still to design. Neither spike will be opened as a PR.</aside>
 
 </section>
 
 <section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
 
 <h2>Extra Slides</h2>
+
+</section>
+
+{/* EXTRA — first-pass scope */}
+
+<section class="vstack">
+
+<div class="eyebrow">Scope</div>
+
+<h2>What the first pass can and can't expose</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Can pick</div>
+    <ul class="tight card-body">
+      <li>Text, integer, float, boolean, select and color parameters</li>
+      <li>Inside sections, existing repeat instances and the active conditional case</li>
+      <li>Inside subworkflows (full listing needs G3)</li>
+    </ul>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">Not yet</div>
+    <ul class="tight card-body">
+      <li>Conditional selectors (shown locked, with their value)</li>
+      <li>Data, collection and connected inputs</li>
+      <li>Column parameters: follow-up once their data input&nbsp;is&nbsp;set</li>
+      <li>Adding or removing repeat instances</li>
+      <li>Workflows with replacement parameters in tool steps</li>
+    </ul>
+  </div>
+</div>
+
+<aside class="notes">[Sources] RERUN_ISSUE.md "Picking parameters" and G3. Workflows with replacement parameters in tool steps already have the simple form disabled (hasReplacementParameters), per LESSONS_LEARNED.md API lesson 7, so they never reach the picker. Landing requests are also out of scope for the first pass.</aside>
+
+</section>
+
+{/* EXTRA — links */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Links</div>
+
+<h2>A link can expose and preset parameters</h2>
+
+<img class="fig fig-framed" src="/slides/workflow-step-params/link-preset-dropped.png" alt="Step parameters (1) section: an orange warning that 1|cond|pattern and 1|column can't be set and will not be sent, above a Minimum value card preset to 7" />
+
+<div class="body measure"><code>step_param=1|cond|min&amp;step_param_value=1|cond|min=7</code> becomes a card set to 7. Keys that can't be set are listed and dropped; the run isn't blocked.</div>
+
+<aside class="notes">[Sources] LESSONS_LEARNED.md "F2, link" screenshot rerun_link_preset_and_dropped.png (cropped), from test_step_param_link_with_preset_and_unknown_key at a6e08520821. The full link also passed step_param=1|cond|pattern and step_param=1|column. The raw keys in the warning are a known leftover (UI lesson 1).</aside>
+
+</section>
+
+{/* EXTRA — unrecorded rerun fallback */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Fallback</div>
+
+<h2>Runs without recorded keys still rerun in the legacy form</h2>
+
+<div class="split split-wide-left">
+  <img class="fig fig-fill fig-framed" src="/slides/workflow-step-params/rerun-unrecorded-legacy.png" alt="Top of the legacy workflow run form with an orange alert: This is the legacy workflow run form. The original run set tool step parameters. The simplified form does not support these, so they would be lost." />
+  <div>
+    <div class="body">With #24177 alone, every rerun of a run that set step parameters opens here. With recorded keys, only runs from the expanded form or the API still do.</div>
+    <div class="note" style="margin-top: 0.8em;">The alert should say the run didn't record which parameters were chosen.</div>
+  </div>
+</div>
+
+<aside class="notes">[Sources] Screenshot rerun_unrecorded_expanded.png (cropped) from test_rerun_without_exposed_keys_stays_expanded on the spike branch at a6e08520821; the alert text is #24177's. It's a 2-step test workflow with the echo step collapsed, so it doesn't show how long the form gets on a real workflow. RERUN_ISSUE.md "Rerun"; LESSONS_LEARNED.md UI lesson 5 (alert wording).</aside>
 
 </section>
 
@@ -255,7 +335,7 @@ export const PAYLOAD = `POST /api/workflows/{workflow_id}/invocations
 
 <pre class="code-block code-block-sm"><code>{PAYLOAD}</code></pre>
 
-<div class="note">Field name is a placeholder. Older servers ignore it: the run works, and rerun falls back to the expanded form.</div>
+<div class="note">The field name is a placeholder. An older server ignores it, so the run works and its rerun opens the expanded form.</div>
 
 <aside class="notes">[Sources] RERUN_ISSUE.md "Submission" and G4. "inputs" omitted here for space. The form sends values as strings, so an API run and its UI rerun can record different JSON for the same values.</aside>
 
@@ -290,12 +370,12 @@ export const PAYLOAD = `POST /api/workflows/{workflow_id}/invocations
 
 <div class="cards cards-3 measure-lg">
   <div class="card"><div class="card-title card-title-lg">10</div><div class="card-body">API tests (tree spike)</div></div>
-  <div class="card"><div class="card-title card-title-lg">5</div><div class="card-body">Playwright E2E (tree), plus 2 for the graph</div></div>
+  <div class="card"><div class="card-title card-title-lg">5</div><div class="card-body">Playwright E2E (tree), plus 2 for the&nbsp;graph</div></div>
   <div class="card card-gold"><div class="card-title card-title-lg">22 + 41</div><div class="card-body">Existing step-parameter API and run/rerun Selenium tests still pass with G1 on</div></div>
 </div>
 
 <div class="note">Local runs only; no CI. About 13 of the 41 submit the expanded form.</div>
 
-<aside class="notes">[Sources] RERUN_ISSUE.md Spike 1 "Tests" and Spike 2 "Tests"; branch record index.md Status ("no CI"). Tree spike also has 10 client unit tests for stepParameterTree.ts. Counts are what was run locally at heads a6e08520821 / 1c4e9534043.</aside>
+<aside class="notes">[Sources] RERUN_ISSUE.md Spike 1 "Tests" and Spike 2 "Tests"; branch record index.md Status ("no CI"). Tree spike also has client unit tests for stepParameterTree.ts: RERUN_ISSUE.md says 10, LESSONS_LEARNED.md and spike_debrief.md say 8; the graph alt has 11. Counts are what was run locally at heads a6e08520821 / 1c4e9534043.</aside>
 
 </section>
