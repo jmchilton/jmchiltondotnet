@@ -1,68 +1,87 @@
-# Astro Starter Kit: Minimal
+# jmchilton.net
+
+John Chilton's personal website, built with Astro, MDX, Tailwind CSS, and Reveal.js. It includes a project timeline, presentations, resume and CV, cocktails, and Pittsburgh recommendations.
+
+## Local development
+
+Install Node.js and npm compatible with Astro 5, then run these commands from the repository root:
 
 ```sh
-npm create astro@latest -- --template minimal
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Open the local URL printed by Astro, normally `http://localhost:4321`. The development command validates the resume source, generates the resume and CV variants, and watches for changes.
 
-## 🚀 Project Structure
+## Repository guide
 
-Inside of your Astro project, you'll see the following folders and files:
+| Path                            | Contents                                                |
+| ------------------------------- | ------------------------------------------------------- |
+| `src/pages/`                    | Site routes                                             |
+| `src/content/`                  | Content collections, including slide decks in `slides/` |
+| `src/content/config.ts`         | Collection schemas and frontmatter validation           |
+| `src/data/tags.yaml`            | Allowed tags for content collections                    |
+| `src/data/resume-main.yaml`     | Resume and CV source of truth                           |
+| `src/layouts/SlideLayout.astro` | Shared Reveal.js layout and slide styles                |
+| `public/`                       | Static assets served directly by the site               |
+| `scripts/`                      | Resume generation, validation, and slide PDF export     |
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+Read [AGENTS.md](AGENTS.md) before making changes. It covers validation, slide authoring constraints, and working alongside unrelated changes.
+
+## Validation
+
+```sh
+make lint typecheck
+make test
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+`make test` runs repository-wide formatting, linting, and Astro checks. For a focused change in a dirty checkout, check formatting on the files you changed and run `make lint typecheck`. See [AGENTS.md](AGENTS.md) for the slide formatting exception and commit-hook behavior.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Production build
 
-Any static assets, like images, can be placed in the `public/` directory.
+The standard build requires the `rendercv` executable on your PATH. The resume YAML references the RenderCV 2.3 schema.
 
-## 📄 Resume/CV
+```sh
+npm run build
+npm run preview
+```
 
-Resume and CV maintained from single source:
+The build generates resume and CV PDFs in `public/`, then writes the static site to `dist/`. Preview serves that output at the URL printed by Astro.
 
-- `src/data/resume-main.yaml` - Single source of truth (all content)
-- `src/data/resume.yaml` - Auto-generated short version
-- `src/data/cv.yaml` - Auto-generated full version
+To check the Astro site without regenerating PDFs:
 
-**Editing:**
+```sh
+npm run preprocess:resume
+npx astro build
+```
 
-1. Edit `src/data/resume-main.yaml`
-2. Run `npm run preprocess:resume` to generate variants
-3. Run `npm run build:pdfs` to create PDFs
-4. Run `npm run dev` to preview HTML (with live-reload)
+This skips PDF generation, so a complete site with fresh PDFs still requires the standard build.
 
-**Filtering:**
+## Resume and CV
 
-- Use `include_in: resume`, `cv`, or `both` to control visibility
-- Use `highlights_resume` / `highlights_cv` for different detail levels
-- Use `resume_limit: N` to limit entries in resume
-- Use `priority: N` to control ordering
+Edit `src/data/resume-main.yaml`. Do not edit the generated `src/data/resume.yaml` or `src/data/cv.yaml` files directly.
 
-**PDF Generation:** Uses [RenderCV](https://github.com/rendercv/rendercv)
-**HTML Rendering:** Astro pages at /resume and /cv
+```sh
+npm run preprocess:resume
+npm run build:pdfs
+```
 
-## 🧞 Commands
+The first command validates the source and generates both YAML variants. The second also renders `public/resume.pdf` and `public/cv.pdf`. These outputs are ignored by Git. The HTML versions are available at `/resume` and `/cv`.
 
-All commands are run from the root of the project, from a terminal:
+Use `include_in: resume`, `cv`, or `both` to control visibility. The generator also supports format-specific highlights and entry limits. The `make cv` target invokes an older LaTeX workflow. Use `npm run build:pdfs` for the current YAML source.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Slide decks
 
-## 👀 Want to learn more?
+Decks live in `src/content/slides/<slug>.mdx` and appear at `/slides/<slug>`. Check the slide guidance in [AGENTS.md](AGENTS.md) before adding a deck.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+To export a deck, start the development server and run this in another terminal, substituting the server's actual port and the deck slug:
+
+```sh
+SLIDES_BASE=http://localhost:4321 npm run export:slides -- <slug>
+```
+
+The exporter invokes Decktape through `npx` and writes `dist-pdf/<slug>.pdf`. It defaults to port 4331 when `SLIDES_BASE` is omitted.
+
+## Deployment
+
+[DEPLOYMENT.md](DEPLOYMENT.md) describes server setup. `make deploy-dry` builds the site and previews the rsync transfer. `make deploy` builds and syncs `dist/` to the production server, deleting remote files absent from the build. Both require RenderCV and SSH access.
