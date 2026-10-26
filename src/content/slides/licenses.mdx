@@ -1,0 +1,366 @@
+---
+title: 'Native Tool License Affirmations'
+description: 'How Galaxy enforces tool agreements across submissions, nested workflows, and job creation'
+date: '2026-10-25'
+tags: ['galaxy', 'architecture', 'api']
+transition: 'slide'
+showControls: true
+showProgress: true
+theme: 'galaxy'
+---
+
+export const DECK_STYLE = `
+.reveal[data-deck='licenses'] h1 { font-size: var(--fs-h1); text-wrap: balance; }
+.reveal[data-deck='licenses'] h2 { font-size: var(--fs-h2); text-wrap: balance; }
+.reveal[data-deck='licenses'] .galaxy-cover h1 { font-size: 1.85em; line-height: 1.08; }
+.reveal[data-deck='licenses'] .mermaid { display: block; background: transparent; border: 0; box-shadow: none; margin: 0; }
+.reveal[data-deck='licenses'] .mermaid svg { width: 100% !important; max-width: 100% !important; height: auto; }
+.reveal[data-deck='licenses'] .mermaid .edgeLabel,
+.reveal[data-deck='licenses'] .mermaid .edgeLabel p,
+.reveal[data-deck='licenses'] .mermaid .labelBkg { background: #fff !important; background-color: #fff !important; color: var(--deck-grey) !important; }
+`;
+
+<style>{DECK_STYLE}</style>
+
+{/* SLIDE 1 — cover */}
+
+<section class="galaxy-cover vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<h1>Native Tool<br />License Affirmations</h1>
+
+<div class="lede">Ask the runner. Authorize the submission.<br />Record the agreement on each job.</div>
+
+<div class="source">John Chilton</div>
+
+<aside class="notes">[Sources] Implementation snapshot: jmchilton/galaxy licenses, commit cd37d851bb2be170b5657fbc1bc755e7134b20e1, verified on GitHub October 25, 2026. https://github.com/jmchilton/galaxy/tree/cd37d851bb2be170b5657fbc1bc755e7134b20e1. Main talk: slides 1–10, approximately ten minutes. Cover 25 seconds; spend more time on architecture and the workflow walkthrough. This records an authenticated account's supplied affirmation; it does not prove the person read the terms or meets their conditions.</aside>
+
+</section>
+
+{/* SLIDE 2 — why an ordinary parameter is insufficient */}
+
+<section class="vstack">
+
+<div class="eyebrow">The problem · issue #23261</div>
+
+<h2>A saved checkbox can speak<br />for the next runner</h2>
+
+<div class="flow measure-lg">
+  <div class="flow-node">Author checks a box</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node">Workflow saves it</div>
+  <span class="flow-arrow">→</span>
+  <div class="flow-node flow-node-muted">Runner never sees it</div>
+</div>
+
+<div class="body measure">Reruns can replay that parameter too.<br />The value survives; the runner's affirmation is missing.</div>
+
+<div class="callout measure">Make the agreement an execution requirement,<br />outside the saved tool inputs.</div>
+
+<aside class="notes">[Sources] https://github.com/galaxyproject/galaxy/issues/23261, Current state, describes workflow-saved booleans and rerun replay. Current branch contract: doc/source/dev/tool_license_agreements.md, Enforcement and API, at cd37d851bb2. The issue contains stale profile and remap descriptions; current code and branch docs take precedence. Explain the runner/author distinction with a workflow shared between two users. No claim that Galaxy establishes legal compliance.</aside>
+
+</section>
+
+export const TOOL_XML = `<tool ... profile="27.0">
+  <requirements>
+    <license_agreement id="license_agreement_path" version="1"
+                       path="license_agreement_tool_license.txt">
+      <label>Test Tool Non-Commercial License</label>
+      <affirmation>
+        I certify that I am not using this tool for commercial purposes.
+      </affirmation>
+    </license_agreement>
+  </requirements>
+</tool>`;
+
+{/* SLIDE 3 — the author-facing contract */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Tool authoring</div>
+
+<h2>Declare terms beside requirements</h2>
+
+<pre class="code-block"><code>{TOOL_XML}</code></pre>
+
+<div class="body measure">An adjacent UTF-8 terms file; inline <code>&lt;text&gt;</code> also works.<br />Profile 27.0+, login required, every declared agreement required.</div>
+
+<div class="note">Abbreviated test fixture · submission binding is the default.</div>
+
+<aside class="notes">[Sources] test/functional/tools/license_agreement_path_tool.xml and lib/galaxy/tool_util/license_agreements.py at cd37d851bb2. Snippet is abbreviated: tool attributes and the URL are omitted. lib/galaxy/tool_util_models/tool_source.py strips outer whitespace and requires a single content line for the affirmation. LICENSE_AGREEMENT_MIN_PROFILE is 27.0. Path or inline text is required, not both. Lower-profile declarations and unreadable terms fail tool load. This is a fixture, not a migrated production wrapper.</aside>
+
+</section>
+
+export const ARCHITECTURE = `%%{init: {'theme':'base','flowchart':{'nodeSpacing':20,'rankSpacing':26,'padding':12},'themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'18px','clusterBkg':'#f6f8fa','clusterBorder':'#dfe3e8'}}}%%
+flowchart LR
+  subgraph LOAD["Tool loading and discovery"]
+    direction TB
+    A["Tool XML + terms file"] --> B["ResolvedLicenseAgreement"]
+    B --> C["Discovery API + run forms"]
+  end
+  subgraph RUN["Submission and job creation"]
+    direction TB
+    D["ToolExecutionContext"] --> E["ToolAccessPrecondition<br/>LicenseAcceptancePrecondition"]
+    E --> F["LicenseAcceptanceManager<br/>stored terms + user events"]
+    F --> G["Job +<br/>JobLicenseAcceptanceAssociation"]
+  end
+  LOAD -->|"affirmed hashes"| RUN`;
+
+
+{/* SLIDE 4 — high-level architecture, names taken from code */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Architecture</div>
+
+<h2>The server authorizes job creation</h2>
+
+<div class="measure-lg" style="max-width: 830px;"><pre class="mermaid">{ARCHITECTURE}</pre></div>
+
+<div class="note">Access checks run first. A disabled Run button is the early feedback.</div>
+
+<aside class="notes">[Sources] At cd37d851bb2: lib/galaxy/tool_util/license_agreements.py (ResolvedLicenseAgreement); lib/galaxy/tools/preconditions.py (ToolExecutionContext, ToolAccessPrecondition, LicenseAcceptancePrecondition); lib/galaxy/managers/license_agreements.py (LicenseAcceptanceManager.authorize and associate_with_job); lib/galaxy/tools/actions/__init__.py; lib/galaxy/model/__init__.py. Arrows show logical flow, not an exhaustive call graph: discovery also uses the manager to describe current acceptance. Checks happen up front before outputs and again before each job is created; authorization is cached in the submission context so a job records what that submission was checked against. The manager resolves terms, one-time hashes and current user events. Access short-circuits agreement disclosure.</aside>
+
+</section>
+
+{/* SLIDE 5 — identity and the two lifetimes */}
+
+<section class="vstack">
+
+<div class="eyebrow">Identity and lifetime</div>
+
+<h2>Same terms. Explicit scope.</h2>
+
+<div class="chain measure-lg">
+  <span>canonical affirmation + terms</span><span class="chain-sep">→</span><span>versioned SHA-256</span>
+</div>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title"><code>binds="submission"</code></div>
+    <div class="card-body">Default. Affirm for this work.<br />One submission can create many jobs.<br />A new rerun needs fresh authorization.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title"><code>binds="user"</code></div>
+    <div class="card-body">May be remembered for this account.<br />Acceptance stays valid until revoked.<br />A one-time affirmation also works.</div>
+  </div>
+</div>
+
+<div class="note">Changed terms or affirmation → new hash.<br />Same hash with mixed scopes → submission binding wins.</div>
+
+<aside class="notes">[Sources] lib/galaxy/tool_util/license_agreements.py (AGREEMENT_HASH_SCHEMA=1, canonical_terms, agreement_hash); lib/galaxy/managers/license_agreements.py (_resolve, stricter_declaration); doc/source/dev/tool_license_agreements.md, Identity and Choosing binds, at cd37d851bb2. Display id, version, label, URL and binds are excluded from the hash. Terms changes means a change after documented canonicalization, not merely line-ending changes. User binding permits remembering but does not require it. One-time authorization takes precedence if both are available. A rerun needs new authorization; an existing persistent acceptance may supply it for user-bound terms.</aside>
+
+</section>
+
+{/* SLIDE 6 — concrete UI path through the fixture */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Walkthrough · license_agreement_path_tool</div>
+
+<h2>The runner sees the terms</h2>
+
+<img class="fig fig-fill fig-framed" src="/slides/licenses/tool-terms-detail.png" alt="Cropped Galaxy fixture tool form with non-commercial terms expanded, an unchecked affirmation, and Run Tool disabled" />
+
+<div class="body measure">Review → affirm → submit the declared hash.<br />The job records <code>one_time</code>; the next submission prompts again.</div>
+
+<aside class="notes">[Sources] Screenshot: branch record screenshots/tool_license_agreement_terms.png, captured in the October 22–23 Playwright run documented in screenshot_debrief.md; crop retains the central form, from x=390,y=48 to x=981,y=455, with original preserved in this deck's asset directory. This is the recorded test fixture, not a live production demo. client/src/components/Tool/ToolLicenseAgreements.vue; client/src/composables/licenseAgreementAffirmations.ts; lib/galaxy_test/selenium/test_tool_license_agreement.py; lib/galaxy/managers/license_agreements.py at cd37d851bb2. The screenshot shows the unaffirmed state. The submit and next-run outcomes are backed by implementation and E2E tests, not visible in this single image. Explain that one-time hashes are submission fields, not tool inputs.</aside>
+
+</section>
+
+export const WORKFLOW = `%%{init: {'theme':'base','themeVariables':{'fontFamily':'Atkinson Hyperlegible','primaryColor':'#25537b','primaryTextColor':'#ffffff','primaryBorderColor':'#2c3143','lineColor':'#58585a','fontSize':'18px'}}}%%
+flowchart LR
+  A["Walk every tool step<br/>including subworkflows"] --> B["Deduplicate hashes<br/>one prompt per agreement"]
+  B --> C["Validate request<br/>pin on each invocation"]
+  C --> D["Schedule step<br/>check and record on job"]`;
+
+{/* SLIDE 7 — the same path through nested, delayed execution */}
+
+<section class="vstack">
+
+<div class="eyebrow">Workflow execution</div>
+
+<h2>One prompt can authorize<br />a nested, delayed run</h2>
+
+<pre class="mermaid">{WORKFLOW}</pre>
+
+<div class="body measure">Two nested tool steps share a hash: one prompt.<br />One-time pins survive restarts; remembered acceptance is rechecked.</div>
+
+<div class="callout callout-sm measure">Revocation blocks later jobs relying on remembered acceptance.<br />Jobs already created keep running.</div>
+
+<aside class="notes">[Sources] lib/galaxy/workflow/license_agreements.py (workflow.walk_tool_steps, check_workflow_license_agreements); lib/galaxy/workflow/run_request.py (one_time_license_acceptances_by_step and invocation association); lib/galaxy/workflow/modules.py; lib/galaxy/managers/license_agreements.py (associate_one_time_with_invocation); test/integration/test_license_acceptance_workflows.py at cd37d851bb2. Concrete fixture: test_subworkflow_used_twice_reports_and_pins_both invokes TWICE_NESTED_WORKFLOW; its two nested tool steps share a hash, producing one agreement entry for paths [0, 0] and [1, 0], two pinned subinvocations and two jobs. The companion test_run_form_lists_nested_license_agreements_once verifies one run-form entry. Walkthrough: each invocation stores only hashes declared by its own tool steps; delayed jobs use the pins after restart. A persistent revocation does not invalidate a separately supplied one-time pin. Changed installed terms produce a new hash and can still block a pinned invocation's later steps. Conservative preflight includes when-skipped steps.</aside>
+
+</section>
+
+export const REFUSAL = `HTTP 403 · TOOL_EXECUTION_PRECONDITION_UNMET
+err_code: 403009
+unmet:
+  - kind: license_agreement
+    details:
+      agreements: [ ...terms and declared hashes... ]`;
+
+{/* SLIDE 8 — explain direct and asynchronous refusal semantics */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">API and refusal handling</div>
+
+<h2>A refused run carries a reason</h2>
+
+<pre class="code-block code-block-lg"><code>{REFUSAL}</code></pre>
+
+<div class="body measure"><code>POST /api/tools</code> and workflow invocations refuse immediately.<br />Forms refresh the agreements when a submission is refused.</div>
+
+<div class="callout callout-sm measure"><code>POST /api/jobs</code> is asynchronous:<br />the tool request can be accepted, then fail in Celery with the same structured reason.</div>
+
+<aside class="notes">[Sources] lib/galaxy/tools/preconditions.py; lib/galaxy/schema/schema.py (UnmetPrecondition discriminated on kind); client/src/api/licenseAgreements.ts; lib/galaxy_test/selenium/test_tool_license_async_failure.py; doc/source/dev/tool_license_agreements.md, Enforcement table and Refusals, at cd37d851bb2. Displayed payload is schematic YAML, not a literal HTTP response. Direct refusal is HTTP 403 with err_code 403009. Async tool request GET /api/tool_requests/id reports state failed and a state_message containing err_msg, err_code and unmet. Tool access and undeclared hashes are checked before async enqueueing; agreement authorization occurs in the worker. Access refusals have kind access; anonymous users receive a login remedy. An undeclared hash produces 400, not 403009. This distinction matters to API clients and prevents claiming every endpoint fails synchronously.</aside>
+
+</section>
+
+{/* SLIDE 9 — storage and retention, separated from public audit UI */}
+
+<section class="vstack">
+
+<div class="eyebrow">Persistence · four new tables</div>
+
+<h2>Keep the terms and the authorization</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Terms + account events</div>
+    <div class="card-body"><code>ToolLicenseAgreement</code><br />Canonical terms by hash.<br /><code>ToolLicenseAcceptanceEvent</code><br />Append-only accept / revoke history.</div>
+  </div>
+  <div class="card card-gold">
+    <div class="card-title">Job + invocation associations</div>
+    <div class="card-body">Each job: hash, authorization kind,<br />and an event link when persistent.<br />Each invocation: its one-time pins.</div>
+  </div>
+</div>
+
+<div class="body measure">Purging an account removes its personal acceptance events.<br />Retained jobs keep the hash and authorization kind.</div>
+
+<div class="note">The database records job authorization; a public job audit API/UI is still future work.</div>
+
+<aside class="notes">[Sources] lib/galaxy/model/__init__.py: ToolLicenseAgreement, ToolLicenseAcceptanceEvent, JobLicenseAcceptanceAssociation, WorkflowInvocationLicenseAcceptanceAssociation; migration 01cbf54bb541; lib/galaxy/managers/license_agreements.py (purge_user); scripts/cleanup_datasets/pgcleanup.py; doc/source/dev/tool_license_agreements.md, Operators, at cd37d851bb2. Four tables: tool_license_agreement, tool_license_acceptance_event, job_license_acceptance, workflow_invocation_license_acceptance. Account purge clears references to removed events while retaining job hash/kind and terms. Events granted to other accounts are kept without the purged grantor attribution. Append-only describes normal operation, not purge. A recorded affirmation is evidence of the account's authorization, not proof of legal entitlement.</aside>
+
+</section>
+
+{/* SLIDE 10 — status, gaps and a concrete next step */}
+
+<section class="vstack">
+
+<div class="eyebrow">Implementation snapshot · cd37d851bb2</div>
+
+<h2>The next proof is a real wrapper</h2>
+
+<div class="body measure">Implemented: parsing, storage, API enforcement,<br />nested workflows, run forms, and preferences.</div>
+
+<div class="body measure">Recorded local checks cover backend, API, PostgreSQL cleanup,<br />and browser paths. No production wrapper has migrated.</div>
+
+<div class="callout measure">Pilot one unconditional wrapper with its maintainers<br />and an operator reviewing the terms.</div>
+
+<div class="note">Decide the workflow-test default before Planemo support.<br />Conditional terms and alternative entitlements need a later design.</div>
+
+<aside class="notes">[Sources] Branch record implementation_debrief.md and pr_description.md, October 22–23 snapshot, at https://github.com/jmchilton/galaxy-brain/tree/main/vault/repositories/galaxy/branches/active/licenses; code snapshot cd37d851bb2 verified October 25. Recorded checks, not rerun for this deck: unit 369; Vitest 302; API 18; integration 18+17; PostgreSQL cleanup 12; 17 license E2E cases under Playwright and Selenium. These are distinct historical runs, not a single aggregate or full-suite/coverage claim. Fork CI was running when the branch record was written; no live green-CI claim is made. Workflow framework accept_license_agreements is currently opt-in. Planemo workflow testing and MCP/agent one-time submission fields are incomplete; remembered user-bound acceptance works for MCP/agent runs. Proposed wrapper pilot is a recommendation, not implemented work. No production-ready or legal-sufficiency claim.</aside>
+
+</section>
+
+{/* SLIDE 11 — supporting material divider */}
+
+<section class="galaxy-cover divider vstack" data-background-gradient="linear-gradient(135deg, #2c3143 0%, #25537b 100%)">
+
+<h2>Extra Slides</h2>
+
+</section>
+
+{/* SLIDE 12 — preferences and revocation UI */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">Remembered acceptance</div>
+
+<h2>Users can review and revoke</h2>
+
+<img class="fig fig-fill fig-framed" src="/slides/licenses/preferences-detail.png" alt="Galaxy License Agreements preferences showing accepted test terms, a Revoke button, and the acceptance history table" />
+
+<div class="note">For user-bound agreements only. Revocation affects future authorization.</div>
+
+<aside class="notes">[Sources] screenshots/license_preferences_accepted.png in the branch record; October 22–23 capture documented in screenshot_debrief.md. Original preserved under public/slides/licenses; this detail crop removes navigation (x=390,y=48 to x=981,y=640). client/src/components/User/LicenseAgreements/LicenseAgreementsManagement.vue; lib/galaxy_test/selenium/test_license_preferences.py; lib/galaxy/managers/license_agreements.py at cd37d851bb2. Acceptance is saved before submitting a tool, so it can remain even when that submission fails. Revocation does not revoke one-time invocation pins or cancel jobs already created.</aside>
+
+</section>
+
+{/* SLIDE 13 — boundaries of the initial implementation */}
+
+<section class="vstack">
+
+<div class="eyebrow">Scope boundaries</div>
+
+<h2>Every declaration applies to every run</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Supported</div>
+    <div class="card-body">Unconditional agreements, combined with AND.<br />Shared suite terms, deduplicated by hash.<br />Direct execution of a licensed converter.</div>
+  </div>
+  <div class="card card-warn">
+    <div class="card-title">Needs another design</div>
+    <div class="card-body">Input-dependent terms.<br />Academic use OR a purchased license.<br />Instance-wide administrator acceptance.</div>
+  </div>
+</div>
+
+<div class="callout callout-sm measure">Data sources and actions that bypass preconditions fail to load.<br />Converters with agreements are excluded from automatic conversion.</div>
+
+<aside class="notes">[Sources] doc/source/dev/tool_license_agreements.md, What one tool can express and Tools that cannot declare agreements; lib/galaxy/tool_util/linters/license_agreements.py; test/unit/app/tools/test_license_agreement_loading.py; datatype converter changes at cd37d851bb2. Splitting alternative entitlements into two agreements requires both and is incorrect. The old issue's MAKER recipe should not be copied. Converters are excluded from implicit and offered conversion and the converter listing, but direct tool-panel execution remains allowed. A converter flag is external configuration, so it is filtered rather than rejected at load. No admin acceptance API exists.</aside>
+
+</section>
+
+{/* SLIDE 14 — test evidence and lifecycle edge cases */}
+
+<section class="vstack">
+
+<div class="eyebrow">Behavior pinned by tests</div>
+
+<h2>The job's lifetime defines the boundary</h2>
+
+<div class="cards cards-2 measure-lg">
+  <div class="card">
+    <div class="card-title">Fresh authorization</div>
+    <div class="card-body">New rerun or remap.<br />Later persistently authorized workflow steps.<br />A tool reloaded with changed terms.</div>
+  </div>
+  <div class="card card-grey">
+    <div class="card-title">Existing authorization</div>
+    <div class="card-body">Resume a paused job.<br />Automatic resubmission of that job.<br />A delayed step using a matching one-time pin.</div>
+  </div>
+</div>
+
+<div class="note">Workflow preflight includes <code>when</code>-skipped steps.<br />Local results are recorded in the branch debrief; full suites remain a CI concern.</div>
+
+<aside class="notes">[Sources] test/integration/test_license_acceptance.py; test/integration/test_license_acceptance_workflows.py; test/unit/workflows/test_workflow_license_agreements.py; test/unit/app/tools/test_preconditions.py; implementation_debrief.md at cd37d851bb2. This is a contract matrix, not fresh test execution or a completeness claim. Fresh authorization can be supplied by an existing user-bound acceptance. Changed terms can block a previously pinned workflow because its old hash no longer matches. Direct map-over refusal happens before jobs or output collections; workflow preflight happens before scheduling. The current tests/docs explicitly correct older issue prose that treated remap as existing-job authorization.</aside>
+
+</section>
+
+export const API_SEQUENCE = `GET  /api/tools/{id}/license_agreements
+GET  /api/workflows/{id}/license_agreements
+
+Show terms + affirmation to the runner.
+
+POST /api/tools  |  /api/jobs  |  workflow invocation
+     one_time_license_acceptances: [declared hash]
+
+Optional for binds="user":
+POST /api/users/current/license_acceptances
+     tool_id + license_id + agreement_hash`;
+
+{/* SLIDE 15 — API client integration reference */}
+
+<section class="vstack vstack-tight">
+
+<div class="eyebrow">API integration reference</div>
+
+<h2>Discover, display, then submit</h2>
+
+<pre class="code-block"><code>{API_SEQUENCE}</code></pre>
+
+<div class="note">Never accept client-supplied terms. Reject undeclared hashes.<br />Persistent acceptance must confirm the exact hash displayed.</div>
+
+<aside class="notes">[Sources] lib/galaxy/webapps/galaxy/api/license_agreements.py; lib/galaxy/webapps/galaxy/services/license_agreements.py; lib/galaxy/managers/license_agreements.py (validate_one_time_hashes); lib/galaxy_test/api/test_license_agreements.py; doc/source/dev/tool_license_agreements.md, API, at cd37d851bb2. Paths in braces are schematic endpoint placeholders, not literal values. The submission payload field is outside inputs. Persistent acceptance resolves terms from the installed tool and rejects a stale displayed hash. DELETE /api/users/current/license_acceptances/agreement_hash revokes. API keys authenticate accounts; they do not prove that a human read terms. Planemo workflow tests do not support the field yet; tool tests send declared hashes with a compatible server/tool-util release. MCP/agent runs currently require existing user-bound acceptance.</aside>
+
+</section>
